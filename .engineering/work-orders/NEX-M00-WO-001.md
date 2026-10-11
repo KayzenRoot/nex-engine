@@ -1,11 +1,11 @@
 # Work Order NEX-M00-WO-001 | Native Godot baseline
-**Owner:** KayzenRoot. **Owner approval:** 2026-10-11 (Issue #5). **Class:** NECESSARY. **Risk:** STANDARD, elevated if license/core/toolchain drift. **Status:** OWNER_APPROVED_PENDING_GOVERNANCE_AND_EXECUTION_LOCK. **Executor:** Codex Desktop LOCAL + Integration Steward; ChatGPT repairs reviewed issues first per ADR-0002.
+**Owner:** KayzenRoot. **Owner approval:** 2026-10-11 (Issue #5). **Class:** NECESSARY. **Risk:** STANDARD, elevated if license/core/toolchain drift. **Status:** ADMITTED_ON_EXECUTION_LOCK_PROMOTION / NOT_STARTED. No work until the exact new main SHA is attested after the lock's squash merge and the Integration Steward issues a single-writer lease. **Executor:** Codex Desktop LOCAL + Integration Steward; ChatGPT repairs reviewed issues first per ADR-0002.
 ## Objective
 Deliver a reproducible, **unmodified Godot 4.7.2-stable** editor/runtime baseline and provenance evidence for native Windows, with Ubuntu headless smoke. No renderer, gameplay or module feature implementation.
 ## Preconditions (gates)
 1. Completed GEF #1 and checkpoint #75: `main` at current verified SHA, `gefInstalled/gefInitialized/ciExactHead=VERIFIED` and no stale Source Pack.
-2. This M00 governance PR (ADR-0003, M00 Scope/DoD/Test Plan/Security) itself squash merged after CodeRabbit SUCCESS, SonarCloud, Socket and CI.
-3. Separate M00 execution Context Lock issued **after** that merge using its *new* main SHA, source fingerprints, approved version and exact write paths, formally reviewed/promoted; only then `ADMITTED`.
+2. M00 governance PR #76 (ADR-0003, Scope/DoD/Test Plan/Security) squash merged to `10054a2d7038b2677bc00fa9279a754e08adc5fb`, CodeRabbit/Socket/Sonar/CI and 6/6 post-merge checks verified.
+3. This M00 execution Context Lock was authored after PR #76 merge using `10054a2d7038b2677bc00fa9279a754e08adc5fb` as Source Pack authority base with exact Git blob fingerprints. It becomes **ADMITTED only after its own protected PR merges**. Git cannot pre-embed its own future squash SHA: the runtime base must be read back and independently attested in Issue #5 before code.
 4. Exclusive Steward lease (no overlapping writer, branch, worktree or GPU run); repo & Windows environment inspected before changing files.
 ## Files and boundaries
 **Proposed write scope, to freeze in execution lock:** `tooling/godot/**`, `.nex/toolchain/**`, `tests/m00/**`, `.github/workflows/nex-m00-smoke.yml`, `.engineering/evidence/NEX-M00-WO-001-*.md`, M00 proposed checkpoint delta. `project.godot` or common settings require explicit Steward approval and individual path ownership; avoid entirely for the first smoke if disposable fixture suffices.

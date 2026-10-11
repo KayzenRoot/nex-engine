@@ -1,5 +1,5 @@
 # Checkpoint · NEX Engine
-Status: GEF_BOOTSTRAP_VERIFIED_M00_NOT_ADMITTED. This checkpoint candidate becomes canonical only after the separate governance checkpoint promotion PR passes all checks and merges. A drafted branch/PR alone has no authority.
+Status: M00_ADMITTED_BASELINE_NOT_STARTED, effective only after the M00 execution-lock PR is reviewed, squash merged and verified. M00 code execution still requires current-main SHA attestation, exclusive Steward lease and local preflight.
 
 ## Source authority / promotion
 - Planning Source Pack PR #2 squash merged as `a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c`.
@@ -23,9 +23,9 @@ Status: GEF_BOOTSTRAP_VERIFIED_M00_NOT_ADMITTED. This checkpoint candidate becom
 - Owner's ChatGPT-first repair policy NEX-ADR-0002 and review independence requirements remain in force.
 
 ## Next legal action / STOP
-- Work Order #1 bootstrap is COMPLETED only when this checkpoint PR has its own exact-head required CodeRabbit/CI audit and is merged.
-- **M00 #5 remains NOT_ADMITTED**; plan the Godot native-PC baseline and freeze a fresh M00 execution Context Lock, version/tag/commit, environment and owner approval before any fork/rendering code.
+- Work Order #1 GEF is completed in Issues #1 and PR #74/#75. Governance authorization for M00 was promoted in PR #76 to `main` commit `10054a2d7038b2677bc00fa9279a754e08adc5fb` with six post-merge checks SUCCESS.
+- **M00 #5 becomes ADMITTED only when its execution lock PR merges after required checks.** Before any code, fetch and attest the real new main SHA and promoted file fingerprints in Issue #5; obtain exclusive Steward lease and pass Codex LOCAL P0 preflight.
 - M01/M02–M12 and NexLabs Flow remain PLANNING_ONLY. Do not claim an engine completion percentage or unlock GPU development from this document alone.
 
 ## M00 Owner authorization (2026-10-11)
-Owner approved entering M00 admission preparation (Issue #5). This checkpoint captures the owner decision only; `m00Admission=NOT_ADMITTED` until the governance Source Pack amendment is independently reviewed and merged, then an execution Context Lock is generated on its actual main merge SHA and separately promoted. Current main observed for this proposed amendment: `2ea59f2cd1906c41c0112a7bacb0bba679a8c886`. Candidate upstream Godot 4.7.2-stable commit `ed1daf0bf001b61586d9930840f2f1394092c079`. No M00 execution or runtime claims until its own WO finishes.
+Owner approved M00 in Issue #5, and the scope/version governance PR #76 merged into `main` `10054a2d7038b2677bc00fa9279a754e08adc5fb` after CodeRabbit and CI. This execution-lock promotion candidate records `10054a2d7038b2677bc00fa9279a754e08adc5fb` as the **authority source base**, not the unknown future squash SHA of this lock PR. Once merged, read back the new main SHA, verify all promoted contents and postmerge checks, and record an external Issue #5 attestation before starting Codex Desktop LOCAL. No native Godot build or runtime claim yet.

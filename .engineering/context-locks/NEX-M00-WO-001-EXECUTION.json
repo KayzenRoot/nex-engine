@@ -1,0 +1,206 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M00-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "status": "ADMITTED_EFFECTIVE_ONLY_ON_PROMOTION_AND_ATTESTATION",
+  "governanceIssue": 5,
+  "ownerApproval": {
+    "date": "2026-10-11",
+    "source": "Owner: Aprovo M00",
+    "record": "https://github.com/KayzenRoot/nex-engine/issues/5#issuecomment-6108769346"
+  },
+  "authorityBaseSha": "10054a2d7038b2677bc00fa9279a754e08adc5fb",
+  "authorityBaseType": "NEX-M00-GOVERNANCE_PR76_SQUASH_MAIN",
+  "promotionBranch": "governance/m00-execution-context-lock-001",
+  "promotedExecutionMainSha": "RESOLVE_FROM_GITHUB_POST_MERGE_AND_ATTEST_IN_ISSUE_5",
+  "executionState": "NOT_STARTED",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "4dba969f5c8e732513ccdce2e4e7a164446cddd0"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "3e56e588d3c72f3a60a11e6594148460a4c11a17"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "42dc2e474477c0f419b5bed0d2f6b0cf765614cb"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "8eb0e95546c0ba2019c7e18e43b827075202fb96"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0003-M00-GODOT-BASELINE.md",
+      "gitBlobSha1": "a284f5c5b198978b91eecb3cd532c4a9002053be"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "eb2e368557289e8caad821823e523aca73149661"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "87be98c094005984d6958dbc110309a8da07828f"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "577e6c2de17da086704fa8467aacca69c1038702"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "239e20254b56719107b52aa0da4dd27be4650290"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "c20c64813114f4877d1f3109ffaefe9960f46ba8"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "39dbf3a0d652cb110daa918d5973819cb9abb1c1"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "2df1a6d6e225be9e2253f22e9ea638013af2be96"
+    },
+    {
+      "path": ".engineering/PROJECT-OVERVIEW.md",
+      "gitBlobSha1": "e95a2671d53834685374349a733ce99d51f54e11"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "49677f8b687d5523c6200e1214f3edffda65b09c"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-M00-WO-001.md",
+      "gitBlobSha1": "c0275b9b5973224b13b6b5a3a24eadac944a82fc"
+    },
+    {
+      "path": ".engineering/m00/M00-SCOPE-AND-DOD.md",
+      "gitBlobSha1": "966fe3bb5653d65a26182410aefb7bf1df852a8c"
+    },
+    {
+      "path": ".engineering/m00/M00-TEST-PLAN.md",
+      "gitBlobSha1": "57748cf629c15b843c92ad4a758705f8505b4f40"
+    },
+    {
+      "path": ".engineering/m00/M00-SECURITY-AND-PROVENANCE.md",
+      "gitBlobSha1": "d87d05113ea09819e06646f0088041e33549c1f2"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M00-WO-001-PRE-ADMISSION.json",
+      "gitBlobSha1": "4d561028715eb7673e89878428e8ce0e3bbd9963"
+    }
+  ],
+  "admissionDeltaPaths": [
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md",
+    ".engineering/work-orders/NEX-M00-WO-001.md",
+    "AGENTS.md",
+    ".engineering/BACKLOG.md",
+    ".engineering/context-locks/NEX-M00-WO-001-EXECUTION.json",
+    ".engineering/evidence/NEX-M00-WO-001-ADMISSION-EVIDENCE.md"
+  ],
+  "runtimeLockBinding": {
+    "mode": "TWO_STAGE_IMMUTABLE_SOURCE_BASE_PLUS_POST_PROMOTION_ATTESTATION",
+    "why": "A commit cannot contain its own future squash merge SHA. Record this immutable authority base and separately attest the actual main merge SHA and resulting promoted file hashes in Issue #5 before any executor work.",
+    "mustConfirm": [
+      "this lock PR merged via squash without bypass and its exact reviewed HEAD CodeRabbit SUCCESS",
+      "all applicable PR CI/Socket/Sonar checks SUCCESS, all review threads resolved",
+      "post-merge main CI including GEF Windows/Ubuntu, Governance and Sonar/Socket SUCCESS",
+      "read back real main SHA after lock promotion and record in Issue #5",
+      "verify expected files changed only admissionDeltaPaths, and unchanged canonical paths match authorityBaseFingerprints",
+      "fetch and record final Git blobs of admissionDeltaPaths from actual new main SHA",
+      "verify exclusive single-writer Integration Steward lease and absence of conflicting implementation branches",
+      "Codex Desktop LOCAL reads committed AGENTS/WO/lock, verifies clean isolated worktree and expected promoted SHA before writing"
+    ],
+    "onFailure": "STOP=STALE_OR_BLOCKED; no Godot downloads, source modifications, tests, benchmark or merge"
+  },
+  "scope": {
+    "writeAllowed": [
+      "tooling/godot/**",
+      ".nex/toolchain/**",
+      "tests/m00/**",
+      ".github/workflows/nex-m00-smoke.yml",
+      ".engineering/evidence/NEX-M00-WO-001-*.md",
+      ".engineering/checkpoint-deltas/NEX-M00-WO-001-*.md"
+    ],
+    "writeForbidden": [
+      "AGENTS.md",
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md",
+      ".engineering/DECISIONS-LEDGER.md",
+      ".engineering/SOURCE-HIERARCHY.md",
+      ".gef/**",
+      "package.json",
+      "package-lock.json",
+      "contracts/**",
+      "godot source core or renderer/**",
+      "project.godot",
+      "unrelated modules",
+      "main",
+      "any other agent worktree"
+    ],
+    "sharedSingleWriter": [
+      ".github/workflows/nex-m00-smoke.yml",
+      ".nex/toolchain/**"
+    ],
+    "temporaryLocalOutputs": "outside tracked repo or ignored, never mass delete untracked data"
+  },
+  "godotPin": {
+    "repo": "godotengine/godot",
+    "tag": "4.7.2-stable",
+    "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "sourceArchive": "godot-4.7.2-stable.tar.xz",
+    "publishedSourceSha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+    "referenceWindowsStandardEditor": {
+      "asset": "Godot_v4.7.2-stable_win64.exe.zip",
+      "publishedSha256": "731980f9608d61333e5baf54a2ef17210acc7a538446c0cb9969f002aca1e953"
+    },
+    "referenceLinuxEditor": {
+      "asset": "Godot_v4.7.2-stable_linux.x86_64.zip",
+      "publishedSha256": "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4"
+    },
+    "downloadsVerifiedLocally": false,
+    "cppAbi": "NOT_REQUIRED_NOT_VERIFIED"
+  },
+  "executor": {
+    "actor": "Codex Desktop LOCAL",
+    "operatingSystem": "Windows",
+    "worktree": "../nex-engine-wt/NEX-M00-WO-001",
+    "branchPrefix": "feat/nex-m00-wo-001-",
+    "maxParallelWriters": 1,
+    "steward": "Integration Steward",
+    "reviewFirst": "ChatGPT (NOT_INDEPENDENT)",
+    "independentGates": [
+      "CodeRabbit",
+      "Socket Security x2",
+      "SonarCloud",
+      "NEX Governance x2",
+      "GEF Windows/Ubuntu smoke",
+      "M00-targeted implementation CI"
+    ]
+  },
+  "constraints": {
+    "noPaidServices": true,
+    "freeGithubActionsCiPermitted": true,
+    "noCloudGpu": true,
+    "noCoreFork": true,
+    "noRendererAlteration": true,
+    "noGpuBenchmarksM00": true,
+    "noM01": true,
+    "sourceBuildRequiredForDoD": true,
+    "localBuildBudgetMustBeEstimated": true
+  },
+  "stopCondition": "NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW",
+  "promotionGate": "M00_NOT_EXECUTABLE_UNTIL_PROMOTED_SHA_AND_POSTMERGE_CI_ATTESTED"
+}
