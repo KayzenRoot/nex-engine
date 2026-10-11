@@ -22,6 +22,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -77,6 +78,42 @@ def verify_file(path: Path, expected_sha256: str, expected_size: int | None = No
     return {"path": str(path), "size": actual_size, "sha256": actual_sha256}
 
 
+def dependency_pin(lock: dict[str, Any], name: str) -> dict[str, Any]:
+    matches = [pin for pin in lock.get("dependencies", []) if pin.get("name") == name]
+    if len(matches) != 1:
+        raise IntegrityError(f"Expected one dependency pin named {name!r}, found {len(matches)}.")
+    return matches[0]
+
+
+def download_filename(url: str) -> str:
+    filename = PurePosixPath(urlsplit(url).path).name
+    if filename in ("", ".", ".."):
+        raise IntegrityError(f"Pinned download URL has no file name: {url!r}")
+    return filename
+
+
+def dependency_destination_name(pin: dict[str, Any]) -> str:
+    required_files = pin.get("requiredFiles")
+    if not isinstance(required_files, list) or not required_files:
+        raise IntegrityError(f"Dependency {pin.get('name', '<unnamed>')!r} has no requiredFiles list.")
+    paths = []
+    for name in required_files:
+        if not isinstance(name, str):
+            raise IntegrityError(f"Dependency requiredFiles entries must be strings: {name!r}")
+        paths.append(_safe_archive_parts(name))
+    roots = {parts[0] for parts in paths if parts}
+    if len(roots) != 1 or any(not parts for parts in paths):
+        raise IntegrityError(f"Dependency {pin.get('name', '<unnamed>')!r} requiredFiles must share one root.")
+    return roots.pop()
+
+
+def verify_dependency_files(root: Path, pin: dict[str, Any]) -> str:
+    destination_name = dependency_destination_name(pin)
+    for name in pin["requiredFiles"]:
+        require_file(root.joinpath(*_safe_archive_parts(name)))
+    return destination_name
+
+
 def download_verified(
     url: str,
     destination: Path,
@@ -92,38 +129,34 @@ def download_verified(
     request = urllib.request.Request(url, headers={"User-Agent": "NEX-M00-WO-001-CI"})
     digest = hashlib.sha256()
     byte_count = 0
-    try:
-        with urllib.request.urlopen(request, timeout=60) as response, partial.open("xb") as target:
-            while True:
-                chunk = response.read(1024 * 1024)
-                if not chunk:
-                    break
-                new_byte_count = byte_count + len(chunk)
-                if expected_size is not None and new_byte_count > expected_size:
-                    raise IntegrityError(
-                        f"Size mismatch for {url}: expected at most {expected_size} bytes, "
-                        f"received at least {new_byte_count}."
-                    )
-                target.write(chunk)
-                digest.update(chunk)
-                byte_count = new_byte_count
-            target.flush()
-            os.fsync(target.fileno())
-        actual_sha256 = digest.hexdigest()
-        if expected_size is not None and byte_count != expected_size:
-            raise IntegrityError(
-                f"Size mismatch for {url}: expected {expected_size} bytes, got {byte_count}."
-            )
-        if actual_sha256.lower() != expected_sha256.lower():
-            raise IntegrityError(
-                f"SHA-256 mismatch for {url}: expected {expected_sha256}, got {actual_sha256}."
-            )
-        if destination.exists():
-            raise IntegrityError(f"Refusing to overwrite a download created concurrently: {destination}")
-        partial.rename(destination)
-    except Exception:
-        # Keep a failed partial in the isolated runner temp directory for diagnostics.
-        raise
+    with urllib.request.urlopen(request, timeout=60) as response, partial.open("xb") as target:
+        while True:
+            chunk = response.read(1024 * 1024)
+            if not chunk:
+                break
+            new_byte_count = byte_count + len(chunk)
+            if expected_size is not None and new_byte_count > expected_size:
+                raise IntegrityError(
+                    f"Size mismatch for {url}: expected at most {expected_size} bytes, "
+                    f"received at least {new_byte_count}."
+                )
+            target.write(chunk)
+            digest.update(chunk)
+            byte_count = new_byte_count
+        target.flush()
+        os.fsync(target.fileno())
+    actual_sha256 = digest.hexdigest()
+    if expected_size is not None and byte_count != expected_size:
+        raise IntegrityError(
+            f"Size mismatch for {url}: expected {expected_size} bytes, got {byte_count}."
+        )
+    if actual_sha256.lower() != expected_sha256.lower():
+        raise IntegrityError(
+            f"SHA-256 mismatch for {url}: expected {expected_sha256}, got {actual_sha256}."
+        )
+    if destination.exists():
+        raise IntegrityError(f"Refusing to overwrite a download created concurrently: {destination}")
+    partial.rename(destination)
     return {"url": url, "path": str(destination), "size": byte_count, "sha256": actual_sha256}
 
 
@@ -302,9 +335,10 @@ def run_logged(
         reader_finished = False
         deadline = started + timeout_seconds
         while not reader_finished or process.poll() is None:
-            if process.poll() is None and time.monotonic() >= deadline:
-                timed_out = True
-                _terminate_process_tree(process)
+            if time.monotonic() >= deadline:
+                if process.poll() is None:
+                    timed_out = True
+                    _terminate_process_tree(process)
                 break
             try:
                 item = events.get(timeout=0.25)
@@ -325,8 +359,9 @@ def run_logged(
                 process.wait()
         else:
             process.wait()
-        reader.join(timeout=10)
-        if process.stdout is not None:
+        join_timeout = 10 if timed_out else max(0, min(10, deadline - time.monotonic()))
+        reader.join(timeout=join_timeout)
+        if process.stdout is not None and not reader.is_alive():
             process.stdout.close()
 
     elapsed = round(time.monotonic() - started, 3)
@@ -554,32 +589,35 @@ def windows_build(args: argparse.Namespace) -> int:
     data["source"]["archive"] = download_verified(
         source_pin["url"], source_archive, source_pin["sha256"], source_pin["size"]
     )
-    safe_extract_tar(source_archive, source_extract, "godot-4.7.2-stable")
-    source_dir = source_extract / "godot-4.7.2-stable"
+    source_root = f"godot-{lock['godot']['tag']}"
+    safe_extract_tar(source_archive, source_extract, source_root)
+    source_dir = source_extract / source_root
 
-    accesskit_pin, nir_pin = lock["dependencies"]
-    accesskit_archive = downloads / "accesskit-c-0.22.3.zip"
+    accesskit_pin = dependency_pin(lock, "AccessKit C static SDK")
+    nir_pin = dependency_pin(lock, "Godot Mesa NIR static library")
+    accesskit_name = dependency_destination_name(accesskit_pin)
+    accesskit_archive = downloads / download_filename(accesskit_pin["url"])
     data["dependencies"].append(
         download_verified(accesskit_pin["url"], accesskit_archive, accesskit_pin["sha256"], accesskit_pin["size"])
     )
-    accesskit_stage = deps_root / "accesskit-unpacked"
+    accesskit_stage = deps_root / f"{accesskit_name}-unpacked"
     safe_extract_zip(accesskit_archive, accesskit_stage)
-    accesskit_source = accesskit_stage / "accesskit-c-0.22.3"
+    accesskit_source = accesskit_stage / Path(accesskit_archive.name).stem
     if not accesskit_source.is_dir():
-        raise IntegrityError("AccessKit archive did not contain its pinned top-level directory.")
-    accesskit = deps_root / "accesskit"
+        raise IntegrityError(f"Dependency archive did not contain its expected top-level directory: {accesskit_source}.")
+    accesskit = deps_root / accesskit_name
     accesskit_source.rename(accesskit)
-    require_file(accesskit / "include" / "accesskit.h")
-    require_file(accesskit / "lib" / "windows" / "x86_64" / "msvc" / "static" / "accesskit.lib")
+    verify_dependency_files(deps_root, accesskit_pin)
 
-    nir_archive = downloads / "godot-nir-static-x86_64-msvc-release.zip"
+    mesa_name = dependency_destination_name(nir_pin)
+    nir_archive = downloads / download_filename(nir_pin["url"])
     data["dependencies"].append(
         download_verified(nir_pin["url"], nir_archive, nir_pin["sha256"], nir_pin["size"])
     )
-    mesa = deps_root / "mesa"
+    mesa = deps_root / mesa_name
     safe_extract_zip(nir_archive, mesa)
-    require_file(mesa / "bin" / "libNIR.windows.x86_64.lib")
-    nir_license = downloads / "godot-nir-LICENSE.md"
+    verify_dependency_files(deps_root, nir_pin)
+    nir_license = downloads / download_filename(nir_pin["licenseUrl"])
     data["dependencies"].append(
         download_verified(nir_pin["licenseUrl"], nir_license, nir_pin["licenseSha256"], nir_pin["licenseSize"])
     )

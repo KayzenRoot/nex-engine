@@ -5,6 +5,7 @@ import json
 import sys
 import tarfile
 import tempfile
+import time
 import unittest
 import zipfile
 from pathlib import Path
@@ -140,6 +141,30 @@ class IntegrityHelperTests(unittest.TestCase):
             self.assertEqual(raised.exception.exit_code, 23)
             self.assertIn("visible failure", log.read_text(encoding="utf-8"))
 
+    def test_timeout_bounds_wait_when_descendant_keeps_stdout_open(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            log = root / "command.log"
+            descendant_code = "import time; time.sleep(6)"
+            parent_code = (
+                "import os, subprocess, sys; "
+                f"subprocess.Popen([sys.executable, '-c', {descendant_code!r}], cwd=os.path.dirname(sys.executable)); "
+                "print('parent exited', flush=True)"
+            )
+            started = time.monotonic()
+            result = ci_build.run_logged(
+                [sys.executable, "-c", parent_code],
+                cwd=root,
+                log_path=log,
+                timeout_seconds=2,
+            )
+            elapsed = time.monotonic() - started
+
+            self.assertLess(elapsed, 4)
+            self.assertEqual(result["exitCode"], 0)
+            self.assertFalse(result["timedOut"])
+            self.assertIn("parent exited", log.read_text(encoding="utf-8"))
+
     def test_lock_keeps_required_windows_features_enabled(self) -> None:
         lock = json.loads(ci_build.LOCK_PATH.read_text(encoding="utf-8"))
         flags = lock["build"]["command"]
@@ -161,6 +186,33 @@ class IntegrityHelperTests(unittest.TestCase):
         self.assertLessEqual(lock["build"]["maximumBuildMinutes"], 180)
         self.assertEqual(lock["buildTools"]["windowsCompiler"]["toolsetVersion"], "14.44.35207")
         self.assertEqual(lock["buildTools"]["windowsCompiler"]["sconsMsvcVersion"], "14.3")
+        self.assertEqual(lock["build"]["artifactRetentionDays"], 7)
+
+    def test_dependency_pin_and_required_files_follow_lock_contract(self) -> None:
+        accesskit = {
+            "name": "AccessKit C static SDK",
+            "requiredFiles": ["accesskit/include/accesskit.h"],
+        }
+        nir = {"name": "Godot Mesa NIR static library", "requiredFiles": ["mesa/bin/libNIR.lib"]}
+        lock = {"dependencies": [nir, accesskit]}
+        self.assertEqual(ci_build.dependency_pin(lock, accesskit["name"]), accesskit)
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            required = root / "accesskit" / "include" / "accesskit.h"
+            required.parent.mkdir(parents=True)
+            required.write_text("verified", encoding="utf-8")
+            self.assertEqual(ci_build.verify_dependency_files(root, accesskit), "accesskit")
+            with self.assertRaisesRegex(ci_build.IntegrityError, "Required file does not exist"):
+                ci_build.verify_dependency_files(root, nir)
+            with self.assertRaisesRegex(ci_build.IntegrityError, "Unsafe archive member"):
+                ci_build.verify_dependency_files(root, {"requiredFiles": ["../outside.txt"]})
+
+    def test_workflow_artifacts_match_audit_retention_lock(self) -> None:
+        lock = json.loads(ci_build.LOCK_PATH.read_text(encoding="utf-8"))
+        workflow = (ROOT / ".github" / "workflows" / "nex-m00-smoke.yml").read_text(encoding="utf-8")
+        retention = f"retention-days: {lock['build']['artifactRetentionDays']}"
+        self.assertEqual(workflow.count(retention), 3)
 
     def test_editor_smoke_uses_bounded_graceful_exit(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

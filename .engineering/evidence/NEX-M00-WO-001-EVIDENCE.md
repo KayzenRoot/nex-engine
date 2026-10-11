@@ -101,3 +101,15 @@ The PR head is intentionally resolved from the live PR/checks link because this 
 - Billing was not queried. The workflow used only the standard Windows runner configured for the public repository; no larger/self-hosted runner or paid service was configured.
 - For candidate `a58b867...`, exact-head Windows build/smoke, Ubuntu smoke, GEF Windows/Ubuntu, Governance, Socket x2, SonarCloud, artifact digest verification, local execution, and unit tests passed. CodeRabbit was skipped because PR #78 remained a draft; no external review or approval exists. The evidence-refresh candidate still requires fresh exact-head CI/security checks, artifact digest verification/local execution, CodeRabbit review after the PR is ready, thread resolution, and independent/Owner audit before declaring `NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW`.
 - No merge, checkpoint promotion, or M01 admission occurred.
+
+## CodeRabbit correction review — 2026-10-11
+
+CodeRabbit completed an actual review of candidate `a629d9911d348550b12870030c2437c0e1e45942` (review run `66c62bc3-d386-4f5f-9e5b-033bf929e4d8`; review comment `6113776892`). Its two inline findings and one summary nitpick were verified against the code:
+
+- `run_logged` stopped checking its deadline after the direct process exited, so a descendant keeping stdout open could extend the step indefinitely. A real Windows regression reproduced a 6.18-second wait for a 2-second timeout. The working-tree correction now checks the deadline independently and stops waiting for the reader after the budget; the targeted regression returned in 2.15 seconds with exit code 0 and `timedOut=false` because the direct process itself had exited before its deadline.
+- `windows_build` depended on dependency list order, hard-coded archive/source names, and did not consume the lock's `requiredFiles`. The correction resolves pins by name, derives names/roots from the pinned tag and URLs, and validates every required path from the lock without allowing traversal.
+- Package and log artifacts retained for one day could expire before an audit. The workflow and lock were changed together to seven days, still a short-lived artifact window for the public-repository audit.
+
+The no-op `except Exception: raise` in `download_verified` was also removed; failures still leave the isolated `.part` file because the code does not delete or replace it.
+
+The targeted correction tests and full local M00 unit suite passed 17/17 on the working tree based on `a629d99`. At the time this entry was prepared, these follow-up changes had not yet received a new commit, exact-head CI, fresh artifacts, or a new CodeRabbit review. All checks and artifacts recorded above for `a629d99` are therefore historical for the follow-up candidate. Re-run the complete exact-head workflow, verify/download the artifact, repeat local Windows smoke, and inspect CodeRabbit/Socket/Sonar results before any readiness or checkpoint decision. This addendum does not authorize merge, checkpoint promotion, or M01.

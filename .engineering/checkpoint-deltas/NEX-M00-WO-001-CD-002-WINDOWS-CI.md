@@ -25,3 +25,7 @@ This delta does **not** authorize editing `.engineering/CHECKPOINT.json` or `.en
 ## Stop and promotion boundaries
 
 Until the conditional gates above are evidenced on the exact current PR HEAD, keep this delta unpromoted and do not claim `NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW`. The evidence-refresh commit advances the candidate beyond `a58b867...`; retrieve the resulting HEAD and repeat the exact-head gates, artifact digest verification/local execution, and CodeRabbit review after the PR is ready. After that condition, an independent/Owner review still decides whether this proposed state is accepted. A later merge requires a separate authorized action and post-merge verification. M01 remains unadmitted.
+
+## Review correction addendum — CodeRabbit candidate `a629d99`
+
+CodeRabbit's real review of `a629d9911d348550b12870030c2437c0e1e45942` identified a process-pipe timeout gap, hard-coded/order-dependent dependency paths that bypassed `requiredFiles`, and one-day artifact retention. The evidence bundle records their reproduction and the bounded corrections. Local M00 tests passed 17/17 on the correction working tree; this is not final-head acceptance. The correction changes advance the candidate, so every required check, build artifact digest, Windows-local execution, and CodeRabbit review must be repeated on the resulting exact PR HEAD. The proposed checkpoint remains unpromoted; no merge or M01 is authorized.

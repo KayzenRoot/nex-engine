@@ -300,7 +300,7 @@ jobs:
             ${{ steps.build.outputs.package_path }}
             ${{ steps.build.outputs.package_path }}.sha256
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 7
 
       - name: Upload Windows build logs and preflight
         if: always()
@@ -311,7 +311,7 @@ jobs:
             ${{ runner.temp }}/nex-m00-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
             ${{ runner.temp }}/nex-m00-build-runner-preflight.json
           if-no-files-found: warn
-          retention-days: 1
+          retention-days: 7
 
   ubuntu-headless-smoke:
     name: Ubuntu official headless smoke and negative tests
@@ -347,4 +347,4 @@ jobs:
             ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
             ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/smoke-results.json
           if-no-files-found: warn
-          retention-days: 1
+          retention-days: 7
