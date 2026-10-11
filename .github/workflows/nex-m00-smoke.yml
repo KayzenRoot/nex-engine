@@ -37,9 +37,19 @@ jobs:
           $vsInstall = $null
           $clPath = $null
           $msvcVersion = $null
+          $vswhereOutput = @()
+          $vswhereExitCode = $null
+          $msvcProbeError = $null
           if (Test-Path $vswhere) {
-            $vsInstall = (& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath | Select-Object -First 1)
-            if ($LASTEXITCODE -ne 0) { throw 'vswhere failed while locating the x64 MSVC toolchain.' }
+            $vswhereOutput = @(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2>&1)
+            $vswhereExitCode = $LASTEXITCODE
+            $vsInstall = ($vswhereOutput | Select-Object -First 1 | ForEach-Object { $_.ToString().Trim() })
+            if ($vswhereExitCode -ne 0) {
+              $msvcProbeError = "vswhere exited $($vswhereExitCode): $($vswhereOutput -join ' | ')"
+              $vsInstall = $null
+            }
+          } else {
+            $msvcProbeError = "vswhere was not found at $vswhere."
           }
           if ($vsInstall) {
             $defaultVersion = Join-Path $vsInstall 'VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt'
@@ -84,6 +94,9 @@ jobs:
             windowsVersion = $os.Caption
             msvcVersion = $msvcVersion
             msvcCompilerPath = $clPath
+            vswhereExitCode = $vswhereExitCode
+            vswhereOutput = $vswhereOutput
+            msvcProbeError = $msvcProbeError
             windowsSdkRoot = $sdkRoot
             windowsSdkVersions = $sdkVersions
             python = $pythonVersion
@@ -116,6 +129,7 @@ jobs:
             ('- Commit headroom: ' + $commitHeadroomGiB + ' GiB')
             ('- Free runner disk: ' + $diskFreeGiB + ' GiB on ' + $runnerDrive)
             ('- MSVC: ' + $(if ($msvcVersion) { $msvcVersion } else { 'not found' }) + '; Windows SDK: ' + $(if ($sdkVersions.Count) { $sdkVersions -join ', ' } else { 'not found' }))
+            ('- vswhere exit: ' + $(if ($null -ne $vswhereExitCode) { $vswhereExitCode } else { 'not run' }) + '; output: ' + $(if ($vswhereOutput.Count) { $vswhereOutput -join ' | ' } else { 'empty' }))
             ('- Python: ' + $pythonVersion + '; SCons: ' + $sconsVersion)
             '- Budget: 12 GiB disk (1 source/extraction + 3 SDK/dependencies + 5 build outputs/intermediates + 1 packaging/logs + 2 reserve); >=8 GiB available RAM; >=12 GiB commit headroom; >=4 logical processors.'
             '- Estimated build window: 120-180 minutes, uncertain; build-job timeout may not exceed 180 minutes.'
@@ -128,7 +142,7 @@ jobs:
           if ($commitHeadroomGiB -lt 12) { $failures.Add("Commit headroom $commitHeadroomGiB GiB is below the 12 GiB minimum.") }
           if ($diskFreeGiB -lt 12) { $failures.Add("Free disk $diskFreeGiB GiB is below the 12 GiB build budget.") }
           if ($logicalProcessors -lt 4) { $failures.Add("Logical processor count $logicalProcessors is below the 4-processor minimum.") }
-          if (-not $msvcVersion -or -not $clPath) { $failures.Add('The x64 MSVC compiler was not found.') }
+          if (-not $msvcVersion -or -not $clPath) { $failures.Add('The x64 MSVC compiler was not found. ' + $msvcProbeError) }
           if (-not $sdkVersions.Count) { $failures.Add('A Windows SDK installation was not found.') }
 
           if ($failures.Count -gt 0) {
