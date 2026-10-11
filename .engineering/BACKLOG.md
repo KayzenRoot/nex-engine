@@ -1,8 +1,8 @@
 # Backlog · NEX Engine
-Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE (bootstrap policies only, GEF NOT_VERIFIED)., no total engine-completion denominator frozen.
-- NEX-GEF-WO-001 · NECESSARY / PLANNED: initialize Source Pack, install and validate GEF Bootstrap v1.1.2. Tracking: https://github.com/KayzenRoot/nex-engine/issues/1 .
-- Godot baseline feasibility / 3D isometric reference scene · IMPORTANT / NOT_ADMITTED.
-- Advanced 3D render extensions and lighting/VFX/LOD · FUTURE / NOT_ADMITTED.
-- Engine 2D and 2.5D enhancement profiles · FUTURE / NOT_ADMITTED.
+Status: GEF_BOOTSTRAP_VERIFIED_AFTER_CHECKPOINT_PROMOTION; no engine completion denominator or engine release percent exists.
+- NEX-GEF-WO-001 (#1) · NECESSARY / IMPLEMENTED + EXACT-HEAD/POST-MERGE CI VERIFIED: GEF Bootstrap v1.1.2; checkpoint promotion is separate and effective only after its own PR merges. See PR #74 and main commit `570d0671ed57f5cd29932baf0bac26345efca279`.
+- NEX-M00-WO-001 (#5) · NEXT NECESSARY / NOT_ADMITTED: inspect/pin upstream Godot native-Windows source/tag SHA and toolchain, build baseline and CI only after new owner admission, contracts and Context Lock.
+- NEX-M01-WO-001 (#6) · NECESSARY AFTER M00 / NOT_ADMITTED: measured reference scenes, frame-time and visual baseline.
+- Render3D, lighting/GI, PBR, GPU VFX, LOD/performance, 2D, 2.5D, editor, animation, asset import, branding, flow technologies M02–M12 · IMPORTANT/FUTURE / NOT_ADMITTED, dependent on validated baselines and contracts.
 - Game development and networked multiplayer · FUTURE / NOT_ADMITTED.
-Release percentage: NOT_BASELINED until canonical DoD denominator is frozen and verified.
+Release percentage: NOT_BASELINED until a canonical engine-specific DoD denominator is frozen and validated. GEF bootstrap passing does NOT mean the engine is 100% built.
