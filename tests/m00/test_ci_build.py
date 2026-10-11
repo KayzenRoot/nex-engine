@@ -33,6 +33,18 @@ class IntegrityHelperTests(unittest.TestCase):
             self.assertFalse(destination.exists())
             self.assertTrue(destination.with_name(destination.name + ".part").exists())
 
+    def test_oversized_download_is_rejected_before_bytes_are_written(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "payload.zip"
+            partial = destination.with_name(destination.name + ".part")
+            with mock.patch("ci_build.urllib.request.urlopen", return_value=io.BytesIO(b"too large")):
+                with self.assertRaisesRegex(ci_build.IntegrityError, "expected at most 3 bytes"):
+                    ci_build.download_verified(
+                        "https://example.invalid/payload.zip", destination, "0" * 64, expected_size=3
+                    )
+            self.assertFalse(destination.exists())
+            self.assertEqual(partial.stat().st_size, 0)
+
     def test_valid_zip_extracts_without_replacing_existing_files(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

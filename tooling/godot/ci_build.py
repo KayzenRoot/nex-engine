@@ -98,9 +98,15 @@ def download_verified(
                 chunk = response.read(1024 * 1024)
                 if not chunk:
                     break
+                new_byte_count = byte_count + len(chunk)
+                if expected_size is not None and new_byte_count > expected_size:
+                    raise IntegrityError(
+                        f"Size mismatch for {url}: expected at most {expected_size} bytes, "
+                        f"received at least {new_byte_count}."
+                    )
                 target.write(chunk)
                 digest.update(chunk)
-                byte_count += len(chunk)
+                byte_count = new_byte_count
             target.flush()
             os.fsync(target.fileno())
         actual_sha256 = digest.hexdigest()
