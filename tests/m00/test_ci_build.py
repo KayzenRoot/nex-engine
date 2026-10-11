@@ -152,13 +152,15 @@ class IntegrityHelperTests(unittest.TestCase):
             "debug_symbols=no",
             "accesskit=yes",
             "d3d12=yes",
-            "msvc_version=14.4",
+            "msvc_version=14.3",
             "mssdk_version=10.0.26100.0",
         ):
             self.assertIn(required, flags)
         self.assertTrue(lock["policy"]["verifyBeforeExtractionOrExecution"])
         self.assertTrue(lock["policy"]["doNotDeleteExistingOutput"])
         self.assertLessEqual(lock["build"]["maximumBuildMinutes"], 180)
+        self.assertEqual(lock["buildTools"]["windowsCompiler"]["toolsetVersion"], "14.44.35207")
+        self.assertEqual(lock["buildTools"]["windowsCompiler"]["sconsMsvcVersion"], "14.3")
 
 
 if __name__ == "__main__":

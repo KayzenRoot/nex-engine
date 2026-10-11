@@ -44,7 +44,7 @@
       "family": "MSVC x64",
       "discovery": "vswhere on windows-2022",
       "toolsetVersion": "14.44.35207",
-      "sconsMsvcVersion": "14.4",
+      "sconsMsvcVersion": "14.3",
       "sdkVersion": "10.0.26100.0"
     }
   },
@@ -87,7 +87,7 @@
       "debug_symbols=no",
       "accesskit=yes",
       "d3d12=yes",
-      "msvc_version=14.4",
+      "msvc_version=14.3",
       "mssdk_version=10.0.26100.0"
     ],
     "optionalFeatures": {
