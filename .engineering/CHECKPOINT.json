@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M00_ADMITTED_BASELINE_NOT_STARTED",
-  "phase": "M00_EXECUTION_READY_FOR_POSTMERGE_ATTESTATION",
-  "mainObservedSha": "10054a2d7038b2677bc00fa9279a754e08adc5fb",
+  "status": "M00_BASELINE_VERIFIED",
+  "phase": "M00_COMPLETED_M01_NOT_ADMITTED",
+  "mainObservedSha": "0c6cdbfc13bd0c1c8e80d293f7da7f2302027861",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
@@ -13,7 +13,7 @@
   "gefInitialized": "VERIFIED",
   "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "M00_CODEX_DESKTOP_LOCAL_PREFLIGHT_AFTER_POSTMERGE_ATTESTATION",
+  "nextLegalAction": "M01_REQUIRES_SEPARATE_OWNER_WORK_ORDER_AND_CONTEXT_LOCK",
   "lastSourceInspectionDate": "2026-10-11",
   "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
@@ -40,10 +40,31 @@
   "m00PlanningIssue": 5,
   "m00ProposedGodotRef": "4.7.2-stable",
   "m00ProposedGodotCommit": "ed1daf0bf001b61586d9930840f2f1394092c079",
-  "m00ExecutionState": "NOT_STARTED",
+  "m00ExecutionState": "VERIFIED_COMPLETED",
   "m00GovernanceMergeSha": "10054a2d7038b2677bc00fa9279a754e08adc5fb",
   "m00ContextLockPath": ".engineering/context-locks/NEX-M00-WO-001-EXECUTION.json",
-  "m00ExecutionBaseSha": "RESOLVE_FROM_ACTUAL_MAIN_AFTER_LOCK_PROMOTION",
+  "m00ExecutionBaseSha": "c4174573086df365aadc72967e4722b2cbe6f3ac",
   "m00Executor": "CODEX_DESKTOP_LOCAL_WITH_INTEGRATION_STEWARD",
-  "m00LockPromotionRequirement": "CodeRabbit/Socket/Sonar/Governance/GEF exact-head SUCCESS, review threads resolved, PR merge, postmerge CI PASS and issue #5 runtime SHA attestation required"
+  "m00LockPromotionRequirement": "CodeRabbit/Socket/Sonar/Governance/GEF exact-head SUCCESS, review threads resolved, PR merge, postmerge CI PASS and issue #5 runtime SHA attestation required",
+  "m00Verification": {
+    "implementationPR": 78,
+    "reviewedHeadSha": "8c26ecc019b05edef5839f21c43b4af72bb34d9c",
+    "implementationMergeSha": "0c6cdbfc13bd0c1c8e80d293f7da7f2302027861",
+    "exactGitTreeSha": "fedcac4bfbc06dce2d21aa3d5d6ce4a19826fdac",
+    "gitTreeComparison": "EXACT_MATCH",
+    "nativeWindowsSourceBuild": "PASS_IN_PR_HEAD",
+    "windowsUbuntuSmoke": "PASS_IN_PR_HEAD",
+    "localCD003FreshAndWarm": "TEN_OF_TEN_SUCCESS",
+    "prHeadChecks": "TEN_OF_TEN_SUCCESS_PLUS_CODERABBIT_SUCCESS",
+    "postMergeMainChecks": "SIX_OF_SIX_SUCCESS",
+    "postMergeRunIds": [
+      38185193893,
+      38185193916
+    ],
+    "m00BuildRunId": 38175760924,
+    "postMergeM00Rebuild": "NOT_RUN_PR_ONLY_TREE_EQUIVALENCE_OWNER_APPROVED",
+    "historicCrashRootCause": "UNKNOWN_OWNER_ACCEPTED_RESIDUAL_RISK",
+    "audit": "CHATGPT_NOT_INDEPENDENT_OWNER_RISK_ACCEPTED",
+    "evidencePath": ".engineering/evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md"
+  }
 }
