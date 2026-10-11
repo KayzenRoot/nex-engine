@@ -12,7 +12,7 @@ After each Codex Desktop execution/PR, ChatGPT is the **first repair executor** 
 Never write files while Codex or another executor owns the same branch/path: use Integration Steward exclusive lease or a separate correction PR; stop on conflict/STALE. After ChatGPT patch, rerun/recheck relevant exact-HEAD checks and request independent Bug Hunter/CodeRabbit review; label own audit NOT_INDEPENDENT, do not self-approve/self-merge without applicable gate. No security/approval bypass, no hidden claim of local tests, no out-of-scope refactor. New implementation modules still follow specific admitted Work Orders and Codex-by-default authorship, but review repairs now follow ChatGPT-first.
 See `.engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md` for owner directives, prerequisites and STOP conditions.
 
-## M00 execution gate
+## M00 execution gate (historical, already satisfied)
 Owner approved M00 on 2026-10-11; Source Pack ADR and M00 governance PR #76 have been promoted. The separately reviewed M00 EXECUTION lock must be merged, its post-merge CI validated, and the newly created main merge SHA and promoted file fingerprints externally attested in Issue #5 before Codex Desktop LOCAL starts an isolated worktree. Source-base SHA in the lock is not its own future squash SHA. The PRE-ADMISSION lock and an Owner comment alone do not authorize code. No duplicate writer, no force-push, no cloud GPU or paid services; approved free GitHub Actions CI is allowed. ChatGPT repair-first review per ADR-0002 continues.
 
 ## M00 completed baseline (historical execution gate above)
