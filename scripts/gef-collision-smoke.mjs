@@ -74,12 +74,13 @@ try {
     'gef.precondition.mutation_refused',
     'GEF must report a governed mutation refusal, not an unrelated blocked state.',
   );
-  // The published CLI JSON projection does not expose nested transactionReason metadata.
-  // Verify the public refusal reason AND its specific non-overwrite summary instead.
+  // The CLI refuses an invalid pre-existing managed-state file at the STALE
+  // precondition before reaching the transaction's exclusive-create collision.
+  // Do not mislabel this fail-closed safety path as a transaction collision.
   assert.match(
     response.error.summary ?? '',
-    /(?:existing|already present|not absent|collision|overwrite)/i,
-    `GEF mutation refusal was not demonstrably due to an existing state-file collision: ${response.error.summary ?? 'NO_SUMMARY'}`,
+    /dry run is STALE/i,
+    `Expected the stale precondition for an invalid existing state file: ${response.error.summary ?? 'NO_SUMMARY'}`,
   );
   assert.equal(
     createHash('sha256').update(readFileSync(stateFile)).digest('hex'),
@@ -95,6 +96,7 @@ try {
     applyExitCode: apply.exitCode,
     terminal: response.terminal,
     reasonCode: response.error.reasonCode,
+    demonstratedSafetyGate: 'STALE_PRECONDITION',
     effectStatus: response.error.effectStatus,
     userOwnedStatePreserved: true,
     fixtureCleanAfterRefusal: true,
