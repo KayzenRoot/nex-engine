@@ -250,7 +250,10 @@
     ".engineering/CHECKPOINT.md",
     ".engineering/evidence/NEX-GEF-WO-001-EVIDENCE.md",
     ".engineering/checkpoint-deltas/NEX-GEF-WO-001-PROPOSED.md",
-    ".gitignore only if required to exclude node_modules and private GEF state"
+    ".gitignore only if required to exclude node_modules and private GEF state",
+    "scripts/gef-collision-smoke.mjs",
+    ".gef/init-state.json",
+    ".gef/receipts/run-1-69b9dcfbc1f3.json"
   ],
   "stopConditions": [
     "unknown or stale base/fingerprint",
@@ -268,6 +271,7 @@
   "notes": [
     "The NEX tagged Source Pack is authoritative for the accepted v1.1.2 release. Some upstream docs at the tagged commit retain historical pre-publication text; the live GitHub release and npm metadata confirm publication, exact integrity and provenance. Preserve the discrepancy in Evidence.",
     "On the merge SHA, all four GitHub check-runs were completed (three SUCCESS, Sonar neutral); the legacy combined status endpoint returned pending with zero status contexts. Required PR-head checks for #72/#73 were all SUCCESS; there were no pending check-runs.",
-    "Local verification: the published tarball SHA-256 and npm dist.integrity matched; the SLSA attestation payload subject/source matched the registry metadata and pinned tag. npm audit --audit-level=high found 0 vulnerabilities. npm audit signatures remained INCONCLUSIVE because the registry has no standalone @gef-bootstrap/project-identity@0.0.0 record even though it is bundled inside the CLI tarball."
+    "Local verification: the published tarball SHA-256 and npm dist.integrity matched; the SLSA attestation payload subject/source matched the registry metadata and pinned tag. npm audit --audit-level=high found 0 vulnerabilities. npm audit signatures remained INCONCLUSIVE because the registry has no standalone @gef-bootstrap/project-identity@0.0.0 record even though it is bundled inside the CLI tarball.",
+    "WriteScope inventory correction: existing actual GEF bootstrap smoke-test and init artifacts included after review of PR #74; no new feature or broader write wildcard authorized. Owner/Steward must confirm this scope reconciliation on exact final HEAD before merge."
   ]
 }
