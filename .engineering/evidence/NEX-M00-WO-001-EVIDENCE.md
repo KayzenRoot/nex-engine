@@ -1,6 +1,6 @@
 # NEX-M00-WO-001 — Evidence Bundle
 
-**Snapshot status:** predecessor build and local smoke evidence recorded; final PR-head CI, exact-head artifact run, and CodeRabbit review must be read live from PR #78. No merge, checkpoint promotion, or M01 admission is authorized here.
+**Evidence snapshot:** exact candidate `a58b86754fd1fd729296d085d6e10f610c238297` was built, all technical CI/security checks passed, and its digest-verified Windows artifact passed local smokes. CodeRabbit remained skipped because the PR was draft. This file is being refreshed after that snapshot; its commit advances the PR HEAD, so the resulting exact HEAD must receive fresh checks and artifact/local-smoke validation. No merge, checkpoint promotion, or M01 admission is authorized here.
 
 - **Work Order:** NEX-M00-WO-001, Issue #5
 - **Correction:** Delta 002, Windows source build through standard GitHub Actions; attached PDF SHA-256 `0137eb1ac39d20b6616a19b04a4e7427025fcc3b0fd19723ccc3384cbcec6360`
@@ -13,7 +13,7 @@
 - GitHub `main`, fetched `origin/main`, and PR #78 base all resolved to the required base SHA. PR #78 is the only open PR on the repository at recheck.
 - Context Lock verification: 16/16 unchanged canonical blobs match the authority base; 7/7 admission-delta paths match the promoted Issue #5 attestation. The five admitted files that differ from their pre-admission blobs are within the approved admission delta.
 - Exclusive writer lease: Issue #5 comment [#6110755622](https://github.com/KayzenRoot/nex-engine/issues/5#issuecomment-6110755622). The two implementation reviewers completed read-only reviews; no reviewer modified the branch. The unrelated `opencode-cli` process did not reference this repository, the Work Order, or Godot/SCons.
-- Workstation at recheck: C: had 16.40 GiB free; D: had 544.96 GiB free. The M00 minimum disk budget is 12 GiB. Artifacts and smoke logs are under `D:\NEX-M00-WO-001-LOCAL-20261011\`; no C: cleanup or deletion was performed. Local free RAM was 1.09 GiB after smoke tests, so no local source compilation was attempted.
+- Workstation at recheck: C: had 16.35 GiB free; D: had 544.57 GiB free. The M00 minimum disk budget is 12 GiB. Artifacts and smoke logs are under `D:\NEX-M00-WO-001-LOCAL-20261011\`; no C: cleanup or deletion was performed. Local free RAM was 0.99 GiB before exact-head smokes and 1.20 GiB afterward, so no local source compilation was attempted.
 
 ## P0/P1/P2 — Windows standard-runner source build
 
@@ -47,6 +47,13 @@ Pinned build inputs in the manifest: SCons wheel SHA-256 `454cef364348053422696e
 - Compiled Windows console editor: 301,056 bytes, SHA-256 `855440c5a47f90531fa872ba49cdd4ffe54cb77b5a98a97b2af763d70a07c4f5`.
 - The package manifest, nested archive, notices, executable sizes/hashes, and API artifact digests were verified before local execution. All downloaded/extracted files remain on D:.
 
+### Exact PR candidate `a58b86754fd1fd729296d085d6e10f610c238297`
+
+- M00 Actions run [38163959546](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959546): Windows feasibility job `114542520247`, Windows source-build/smoke job `114542559397` (exit 0, 5160.141 s), and Ubuntu official smoke/negative-tests job `114560719225` all succeeded. Exact-run preflight observed 13.58 GiB available physical RAM, 16.49 GiB commit headroom, 147.01 GiB free runner disk, 4 CPUs, Python 3.12.10, MSVC toolset 14.44.35207, and SDK 10.0.26100.0. During-build sampling (173 samples) reached minima of 6.74 GiB physical RAM, 9.25 GiB commit headroom, and 143.36 GiB free disk; the build completed without timeout.
+- GEF smoke run [38163959535](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959535): Windows job `114542520134` and Ubuntu job `114542520291` succeeded. Governance run [38163959599](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959599): Source Pack job `114542520533` and PowerShell job `114542520616` succeeded. SonarCloud, Socket Project Report, and Socket Pull Request Alerts also succeeded on this candidate; see the live [PR checks](https://github.com/KayzenRoot/nex-engine/pull/78/checks).
+- Windows build artifact [11714196180](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959546/artifacts/11714196180): 82,490,645 bytes; API digest and downloaded ZIP SHA-256 both `9782b76f8bbb54cb10efa7bfd0c8b6d50d5ef66adcd9e0d2c576e5aac532807a`. The nested package SHA-256 matched its sidecar: `d65561f3847ac3b8bba8eec6b611c5faf29fb792397420e23a3f57b46033ea2b`. Manifest candidate SHA and source/tag/hash matched the exact candidate and pinned official inputs. Console and GUI executable hashes matched the manifest: `43a8adc387ecd53604aedefe32356d3731c6c93a0b9bad5f97443166099fbce6` and `363988968b764f411938edd80a56aa891a2850e912ac6bb9ede609d78c22bcc7`.
+- Build logs artifact [11714161429](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959546/artifacts/11714161429): 35,763 bytes; API digest/local ZIP SHA-256 `2227af2e98bfc98eb7bc9deeabe275abb6a3507c7bc540c301a552791471664a`. Ubuntu smoke artifact [11713293107](https://github.com/KayzenRoot/nex-engine/actions/runs/38163959546/artifacts/11713293107): 1,740 bytes; API digest/local ZIP SHA-256 `eba095c68c64502c737d9ff0b5cbec99cfea76d5fb14c1c4cd6364c452f16359`. All three ZIPs were checked for unsafe paths, symlinks, and encryption before extraction.
+
 ## P2-LOCAL — Compiled artifact on this Windows workstation
 
 The console binary above was run from the verified package against the disposable project on D:. The corrected headless-editor invocation is the command explicitly allowed by Correction Delta 002: `--headless --editor --path <fixture> --quit-after 2`.
@@ -61,26 +68,36 @@ The earlier `--quit` form initialized the editor but exited locally with `-10737
 
 The GUI editor was also launched from that verified package; a window handle was observed, `CloseMainWindow` succeeded, and the process exited 0. Its log SHA-256 is `6d94a9591bbcbfaaa5c05e2fbaa50a8a45297bee99616e2dd20e49c75fd0d24`; it contains a shutdown warning `Scan thread aborted...`, retained here as a caveat rather than silently omitted.
 
+The exact `a58b867...` artifact was separately downloaded by API and its outer digest, nested sidecar digest, manifest, and binary SHA-256 values were verified before execution. Against a disposable copy of the minimal project on D:, the exact-head console binary returned exit 0 for all three local invocations:
+
+| Exact-head local run | Exit | Duration | Log SHA-256 |
+|---|---:|---:|---|
+| `--version` | 0 | 9.666 s | `ee9ff175ea8229e52467c9f5ede77164ea42892b0cef5aea3ed558e8e47fc0c9` |
+| `--headless --editor --path <fixture> --quit-after 2` | 0 | 6.757 s | `e5d129a3fcfce7fcf77c12a3cf8f6855d7d3f59d6aff3bda1a69eed3b78de60b` |
+| `--headless --path <fixture> --quit-after 3` | 0 | 0.423 s | `9bd3dec0f0c279ced0361f967d0b1c5e9192f75d0d524912a311b254223df0ef` |
+
+The local exact-head unit suite also passed 14/14 on Python 3.13; log SHA-256 `dbde490747c2ecb8f4d3af222c789457d1854b4dcd36ac1ad0f72c92e12b42b0`. These exact-head results are for candidate `a58b867...`, not for the evidence-refresh commit that follows this snapshot.
+
 All three corrected local smoke logs and the unit-test output are under `D:\NEX-M00-WO-001-LOCAL-20261011\windows-artifact-f4c7eed\local-smoke-after-correction-2\`. The unit log SHA-256 is `83f1dd0df098459854ea9c995e8083fc8db97590bae2dcbb7fa0aabf120b9827`.
 
 ## P3 — Unit, negative, and Ubuntu smoke evidence
 
-`python -m unittest discover -s tests/m00 -v` passed **14/14** on the local Windows host (Python 3.13). It covers pinned build flags, bad/oversized digests, missing executable/fixture, nonzero commands, permission failure, output-path preservation, and unsafe tar/ZIP members/symlinks, plus the bounded editor-exit command. The exact final-head Windows runner will run the suite under locked Python 3.12.10.
+`python -m unittest discover -s tests/m00 -v` passed **14/14** on the local Windows host (Python 3.13) at candidates `6d42e91...` and `a58b867...`. It covers pinned build flags, bad/oversized digests, missing executable/fixture, nonzero commands, permission failure, output-path preservation, and unsafe tar/ZIP members/symlinks, plus the bounded editor-exit command. The exact `a58b867...` Windows runner also ran the suite under locked Python 3.12.10.
 
-The prior Ubuntu job [114535939954](https://github.com/KayzenRoot/nex-engine/actions/runs/38155659453/job/114535939954) passed official headless and negative tests on `f4c7eed...`. The corrected candidate requires a fresh Ubuntu job on the PR's exact current HEAD.
+The prior Ubuntu job [114535939954](https://github.com/KayzenRoot/nex-engine/actions/runs/38155659453/job/114535939954) passed official headless and negative tests on `f4c7eed...`; exact candidate `a58b867...` passed the same gate in job `114560719225`.
 
 ## External checks and exact-head gate
 
-On predecessor SHA `f4c7eed...`, Windows feasibility, Windows source build/smoke, Ubuntu smoke/negative tests, NEX Governance Source Pack and PowerShell, Socket Project Report, Socket Pull Request Alerts, and SonarCloud were SUCCESS. Their links are available in [PR #78 checks](https://github.com/KayzenRoot/nex-engine/pull/78/checks); all must be refreshed on the current candidate.
+On exact candidate `a58b867...`, Windows feasibility, Windows source build/smoke, Ubuntu smoke/negative tests, GEF Windows/Ubuntu, NEX Governance Source Pack and PowerShell, Socket Project Report, Socket Pull Request Alerts, and SonarCloud were SUCCESS. The live [PR #78 checks](https://github.com/KayzenRoot/nex-engine/pull/78/checks) are authoritative for the evidence-refresh candidate created after this snapshot.
 
 CodeRabbit's predecessor commit status says `Review skipped: draft pull request`; the bot comment confirms the draft was not reviewed, and there is no submitted review. The status label `SUCCESS` is therefore **not** evidence of a CodeRabbit review. GEF Windows/Ubuntu checks also did not run on the predecessor path set; this evidence/delta commit touches `.engineering/**`, which should trigger the GEF matrix on the new exact head. Do not mark the PR approved or merge while any required exact-head check/review is absent, pending, or failed.
 
-The final PR head is intentionally resolved from the live PR/checks link because this file is itself included in the candidate and cannot contain the hash of its own future commit. The PR description and Issue #5 closeout must record the resulting exact HEAD and direct run/job links after the checks finish.
+The PR head is intentionally resolved from the live PR/checks link because this file is included in the candidate and cannot contain the hash of its own future commit. Candidate `a58b867...` has exact-head artifact and check evidence above; the evidence-refresh commit advances the candidate, so its exact SHA, new run/job links, artifact digest, and local smoke must be verified before declaring the stop condition. The PR description and Issue #5 closeout must then record that resulting exact HEAD.
 
 ## Boundary and remaining gates
 
 - The source compilation ran on a standard Windows GitHub-hosted runner; the verified compiled artifact was executed locally. The canonical DoD requires a native Windows source build and Windows-local validation, and the Correction Delta authorizes this runner-plus-local-execution route. This does not claim that compilation occurred on the user's workstation.
 - No checkpoint canonical file, `main`, Godot core/renderer, `.gef/**`, package manifest, secret, paid service, larger runner, or M01 component was changed or used.
 - Billing was not queried. The workflow used only the standard Windows runner configured for the public repository; no larger/self-hosted runner or paid service was configured.
-- Final exact-head Windows build/smoke, Ubuntu smoke, GEF Windows/Ubuntu, Governance, Socket x2, SonarCloud, CodeRabbit review, thread resolution, artifact digest verification/local execution of the exact-head artifact, and independent/Owner audit remain required before declaring `NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW`.
+- For candidate `a58b867...`, exact-head Windows build/smoke, Ubuntu smoke, GEF Windows/Ubuntu, Governance, Socket x2, SonarCloud, artifact digest verification, local execution, and unit tests passed. CodeRabbit was skipped because PR #78 remained a draft; no external review or approval exists. The evidence-refresh candidate still requires fresh exact-head CI/security checks, artifact digest verification/local execution, CodeRabbit review after the PR is ready, thread resolution, and independent/Owner audit before declaring `NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW`.
 - No merge, checkpoint promotion, or M01 admission occurred.
