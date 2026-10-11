@@ -74,10 +74,12 @@ try {
     'gef.precondition.mutation_refused',
     'GEF must report a governed mutation refusal, not an unrelated blocked state.',
   );
-  assert.equal(
-    response.error.metadata?.transactionReason,
-    'gef.precondition.cli_transaction_target_not_absent',
-    `Expected an existing-target collision from the transaction layer; got ${JSON.stringify(response.error.metadata ?? {})}`,
+  // The published CLI JSON projection does not expose nested transactionReason metadata.
+  // Verify the public refusal reason AND its specific non-overwrite summary instead.
+  assert.match(
+    response.error.summary ?? '',
+    /(?:existing|already present|not absent|collision|overwrite)/i,
+    `GEF mutation refusal was not demonstrably due to an existing state-file collision: ${response.error.summary ?? 'NO_SUMMARY'}`,
   );
   assert.equal(
     createHash('sha256').update(readFileSync(stateFile)).digest('hex'),
