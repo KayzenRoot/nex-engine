@@ -1,31 +1,24 @@
 # Checkpoint · NEX Engine
-Status: M00_ADMITTED_BASELINE_NOT_STARTED, effective only after the M00 execution-lock PR is reviewed, squash merged and verified. M00 code execution still requires current-main SHA attestation, exclusive Steward lease and local preflight.
+Status: **M00_BASELINE_VERIFIED**, effective upon reviewed merge of this separate checkpoint-promotion governance PR. Observed implementation `main` is `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861`. **M01 NOT_ADMITTED and NOT_STARTED.**
 
-## Source authority / promotion
-- Planning Source Pack PR #2 squash merged as `a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c`.
-- Governance PR #72 squash merged as `55f92d1942e810e75aac6faf8231427a6b11c346`, NEX-ADR-0002 ChatGPT-first repair effective.
-- Main Ruleset preparation PR #73 squash merged as `bd2b0073dc8121290c696647e9c631cadc83c881`.
-- GitHub Ruleset #24864413 ACTIVE, strict PR/squash, no bypass, CodeRabbit and both Socket checks required, conversations resolved, no force-push/deletion.
+## Authority and preserved history
+- Source Pack planning PR #2 squash `a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c`; governance PR #72 squash `55f92d1942e810e75aac6faf8231427a6b11c346`; protection PR #73 squash `bd2b0073dc8121290c696647e9c631cadc83c881`.
+- Active GitHub Ruleset #24864413 requires protected PR/squash, exact checks, resolved threads and no bypass. ChatGPT self-review is NOT_INDEPENDENT.
+- GEF 1.1.2 Bootstrap implemented by PR #74, squash `570d0671ed57f5cd29932baf0bac26345efca279`; checkpoint promotion PR #75 and exact-head/post-merge Windows+Ubuntu GEF, Governance, Sonar, Socket, CodeRabbit all verified.
+- GEF prior `npm audit signatures` E404 remains INCONCLUSIVE; GEF doctor security.dependency/security.github are REVIEW, not PASS.
 
-## NEX-GEF-WO-001 completion proof (bootstrap only)
-- GEF implementation PR #74 exact reviewed HEAD `8b1f2318d5b5ebb657d55d04da3eda57153dd0ee`, squash merged to `main` as `570d0671ed57f5cd29932baf0bac26345efca279`.
-- Source Lock execution base was `bd2b0073dc8121290c696647e9c631cadc83c881`; independently compared 24/24 canonical Git blob fingerprints before merge; all matched. GitHub readback confirmed new `main` commit.
-- Pinned project dependency: `@gef-bootstrap/cli@1.1.2`, Node.js 22, npm lock committed; managed `.gef/init-state.json` and associated confirmed apply receipt committed after safe preview/apply. No secret/private GEF journal was committed.
-- PR HEAD: CodeRabbit SUCCESS, zero unresolved review threads; SonarCloud Quality Gate SUCCESS (0 new issues), Socket x2 SUCCESS, NEX Governance Ubuntu/PowerShell x2 SUCCESS, GEF smoke Ubuntu/least-privileged Windows x2 SUCCESS.
-- Post-merge `main` run #38135493350: NEX Governance / Source Pack SUCCESS and NEX Governance / PowerShell SUCCESS.
-- Post-merge `main` run #38135493357: GEF smoke Ubuntu SUCCESS and GEF smoke Windows SUCCESS.
-- Post-merge SonarCloud SUCCESS and Socket Security Project Report SUCCESS. CodeRabbit and Socket Pull Request Alerts are PR-specific, not claimed as post-merge `main` contexts.
-- Verified GEF init applies to bootstrap integration only; **not** an installable Godot binary/game/engine release. Runtime performance claims are not measured.
+## M00 Godot native desktop baseline · VERIFIED
+- Owner approved M00 in Issue #5, execution governance PR #76 squash `10054a2d7038b2677bc00fa9279a754e08adc5fb`, execution-lock PR #77 squash `c4174573086df365aadc72967e4722b2cbe6f3ac`, 21/21 authority-base fingerprints and promoted delta verified.
+- M00 implementation [PR #78](https://github.com/KayzenRoot/nex-engine/pull/78) reviewed at HEAD `8c26ecc019b05edef5839f21c43b4af72bb34d9c`, squash merged into `main` as `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861` with expected parent `c4174573086df365aadc72967e4722b2cbe6f3ac`.
+- Exact reviewed PR tree and merged `main` tree are IDENTICAL: `fedcac4bfbc06dce2d21aa3d5d6ce4a19826fdac`; GitHub comparison shows exactly eight allowed M00 files and zero extras. Owner explicitly accepted the Git-tree proof for postmerge verification.
+- Official unmodified Godot `4.7.2-stable`, upstream commit `ed1daf0bf001b61586d9930840f2f1394092c079`, source archive SHA-256 `a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481`, required third-party notices and dependencies verified.
+- [Exact-head M00 CI](https://github.com/KayzenRoot/nex-engine/actions/runs/38175760924): native MSVC/SCons Windows source build exit 0 (~5236s), verified editor/console binaries and Windows smokes, Ubuntu headless smokes, negative tests. Local Python suite 17/17 PASS; CodeRabbit SUCCESS, 10/10 HEAD checks SUCCESS, no unresolved review threads.
+- CD-003: 5/5 fresh-user-data and 5/5 warm-user-data Windows editor starts exited 0 with zero reproduced crashes. Historical `0xC0000005` root cause UNKNOWN, explicitly accepted as residual risk by Owner. Raw local logs and indices preserved, NOT independently read byte-for-byte by ChatGPT.
+- [Actual post-merge GEF Windows/Ubuntu](https://github.com/KayzenRoot/nex-engine/actions/runs/38185193893) and [Governance Source Pack/PowerShell](https://github.com/KayzenRoot/nex-engine/actions/runs/38185193916) SUCCESS, plus SonarCloud and Socket Project Report: **6/6** checks on `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861`.
+- M00 workflow triggers only for pull_request: **NO** additional native source build is claimed on the squash commit; approved SHA-equivalent Git tree binds validated PR artifacts to identical integrated content.
+- Full [post-merge evidence](.engineering/evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md) and [Issue #5 audit](https://github.com/KayzenRoot/nex-engine/issues/5#issuecomment-6115221416).
 
-## Limits retained
-- `npm audit signatures` on a bundled GEF module earlier returned E404, so signature audit is INCONCLUSIVE. Source/tarball/npm lock provenance recorded in the execution Context Lock; `npm audit --audit-level=high` reported no high advisory in CI.
-- GEF doctor security.dependency/security.github REVIEW and GEF checkpoint schema-compatibility caveats remain documented; they do not silently turn into PASS.
-- Owner's ChatGPT-first repair policy NEX-ADR-0002 and review independence requirements remain in force.
-
-## Next legal action / STOP
-- Work Order #1 GEF is completed in Issues #1 and PR #74/#75. Governance authorization for M00 was promoted in PR #76 to `main` commit `10054a2d7038b2677bc00fa9279a754e08adc5fb` with six post-merge checks SUCCESS.
-- **M00 #5 becomes ADMITTED only when its execution lock PR merges after required checks.** Before any code, fetch and attest the real new main SHA and promoted file fingerprints in Issue #5; obtain exclusive Steward lease and pass Codex LOCAL P0 preflight.
-- M01/M02–M12 and NexLabs Flow remain PLANNING_ONLY. Do not claim an engine completion percentage or unlock GPU development from this document alone.
-
-## M00 Owner authorization (2026-10-11)
-Owner approved M00 in Issue #5, and the scope/version governance PR #76 merged into `main` `10054a2d7038b2677bc00fa9279a754e08adc5fb` after CodeRabbit and CI. This execution-lock promotion candidate records `10054a2d7038b2677bc00fa9279a754e08adc5fb` as the **authority source base**, not the unknown future squash SHA of this lock PR. Once merged, read back the new main SHA, verify all promoted contents and postmerge checks, and record an external Issue #5 attestation before starting Codex Desktop LOCAL. No native Godot build or runtime claim yet.
+## Boundaries / Next legal action
+- M00 verified is only a **native Godot baseline**; it is not a finished NEX Engine release, custom renderer, playable game or performance benchmark. The engine-wide DoD/completion percentage remains NOT_BASELINED.
+- M01, NexLabs Flow, renderer/game development and M02–M12 remain NOT_ADMITTED. A separate Owner-approved M01 Work Order, contracts and fresh Context Lock are required; **do not execute M01 automatically**.
+- This checkpoint becomes canonical only after its own governance PR exact-head CodeRabbit/Socket/Sonar/GEF/Governance audit, Owner authorization, protected squash merge and post-merge verification; do not preclaim checkpoint promotion in a draft.
