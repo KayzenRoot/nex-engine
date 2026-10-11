@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0",
+  "id": "NEX-GEF-WO-001",
+  "status": "PRE_ADMISSION_ONLY",
+  "repository": "KayzenRoot/nex-engine",
+  "planningBaseSha": "181c4491d39531b657e0aee6df7909a3cbadc3bd",
+  "upstreamRelease": "v1.1.2",
+  "upstreamCommit": "af1fe9371a3883cbd8a4aafcbb405ddcd4c2ca82",
+  "executionBaseSha": null,
+  "canonicalFingerprints": null,
+  "notes": "Must rebind to promoted source pack and then-current exact main HEAD before admission or Codex implementation. This file is NOT a valid execution Context Lock."
+}

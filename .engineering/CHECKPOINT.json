@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0",
+  "project": "KayzenRoot/nex-engine",
+  "status": "DRAFT_NOT_PROMOTED",
+  "phase": "SOURCE_PACK_PLANNING",
+  "mainObservedSha": "181c4491d39531b657e0aee6df7909a3cbadc3bd",
+  "workOrderId": "NEX-GEF-WO-001",
+  "workOrderIssue": 1,
+  "workOrderAdmission": "NOT_ADMITTED",
+  "sourcePackPromoted": false,
+  "gefCliVersionTarget": "1.1.2",
+  "gefInstalled": "NOT_VERIFIED",
+  "gefInitialized": "NOT_VERIFIED",
+  "ciExactHead": "NOT_VERIFIED",
+  "releaseCompletion": "NOT_BASELINED",
+  "nextLegalAction": "REVIEW_AND_PROMOTE_SOURCE_PACK",
+  "lastSourceInspectionDate": "2026-10-10"
+}
