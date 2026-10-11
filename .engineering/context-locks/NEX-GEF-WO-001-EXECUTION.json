@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0",
+  "id": "NEX-GEF-WO-001",
+  "status": "ADMITTED",
+  "repository": "KayzenRoot/nex-engine",
+  "supersedesLock": ".engineering/context-locks/NEX-GEF-WO-001-PRE-ADMISSION.json",
+  "executionBranch": "gef/wo-001-v1.1.2",
+  "targetBranch": "main",
+  "executionBaseSha": "bd2b0073dc8121290c696647e9c631cadc83c881",
+  "admittedAtUtc": "2026-10-11T03:00:37Z",
+  "admissionAuthority": "Owner direct instruction in the current Codex Desktop task, after PR #72/#73 gates and Ruleset readback.",
+  "scope": "Install, initialize, validate and integrate only @gef-bootstrap/cli@1.1.2 for NEX-GEF-WO-001; no Godot, M00-M12, renderer or game work.",
+  "workOrderIssue": {
+    "number": 1,
+    "url": "https://github.com/KayzenRoot/nex-engine/issues/1",
+    "title": "NEX-GEF-WO-001 · Instalar e validar GEF Bootstrap v1.1.2",
+    "updatedAt": "2026-10-11T02:51:35Z",
+    "bodySha256": "886e76d97fe56a31435420d304a049bff951a33aa4845a01cd22c7b2320ee01c"
+  },
+  "upstreamRelease": {
+    "tag": "v1.1.2",
+    "commit": "af1fe9371a3883cbd8a4aafcbb405ddcd4c2ca82",
+    "package": "@gef-bootstrap/cli",
+    "version": "1.1.2",
+    "npmIntegrity": "sha512-zLu0oaBWqwIPviZgN0PTk1/5QlsHK8r7aCNOkMop0MnlzqFZ1um3zfkRO2l8hx005nd/2xZ/Ll/lDzYUbH01uw==",
+    "tarballSha256": "331a5d035188ef1dc1c92e5c4e5317edcdbf45956dc07703231bbc64dbb7ab97",
+    "provenanceUrl": "https://registry.npmjs.org/-/npm/v1/attestations/@gef-bootstrap%2fcli@1.1.2",
+    "provenancePredicateType": "https://slsa.dev/provenance/v1",
+    "registryAttestation": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@gef-bootstrap%2fcli@1.1.2",
+      "predicateType": "https://slsa.dev/provenance/v1",
+      "subjectIntegrity": "sha512-zLu0oaBWqwIPviZgN0PTk1/5QlsHK8r7aCNOkMop0MnlzqFZ1um3zfkRO2l8hx005nd/2xZ/Ll/lDzYUbH01uw==",
+      "payloadIntegrityMatch": true,
+      "sourceRepository": "https://github.com/KayzenRoot/gef-bootstrap",
+      "sourceRef": "refs/tags/v1.1.2",
+      "sourceWorkflow": ".github/workflows/v11-publish.yml",
+      "sourceCommit": "af1fe9371a3883cbd8a4aafcbb405ddcd4c2ca82",
+      "localSignatureAudit": "INCONCLUSIVE",
+      "localSignatureAuditReason": "npm audit signatures returned E404 for bundled @gef-bootstrap/project-identity@0.0.0; npm lock records that dependency as inBundle and the CLI is functional. No signature verification PASS is claimed."
+    }
+  },
+  "promotionGates": {
+    "pr72": {
+      "headSha": "ac4e6fd89bf35a23c510453395c731389f187509",
+      "mergeSha": "55f92d1942e810e75aac6faf8231427a6b11c346",
+      "codeRabbit": "SUCCESS",
+      "socketAlerts": "SUCCESS",
+      "socketProjectReport": "SUCCESS",
+      "ownerAudit": "SOURCE_PACK_GOVERNANCE_PROMOTION_APPROVED_FOR_SQUASH",
+      "mergedBy": "KayzenRoot"
+    },
+    "pr73": {
+      "headSha": "31504107fede2221cad3841b83ce33f8812b4d52",
+      "mergeSha": "bd2b0073dc8121290c696647e9c631cadc83c881",
+      "codeRabbit": "SUCCESS",
+      "socketAlerts": "SUCCESS",
+      "socketProjectReport": "SUCCESS",
+      "governanceSourcePack": "SUCCESS",
+      "governancePowerShell": "SUCCESS",
+      "reviewThreadsResolved": "5/5",
+      "ownerAudit": "APPROVED_FOR_SQUASH_MERGE_PR73",
+      "mergedBy": "KayzenRoot"
+    },
+    "postMergeMainCheckRuns": {
+      "total": 4,
+      "completedSuccess": 3,
+      "completedNeutral": 1,
+      "pendingCheckRuns": 0,
+      "legacyStatusState": "pending",
+      "legacyStatuses": 0
+    }
+  },
+  "activeMainRuleset": {
+    "id": 24864413,
+    "name": "NEX | main protected quality gates",
+    "enforcement": "active",
+    "target": "branch",
+    "include": [
+      "~DEFAULT_BRANCH"
+    ],
+    "defaultBranch": "main",
+    "bypassActors": [],
+    "requiredRules": [
+      "deletion",
+      "non_fast_forward",
+      "required_linear_history",
+      "pull_request",
+      "required_status_checks"
+    ],
+    "allowedMergeMethods": [
+      "squash"
+    ],
+    "requiredApprovingReviewCount": 0,
+    "requiredReviewThreadResolution": true,
+    "strictRequiredStatusChecksPolicy": true,
+    "requiredChecks": [
+      "CodeRabbit",
+      "Socket Security: Pull Request Alerts",
+      "Socket Security: Project Report"
+    ],
+    "repositorySettings": {
+      "allowSquashMerge": true,
+      "allowMergeCommit": false,
+      "allowRebaseMerge": false,
+      "allowAutoMerge": true,
+      "deleteBranchOnMerge": true
+    }
+  },
+  "canonicalFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "0a57d37660639e00ed7744206d469bf509404e45",
+      "sha256OfGitBlob": "f75164812f3443a5238fdf6efdbc5a185e4c45135c80edf5e018cd69e0d62134"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2",
+      "sha256OfGitBlob": "a4febc5a65c74e182dd240ede7d75fa14c04efa6c25d45d39d13ed95ea6839d3"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "8697e9816613a814a4188acb18a3e98a2a9a4586",
+      "sha256OfGitBlob": "3f4d2d02de6382479e045286465da2669e0005e4f49c74eb7e700f0bc07e4827"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "703e69e531f8c35dcf3b661b2f6cc5b3639bc7eb",
+      "sha256OfGitBlob": "b4039e0120c6729120f1de6d1ccfa6da41b8651970888355f640254df8c33482"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "053a288441de10c4d41e9e5f5f192d78ec7b94e1",
+      "sha256OfGitBlob": "dfb8f0c0e8be9b1979451c98e7b1c0b605524da5697aaad6e611fe9a0c5737e9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0001-BOOTSTRAP-ACTOR-EXCEPTION.md",
+      "gitBlobSha1": "43abfc1d50567c170bdfc91279bda93e1043141d",
+      "sha256OfGitBlob": "f93ce8212560a7b5e1694e4d685d86a2733baef8bb8b21e5b6be33bfc6982bfc"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f",
+      "sha256OfGitBlob": "8e350f7a028319bc949c75d32a69721d8413c35b12ef40b2cbd858eaa100b27f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "e53528363f11313b55b306866826f32b448cc8aa",
+      "sha256OfGitBlob": "c7bc68ef292c8fa7a7d545e159a78168c75a77b265cc9893d2f9b0009644e4af"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "08e5ce8bbf0a0d1890585773ecaeb053569de88b",
+      "sha256OfGitBlob": "900df5e5a4391e85ee294b2a49f85a3f74c9e89e82b1531a791fa0b28898cded"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "2fd0165182055566485fdaec6b87e6941d8e16df",
+      "sha256OfGitBlob": "44b3d345ffdd82c000b92e910e565dc29e64a3cf20647d6cfb4ea71f37fe9d63"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "f6982668e0ba8c9b8a99bb0ba474be7df6d65519",
+      "sha256OfGitBlob": "ef87fee9002b0b8c485e2bf89947ee4579ff9ed367670b4d761d0dd727b06148"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "e2bf5633b9194a20bce4640a9c84932a64202a77",
+      "sha256OfGitBlob": "3a6062a44bb20b7b5ebff30e22e1807a329111c28688004406acb0cbd4347dcf"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "36c4e9fd7a0d6847a798a597a94c241194fa4e8e",
+      "sha256OfGitBlob": "d19a9a7f34256fee92cda4a207d76bfbd3851a5cce659ded1941a9c4c749aaf9"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "ac31c63bb8fac345cb47a910ca553777cf8b5b89",
+      "sha256OfGitBlob": "42b9b94a804600ab6ee1ef169fc682f0ff4458739cd333d7e2b3a07859492e56"
+    },
+    {
+      "path": ".engineering/PROJECT-OVERVIEW.md",
+      "gitBlobSha1": "c9b199cca88bb6dda72b2304609394c8f492c628",
+      "sha256OfGitBlob": "446a848bcea989e74b6ef315d207aca7552a16fd9273b484640e6d265f8bb152"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "33436e500efb42f043075902e30b86775172d298",
+      "sha256OfGitBlob": "9ebb66cf476a81b2face8b3217670fc4734c974e1f152c860cc113e72c432198"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-GEF-WO-001.md",
+      "gitBlobSha1": "413fcf3f96e4ef0b8c4413118d52bd008a0a0ac8",
+      "sha256OfGitBlob": "66b0b6ec8d510cd1b68ff95f55ac1976f2803d5895bfb8e99ec00d9a48ed0853"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-GEF-WO-001-PRE-ADMISSION.json",
+      "gitBlobSha1": "8dfe62d2f766fb8105ed28a1f84802835c9d8a5b",
+      "sha256OfGitBlob": "df96a7249085e5963deaee4865b3a65ce4dae26c7d1b7b61bccb0de7887c5e3e"
+    },
+    {
+      "path": ".github/workflows/nex-governance.yml",
+      "gitBlobSha1": "dbb1cb9563e15dc10bf583f389abdb03714f84a4",
+      "sha256OfGitBlob": "d4bf936eab9a5950ce024696af64d929ad7fa333d98c2f22f787f6e114d449f7"
+    },
+    {
+      "path": "docs/operations/NEX-CODEX-DESKTOP-START.md",
+      "gitBlobSha1": "923769507a79460fab0a24b483cf41dfda77b3bc",
+      "sha256OfGitBlob": "10f9c33e14e4d0744e51d79424ce3f016ed2e14ae334ed65f15d70ab8e5d4152"
+    },
+    {
+      "path": "ops/github/README.md",
+      "gitBlobSha1": "796e4a208b421292350f7d7e03cfc3e37f392c16",
+      "sha256OfGitBlob": "c9d7ba1d7074fa5f4f49327af09640151c2e891bf87f05c80d58928a82cc9363"
+    },
+    {
+      "path": "ops/github/nex-main-ruleset.json",
+      "gitBlobSha1": "e19f56ae96b496fcff818f085b8320e4c6aec7c5",
+      "sha256OfGitBlob": "5de0d3b0ac385f26787d953b0b910677e2b1fa1766f2042b734eba0376e6e5ea"
+    },
+    {
+      "path": "ops/github/apply-nex-main-protection.ps1",
+      "gitBlobSha1": "d006658a4f03f6a6197115514615f2b9f3c7b756",
+      "sha256OfGitBlob": "7ca42478ae6fe16bed549939ebd9dd3d60606397cd31bf215cc54311b412d7db"
+    },
+    {
+      "path": "README.md",
+      "gitBlobSha1": "e73f8d5371e41b861671c0fcd5a429da642acfa5",
+      "sha256OfGitBlob": "aca63cf5999ea6c1f9ebd637806a9fb0e5227912ae1ca77adcf7dccd160ac56e"
+    }
+  ],
+  "authorizedAdmissionDelta": {
+    "sourceBase": "main at executionBaseSha",
+    "checkpointFields": [
+      "mainObservedSha",
+      "workOrderAdmission",
+      "nextLegalAction",
+      "lastSourceInspectionDate",
+      "governancePromotion"
+    ],
+    "sourcePackDocumentsRemainUnmodified": true,
+    "completionPromotionForbidden": true
+  },
+  "writeScope": [
+    "package.json",
+    "package-lock.json",
+    "scripts/gef-smoke.mjs",
+    ".github/workflows/gef-bootstrap-smoke.yml",
+    ".engineering/context-locks/NEX-GEF-WO-001-EXECUTION.json",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md",
+    ".engineering/evidence/NEX-GEF-WO-001-EVIDENCE.md",
+    ".engineering/checkpoint-deltas/NEX-GEF-WO-001-PROPOSED.md",
+    ".gitignore only if required to exclude node_modules and private GEF state"
+  ],
+  "stopConditions": [
+    "unknown or stale base/fingerprint",
+    "npm integrity/provenance mismatch",
+    "unsafe GEF preview/collision/alias",
+    "RECOVERY_REQUIRED",
+    "any required exact-head check pending or failed",
+    "security HIGH/CRITICAL unresolved"
+  ],
+  "excludedPhase": {
+    "name": "M00/Godot",
+    "status": "NOT_ADMITTED",
+    "started": false
+  },
+  "notes": [
+    "The NEX tagged Source Pack is authoritative for the accepted v1.1.2 release. Some upstream docs at the tagged commit retain historical pre-publication text; the live GitHub release and npm metadata confirm publication, exact integrity and provenance. Preserve the discrepancy in Evidence.",
+    "On the merge SHA, all four GitHub check-runs were completed (three SUCCESS, Sonar neutral); the legacy combined status endpoint returned pending with zero status contexts. Required PR-head checks for #72/#73 were all SUCCESS; there were no pending check-runs.",
+    "Local verification: the published tarball SHA-256 and npm dist.integrity matched; the SLSA attestation payload subject/source matched the registry metadata and pinned tag. npm audit --audit-level=high found 0 vulnerabilities. npm audit signatures remained INCONCLUSIVE because the registry has no standalone @gef-bootstrap/project-identity@0.0.0 record even though it is bundled inside the CLI tarball."
+  ]
+}
