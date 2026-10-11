@@ -6,8 +6,8 @@
 
 **Dry run local PowerShell**: powershell -ExecutionPolicy Bypass -File ops/github/apply-nex-main-protection.ps1
 
-**Aplicação**: somente após a PR #72 estiver MERGED, com CodeRabbit SUCCESS e Socket verdes no último HEAD revisado, além de permissão admin autenticada em gh CLI. Comandos: gh auth status --hostname github.com; powershell -ExecutionPolicy Bypass -File ops/github/apply-nex-main-protection.ps1 -Apply . Fazer login interativo apenas se Owner autorizar; nunca divulgar PAT.
+**Aplicação**: somente após a PR #72 estar MERGED, com CodeRabbit SUCCESS e os dois checks Socket SUCCESS no HEAD revisado, e a PR #73 estar aprovada na auditoria Owner/Steward e MERGED, com CodeRabbit SUCCESS, os dois checks Socket e os dois jobs NEX Governance SUCCESS no seu HEAD exato. Exigir também permissão admin autenticada em gh CLI. Comandos: gh auth status --hostname github.com; powershell -ExecutionPolicy Bypass -File ops/github/apply-nex-main-protection.ps1 -Apply . Fazer login interativo apenas se Owner autorizar; nunca divulgar PAT.
 
-O script lê repo/PR72/checks, PATCH de configurações gerais squash-only, POST ou PUT do Ruleset com nome gerenciado, e GET de validação; se qualquer condição falhar, para. Não modifica outros repositórios.
+O script lê repo e checks exatos das PRs #72/#73, cria ou atualiza o Ruleset gerenciado e confirma o GET completo. Somente após a verificação do Ruleset aplica o PATCH das configurações gerais squash-only e confirma novo GET; se qualquer condição falhar, para. Não modifica outros repositórios.
 
 **Próximo arquivo:** docs/operations/NEX-CODEX-DESKTOP-START.md tem prompt completo para executar bootstrap GEF em Windows LOCAL depois de governança promovida, com evidence/CI e STOP conditions. Não instalar/aplicar às cegas.

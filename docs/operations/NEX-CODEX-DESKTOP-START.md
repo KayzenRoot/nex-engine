@@ -15,7 +15,7 @@
 1. A partir da branch de preparação ops/nex-main-ruleset-and-codex-bootstrap-001, leia ops/github/README.md, ops/github/nex-main-ruleset.json e ops/github/apply-nex-main-protection.ps1.
 2. Rode em PowerShell **primeiro sem -Apply**:
    powershell -ExecutionPolicy Bypass -File ops/github/apply-nex-main-protection.ps1
-3. Após PR #72 efetivamente integrada, CodeRabbit SUCCESS e os checks Socket SUCCESS no SHA revisado, usar gh CLI autenticado com permissão admin e rodar:
+3. Após as PRs #72 e #73 estarem efetivamente integradas, com auditoria Owner/Steward concluída, exigir na #72 CodeRabbit SUCCESS e os checks Socket SUCCESS no SHA revisado; na #73, CodeRabbit SUCCESS, os checks Socket SUCCESS e `NEX Governance / Source Pack` + `NEX Governance / PowerShell` SUCCESS no exato HEAD revisado. Somente então, com gh CLI autenticado com permissão admin, rodar:
    powershell -ExecutionPolicy Bypass -File ops/github/apply-nex-main-protection.ps1 -Apply
 4. Confirmar GET de repo e Rulesets: ACTIVE, target main, pull_request obrigatório, squash-only, linear history, non_fast_forward, anti-delete, threads resolvidas, strict up-to-date e contexts exatos CodeRabbit, Socket Security: Pull Request Alerts e Socket Security: Project Report. Não exigir jobs GEF CI que ainda não existam. Aprovação humana formal 0 porque o repo tem apenas Owner conhecido; isso não dispensa CodeRabbit e owner audit. Quando houver segundo aprovador real, propor 1 required review.
 5. Se GitHub API devolver FORBIDDEN ou gh auth falhar, não fingir mudança; reportar ADMIN_BLOCKED e comando/Settings necessários. Não habilitar bypass, não mexer em outros repositórios. Não forçar merge.

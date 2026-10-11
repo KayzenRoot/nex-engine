@@ -33,6 +33,7 @@ jobs:
             '.engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md',
             '.engineering/DEFINITION-OF-DONE.md',
             '.engineering/SECURITY.md',
+            'ops/github/nex-main-ruleset.json',
           ];
           for (const f of must) assert.ok(fs.existsSync(f), 'required file missing: ' + f);
           const c = JSON.parse(fs.readFileSync('.engineering/CHECKPOINT.json','utf8'));
@@ -41,25 +42,27 @@ jobs:
           assert.ok(['NOT_VERIFIED','VERIFIED'].includes(c.gefInstalled), 'unsupported GEF status');
           const ledger = fs.readFileSync('.engineering/DECISIONS-LEDGER.md','utf8');
           assert.ok(ledger.includes('NEX-D-006') && ledger.includes('NEX-D-007'), 'owner decisions missing');
-          if (fs.existsSync('ops/github/nex-main-ruleset.json')) {
-            const p = JSON.parse(fs.readFileSync('ops/github/nex-main-ruleset.json','utf8'));
-            assert.equal(p.target,'branch');
-            assert.equal(p.enforcement,'active');
-            assert.deepEqual(p.conditions.ref_name.include,['~DEFAULT_BRANCH']);
-            assert.deepEqual(p.bypass_actors,[]);
-            const types = new Set(p.rules.map(r=>r.type));
-            for (const req of ['deletion','non_fast_forward','required_linear_history','pull_request','required_status_checks']) {
-              assert.ok(types.has(req),'required ruleset rule missing: '+req);
-            }
-            const checks = p.rules.find(r=>r.type==='required_status_checks').parameters;
-            assert.equal(checks.strict_required_status_checks_policy,true);
-            for (const req of ['CodeRabbit','Socket Security: Pull Request Alerts','Socket Security: Project Report']) {
-              assert.ok(checks.required_status_checks.some(x=>x.context===req),'required check missing: '+req);
-            }
-            const pr=p.rules.find(r=>r.type==='pull_request').parameters;
-            assert.deepEqual(pr.allowed_merge_methods,['squash']);
-            assert.equal(pr.required_review_thread_resolution,true);
+          const p = JSON.parse(fs.readFileSync('ops/github/nex-main-ruleset.json','utf8'));
+          assert.equal(p.target,'branch');
+          assert.equal(p.enforcement,'active');
+          assert.deepEqual(p.conditions.ref_name.include,['~DEFAULT_BRANCH']);
+          assert.deepEqual(p.conditions.ref_name.exclude,[]);
+          assert.deepEqual(p.bypass_actors,[]);
+          const types = new Set(p.rules.map(r=>r.type));
+          for (const req of ['deletion','non_fast_forward','required_linear_history','pull_request','required_status_checks']) {
+            assert.ok(types.has(req),'required ruleset rule missing: '+req);
           }
+          const checks = p.rules.find(r=>r.type==='required_status_checks').parameters;
+          assert.equal(checks.strict_required_status_checks_policy,true);
+          assert.deepEqual(
+            checks.required_status_checks.map(x=>x.context).sort(),
+            ['CodeRabbit','Socket Security: Project Report','Socket Security: Pull Request Alerts'].sort(),
+          );
+          const pr=p.rules.find(r=>r.type==='pull_request').parameters;
+          assert.deepEqual(pr.allowed_merge_methods,['squash']);
+          assert.equal(pr.required_approving_review_count,0);
+          assert.equal(pr.required_review_thread_resolution,true);
+          assert.equal(pr.dismiss_stale_reviews_on_push,true);
           console.log('Governance schema/source checks passed; this does NOT prove admin ruleset is active or GEF CLI installed.');
           NODE
 
@@ -72,7 +75,7 @@ jobs:
         shell: pwsh
         run: |
           $path = 'ops/github/apply-nex-main-protection.ps1'
-          if (-not (Test-Path $path)) { Write-Host 'No script yet in this branch'; exit 0 }
+          if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { Write-Error "Required script missing: $path"; exit 1 }
           $tokens = $null
           $errors = $null
           [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path).Path,[ref]$tokens,[ref]$errors)
