@@ -58,6 +58,13 @@ function requireObservedRepository(label, repository, expectedState) {
       expectedState,
       dirtiness: observation?.dirtiness ?? 'UNKNOWN',
       observationLimits: observation?.observationLimits ?? ['REPOSITORY_OBSERVATION_ABSENT'],
+      gitToolchain: typeof doctorJson === 'object'
+        ? {
+            presence: doctorJson.value.doctor.toolchain?.git?.presence ?? 'UNKNOWN',
+            probeStatus: doctorJson.value.doctor.toolchain?.git?.probeStatus ?? 'UNKNOWN',
+            gaps: doctorJson.value.doctor.toolchain?.git?.gaps ?? [],
+          }
+        : { presence: 'UNAVAILABLE' },
     };
     console.error(JSON.stringify(details));
     assert.fail(`${label}: repository state was not observed; cannot assert CLEAN/DIRTY. Investigate GEF CLI Git executable trust/metadata diagnostics on this runner.`);
