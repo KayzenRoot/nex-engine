@@ -44,6 +44,18 @@ foreach($name in @('Socket Security: Pull Request Alerts','Socket Security: Proj
   $valid=@($checkruns.check_runs | Where-Object { $_.name -eq $name -and $_.status -eq 'completed' -and $_.conclusion -eq 'success' })
   if ($valid.Count -eq 0) { throw "Missing historical green check: $name" }
 }
+# Do not activate a branch ruleset from unmerged or unreviewed configuration.
+$opsPr=GhJson @('api',"repos/$repo/pulls/73")
+if (-not $opsPr.merged) { throw 'PR #73 containing this script/ruleset must be approved and merged before -Apply.' }
+$opsSha=$opsPr.head.sha
+$opsStatus=GhJson @('api',"repos/$repo/commits/$opsSha/status")
+$opsRabbit=@($opsStatus.statuses | Where-Object { $_.context -eq 'CodeRabbit' -and $_.state -eq 'success' })
+if ($opsRabbit.Count -lt 1) { throw 'CodeRabbit on PR #73 exact reviewed HEAD is not SUCCESS.' }
+$opsChecks=GhJson @('api',"repos/$repo/commits/$opsSha/check-runs?per_page=100")
+foreach($needed in @('Socket Security: Pull Request Alerts','Socket Security: Project Report','NEX Governance / Source Pack','NEX Governance / PowerShell')) {
+  $passed=@($opsChecks.check_runs | Where-Object { $_.name -eq $needed -and $_.status -eq 'completed' -and $_.conclusion -eq 'success' })
+  if ($passed.Count -lt 1) { throw "PR #73 required exact-head check missing: $needed" }
+}
 $temp=Join-Path ([System.IO.Path]::GetTempPath()) ('nex-rules-'+[guid]::NewGuid().ToString('N')+'.json')
 $settingsTemp=Join-Path ([System.IO.Path]::GetTempPath()) ('nex-settings-'+[guid]::NewGuid().ToString('N')+'.json')
 try {
