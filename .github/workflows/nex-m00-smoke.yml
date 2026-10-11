@@ -1,0 +1,350 @@
+name: NEX M00 Windows Source Build and Smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/nex-m00-smoke.yml'
+      - '.nex/toolchain/**'
+      - 'tooling/godot/**'
+      - 'tests/m00/**'
+      - '.engineering/evidence/NEX-M00-WO-001-*.md'
+      - '.engineering/checkpoint-deltas/NEX-M00-WO-001-*.md'
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runner-preflight:
+    name: Windows standard runner feasibility
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - name: Measure runner before checkout, downloads, or build
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $startedUtc = [DateTime]::UtcNow
+          $gib = [double](1024 * 1024 * 1024)
+          $os = Get-CimInstance -ClassName Win32_OperatingSystem
+          $computer = Get-CimInstance -ClassName Win32_ComputerSystem
+          $memory = Get-CimInstance -ClassName Win32_PerfFormattedData_PerfOS_Memory
+          $processor = Get-CimInstance -ClassName Win32_Processor | Select-Object -First 1
+          $runnerDrive = [IO.Path]::GetPathRoot($env:RUNNER_TEMP)
+          $drive = [IO.DriveInfo]::new($runnerDrive)
+          $availableRamGiB = [math]::Round(([double]$os.FreePhysicalMemory * 1KB) / $gib, 2)
+          $commitHeadroomGiB = [math]::Round(([double]$memory.CommitLimit - [double]$memory.CommittedBytes) / $gib, 2)
+          $diskFreeGiB = [math]::Round($drive.AvailableFreeSpace / $gib, 2)
+          $logicalProcessors = [int]$processor.NumberOfLogicalProcessors
+
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $vsInstall = $null
+          $clPath = $null
+          $msvcVersion = $null
+          $vswhereOutput = @()
+          $vswhereExitCode = $null
+          $msvcProbeError = $null
+          if (Test-Path $vswhere) {
+            $vswhereOutput = @(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2>&1)
+            $vswhereExitCode = $LASTEXITCODE
+            $vsInstall = ($vswhereOutput | Select-Object -First 1 | ForEach-Object { $_.ToString().Trim() })
+            if ($vswhereExitCode -ne 0) {
+              $msvcProbeError = "vswhere exited $($vswhereExitCode): $($vswhereOutput -join ' | ')"
+              $vsInstall = $null
+            }
+          } else {
+            $msvcProbeError = "vswhere was not found at $vswhere."
+          }
+          if ($vsInstall) {
+            $defaultVersion = Join-Path $vsInstall 'VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt'
+            if (Test-Path $defaultVersion) { $msvcVersion = (Get-Content $defaultVersion -Raw).Trim() }
+            if ($msvcVersion) {
+              $candidateCl = Join-Path $vsInstall "VC\Tools\MSVC\$msvcVersion\bin\Hostx64\x64\cl.exe"
+              if (Test-Path $candidateCl) { $clPath = $candidateCl }
+            }
+          }
+
+          $sdkRoot = $null
+          $sdkVersions = @()
+          $sdkKey = Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots' -ErrorAction SilentlyContinue
+          if ($sdkKey -and $sdkKey.KitsRoot10) {
+            $sdkRoot = $sdkKey.KitsRoot10
+            $includeRoot = Join-Path $sdkRoot 'Include'
+            if (Test-Path $includeRoot) {
+              $sdkVersions = @(Get-ChildItem -Path $includeRoot -Directory | Select-Object -ExpandProperty Name)
+            }
+          }
+
+          $pythonCommand = Get-Command python.exe -ErrorAction SilentlyContinue
+          $pythonVersion = if ($pythonCommand) { (& $pythonCommand.Source --version 2>&1 | Out-String).Trim() } else { 'not found' }
+          $sconsCommand = Get-Command scons.exe -ErrorAction SilentlyContinue
+          $sconsVersion = if ($sconsCommand) { (& $sconsCommand.Source --version 2>&1 | Select-Object -First 1 | Out-String).Trim() } else { 'not found' }
+          if (-not $sconsCommand -and $pythonCommand) {
+            $sconsVersion = (& $pythonCommand.Source -m SCons --version 2>&1 | Select-Object -First 1 | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0) { $sconsVersion = 'not found' }
+          }
+
+          $measurements = [ordered]@{
+            observedAtUtc = $startedUtc.ToString('o')
+            runnerImage = 'windows-2022 standard GitHub-hosted runner'
+            logicalProcessors = $logicalProcessors
+            physicalMemoryGiB = [math]::Round(([double]$computer.TotalPhysicalMemory) / $gib, 2)
+            availablePhysicalMemoryGiB = $availableRamGiB
+            commitLimitGiB = [math]::Round(([double]$memory.CommitLimit) / $gib, 2)
+            committedBytesGiB = [math]::Round(([double]$memory.CommittedBytes) / $gib, 2)
+            commitHeadroomGiB = $commitHeadroomGiB
+            runnerDrive = $runnerDrive
+            freeDiskGiB = $diskFreeGiB
+            windowsVersion = $os.Caption
+            msvcVersion = $msvcVersion
+            msvcCompilerPath = $clPath
+            vswhereExitCode = $vswhereExitCode
+            vswhereOutput = $vswhereOutput
+            msvcProbeError = $msvcProbeError
+            windowsSdkRoot = $sdkRoot
+            windowsSdkVersions = $sdkVersions
+            python = $pythonVersion
+            scons = $sconsVersion
+            sourceCommit = 'ed1daf0bf001b61586d9930840f2f1394092c079'
+            sourceArchiveSha256 = 'a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481'
+            sourceArchiveBytes = 47744300
+            timeoutMinutesForBuildJob = 180
+            buildDurationEstimate = '120-180 minutes; uncertain, not measured on this runner'
+            buildDiskBudgetGiB = [ordered]@{
+              sourceAndExtraction = 1
+              compilerSdkAndPinnedDependencies = 3
+              buildIntermediatesAndEditor = 5
+              packagingAndLogs = 1
+              safetyReserve = 2
+              total = 12
+            }
+            preflightOnly = $true
+            downloadedSource = $false
+            invokedBuild = $false
+          }
+
+          $measurements | ConvertTo-Json -Depth 8 | Write-Host
+          $summary = @(
+            '# M00 Windows standard-runner preflight'
+            ''
+            ('- Observed: `' + $startedUtc.ToString('o') + '`')
+            ('- Image: `windows-2022`; logical processors: ' + $logicalProcessors)
+            ('- RAM: ' + $availableRamGiB + ' GiB available / ' + [math]::Round(([double]$computer.TotalPhysicalMemory) / $gib, 2) + ' GiB total')
+            ('- Commit headroom: ' + $commitHeadroomGiB + ' GiB')
+            ('- Free runner disk: ' + $diskFreeGiB + ' GiB on ' + $runnerDrive)
+            ('- MSVC: ' + $(if ($msvcVersion) { $msvcVersion } else { 'not found' }) + '; Windows SDK: ' + $(if ($sdkVersions.Count) { $sdkVersions -join ', ' } else { 'not found' }))
+            ('- vswhere exit: ' + $(if ($null -ne $vswhereExitCode) { $vswhereExitCode } else { 'not run' }) + '; output: ' + $(if ($vswhereOutput.Count) { $vswhereOutput -join ' | ' } else { 'empty' }))
+            ('- Python: ' + $pythonVersion + '; SCons: ' + $sconsVersion)
+            '- Budget: 12 GiB disk (1 source/extraction + 3 SDK/dependencies + 5 build outputs/intermediates + 1 packaging/logs + 2 reserve); >=8 GiB available RAM; >=12 GiB commit headroom; >=4 logical processors.'
+            '- Estimated build window: 120-180 minutes, uncertain; build-job timeout may not exceed 180 minutes.'
+            '- This job does not check out repository sources, download Godot, install dependencies, or invoke SCons. GitHub retains the native Actions logs as the evidence for this preflight.'
+          ) -join [Environment]::NewLine
+          Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value $summary
+
+          $failures = [System.Collections.Generic.List[string]]::new()
+          if ($availableRamGiB -lt 8) { $failures.Add("Available RAM $availableRamGiB GiB is below the 8 GiB minimum.") }
+          if ($commitHeadroomGiB -lt 12) { $failures.Add("Commit headroom $commitHeadroomGiB GiB is below the 12 GiB minimum.") }
+          if ($diskFreeGiB -lt 12) { $failures.Add("Free disk $diskFreeGiB GiB is below the 12 GiB build budget.") }
+          if ($logicalProcessors -lt 4) { $failures.Add("Logical processor count $logicalProcessors is below the 4-processor minimum.") }
+          if ($msvcVersion -ne '14.44.35207' -or -not $clPath) { $failures.Add('Pinned x64 MSVC 14.44.35207 was not found. ' + $msvcProbeError) }
+          if ($sdkVersions -notcontains '10.0.26100.0') { $failures.Add('Pinned Windows SDK 10.0.26100.0 was not found.') }
+          if ($pythonVersion -ne 'Python 3.12.10') { $failures.Add("Pinned Python 3.12.10 was not found: $pythonVersion.") }
+
+          if ($failures.Count -gt 0) {
+            Write-Error ('BLOCKED_RESOURCE_STOP: ' + ($failures -join ' '))
+          } else {
+            Write-Host 'P0-CI feasibility passed. No source was downloaded and no build was started.'
+          }
+
+  windows-source-build:
+    name: Windows Godot source build and smoke
+    needs: [windows-runner-preflight]
+    runs-on: windows-2022
+    timeout-minutes: 180
+    steps:
+      - name: Recheck actual build runner before checkout or download
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $gib = [double](1024 * 1024 * 1024)
+          $os = Get-CimInstance Win32_OperatingSystem
+          $computer = Get-CimInstance Win32_ComputerSystem
+          $memory = Get-CimInstance Win32_PerfFormattedData_PerfOS_Memory
+          $processor = Get-CimInstance Win32_Processor | Select-Object -First 1
+          $driveName = [IO.Path]::GetPathRoot($env:RUNNER_TEMP)
+          $drive = [IO.DriveInfo]::new($driveName)
+          $availableRam = [math]::Round(([double]$os.FreePhysicalMemory * 1KB) / $gib, 2)
+          $commitHeadroom = [math]::Round(([double]$memory.CommitLimit - [double]$memory.CommittedBytes) / $gib, 2)
+          $freeDisk = [math]::Round($drive.AvailableFreeSpace / $gib, 2)
+          $logicalProcessors = [int]$processor.NumberOfLogicalProcessors
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $vsInstall = $null
+          if (Test-Path $vswhere) {
+            $vswhereOutput = @(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2>&1)
+            if ($LASTEXITCODE -eq 0) { $vsInstall = ($vswhereOutput | Select-Object -First 1 | ForEach-Object { $_.ToString().Trim() }) }
+          }
+          $clPath = $null
+          $msvcVersion = $null
+          if ($vsInstall) {
+            $versionFile = Join-Path $vsInstall 'VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt'
+            if (Test-Path $versionFile) {
+              $msvcVersion = (Get-Content $versionFile -Raw).Trim()
+              $candidateCl = Join-Path $vsInstall "VC\Tools\MSVC\$msvcVersion\bin\Hostx64\x64\cl.exe"
+              if (Test-Path $candidateCl) { $clPath = $candidateCl }
+            }
+          }
+          $sdkKey = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots' -ErrorAction SilentlyContinue
+          $sdkInclude = if ($sdkKey -and $sdkKey.KitsRoot10) { Join-Path $sdkKey.KitsRoot10 'Include' } else { $null }
+          $sdkVersions = if ($sdkInclude -and (Test-Path $sdkInclude)) { @(Get-ChildItem $sdkInclude -Directory) } else { @() }
+          $pythonCommand = Get-Command python.exe -ErrorAction SilentlyContinue
+          $pythonVersion = if ($pythonCommand) { (& $pythonCommand.Source --version 2>&1 | Out-String).Trim() } else { 'not found' }
+          $metrics = [ordered]@{
+            observedAtUtc = [DateTime]::UtcNow.ToString('o')
+            runnerImage = 'windows-2022 standard GitHub-hosted runner'
+            cpu = $logicalProcessors
+            totalPhysicalMemoryGiB = [math]::Round(([double]$computer.TotalPhysicalMemory) / $gib, 2)
+            availablePhysicalMemoryGiB = $availableRam
+            commitHeadroomGiB = $commitHeadroom
+            drive = $driveName
+            freeDiskGiB = $freeDisk
+            msvcCompiler = $clPath
+            msvcToolsetVersion = $msvcVersion
+            windowsSdkVersions = @($sdkVersions | Select-Object -ExpandProperty Name)
+            python = $pythonVersion
+            sourceSha256 = 'a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481'
+            checkoutOrDownloadStarted = $false
+            buildStarted = $false
+            diskBudgetGiB = 12
+          }
+          $metrics | ConvertTo-Json -Depth 6 | Write-Host
+          $metrics | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $env:RUNNER_TEMP 'nex-m00-build-runner-preflight.json')
+          $summary = @(
+            '# M00 actual Windows build-runner preflight'
+            ''
+            ('Observed: ' + $metrics.observedAtUtc)
+            ('RAM available: ' + $availableRam + ' GiB; commit headroom: ' + $commitHeadroom + ' GiB')
+            ('Disk available: ' + $freeDisk + ' GiB on ' + $driveName + '; CPU: ' + $logicalProcessors)
+            ('MSVC found: ' + [bool]$clPath + '; Windows SDK: ' + (@($sdkVersions | Select-Object -ExpandProperty Name) -join ', '))
+            ('Python: ' + $pythonVersion + '; default MSVC toolset: ' + $msvcVersion)
+            'No checkout, download or build occurred before these measurements.'
+          ) -join [Environment]::NewLine
+          Add-Content $env:GITHUB_STEP_SUMMARY $summary
+          $failures = [System.Collections.Generic.List[string]]::new()
+          if ($availableRam -lt 8) { $failures.Add("Available RAM below 8 GiB: $availableRam.") }
+          if ($commitHeadroom -lt 12) { $failures.Add("Commit headroom below 12 GiB: $commitHeadroom.") }
+          if ($freeDisk -lt 12) { $failures.Add("Free disk below 12 GiB: $freeDisk.") }
+          if ($logicalProcessors -lt 4) { $failures.Add("CPU count below 4: $logicalProcessors.") }
+          if ($msvcVersion -ne '14.44.35207' -or -not $clPath) { $failures.Add('Pinned x64 MSVC 14.44.35207 was not found.') }
+          if ($sdkVersions.Name -notcontains '10.0.26100.0') { $failures.Add('Pinned Windows SDK 10.0.26100.0 was not found.') }
+          if ($pythonVersion -ne 'Python 3.12.10') { $failures.Add("Pinned Python 3.12.10 was not found: $pythonVersion.") }
+          if ($failures.Count -gt 0) { Write-Error ('BLOCKED_RESOURCE_STOP: ' + ($failures -join ' ')) }
+          Write-Host 'Actual Windows build runner passed the resource gate.'
+
+      - name: Checkout exact pull request head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Run M00 integrity and negative tests
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python --version
+          python -m unittest discover -s tests/m00 -p 'test_*.py' -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Build verified Godot source with native MSVC
+        id: build
+        shell: pwsh
+        env:
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $vsInstall = $null
+          $vswhereOutput = @()
+          if (Test-Path -LiteralPath $vswhere -PathType Leaf) {
+            $vswhereOutput = @(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2>&1)
+            if ($LASTEXITCODE -eq 0) {
+              $vsInstall = $vswhereOutput | Select-Object -First 1 | ForEach-Object { $_.ToString().Trim() }
+            }
+          }
+          if (-not $vsInstall) {
+            Write-Host ("vswhere path: {0}; exit: {1}; output: {2}" -f $vswhere, $LASTEXITCODE, ($vswhereOutput -join ' | '))
+            throw 'Could not locate Visual Studio x64 toolchain after P0.'
+          }
+          $vcvars = Join-Path $vsInstall 'VC\Auxiliary\Build\vcvars64.bat'
+          if (-not (Test-Path -LiteralPath $vcvars -PathType Leaf)) { throw "MSVC environment initializer is missing: $vcvars" }
+          $scriptPath = Join-Path (Resolve-Path '.').Path 'tooling\godot\ci_build.py'
+          $outputPath = Join-Path $env:RUNNER_TEMP ("nex-m00-{0}-{1}" -f $env:GITHUB_RUN_ID, $env:GITHUB_RUN_ATTEMPT)
+          $wrapper = Join-Path $env:RUNNER_TEMP 'nex-m00-build.cmd'
+          $lines = @(
+            '@echo off'
+            ('call "{0}"' -f $vcvars)
+            'if errorlevel 1 exit /b %errorlevel%'
+            ('python "{0}" windows-build --candidate-sha "{1}" --output-dir "{2}"' -f $scriptPath, $env:CANDIDATE_SHA, $outputPath)
+            'exit /b %errorlevel%'
+          )
+          Set-Content -LiteralPath $wrapper -Value ($lines -join [Environment]::NewLine) -Encoding Ascii
+          & $env:ComSpec /d /c $wrapper
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Upload Windows source-build package
+        if: success() && steps.build.outputs.package_ready == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: nex-m00-godot-windows-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          path: |
+            ${{ steps.build.outputs.package_path }}
+            ${{ steps.build.outputs.package_path }}.sha256
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload Windows build logs and preflight
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: nex-m00-windows-logs-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/nex-m00-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
+            ${{ runner.temp }}/nex-m00-build-runner-preflight.json
+          if-no-files-found: warn
+          retention-days: 7
+
+  ubuntu-headless-smoke:
+    name: Ubuntu official headless smoke and negative tests
+    needs: [windows-source-build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout exact pull request head
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Run M00 integrity and negative tests
+        run: |
+          python3 --version
+          python3 -m unittest discover -s tests/m00 -p 'test_*.py' -v
+
+      - name: Verify and smoke official Linux editor
+        env:
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 tooling/godot/ci_build.py linux-smoke \
+            --candidate-sha "$CANDIDATE_SHA" \
+            --output-dir "$RUNNER_TEMP/nex-m00-linux-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+
+      - name: Upload Ubuntu smoke logs and digest evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: nex-m00-ubuntu-smoke-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
+            ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/smoke-results.json
+          if-no-files-found: warn
+          retention-days: 7
