@@ -8,8 +8,11 @@ import { createHash } from 'node:crypto';
 // The fixture must not inherit PATH components writable by the invoking user.
 // Windows GEF trust is validated under the ephemeral standard-user CI account.
 const fixedExecutablePath = process.platform === 'win32'
-  ? 'C:\\Program Files\\Git\\bin;C:\\Windows\\System32;C:\\Windows'
+  ? String.raw`C:\Program Files\Git\bin;C:\Windows\System32;C:\Windows`
   : '/usr/bin:/bin';
+const gitExecutable = process.platform === 'win32'
+  ? String.raw`C:\Program Files\Git\bin\git.exe`
+  : '/usr/bin/git';
 const childEnvironment = Object.fromEntries(
   Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PATH'),
 );
@@ -19,6 +22,7 @@ childEnvironment.GIT_OPTIONAL_LOCKS = '0';
 const source = process.cwd();
 const cli = join(source, 'node_modules', '@gef-bootstrap', 'cli', 'bin', 'gef.mjs');
 assert.ok(existsSync(cli), 'Local GEF CLI is missing; install the pinned package with npm ci.');
+assert.ok(existsSync(gitExecutable), `Expected protected Git executable: ${gitExecutable}`);
 
 const tempBase = resolve(process.env.NEX_GEF_TEST_TMP || tmpdir());
 mkdirSync(tempBase, { recursive: true });
@@ -26,28 +30,39 @@ const fixtureRoot = mkdtempSync(join(tempBase, 'nex-gef-collision-'));
 const fixture = join(fixtureRoot, 'repository');
 let passed = false;
 
-function run(command, args, options = {}) {
-  const result = spawnSync(command, args, {
+function resultOf(executable, args, result) {
+  assert.ifError(result.error);
+  assert.notEqual(result.status, null, `Command timed out: ${executable} ${args.join(' ')}`);
+  return { exitCode: result.status, stdout: result.stdout.trim(), stderr: result.stderr.trim() };
+}
+function runGit(args, options = {}) {
+  return resultOf(gitExecutable, args, spawnSync(gitExecutable, args, {
     cwd: options.cwd || source,
     encoding: 'utf8',
     timeout: 60_000,
     env: childEnvironment,
-  });
-  assert.ifError(result.error);
-  assert.notEqual(result.status, null, `Command timed out: ${command} ${args.join(' ')}`);
-  return { exitCode: result.status, stdout: result.stdout.trim(), stderr: result.stderr.trim() };
+  }));
+}
+function runGef(args, options = {}) {
+  const commandArgs = [cli, ...args];
+  return resultOf(process.execPath, commandArgs, spawnSync(process.execPath, commandArgs, {
+    cwd: options.cwd || source,
+    encoding: 'utf8',
+    timeout: 60_000,
+    env: childEnvironment,
+  }));
 }
 
 function gitStatus(path) {
-  const result = run('git', ['-c', 'core.fsmonitor=false', '--no-optional-locks', 'status', '--porcelain', '-z', '--untracked-files=all'], { cwd: path });
+  const result = runGit(['-c', 'core.fsmonitor=false', '--no-optional-locks', 'status', '--porcelain', '-z', '--untracked-files=all'], { cwd: path });
   assert.equal(result.exitCode, 0, `git status failed in collision fixture: ${result.stderr}`);
   return result.stdout;
 }
 
 try {
-  const clone = run('git', ['clone', '--quiet', '--local', '--no-hardlinks', '--no-checkout', source, fixture]);
+  const clone = runGit(['clone', '--quiet', '--local', '--no-hardlinks', '--no-checkout', source, fixture]);
   assert.equal(clone.exitCode, 0, `Could not create isolated collision fixture: ${clone.stderr}`);
-  const checkout = run('git', ['checkout', '--quiet', '--detach', 'HEAD'], { cwd: fixture });
+  const checkout = runGit(['checkout', '--quiet', '--detach', 'HEAD'], { cwd: fixture });
   assert.equal(checkout.exitCode, 0, `Could not checkout exact fixture HEAD: ${checkout.stderr}`);
 
   const stateDirectory = join(fixture, '.gef');
@@ -55,9 +70,9 @@ try {
   mkdirSync(stateDirectory, { recursive: true });
   const sentinel = 'user-owned collision sentinel\n';
   writeFileSync(stateFile, sentinel);
-  const add = run('git', ['add', '--', '.gef/init-state.json'], { cwd: fixture });
+  const add = runGit(['add', '--', '.gef/init-state.json'], { cwd: fixture });
   assert.equal(add.exitCode, 0, `Could not stage collision sentinel: ${add.stderr}`);
-  const commit = run('git', [
+  const commit = runGit([
     '-c', 'user.name=NEX isolated test',
     '-c', 'user.email=nex-test@example.invalid',
     'commit', '--quiet', '-m', 'fixture: establish user-owned GEF collision',
@@ -65,7 +80,7 @@ try {
   assert.equal(commit.exitCode, 0, `Could not commit isolated collision sentinel: ${commit.stderr}`);
   assert.equal(gitStatus(fixture), '', 'Collision fixture must be clean before the apply attempt.');
 
-  const preview = run(process.execPath, [cli, 'init', '--target', fixture, '--json']);
+  const preview = runGef(['init', '--target', fixture, '--json']);
   assert.equal(preview.exitCode, 0, `Collision preview failed: ${preview.stderr}`);
   const previewResponse = JSON.parse(preview.stdout);
   assert.equal(previewResponse.ok, true, 'Collision preview did not produce a plan.');
@@ -74,7 +89,7 @@ try {
   assert.equal(gitStatus(fixture), '', 'Collision preview changed the fixture working tree.');
 
   const before = createHash('sha256').update(readFileSync(stateFile)).digest('hex');
-  const apply = run(process.execPath, [cli, 'init', '--target', fixture, '--apply', '--json']);
+  const apply = runGef(['init', '--target', fixture, '--apply', '--json']);
   assert.notEqual(apply.exitCode, 0, 'GEF init apply unexpectedly overwrote an existing state file.');
   const response = JSON.parse(apply.stdout);
   assert.equal(response.ok, false, 'Collision apply was not rejected.');
@@ -103,7 +118,7 @@ try {
 
   console.log(JSON.stringify({
     result: 'PASS',
-    fixtureHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: fixture, encoding: 'utf8', env: childEnvironment }).trim(),
+    fixtureHead: execFileSync(gitExecutable, ['rev-parse', 'HEAD'], { cwd: fixture, encoding: 'utf8', env: childEnvironment }).trim(),
     applyExitCode: apply.exitCode,
     terminal: response.terminal,
     reasonCode: response.error.reasonCode,

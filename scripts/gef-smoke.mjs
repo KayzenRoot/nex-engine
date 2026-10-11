@@ -8,8 +8,11 @@ import { createHash } from 'node:crypto';
 // These OS-managed locations are not writable by the non-admin test identity.
 // The Node interpreter and GEF CLI are invoked by absolute paths.
 const fixedExecutablePath = process.platform === 'win32'
-  ? 'C:\\Program Files\\Git\\bin;C:\\Windows\\System32;C:\\Windows'
+  ? String.raw`C:\Program Files\Git\bin;C:\Windows\System32;C:\Windows`
   : '/usr/bin:/bin';
+const gitExecutable = process.platform === 'win32'
+  ? String.raw`C:\Program Files\Git\bin\git.exe`
+  : '/usr/bin/git';
 const childEnvironment = Object.fromEntries(
   Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PATH'),
 );
@@ -20,6 +23,7 @@ const target = process.cwd();
 const cli = join(target, 'node_modules', '@gef-bootstrap', 'cli', 'bin', 'gef.mjs');
 
 assert.ok(existsSync(cli), 'Local GEF CLI is missing; install the pinned package with npm ci.');
+assert.ok(existsSync(gitExecutable), `Expected protected Git executable: ${gitExecutable}`);
 
 function run(args) {
   const result = spawnSync(process.execPath, [cli, ...args], {
@@ -34,7 +38,7 @@ function run(args) {
 }
 
 function gitStatus() {
-  const result = spawnSync('git', [
+  const result = spawnSync(gitExecutable, [
     '-c', 'core.fsmonitor=false',
     '--no-optional-locks',
     'status', '--porcelain', '-z', '--untracked-files=normal',
@@ -156,7 +160,7 @@ assert.equal(after, before, 'Read-only doctor/status/init preview changed the ta
 assert.equal(gefAfter, gefBefore, 'Read-only doctor/status/init preview changed managed GEF state.');
 assert.equal(privateAfter, privateBefore, 'Read-only doctor/status/init preview changed private transaction state.');
 
-const ignoreProbe = spawnSync('git', ['check-ignore', '--quiet', '--no-index', '.gef-private/probe'], {
+const ignoreProbe = spawnSync(gitExecutable, ['check-ignore', '--quiet', '--no-index', '.gef-private/probe'], {
   cwd: target,
   encoding: 'utf8',
   timeout: 10_000,
