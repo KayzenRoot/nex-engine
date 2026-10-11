@@ -1,5 +1,5 @@
 # Definition of Done · NEX Bootstrap
-Status: DRAFT; applies to bootstrap phase only, NOT the future graphics engine.
+Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE (bootstrap policies only, GEF NOT_VERIFIED).; applies to bootstrap phase only, NOT the future graphics engine.
 NEX-GEF-WO-001 is done only if:
 1. Current governing Source Pack is reviewed, merged and coherent.
 2. The GEF CLI package is locked at v1.1.2, available locally and in reproducible CI.
