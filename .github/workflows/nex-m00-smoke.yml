@@ -282,7 +282,7 @@ jobs:
           $wrapper = Join-Path $env:RUNNER_TEMP 'nex-m00-build.cmd'
           $lines = @(
             '@echo off'
-            ('call "{0}" -arch=amd64 -host_arch=amd64' -f $vcvars)
+            ('call "{0}"' -f $vcvars)
             'if errorlevel 1 exit /b %errorlevel%'
             ('python "{0}" windows-build --candidate-sha "{1}" --output-dir "{2}"' -f $scriptPath, $env:CANDIDATE_SHA, $outputPath)
             'exit /b %errorlevel%'
