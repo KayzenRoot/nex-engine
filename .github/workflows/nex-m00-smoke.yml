@@ -263,8 +263,18 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
-          $vsInstall = (& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath | Select-Object -First 1).Trim()
-          if ($LASTEXITCODE -ne 0 -or -not $vsInstall) { throw 'Could not locate Visual Studio x64 toolchain after P0.' }
+          $vsInstall = $null
+          $vswhereOutput = @()
+          if (Test-Path -LiteralPath $vswhere -PathType Leaf) {
+            $vswhereOutput = @(& $vswhere -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2>&1)
+            if ($LASTEXITCODE -eq 0) {
+              $vsInstall = $vswhereOutput | Select-Object -First 1 | ForEach-Object { $_.ToString().Trim() }
+            }
+          }
+          if (-not $vsInstall) {
+            Write-Host ("vswhere path: {0}; exit: {1}; output: {2}" -f $vswhere, $LASTEXITCODE, ($vswhereOutput -join ' | '))
+            throw 'Could not locate Visual Studio x64 toolchain after P0.'
+          }
           $vcvars = Join-Path $vsInstall 'VC\Auxiliary\Build\vcvars64.bat'
           if (-not (Test-Path -LiteralPath $vcvars -PathType Leaf)) { throw "MSVC environment initializer is missing: $vcvars" }
           $scriptPath = Join-Path (Resolve-Path '.').Path 'tooling\godot\ci_build.py'
