@@ -4,6 +4,18 @@ import { existsSync, lstatSync, readdirSync, readFileSync, readlinkSync } from '
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 
+// CI-only GEF smoke: never resolve Git through inherited, potentially writable PATH entries.
+// These OS-managed locations are not writable by the non-admin test identity.
+// The Node interpreter and GEF CLI are invoked by absolute paths.
+const fixedExecutablePath = process.platform === 'win32'
+  ? 'C:\\Program Files\\Git\\bin;C:\\Windows\\System32;C:\\Windows'
+  : '/usr/bin:/bin';
+const childEnvironment = Object.fromEntries(
+  Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PATH'),
+);
+childEnvironment.PATH = fixedExecutablePath;
+childEnvironment.GIT_OPTIONAL_LOCKS = '0';
+
 const target = process.cwd();
 const cli = join(target, 'node_modules', '@gef-bootstrap', 'cli', 'bin', 'gef.mjs');
 
@@ -14,7 +26,7 @@ function run(args) {
     cwd: target,
     encoding: 'utf8',
     timeout: 30_000,
-    env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+    env: childEnvironment,
   });
   assert.ifError(result.error);
   assert.notEqual(result.status, null, `GEF command timed out: ${args.join(' ')}`);
@@ -30,7 +42,7 @@ function gitStatus() {
     cwd: target,
     encoding: 'utf8',
     timeout: 10_000,
-    env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+    env: childEnvironment,
   });
   assert.ifError(result.error);
   assert.equal(result.status, 0, `git status failed: ${result.stderr}`);
@@ -148,7 +160,7 @@ const ignoreProbe = spawnSync('git', ['check-ignore', '--quiet', '--no-index', '
   cwd: target,
   encoding: 'utf8',
   timeout: 10_000,
-  env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+  env: childEnvironment,
 });
 assert.ifError(ignoreProbe.error);
 assert.equal(ignoreProbe.status, 0, '.gef-private is not ignored by the repository.');
