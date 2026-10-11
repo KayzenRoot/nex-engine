@@ -14,5 +14,6 @@
   "ciExactHead": "NOT_VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
   "nextLegalAction": "REVIEW_AND_PROMOTE_SOURCE_PACK",
-  "lastSourceInspectionDate": "2026-10-10"
+  "lastSourceInspectionDate": "2026-10-10",
+  "bootstrapExecutor": "ChatGPT_OWNER_EXCEPTION_NEX_ADR_0001"
 }

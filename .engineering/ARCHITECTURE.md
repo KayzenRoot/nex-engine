@@ -5,3 +5,5 @@ GEF distribution: published npm package `@gef-bootstrap/cli@1.1.2` (immutable ve
 Repository-managed deterministic install and scripts must not assume a global CLI; Codex determines minimal implementation from actual GEF CLI and source state. Project-owned managed GEF files follow observed init preview.
 Governance: Source Pack -> admitted Work Order + Context Lock -> Codex local preflight/implementation -> GitHub PR/CI -> exact-head audit -> checkpoint.
 The future Godot fork, rendering backend, API and game runtime are NOT_YET_DESIGNED.
+
+Actor exception: NEX-ADR-0001 permits ChatGPT to implement only the initial GEF bootstrap. From the next engine-feature Work Order onward, the Codex-as-executor default is restored unless the owner explicitly changes it again.
