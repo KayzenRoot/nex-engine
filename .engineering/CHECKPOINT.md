@@ -16,7 +16,7 @@ Status: **M00_BASELINE_VERIFIED**, effective upon reviewed merge of this separat
 - CD-003: 5/5 fresh-user-data and 5/5 warm-user-data Windows editor starts exited 0 with zero reproduced crashes. Historical `0xC0000005` root cause UNKNOWN, explicitly accepted as residual risk by Owner. Raw local logs and indices preserved, NOT independently read byte-for-byte by ChatGPT.
 - [Actual post-merge GEF Windows/Ubuntu](https://github.com/KayzenRoot/nex-engine/actions/runs/38185193893) and [Governance Source Pack/PowerShell](https://github.com/KayzenRoot/nex-engine/actions/runs/38185193916) SUCCESS, plus SonarCloud and Socket Project Report: **6/6** checks on `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861`.
 - M00 workflow triggers only for pull_request: **NO** additional native source build is claimed on the squash commit; approved SHA-equivalent Git tree binds validated PR artifacts to identical integrated content.
-- Full [post-merge evidence](.engineering/evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md) and [Issue #5 audit](https://github.com/KayzenRoot/nex-engine/issues/5#issuecomment-6115221416).
+- Full [post-merge evidence](evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md) and [Issue #5 audit](https://github.com/KayzenRoot/nex-engine/issues/5#issuecomment-6115221416).
 
 ## Boundaries / Next legal action
 - M00 verified is only a **native Godot baseline**; it is not a finished NEX Engine release, custom renderer, playable game or performance benchmark. The engine-wide DoD/completion percentage remains NOT_BASELINED.
