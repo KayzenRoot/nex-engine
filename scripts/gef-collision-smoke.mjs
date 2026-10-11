@@ -5,6 +5,17 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 
+// The fixture must not inherit PATH components writable by the invoking user.
+// Windows GEF trust is validated under the ephemeral standard-user CI account.
+const fixedExecutablePath = process.platform === 'win32'
+  ? 'C:\\Program Files\\Git\\bin;C:\\Windows\\System32;C:\\Windows'
+  : '/usr/bin:/bin';
+const childEnvironment = Object.fromEntries(
+  Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PATH'),
+);
+childEnvironment.PATH = fixedExecutablePath;
+childEnvironment.GIT_OPTIONAL_LOCKS = '0';
+
 const source = process.cwd();
 const cli = join(source, 'node_modules', '@gef-bootstrap', 'cli', 'bin', 'gef.mjs');
 assert.ok(existsSync(cli), 'Local GEF CLI is missing; install the pinned package with npm ci.');
@@ -20,7 +31,7 @@ function run(command, args, options = {}) {
     cwd: options.cwd || source,
     encoding: 'utf8',
     timeout: 60_000,
-    env: { ...process.env, GIT_OPTIONAL_LOCKS: '0' },
+    env: childEnvironment,
   });
   assert.ifError(result.error);
   assert.notEqual(result.status, null, `Command timed out: ${command} ${args.join(' ')}`);
@@ -92,7 +103,7 @@ try {
 
   console.log(JSON.stringify({
     result: 'PASS',
-    fixtureHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: fixture, encoding: 'utf8' }).trim(),
+    fixtureHead: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: fixture, encoding: 'utf8', env: childEnvironment }).trim(),
     applyExitCode: apply.exitCode,
     terminal: response.terminal,
     reasonCode: response.error.reasonCode,
