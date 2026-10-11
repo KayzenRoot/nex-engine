@@ -1,0 +1,119 @@
+name: NEX GEF Bootstrap Smoke
+
+on:
+  pull_request:
+    paths:
+      - '.engineering/**'
+      - '.gef/**'
+      - '.github/workflows/gef-bootstrap-smoke.yml'
+      - '.gitignore'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/gef-*.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.engineering/**'
+      - '.gef/**'
+      - '.github/workflows/gef-bootstrap-smoke.yml'
+      - '.gitignore'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/gef-*.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  gef-smoke:
+    name: GEF smoke / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Run GEF smoke (Linux)
+        if: runner.os != 'Windows'
+        run: npm run test:gef
+      - name: Run GEF smoke as temporary non-admin user (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $workspace = (Resolve-Path '.').Path
+          $name = 'nex-gef-' + [Guid]::NewGuid().ToString('N').Substring(0, 10)
+          $identity = "$env:COMPUTERNAME\$name"
+          $profile = Join-Path $env:RUNNER_TEMP "nex-gef-profile-$name"
+          $temp = Join-Path $env:RUNNER_TEMP "nex-gef-temp-$name"
+          $grant = '{0}:(OI)(CI)M' -f $identity
+          $created = $false
+          $failure = $null
+          $log = [System.Collections.Generic.List[string]]::new()
+          function Invoke-UnderTestUser([string]$label, [string]$binary, [string]$arguments) {
+            $stdout = Join-Path $env:RUNNER_TEMP "nex-gef-$name-$label.out"
+            $stderr = Join-Path $env:RUNNER_TEMP "nex-gef-$name-$label.err"
+            $process = Start-Process -FilePath $binary -ArgumentList $arguments -Credential $credential -LoadUserProfile -UseNewEnvironment -Environment $childEnv -WorkingDirectory $workspace -RedirectStandardOutput $stdout -RedirectStandardError $stderr -Wait -PassThru
+            $result = ((Get-Content $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content $stderr -Raw -ErrorAction SilentlyContinue))
+            $log.Add("$label exit=$($process.ExitCode)")
+            $log.Add($result)
+            return [pscustomobject]@{ Code = $process.ExitCode; Output = $result }
+          }
+          try {
+            $node = (Get-Command node.exe -ErrorAction Stop).Source
+            $npmCmd = (Get-Command npm.cmd -ErrorAction Stop).Source
+            $npmCli = Join-Path (Split-Path $npmCmd) 'node_modules\npm\bin\npm-cli.js'
+            $git = (Get-Command git.exe -ErrorAction Stop).Source
+            if (-not (Test-Path $npmCli)) { throw 'Node installation does not contain npm-cli.js.' }
+            $password = ConvertTo-SecureString ([Guid]::NewGuid().ToString('N') + 'aA9!') -AsPlainText -Force
+            New-LocalUser -Name $name -Password $password -Description 'Ephemeral non-admin NEX GEF validation identity' -PasswordNeverExpires | Out-Null
+            $created = $true
+            Add-LocalGroupMember -Group Users -Member $name
+            $credential = [pscredential]::new($identity, $password)
+            $appData = Join-Path $profile 'AppData\Roaming'
+            $localAppData = Join-Path $profile 'AppData\Local'
+            New-Item -ItemType Directory -Path $profile, $temp, $appData, $localAppData -Force | Out-Null
+            foreach ($path in @($workspace, $profile, $temp)) {
+              & icacls.exe $path /grant $grant /T /C /Q | Out-Null
+              if ($LASTEXITCODE -ne 0) { throw "Could not grant isolated workspace/profile access: $path" }
+            }
+            $childPath = @((Split-Path $node), (Split-Path $npmCmd), (Split-Path $git), "$env:SystemRoot\System32", $env:SystemRoot) -join ';'
+            $childEnv = @{
+              SystemRoot = $env:SystemRoot; windir = $env:windir; SystemDrive = $env:SystemDrive
+              ComSpec = $env:ComSpec; PATHEXT = $env:PATHEXT; Path = $childPath
+              USERPROFILE = $profile; HOME = $profile; APPDATA = $appData; LOCALAPPDATA = $localAppData
+              TEMP = $temp; TMP = $temp; ProgramData = $env:ProgramData; ProgramFiles = $env:ProgramFiles
+              OS = $env:OS; PROCESSOR_ARCHITECTURE = $env:PROCESSOR_ARCHITECTURE
+              COMPUTERNAME = $env:COMPUTERNAME; CI = 'true'; GITHUB_ACTIONS = 'true'
+              GITHUB_WORKSPACE = $workspace; RUNNER_TEMP = $temp; GIT_OPTIONAL_LOCKS = '0'
+            }
+            $who = Invoke-UnderTestUser 'identity' (Join-Path $env:SystemRoot 'System32\whoami.exe') '/groups'
+            if ($who.Code -ne 0 -or $who.Output -match 'S-1-5-32-544') { throw 'Smoke user has administrative privileges.' }
+            $safe = Invoke-UnderTestUser 'git-safe-directory' $git ('config --global --add safe.directory "' + $workspace + '"')
+            if ($safe.Code -ne 0) { throw 'Could not configure the test account Git safe.directory.' }
+            $test = Invoke-UnderTestUser 'gef-smoke' $node ('"' + $npmCli + '" run test:gef')
+            if ($test.Code -ne 0) { throw 'GEF smoke failed as unprivileged user; see Git trust diagnostics.' }
+          } catch {
+            $failure = $_.Exception.Message
+            $log.Add("ERROR: $failure")
+          } finally {
+            if ($created) {
+              foreach ($path in @($workspace, $profile, $temp)) {
+                if (Test-Path $path) { & icacls.exe $path /remove:g $identity /T /C /Q | Out-Null }
+              }
+              Remove-LocalUser -Name $name -ErrorAction SilentlyContinue
+            }
+            foreach ($item in $log) { Write-Host $item }
+          }
+          if ($failure) { throw $failure }
+      - name: Check dependency advisories
+        run: npm audit --audit-level=high
