@@ -13,4 +13,4 @@
 **DELIVERABLES:** implementation branch+PR by ChatGPT for bootstrap-only, Evidence Bundle with SHA/tests/CI/risks, proposed Checkpoint Delta, Portuguese review.
 **REVIEW FORMAT:** APPROVED / CORRECTION REQUIRED / BLOCKED, state issue/PR/HEAD/checks and residual risks.
 **OWNER EXCEPTION:** For this WO only, ChatGPT may implement scripts, dependency pinning and CI directly; no Codex handoff required. Future Godot development remains Codex-first. This remains planning-only until documentation promotion and fresh execution Context Lock.
-**STOP CONDITION:** NEX_GEF_WO_001_READY_FOR_EXACT_HEAD_AUDIT. No Codex self-merge/approval/checkpoint promotion.
+**STOP CONDITION:** NEX_GEF_WO_001_READY_FOR_EXACT_HEAD_AUDIT. No executor self-merge/approval/checkpoint promotion.
