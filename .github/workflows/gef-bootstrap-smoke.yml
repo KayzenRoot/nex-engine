@@ -41,7 +41,7 @@ jobs:
           node-version: 22
           cache: npm
       - name: Install locked dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Run GEF smoke (Linux)
         if: runner.os != 'Windows'
         run: npm run test:gef
