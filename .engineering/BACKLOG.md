@@ -1,5 +1,5 @@
 # Backlog · NEX Engine
-Status: DRAFT, no total engine-completion denominator frozen.
+Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE (bootstrap policies only, GEF NOT_VERIFIED)., no total engine-completion denominator frozen.
 - NEX-GEF-WO-001 · NECESSARY / PLANNED: initialize Source Pack, install and validate GEF Bootstrap v1.1.2. Tracking: https://github.com/KayzenRoot/nex-engine/issues/1 .
 - Godot baseline feasibility / 3D isometric reference scene · IMPORTANT / NOT_ADMITTED.
 - Advanced 3D render extensions and lighting/VFX/LOD · FUTURE / NOT_ADMITTED.
