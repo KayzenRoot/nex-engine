@@ -1,0 +1,6 @@
+# NEX M00 | Security and provenance
+**Status:** proposal for M00 admission, not a waiver.
+**Supply chain:** only official godotengine/godot release tag/commit, SHA256 verified source bytes; pin compiler/tools and record source license plus bundled notices. No arbitrary scripts, source mirrors, secret-in-URL downloads or automatic paid downloads. Source SHA and release digest are independent checks, not evidence compiled binary is secure.
+**Execution:** isolated Codex Desktop LOCAL worktree/branch, least-privilege shell and a bounded temp build dir; preserve developer data and unknown files. Do not set global Git safe.directory blindly, weaken ACLs or bypass GEF Git executable trust. No credential output in CI/evidence.
+**Ownership:** Single Integration Steward writer for shared CI/toolchain/core configuration; forbid other modules while M00 touches shared paths. No Godot core modifications/forks until separate ADR and WO. Always inspect candidate dependency licenses and disable untrusted lifecycle hooks.
+**Review:** require CodeRabbit, Socket, Sonar, relevant Linux/Windows tests and human audit on final SHA; security hotspot findings resolved or explicitly blocked. Release/checkpoint requires separate authority. Doctor REVIEW issues and audit signature caveats remain traceable.

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0",
+  "id": "NEX-M00-WO-001-PRE-ADMISSION",
+  "status": "OWNER_APPROVED_GOVERNANCE_PENDING",
+  "repository": "KayzenRoot/nex-engine",
+  "ownerApproval": {
+    "date": "2026-10-11",
+    "source": "Issue #5 user instruction: Aprovo M00",
+    "githubIssue": 5
+  },
+  "governanceBaseSha": "2ea59f2cd1906c41c0112a7bacb0bba679a8c886",
+  "proposedBranch": "governance/m00-owner-approval-scope-adr-001",
+  "executionContextLock": "NOT_CREATED_UNTIL_GOVERNANCE_PR_MERGED",
+  "executionBranch": "NOT_CREATED",
+  "executionAdmitted": false,
+  "godotCandidate": {
+    "ref": "refs/tags/4.7.2-stable",
+    "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "sourceArchive": "godot-4.7.2-stable.tar.xz",
+    "sha256": "a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481",
+    "godotCppAbi": "UNVERIFIED_NOT_REQUIRED_M00"
+  },
+  "proposedWriteScope": [
+    "tooling/godot/**",
+    ".nex/toolchain/**",
+    "tests/m00/**",
+    ".github/workflows/nex-m00-smoke.yml",
+    ".engineering/evidence/NEX-M00-WO-001-*.md",
+    ".engineering/checkpoint-deltas/NEX-M00-WO-001-*.md"
+  ],
+  "exclusiveSharedWrites": [
+    "project.godot",
+    ".github/workflows/**",
+    "package.json",
+    "package-lock.json",
+    "contracts/**"
+  ],
+  "protectedReadOnly": [
+    "AGENTS.md",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md",
+    ".engineering/SOURCE-HIERARCHY.md",
+    ".engineering/DECISIONS-LEDGER.md",
+    ".gef/**",
+    "all other modules",
+    "main"
+  ],
+  "preconditions": [
+    "governance M00 ADR/Scope/DoD merged with all required checks",
+    "actual latest main SHA resolved AFTER governance merge",
+    "Source Pack canonical Git blob fingerprints captured on that SHA",
+    "Owner/Steward release exclusive implementation lease",
+    "execution Context Lock separately reviewed and promoted",
+    "no core fork or renderer code"
+  ],
+  "stopCondition": "M00_OWNER_APPROVED_GOVERNANCE_PENDING",
+  "note": "This is an intentionally non-executable pre-admission plan; do not infer authorization to code from Owner approval alone. Historical main base changes on PR merge so a second lock PR is mandatory."
+}

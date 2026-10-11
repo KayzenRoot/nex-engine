@@ -3,7 +3,7 @@
   "project": "KayzenRoot/nex-engine",
   "status": "GEF_BOOTSTRAP_VERIFIED_M00_NOT_ADMITTED",
   "phase": "BOOTSTRAP_COMPLETED_AWAIT_M00_ADMISSION",
-  "mainObservedSha": "570d0671ed57f5cd29932baf0bac26345efca279",
+  "mainObservedSha": "2ea59f2cd1906c41c0112a7bacb0bba679a8c886",
   "workOrderId": "NEX-GEF-WO-001",
   "workOrderIssue": 1,
   "workOrderAdmission": "ADMITTED",
@@ -13,7 +13,7 @@
   "gefInitialized": "VERIFIED",
   "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "M00_WO_001_ADMISSION_AFTER_FRESH_CONTEXT_LOCK",
+  "nextLegalAction": "M00_GOVERNANCE_PROMOTION_THEN_FRESH_EXECUTION_CONTEXT_LOCK",
   "lastSourceInspectionDate": "2026-10-11",
   "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
@@ -35,5 +35,9 @@
       "GEF doctor security.dependency / security.github REVIEW to track",
       "Initial historical Evidence Bundle and proposed Delta superseded by final-head audited evidence"
     ]
-  }
+  },
+  "m00OwnerApproval": "2026-10-11_OWNER_APPROVED_GOVERNANCE_PENDING",
+  "m00PlanningIssue": 5,
+  "m00ProposedGodotRef": "4.7.2-stable",
+  "m00ProposedGodotCommit": "ed1daf0bf001b61586d9930840f2f1394092c079"
 }
