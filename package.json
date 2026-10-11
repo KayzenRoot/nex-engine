@@ -7,7 +7,7 @@
     "node": ">=22 <23"
   },
   "scripts": {
-    "test:gef": "node scripts/gef-smoke.mjs"
+    "test:gef": "node scripts/gef-smoke.mjs && node scripts/gef-collision-smoke.mjs"
   },
   "devDependencies": {
     "@gef-bootstrap/cli": "1.1.2"

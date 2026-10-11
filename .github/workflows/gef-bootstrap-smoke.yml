@@ -1,0 +1,46 @@
+name: NEX GEF Bootstrap Smoke
+
+on:
+  pull_request:
+    paths:
+      - '.engineering/**'
+      - '.gef/**'
+      - '.github/workflows/gef-bootstrap-smoke.yml'
+      - '.gitignore'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/gef-*.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.engineering/**'
+      - '.gef/**'
+      - '.github/workflows/gef-bootstrap-smoke.yml'
+      - '.gitignore'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'scripts/gef-*.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  gef-smoke:
+    name: GEF smoke / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Run GEF read-only and collision smoke tests
+        run: npm run test:gef
+      - name: Check dependency advisories
+        run: npm audit --audit-level=high
