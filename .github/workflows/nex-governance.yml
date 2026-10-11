@@ -1,0 +1,114 @@
+name: NEX Governance
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-pack:
+    name: NEX Governance / Source Pack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate canonical bootstrap sources and repo policy
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const assert = require('node:assert/strict');
+          const must = [
+            'AGENTS.md',
+            '.engineering/SOURCE-HIERARCHY.md',
+            '.engineering/CHECKPOINT.json',
+            '.engineering/CHECKPOINT.md',
+            '.engineering/DECISIONS-LEDGER.md',
+            '.engineering/decisions/NEX-ADR-0001-BOOTSTRAP-ACTOR-EXCEPTION.md',
+            '.engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md',
+            '.engineering/DEFINITION-OF-DONE.md',
+            '.engineering/SECURITY.md',
+            'ops/github/nex-main-ruleset.json',
+          ];
+          for (const f of must) assert.ok(fs.existsSync(f), 'required file missing: ' + f);
+          const c = JSON.parse(fs.readFileSync('.engineering/CHECKPOINT.json','utf8'));
+          assert.equal(c.project, 'KayzenRoot/nex-engine');
+          assert.equal(c.gefCliVersionTarget, '1.1.2');
+          assert.ok(['NOT_VERIFIED','VERIFIED'].includes(c.gefInstalled), 'unsupported GEF status');
+          const ledger = fs.readFileSync('.engineering/DECISIONS-LEDGER.md','utf8');
+          assert.ok(ledger.includes('NEX-D-006') && ledger.includes('NEX-D-007'), 'owner decisions missing');
+          const p = JSON.parse(fs.readFileSync('ops/github/nex-main-ruleset.json','utf8'));
+          assert.equal(p.target,'branch');
+          assert.equal(p.enforcement,'active');
+          assert.deepEqual(p.conditions.ref_name.include,['~DEFAULT_BRANCH']);
+          assert.deepEqual(p.conditions.ref_name.exclude,[]);
+          assert.deepEqual(p.bypass_actors,[]);
+          const types = new Set(p.rules.map(r=>r.type));
+          for (const req of ['deletion','non_fast_forward','required_linear_history','pull_request','required_status_checks']) {
+            assert.ok(types.has(req),'required ruleset rule missing: '+req);
+          }
+          const checks = p.rules.find(r=>r.type==='required_status_checks').parameters;
+          assert.equal(checks.strict_required_status_checks_policy,true);
+          assert.deepEqual(
+            checks.required_status_checks.map(x=>x.context).sort(),
+            ['CodeRabbit','Socket Security: Project Report','Socket Security: Pull Request Alerts'].sort(),
+          );
+          const pr=p.rules.find(r=>r.type==='pull_request').parameters;
+          assert.deepEqual(pr.allowed_merge_methods,['squash']);
+          assert.equal(pr.required_approving_review_count,0);
+          assert.equal(pr.required_review_thread_resolution,true);
+          assert.equal(pr.dismiss_stale_reviews_on_push,true);
+          console.log('Governance schema/source checks passed; this does NOT prove admin ruleset is active or GEF CLI installed.');
+          NODE
+
+  powershell-syntax:
+    name: NEX Governance / PowerShell
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse Ruleset admin script without running it
+        shell: pwsh
+        run: |
+          $path = 'ops/github/apply-nex-main-protection.ps1'
+          if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { Write-Error "Required script missing: $path"; exit 1 }
+          $tokens = $null
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path).Path,[ref]$tokens,[ref]$errors)
+          if (@($errors).Count -gt 0) { $errors | ForEach-Object { Write-Error $_.Message }; exit 1 }
+          Write-Host 'PowerShell syntax valid; API/admin operations NOT executed.'
+      - name: Regression test latest GitHub check-run validation
+        shell: pwsh
+        run: |
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = 'Stop'
+          $tokens = $null
+          $errors = $null
+          $ast = [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'ops/github/apply-nex-main-protection.ps1').Path,[ref]$tokens,[ref]$errors)
+          if (@($errors).Count -gt 0) { throw 'PowerShell parser errors' }
+          $func = $ast.Find({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'AssertLatestCheckRunSuccess' },$true)
+          if ($null -eq $func) { throw 'Missing latest check-run validator' }
+          . ([scriptblock]::Create($func.Extent.Text))
+          $olderPass = [pscustomobject]@{ id=101; name='Gate'; status='completed'; conclusion='success' }
+          $latestPending = [pscustomobject]@{ id=102; name='Gate'; status='in_progress'; conclusion=$null }
+          $blocked = $false
+          try {
+            AssertLatestCheckRunSuccess -CheckRuns @($olderPass,$latestPending) -Name 'Gate'
+          } catch {
+            if ($_.Exception.Message -like 'Latest check on exact HEAD is not SUCCESS:*') { $blocked = $true } else { throw }
+          }
+          if (-not $blocked) { throw 'Validator incorrectly accepted an older SUCCESS when newer check is pending' }
+          $latestPass = [pscustomobject]@{ id=103; name='Gate'; status='completed'; conclusion='success' }
+          AssertLatestCheckRunSuccess -CheckRuns @($olderPass,$latestPending,$latestPass) -Name 'Gate'
+          $missingBlocked = $false
+          try {
+            AssertLatestCheckRunSuccess -CheckRuns @($olderPass) -Name 'NotPresent'
+          } catch {
+            if ($_.Exception.Message -like 'Missing required check on exact HEAD:*') { $missingBlocked = $true } else { throw }
+          }
+          if (-not $missingBlocked) { throw 'Validator incorrectly accepted a missing required check' }
+          Write-Host 'Latest check-run ordering and missing/pending gates: PASS. No admin APIs called.'
