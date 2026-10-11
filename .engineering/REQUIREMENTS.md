@@ -8,3 +8,10 @@ Status: CANONICAL_BOOTSTRAP_POLICY; GEF v1.1.2 post-merge verified in PR #74, ef
 - NEX-R-006: Preserve existing README and Source Pack; exclude secrets, node_modules and private GEF transaction journals from Git. Before planning promotion require completion of all applicable checks and a recorded exact-head Source Pack audit; no bypass, self-approval or implied admission from a green status alone.
 - NEX-R-007: Deliver isolated implementation PR, base/head SHAs, tests, risk and proposed Checkpoint Delta for objective audit. Its own promotion/merge requires separate exact-head checks and owner audit; ADR NEX-ADR-0001 and NEX-D-006 must be promoted together before admitting ChatGPT as bootstrap executor, followed by refreshed execution Context Lock.
 No visual fidelity, Godot, game, multiplayer or GPU feature is required in this increment.
+
+## M00-only requirements (owner approval effective after promotion and fresh lock)
+- NEX-M00-R-001: verify official Godot release tag, commit SHA, downloaded SHA256, license and notices; no floating latest.
+- NEX-M00-R-002: prove editor/runtime startup and minimal project import under native Windows; Linux headless CI proves portability but does not measure GPU.
+- NEX-M00-R-003: pin exact toolchain versions, include build time/resource log and license/provenance manifest; implement without engine core modifications.
+- NEX-M00-R-004: isolated worktree/branch and single-writer ownership, no overlapping files or GPU benchmarks in parallel.
+- NEX-M00-R-005: verifiable PR exact-head CI/CodeRabbit/Socket/Sonar, independent review, evidence and proposed checkpoint only.

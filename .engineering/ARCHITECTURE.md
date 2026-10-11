@@ -7,3 +7,6 @@ Governance: Source Pack -> admitted Work Order + Context Lock -> admitted execut
 The future Godot fork, rendering backend, API and game runtime are NOT_YET_DESIGNED.
 
 Actor exception: NEX-ADR-0001 permits ChatGPT to implement only the initial GEF bootstrap. From the next engine-feature Work Order onward, the Codex-as-executor default is restored unless the owner explicitly changes it again.
+
+## M00 boundary (owner-approved governance phase)
+Godot native desktop baseline uses upstream tagged release in an isolated toolchain area, with official archive/checksum and source SHA. Prefer upstream editor/project smoke and documented SCons toolchain; do not fork or patch engine core unless a later accepted ADR proves it necessary. This Source Pack amendment does not start implementation. See `.engineering/decisions/NEX-ADR-0003-M00-GODOT-BASELINE.md`.

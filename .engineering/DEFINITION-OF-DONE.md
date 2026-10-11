@@ -11,3 +11,6 @@ A drafted plan, issue, open PR or CLI install on an unrelated machine does NOT s
 No scope/percentage claims for the eventual Godot-based engine.
 
 Evidence for the bounded bootstrap DoD: [PR #74](https://github.com/KayzenRoot/nex-engine/pull/74) merged to `570d0671ed57f5cd29932baf0bac26345efca279`, exact-head CodeRabbit, Socket x2, SonarCloud, GEF Windows/Ubuntu and Governance x2 all SUCCESS, post-merge main CI six SUCCESS, owner audit comment and separate checkpoint promotion PR. Security caveats remain documented. No engine-specific DoD/percentage is inferred.
+
+## M00 DoD is distinct from GEF DoD
+The Godot M00 baseline is NOT yet admitted by this update alone. After governance promotion and a fresh execution lock, M00 acceptance follows `.engineering/m00/M00-SCOPE-AND-DOD.md` and `.engineering/m00/M00-TEST-PLAN.md`. Passing GEF tests is not a substitute for a native editor/runtime build.
