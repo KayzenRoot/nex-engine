@@ -1,5 +1,5 @@
 # NEX-ADR-0001 · Owner bootstrap executor exception
-Status: OWNER_DIRECTED / PROPOSED GOVERNANCE PROMOTION in planning PR #2. Date: 2026-10-10.
+Status: OWNER_DIRECTED / ACCEPTED_ON_GOVERNANCE_PR_MERGE, not active until merged. Date: 2026-10-10.
 Decision: ChatGPT performs the complete first GEF Bootstrap v1.1.2 installation/integration within the GitHub repository, including minimal scripts, package pinning, CI, test fixes and evidence. This is a one-Work-Order exception for NEX-GEF-WO-001 to the inherited GEF ADR-0008 Codex-only software-author rule.
 Rationale: Owner wants Codex used only after the bootstrap is operational, for future improvement of the Godot-based engine. User requested this change explicitly in live conversation.
 Scope: KayzenRoot/nex-engine, initial GEF Bootstrap release only. No change to upstream KayzenRoot/gef-bootstrap, no general authorization for rendering/game code.

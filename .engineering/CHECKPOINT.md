@@ -1,9 +1,9 @@
 # Checkpoint · NEX Engine
-Status: DRAFT_NOT_PROMOTED. Created for planning PR; do not interpret as an accepted implementation checkpoint.
-Project: KayzenRoot/nex-engine. Observed original main: `181c4491d39531b657e0aee6df7909a3cbadc3bd`, 2026-10-10 21:28 America/Sao_Paulo approx.
-Bootstrap phase: SOURCE_PACK_PLANNING. Active WO: NEX-GEF-WO-001 (issue #1), NOT_ADMITTED pending governing sources and Context Lock.
-Baseline version: NOT_BASELINED. Overall completion: NOT_MEASURED. GEF installed/initialized in target: NOT_VERIFIED. CI exact head: NOT_VERIFIED. No merged implementation PR.
-BLOCKER: plan sources not promoted; GEF installation/preflight and CI not run. No checkpoint promotion without objective audit after PR merge.
-Next legal step: review/promote Source Pack planning PR; then bind current HEAD and admit ChatGPT bootstrap implementation WO.
-
-Planning revision: owner explicitly requested ChatGPT execution in this chat for GEF bootstrap (not Codex). This is a proposed, scoped actor exception in NEX-ADR-0001; package install and runtime checks remain NOT_VERIFIED until CI proof.
+Status: SOURCE_PACK_PROMOTED_GEF_NOT_VERIFIED (effective only AFTER this governance PR merges, not while open).
+Source Pack planning PR: #2, squash commit `a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c`. Governance promotion PR: next PR from branch `governance/gef-source-pack-promotion-001`, with its own final HEAD review/checks required.
+GEF project status: **NOT_INSTALLED_OR_INITIALIZED_BY_EVIDENCE**. CLI v1.1.2 target only, not yet verified in this repository; do not claim setup complete.
+Work Order: NEX-GEF-WO-001 issue #1, **NOT_ADMITTED until this promotion is merged and a fresh execution Context Lock is bound to the then-current exact main SHA and canonical fingerprints**.
+Source Pack source authority: ADR NEX-ADR-0001 and NEX-D-006 accepted together at promotion, exception for ChatGPT ONLY on GEF bootstrap; future Godot executors Codex Desktop LOCAL.
+Evidence status: planning PR #2 had CodeRabbit and Socket exact-head green; on squash main `a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c`, Socket Project Report success (checked), no other post-merge CI claimed. Need exact-head CI for this governance promotion PR and for subsequent implementation PR.
+STOP: no `gef init --apply`, no Godot implementation, no checkpoint completion or percent until GEF preview, safe apply and diagnostics/CI proven.
+Next step after promotion: refresh Context Lock and admit bounded bootstrap WO; execute CLI preview first, then apply only after safe review; record tested CI and final checkpoint delta for owner audit.

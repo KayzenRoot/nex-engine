@@ -1,19 +1,21 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "DRAFT_NOT_PROMOTED",
-  "phase": "SOURCE_PACK_PLANNING",
-  "mainObservedSha": "181c4491d39531b657e0aee6df7909a3cbadc3bd",
+  "status": "SOURCE_PACK_PROMOTED_GEF_NOT_VERIFIED",
+  "phase": "GEF_BOOTSTRAP_PREFLIGHT",
+  "mainObservedSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
   "workOrderId": "NEX-GEF-WO-001",
   "workOrderIssue": 1,
   "workOrderAdmission": "NOT_ADMITTED",
-  "sourcePackPromoted": false,
+  "sourcePackPromoted": true,
   "gefCliVersionTarget": "1.1.2",
   "gefInstalled": "NOT_VERIFIED",
   "gefInitialized": "NOT_VERIFIED",
   "ciExactHead": "NOT_VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "REVIEW_AND_PROMOTE_SOURCE_PACK",
+  "nextLegalAction": "AFTER_PROMOTION_REBIND_CONTEXT_LOCK_AND_ADMIT_WO_001",
   "lastSourceInspectionDate": "2026-10-10",
-  "bootstrapExecutor": "ChatGPT_OWNER_EXCEPTION_NEX_ADR_0001"
+  "bootstrapExecutor": "ChatGPT_OWNER_EXCEPTION_NEX_ADR_0001",
+  "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
+  "governancePromotion": "EFFECTIVE_ONLY_WHEN_THIS_PR_MERGES"
 }

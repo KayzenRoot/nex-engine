@@ -1,6 +1,6 @@
 # Decisions Ledger / ADRs
-Status: DRAFT for first planning review. Preserve decisions verbatim until explicitly superseded.
-- NEX-D-001 [OWNER_DIRECTIVE / PROPOSED CANONICAL]: project is `nex-engine` in `KayzenRoot`.
+Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE. Preserve decisions verbatim until explicitly superseded; only NEX-D-005 executor policy is overridden by NEX-D-006 for WO-001.
+- NEX-D-001 [OWNER_DIRECTIVE / ACCEPTED_ON_PROMOTION]: project is `nex-engine` in `KayzenRoot`.
 - NEX-D-002 [OWNER_DIRECTIVE / PROPOSED CANONICAL]: future engine is a Godot-based customized distribution; new game is native desktop rather than browser-first. This is future vision, not a currently admitted Godot implementation.
 - NEX-D-003 [OWNER_DIRECTIVE / CURRENT WORK]: initial increment is ONLY install and validate GEF Bootstrap latest production-accepted release.
 - NEX-D-004 [SOURCE-VERIFIED]: upstream latest production-accepted stable package is `@gef-bootstrap/cli@1.1.2`, release tag `v1.1.2` resolves to commit `af1fe9371a3883cbd8a4aafcbb405ddcd4c2ca82` (2026-10-02).
