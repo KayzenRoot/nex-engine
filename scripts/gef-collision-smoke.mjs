@@ -69,10 +69,15 @@ try {
   assert.equal(response.ok, false, 'Collision apply was not rejected.');
   assert.equal(response.terminal, 'BLOCKED', 'Collision apply did not end in BLOCKED.');
   assert.equal(response.error.effectStatus, 'NONE', 'Collision rejection reported a filesystem effect.');
-  assert.match(
-    response.error.reasonCode ?? '',
-    /(?:target_not_absent|already_exists|existing_target|collision)/i,
-    `GEF refused the fixture for an unrelated reason (${response.error.reasonCode ?? 'UNKNOWN'}), not a proven state-file collision.`,
+  assert.equal(
+    response.error.reasonCode,
+    'gef.precondition.mutation_refused',
+    'GEF must report a governed mutation refusal, not an unrelated blocked state.',
+  );
+  assert.equal(
+    response.error.metadata?.transactionReason,
+    'gef.precondition.cli_transaction_target_not_absent',
+    `Expected an existing-target collision from the transaction layer; got ${JSON.stringify(response.error.metadata ?? {})}`,
   );
   assert.equal(
     createHash('sha256').update(readFileSync(stateFile)).digest('hex'),
