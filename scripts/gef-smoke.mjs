@@ -46,6 +46,27 @@ function parseJson(command, result) {
   }
 }
 
+function requireObservedRepository(label, repository, expectedState) {
+  const observation = repository && typeof repository === 'object' ? repository : null;
+  const verdict = observation?.verdict ?? null;
+  if (verdict === null || observation.dirtiness === 'UNKNOWN') {
+    const details = {
+      category: 'GEF_REPOSITORY_OBSERVATION_INCOMPLETE',
+      platform: process.platform,
+      nodeVersion: process.version,
+      command: label,
+      expectedState,
+      dirtiness: observation?.dirtiness ?? 'UNKNOWN',
+      observationLimits: observation?.observationLimits ?? ['REPOSITORY_OBSERVATION_ABSENT'],
+    };
+    console.error(JSON.stringify(details));
+    assert.fail(`${label}: repository state was not observed; cannot assert CLEAN/DIRTY. Investigate GEF CLI Git executable trust/metadata diagnostics on this runner.`);
+  }
+  assert.equal(verdict.state, expectedState, `${label}: repository state did not match observed Git state.`);
+  assert.equal(verdict.conflict, false, `${label}: GEF found repository conflict.`);
+  return verdict;
+}
+
 function snapshotTree(path) {
   if (!existsSync(path)) return 'ABSENT';
   const root = path;
@@ -105,12 +126,7 @@ assert.equal(initPreviewJson.value.effect, 'NONE', 'gef init preview must remain
 assert.equal(initPreviewJson.value.plan.install.version, '1.1.2', 'GEF preview selected the wrong CLI version.');
 assert.equal(initPreviewJson.value.plan.install.state, 'READY', 'GEF install plan is not ready.');
 const expectedRepositoryState = before === '' ? 'CLEAN' : 'DIRTY';
-assert.equal(
-  initPreviewJson.value.plan.repository.verdict.state,
-  expectedRepositoryState,
-  `GEF preview did not match the observed local Git state (${expectedRepositoryState}).`,
-);
-assert.equal(initPreviewJson.value.plan.repository.verdict.conflict, false, 'GEF preview found a repository conflict.');
+requireObservedRepository('gef init preview', initPreviewJson.value.plan.repository, expectedRepositoryState);
 assert.equal(initPreviewJson.value.plan.canonical.state, 'READY', 'GEF canonical source selection is not ready.');
 assert.equal(initPreviewJson.value.plan.canonical.conflict, false, 'GEF preview found a canonical-source conflict.');
 const after = gitStatus();
@@ -150,7 +166,8 @@ console.log(JSON.stringify({
     },
     status: {
       exitCode: status.exitCode,
-      repository: statusJson.value.status.repository.verdict.state,
+      repository: statusJson.value.status.repository.verdict?.state ?? 'UNAVAILABLE',
+      repositoryObservationLimits: statusJson.value.status.repository.observationLimits,
       driftBaseline: statusJson.value.status.driftBaseline.state,
       drift: statusJson.value.status.drift,
       observationLimits: statusJson.value.status.observationLimits,
@@ -159,7 +176,8 @@ console.log(JSON.stringify({
       exitCode: initPreview.exitCode,
       version: initPreviewJson.value.plan.install.version,
       installState: initPreviewJson.value.plan.install.state,
-      repository: initPreviewJson.value.plan.repository.verdict.state,
+      repository: initPreviewJson.value.plan.repository.verdict?.state ?? 'UNAVAILABLE',
+      repositoryObservationLimits: initPreviewJson.value.plan.repository.observationLimits,
       canonical: initPreviewJson.value.plan.canonical.state,
       drift: initPreviewJson.value.plan.drift.class,
     },
