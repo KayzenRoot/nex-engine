@@ -1,21 +1,39 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "SOURCE_PACK_PROMOTED_GEF_NOT_VERIFIED",
-  "phase": "GEF_BOOTSTRAP_PREFLIGHT",
-  "mainObservedSha": "bd2b0073dc8121290c696647e9c631cadc83c881",
+  "status": "GEF_BOOTSTRAP_VERIFIED_M00_NOT_ADMITTED",
+  "phase": "BOOTSTRAP_COMPLETED_AWAIT_M00_ADMISSION",
+  "mainObservedSha": "570d0671ed57f5cd29932baf0bac26345efca279",
   "workOrderId": "NEX-GEF-WO-001",
   "workOrderIssue": 1,
   "workOrderAdmission": "ADMITTED",
   "sourcePackPromoted": true,
   "gefCliVersionTarget": "1.1.2",
-  "gefInstalled": "NOT_VERIFIED",
-  "gefInitialized": "NOT_VERIFIED",
-  "ciExactHead": "NOT_VERIFIED",
+  "gefInstalled": "VERIFIED",
+  "gefInitialized": "VERIFIED",
+  "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "WO_001_GEF_1_1_2_PREFLIGHT_AND_PREVIEW_ONLY",
+  "nextLegalAction": "M00_WO_001_ADMISSION_AFTER_FRESH_CONTEXT_LOCK",
   "lastSourceInspectionDate": "2026-10-11",
-  "bootstrapExecutor": "ChatGPT_OWNER_EXCEPTION_NEX_ADR_0001",
+  "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
-  "governancePromotion": "PROMOTED_BY_PR_72_MERGE_55f92d1942e810e75aac6faf8231427a6b11c346"
+  "governancePromotion": "PROMOTED_BY_PR_72_MERGE_55f92d1942e810e75aac6faf8231427a6b11c346",
+  "workOrderExecution": "VERIFIED_COMPLETED",
+  "m00Admission": "NOT_ADMITTED",
+  "bootstrapImplementationPR": 74,
+  "bootstrapReviewedHeadSha": "8b1f2318d5b5ebb657d55d04da3eda57153dd0ee",
+  "bootstrapMergeSha": "570d0671ed57f5cd29932baf0bac26345efca279",
+  "bootstrapVerification": {
+    "exactPrHeadGates": "CODE_RABBIT_SUCCESS_SONARCLOUD_SUCCESS_SOCKET_X2_SUCCESS_GOVERNANCE_X2_SUCCESS_GEF_WIN_LINUX_SUCCESS",
+    "postMergeMainChecks": "SIX_OF_SIX_SUCCESS",
+    "githubActions": [
+      "https://github.com/KayzenRoot/nex-engine/actions/runs/38135493350",
+      "https://github.com/KayzenRoot/nex-engine/actions/runs/38135493357"
+    ],
+    "knownCaveats": [
+      "npm audit signatures inconclusive for bundled package (E404)",
+      "GEF doctor security.dependency / security.github REVIEW to track",
+      "Initial historical Evidence Bundle and proposed Delta superseded by final-head audited evidence"
+    ]
+  }
 }

@@ -1,5 +1,5 @@
 # Definition of Done · NEX Bootstrap
-Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE (bootstrap policies only, GEF NOT_VERIFIED).; applies to bootstrap phase only, NOT the future graphics engine.
+Status: CANONICAL_BOOTSTRAP_DOD_VERIFIED_BY_PR74_POSTMERGE_AFTER_CHECKPOINT_PROMOTION; applies only to the GEF bootstrap, NOT to the future Godot engine.
 NEX-GEF-WO-001 is done only if:
 1. Current governing Source Pack is reviewed, merged and coherent.
 2. The GEF CLI package is locked at v1.1.2, available locally and in reproducible CI.
@@ -9,3 +9,5 @@ NEX-GEF-WO-001 is done only if:
 6. Evidence Bundle, base/head SHAs, owner exact-head audit and Checkpoint Delta review are complete; merge and post-merge checks confirmed before checkpoint promotion.
 A drafted plan, issue, open PR or CLI install on an unrelated machine does NOT satisfy DoD.
 No scope/percentage claims for the eventual Godot-based engine.
+
+Evidence for the bounded bootstrap DoD: [PR #74](https://github.com/KayzenRoot/nex-engine/pull/74) merged to `570d0671ed57f5cd29932baf0bac26345efca279`, exact-head CodeRabbit, Socket x2, SonarCloud, GEF Windows/Ubuntu and Governance x2 all SUCCESS, post-merge main CI six SUCCESS, owner audit comment and separate checkpoint promotion PR. Security caveats remain documented. No engine-specific DoD/percentage is inferred.

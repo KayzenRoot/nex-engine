@@ -1,5 +1,5 @@
 # Architecture · Bootstrap Boundary
-Status: CANONICAL_AFTER_GOVERNANCE_PR_MERGE (GEF implementation NOT_ADMITTED).
+Status: CANONICAL_BOOTSTRAP_POLICY; GEF v1.1.2 post-merge verified in PR #74, effective in the new checkpoint only after promotion. No M00 implementation admitted.
 Project repository: `KayzenRoot/nex-engine`, native-PC direction.
 GEF distribution: published npm package `@gef-bootstrap/cli@1.1.2` (immutable version) executed with Node.js 22. Do not vendor/copy all of `KayzenRoot/gef-bootstrap` into this project and do not treat upstream source workspace as a git submodule unless a future ADR justifies it.
 Repository-managed deterministic install and scripts must not assume a global CLI; The admitted executor determines minimal implementation from actual GEF CLI and source state. Project-owned managed GEF files follow observed init preview.

@@ -1,5 +1,5 @@
 # Requirements · Bootstrap Phase
-Status: DRAFT; all listed requirements apply ONLY to NEX-GEF-WO-001.
+Status: CANONICAL_BOOTSTRAP_POLICY; GEF v1.1.2 post-merge verified in PR #74, effective in the new checkpoint only after promotion. No M00 implementation admitted.
 - NEX-R-001: Pin production-accepted `@gef-bootstrap/cli@1.1.2`. Do not silently resolve to `latest`.
 - NEX-R-002: Tooling executable in local Windows Node.js 22 development environment; CI must not depend on a developer's globally installed binary.
 - NEX-R-003: Observe preview before `gef init --apply`; no collision with user files and no hidden destructive effects.
