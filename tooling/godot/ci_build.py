@@ -430,7 +430,7 @@ def _run_smoke(binary: Path, fixture: Path, log_dir: Path, prefix: str) -> list[
         raise IntegrityError(f"Godot version smoke did not report 4.7.2; see {version_log}")
     results.append(
         run_logged(
-            [binary, "--headless", "--editor", "--path", fixture, "--quit"],
+            [binary, "--headless", "--editor", "--path", fixture, "--quit-after", "2"],
             cwd=fixture,
             log_path=log_dir / f"{prefix}-headless-editor.log",
             timeout_seconds=600,

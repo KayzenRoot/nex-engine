@@ -162,6 +162,32 @@ class IntegrityHelperTests(unittest.TestCase):
         self.assertEqual(lock["buildTools"]["windowsCompiler"]["toolsetVersion"], "14.44.35207")
         self.assertEqual(lock["buildTools"]["windowsCompiler"]["sconsMsvcVersion"], "14.3")
 
+    def test_editor_smoke_uses_bounded_graceful_exit(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            binary = root / "godot.exe"
+            binary.write_bytes(b"fixture executable")
+            fixture = root / "project"
+            fixture.mkdir()
+            (fixture / "project.godot").write_text("config_version=5\n", encoding="utf-8")
+            (fixture / "main.tscn").write_text("[gd_scene format=3]\n", encoding="utf-8")
+            logs = root / "logs"
+            commands: list[list[str | Path]] = []
+
+            def fake_run_logged(command, *, cwd, log_path, timeout_seconds):
+                commands.append(command)
+                log_path.parent.mkdir(parents=True, exist_ok=True)
+                log_path.write_text("4.7.2.stable\n" if command[1] == "--version" else "", encoding="utf-8")
+                return {}
+
+            with mock.patch.object(ci_build, "run_logged", side_effect=fake_run_logged):
+                ci_build._run_smoke(binary, fixture, logs, "unit")
+
+            self.assertEqual(
+                commands[1],
+                [binary, "--headless", "--editor", "--path", fixture, "--quit-after", "2"],
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
