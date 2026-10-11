@@ -27,11 +27,11 @@ function AssertLatestStatusSuccess([object[]]$Statuses, [string]$Context) {
 }
 
 function AssertLatestCheckRunSuccess([object[]]$CheckRuns, [string]$Name) {
-  $candidates=@($CheckRuns | Where-Object { $_.name -eq $Name } | Sort-Object -Property @{Expression={ [DateTimeOffset]$_.created_at }; Descending=$true}, @{Expression={ [int]$_.run_attempt }; Descending=$true})
+  $candidates=@($CheckRuns | Where-Object { $_.name -eq $Name } | Sort-Object -Property @{Expression={ [int64]$_.id }; Descending=$true})
   if ($candidates.Count -eq 0) { throw "Missing required check on exact HEAD: $Name" }
   $latest=$candidates[0]
   if ($latest.status -ne 'completed' -or $latest.conclusion -ne 'success') {
-    throw "Latest check on exact HEAD is not SUCCESS: $Name (status=$($latest.status), conclusion=$($latest.conclusion), created_at=$($latest.created_at))"
+    throw "Latest check on exact HEAD is not SUCCESS: $Name (status=$($latest.status), conclusion=$($latest.conclusion), check_run_id=$($latest.id))"
   }
 }
 
