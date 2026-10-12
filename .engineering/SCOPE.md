@@ -1,4 +1,9 @@
 # Scope · NEX Bootstrap
+
+## Current bounded scope clarification | Stage B checkpoint only
+
+Contracts v1 #19 and synthetic FramePulse S02 #22 are independently protected-integrated (PR #93 and PR #95). Stage A governance lock PR #97 passed 37/37 blob pins and fully audited postmerge CI. Current Stage B corrects **seven canonical status files only**, not execution privileges; M01 parent/S01/other children remain NOT_ADMITTED. No real GPU/FPS benchmark, Godot renderer modification, CI change or native release. All former decisions and immutable scopes below remain valid as historical records. Separate exact-head Owner consent and postmerge audit required for Stage B promotion.
+
 Status: CANONICAL GEF BOOTSTRAP VERIFIED + BOUNDED M00 GODOT NATIVE BASELINE VERIFIED (PR #78 implementation, PR #79 checkpoint). M01 NOT_ADMITTED.
 HISTORICAL GEF BOOTSTRAP: Source Pack, bounded Work Order/Context Lock, pinned GEF CLI v1.1.2, safe init, doctor/status, evidence and checkpoint audit. THIS SOURCE PACK REVISION: corrects the five historic M00 current-status contradictions identified by Issue #81, subject to exact-head review, separately Owner-authorized protected merge and postmerge audit. Fast Lane PR #83 merged in `a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56`; sentinel correction PR #86 merged in `ef401a3cfc1571804a529ef576dcc7494ad394c6`, with native batch runtime SUCCESS on protected main. Five-module threshold has not been exercised with five accepted modules. Free static/security review migration PR #90 is protected-promoted at `84063a0f7e4b216e0787b6c458408367067d40e7`; CodeRabbit is no longer a mandatory live ruleset check, with six free checks in its place. Static review is not a substitute for a substantive semantic review for higher-risk changes. No M01 implementation admitted.
 IMPORTANT LATER: compare Godot-native renderer and advanced 3D scene visual benchmarks against reference targets.
