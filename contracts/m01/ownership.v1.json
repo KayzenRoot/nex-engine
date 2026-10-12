@@ -1,0 +1,100 @@
+{
+  "schema_version": "ownership.v1",
+  "work_order_id": "NEX-CONTRACT-WO-001",
+  "mode": "EXCLUSIVE_SINGLE_WRITER",
+  "exclusive_writer": {
+    "owner_id": "integration-steward",
+    "role": "Integration Steward",
+    "max_concurrent_writers": 1
+  },
+  "owners": [
+    {
+      "owner_id": "integration-steward",
+      "role": "SOLE_WRITER"
+    },
+    {
+      "owner_id": "mock-scene-consumer",
+      "role": "MOCK_READ_ONLY_CONSUMER"
+    },
+    {
+      "owner_id": "mock-telemetry-consumer",
+      "role": "MOCK_READ_ONLY_CONSUMER"
+    }
+  ],
+  "write_locks": [
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "owner_id": "integration-steward"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "owner_id": "integration-steward"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "owner_id": "integration-steward"
+    },
+    {
+      "path": "contracts/README.md",
+      "owner_id": "integration-steward"
+    },
+    {
+      "path": "tests/contracts/test_m01_schema.py",
+      "owner_id": "integration-steward"
+    },
+    {
+      "path": "tests/contracts/test_ownership_locks.py",
+      "owner_id": "integration-steward"
+    }
+  ],
+  "consumers": [
+    {
+      "consumer_id": "mock-scene-consumer",
+      "kind": "MOCK",
+      "read_paths": [
+        "contracts/m01/scene_manifest.v1.schema.json"
+      ],
+      "write_paths": [],
+      "schema_versions": [
+        "scene_manifest.v1"
+      ],
+      "stale_on_breaking_change": true
+    },
+    {
+      "consumer_id": "mock-telemetry-consumer",
+      "kind": "MOCK",
+      "read_paths": [
+        "contracts/m01/telemetry_run.v1.schema.json"
+      ],
+      "write_paths": [],
+      "schema_versions": [
+        "telemetry_run.v1"
+      ],
+      "stale_on_breaking_change": true
+    }
+  ],
+  "dependency_dag": {
+    "nodes": [
+      {
+        "node_id": "scene_manifest_contract",
+        "depends_on": []
+      },
+      {
+        "node_id": "telemetry_run_contract",
+        "depends_on": []
+      },
+      {
+        "node_id": "mock_scene_consumer",
+        "depends_on": [
+          "scene_manifest_contract"
+        ]
+      },
+      {
+        "node_id": "mock_telemetry_consumer",
+        "depends_on": [
+          "telemetry_run_contract"
+        ]
+      }
+    ]
+  }
+}
