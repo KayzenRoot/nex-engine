@@ -55,7 +55,7 @@ class DensityLadderConfigurationTests(unittest.TestCase):
         self.assertIn('run/main_scene="res://main.tscn"', self.project)
         self.assertIn('path="res://density_ladder.gd"', self.scene)
         for name in ("WorkloadRoot", "HUD", "Status"):
-            self.assertRegex(self.scene, r'\\[node name="' + name + '"')
+            self.assertRegex(self.scene, r'\[node name="' + name + '"')
 
     def test_no_hardware_benchmark_claim(self):
         self.assertEqual(self.config["measurement"], "NOT_MEASURED")
