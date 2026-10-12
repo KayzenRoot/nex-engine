@@ -72,7 +72,17 @@ class GitHub:
         self.api_url = api_url
 
     def request(self, method: str, path: str, payload: dict | None = None):
-        if not path.startswith("/") or "//" in path or ".." in path:
+        # GitHub compare uses <base>...<head>, a legitimate path segment.
+        # Reject actual navigation segments without rejecting that ellipsis.
+        path_only = path.split("?", 1)[0]
+        segments = path_only.split("/")
+        if (
+            not path.startswith("/repos/")
+            or "//" in path_only
+            or "\\" in path
+            or "%" in path_only
+            or any(segment in (".", "..") for segment in segments)
+        ):
             raise ValueError("Invalid GitHub API path")
         data = json.dumps(payload).encode() if payload is not None else None
         req = Request(
