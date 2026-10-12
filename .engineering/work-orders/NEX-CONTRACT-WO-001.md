@@ -1,6 +1,6 @@
 # NEX-CONTRACT-WO-001 | Minimal common contracts and ownership
 **Issue:** #19 · **Owner:** KayzenRoot · **Risk:** STANDARD if JSON-only, ELEVATED if native ABI/core proposed · **Approval:** 2026-10-12 Owner scope approval in [Issue #19](https://github.com/KayzenRoot/nex-engine/issues/19#issuecomment-6122906159).
-**Status:** OWNER_APPROVED / LOCK_PROMOTION_PENDING / NO_EXECUTION until all runtime gates pass. **M01 NOT_ADMITTED.**
+**Status:** OWNER_SCOPE_APPROVED / EXECUTABLE_ONLY_AFTER_PROTECTED_LOCK_PROMOTION_AND_POSTMERGE_SHA_FINGERPRINT_ATTESTATION / NO_EXECUTION UNTIL VERIFIED. **M01 NOT_ADMITTED.**
 
 ## Objective
 Freeze two tiny versioned JSON contracts for independent future M01 scene fixture and synthetic telemetry collectors, plus ownership constraints. Work is contracts-only: no Godot C++ ABI, rendering engine, editor, game scene, telemetry measurements, or local GPU tests.
