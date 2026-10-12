@@ -3,7 +3,7 @@
   "project": "KayzenRoot/nex-engine",
   "status": "M00_BASELINE_VERIFIED",
   "phase": "M00_COMPLETED_M01_NOT_ADMITTED",
-  "mainObservedSha": "0c6cdbfc13bd0c1c8e80d293f7da7f2302027861",
+  "mainObservedSha": "2090cb28df2385b995666c8fc4d3015e11f6c407",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
