@@ -3,9 +3,9 @@ from copy import deepcopy
 import importlib.util
 import json
 import math
+from contextlib import redirect_stdout
+import io
 from pathlib import Path
-import subprocess
-import sys
 import tempfile
 import unittest
 
@@ -141,19 +141,18 @@ class FrameObservationValidatorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             file = Path(root) / "capture.json"
             file.write_text(json.dumps(fixture()), encoding="utf-8")
-            valid = subprocess.run(
-                [sys.executable, str(SOURCE), str(file)],
-                capture_output=True, text=True, check=False, timeout=15,
-            )
-            self.assertEqual(valid.returncode, 0, valid.stderr)
-            self.assertEqual(json.loads(valid.stdout)["status"], "PASS")
+            output = io.StringIO()
+            with redirect_stdout(output):
+                result = MODULE.main([str(file)])
+            self.assertEqual(result, 0)
+            self.assertEqual(json.loads(output.getvalue())["status"], "PASS")
+
             file.write_text('{"broken":true}', encoding="utf-8")
-            invalid = subprocess.run(
-                [sys.executable, str(SOURCE), str(file)],
-                capture_output=True, text=True, check=False, timeout=15,
-            )
-            self.assertEqual(invalid.returncode, 1)
-            self.assertEqual(json.loads(invalid.stdout)["status"], "FAIL")
+            output = io.StringIO()
+            with redirect_stdout(output):
+                result = MODULE.main([str(file)])
+            self.assertEqual(result, 1)
+            self.assertEqual(json.loads(output.getvalue())["status"], "FAIL")
 
     def test_raw_capture_version_requires_original_samples(self):
         sample = fixture()
