@@ -100,8 +100,11 @@ try {
   $mergeMethods=@($pull.parameters.allowed_merge_methods)
   if ($mergeMethods.Count -ne 1 -or $mergeMethods[0] -cne 'squash') { throw 'Ruleset must allow squash merges only.' }
   if ($pull.parameters.required_approving_review_count -ne 0 -or -not $pull.parameters.required_review_thread_resolution -or -not $pull.parameters.dismiss_stale_reviews_on_push -or $pull.parameters.require_code_owner_review -ne $false -or $pull.parameters.require_last_push_approval -ne $false) { throw 'PR policy mismatch.' }
+  if ($pull.parameters.require_extra_approval_for_unattributed_changes -ne $true) { throw 'Extra approval protection must remain enabled.' }
+  if (@($pull.parameters.required_reviewers).Count -ne 0) { throw 'Unexpected required reviewers.' }
   $statusRule=@($actual.rules | Where-Object { $_.type -eq 'required_status_checks' })[0]
   if (-not $statusRule.parameters.strict_required_status_checks_policy) { throw 'Strict checks not enabled.' }
+  if ($statusRule.parameters.do_not_enforce_on_create -ne $false) { throw 'Required checks must apply to new refs.' }
   $contexts=@($statusRule.parameters.required_status_checks | ForEach-Object { $_.context })
   $expectedContexts=@('NEX Free Review / Static','NEX Fast Lane / Batch Policy Tests','NEX Governance / Source Pack','SonarCloud Code Analysis','Socket Security: Pull Request Alerts','Socket Security: Project Report')
   $actualContextSet=($contexts | Sort-Object -CaseSensitive) -join "`n"
