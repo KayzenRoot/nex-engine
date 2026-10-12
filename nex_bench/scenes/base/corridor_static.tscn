@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3]
+
+[sub_resource type="StandardMaterial3D" id="Stone"]
+albedo_color = Color(0.2, 0.24, 0.29, 1)
+metallic = 0.08
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Metal"]
+albedo_color = Color(0.33, 0.4, 0.45, 1)
+metallic = 0.08
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Gold"]
+albedo_color = Color(0.83, 0.55, 0.19, 1)
+metallic = 0.08
+roughness = 0.42
+
+[sub_resource type="BoxMesh" id="Floor"]
+size = Vector3(11, 0.5, 28)
+
+[sub_resource type="BoxMesh" id="Wall"]
+size = Vector3(0.8, 4, 28)
+
+[sub_resource type="BoxMesh" id="Pillar"]
+size = Vector3(1.1, 4.2, 1.1)
+
+[sub_resource type="BoxMesh" id="Dais"]
+size = Vector3(3, 0.55, 2.8)
+
+[sub_resource type="SphereMesh" id="Orb"]
+radius = 0.36
+height = 0.72
+
+[node name="CorridorStatic" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-58, 28, -5)
+light_energy = 0.85
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.35, 0)
+mesh = SubResource("Floor")
+material_override = SubResource("Stone")
+
+[node name="WallLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-5.3, 1.65, 0)
+mesh = SubResource("Wall")
+material_override = SubResource("Metal")
+
+[node name="WallRight" type="MeshInstance3D" parent="."]
+position = Vector3(5.3, 1.65, 0)
+mesh = SubResource("Wall")
+material_override = SubResource("Metal")
+
+[node name="Dais" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.18, -10)
+mesh = SubResource("Dais")
+material_override = SubResource("Gold")
+
+[node name="PillarLeft0" type="MeshInstance3D" parent="."]
+position = Vector3(-4.35, 2, -11)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarRight0" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 2, -11)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="Torch0" type="MeshInstance3D" parent="."]
+position = Vector3(-3.9, 3, -11)
+mesh = SubResource("Orb")
+material_override = SubResource("Gold")
+
+[node name="TorchLight0" type="OmniLight3D" parent="."]
+position = Vector3(-3.8, 3.2, -11)
+light_color = Color(1, 0.62, 0.24, 1)
+light_energy = 2.6
+omni_range = 7
+
+[node name="PillarLeft1" type="MeshInstance3D" parent="."]
+position = Vector3(-4.35, 2, -6)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarRight1" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 2, -6)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarLeft2" type="MeshInstance3D" parent="."]
+position = Vector3(-4.35, 2, -1)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarRight2" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 2, -1)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="Torch2" type="MeshInstance3D" parent="."]
+position = Vector3(-3.9, 3, -1)
+mesh = SubResource("Orb")
+material_override = SubResource("Gold")
+
+[node name="TorchLight2" type="OmniLight3D" parent="."]
+position = Vector3(-3.8, 3.2, -1)
+light_color = Color(1, 0.62, 0.24, 1)
+light_energy = 2.6
+omni_range = 7
+
+[node name="PillarLeft3" type="MeshInstance3D" parent="."]
+position = Vector3(-4.35, 2, 4)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarRight3" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 2, 4)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarLeft4" type="MeshInstance3D" parent="."]
+position = Vector3(-4.35, 2, 9)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="PillarRight4" type="MeshInstance3D" parent="."]
+position = Vector3(4.35, 2, 9)
+mesh = SubResource("Pillar")
+material_override = SubResource("Metal")
+
+[node name="Torch4" type="MeshInstance3D" parent="."]
+position = Vector3(-3.9, 3, 9)
+mesh = SubResource("Orb")
+material_override = SubResource("Gold")
+
+[node name="TorchLight4" type="OmniLight3D" parent="."]
+position = Vector3(-3.8, 3.2, 9)
+light_color = Color(1, 0.62, 0.24, 1)
+light_energy = 2.6
+omni_range = 7
+
+[node name="IsometricCamera" type="Camera3D" parent="."]
+position = Vector3(19, 19, 19)
+rotation_degrees = Vector3(-35.26439, 45, 0)
+current = true
+fov = 50
+near = 0.1
+far = 300.0
+

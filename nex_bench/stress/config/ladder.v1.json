@@ -1,0 +1,26 @@
+{
+  "schema_version": "nex_density_ladder.v1",
+  "godot_version": "4.7.2-stable",
+  "renderer": "forward_plus",
+  "seed": 20261012,
+  "counts": [
+    25,
+    50,
+    100,
+    200
+  ],
+  "default_level_index": 0,
+  "max_proxies": 200,
+  "max_lights": 6,
+  "max_particle_emitters": 4,
+  "minimum_safe_fps_observed": 12,
+  "safety_consecutive_seconds": 5,
+  "modes": [
+    "geometry",
+    "lights",
+    "vfx",
+    "combined"
+  ],
+  "measurement": "NOT_MEASURED",
+  "description": "Deterministic synthetic proxy workloads, not gameplay AI, native hardware benchmark, or PoE2 copy"
+}

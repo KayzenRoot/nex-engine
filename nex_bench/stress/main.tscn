@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://density_ladder.gd" id="1"]
+
+[node name="DensityLadder" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorkloadRoot" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 1240.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 18
+text = "NEX DENSITY LADDER | loading..."

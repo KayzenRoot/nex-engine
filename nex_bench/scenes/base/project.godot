@@ -1,0 +1,12 @@
+config_version=5
+
+[application]
+config/name="NEX Engine | M01 Visual Lab"
+run/main_scene="res://viewer.tscn"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+renderer/rendering_method="forward_plus"
