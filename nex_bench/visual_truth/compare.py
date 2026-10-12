@@ -147,24 +147,32 @@ def compare_png(baseline: Path, candidate: Path, pixel_tolerance: int = 0,
     }
 
 
+def _safe_cli_png(value: Path) -> Path:
+    """Limit CLI input to PNG files within the invocation directory (no traversal)."""
+    root = Path.cwd().resolve()
+    if value.is_absolute() or ".." in value.parts or value.suffix.lower() != ".png":
+        raise ImageFormatError("PNG input must be a relative .png under the working directory")
+    resolved = (root / value).resolve()
+    if not resolved.is_relative_to(root) or not resolved.is_file():
+        raise ImageFormatError("PNG input escapes workspace or is not a regular file")
+    return resolved
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="NEX Visual Truth PNG comparison")
     parser.add_argument("baseline", type=Path)
     parser.add_argument("candidate", type=Path)
     parser.add_argument("--pixel-tolerance", type=int, default=0)
     parser.add_argument("--max-changed-ratio", type=float, default=0.0)
-    parser.add_argument("--report", type=Path, default=None)
     args = parser.parse_args(argv)
     try:
-        report = compare_png(args.baseline, args.candidate,
+        report = compare_png(_safe_cli_png(args.baseline), _safe_cli_png(args.candidate),
                              args.pixel_tolerance, args.max_changed_ratio)
     except (ImageFormatError, ValueError, OSError) as exc:
         print(f"VISUAL_TRUTH_ERROR: {exc}", file=sys.stderr)
         return 2
     text = json.dumps(report, indent=2, sort_keys=True) + "\n"
     print(text, end="")
-    if args.report is not None:
-        args.report.write_text(text, encoding="utf-8")
     return 0 if report["status"] == "PASS" else 1
 
 

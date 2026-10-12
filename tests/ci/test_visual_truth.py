@@ -38,7 +38,7 @@ def make_png(w: int, h: int, rgb: bytes, color_type: int = 2, filter_method: int
 
 class VisualTruthTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
+        self.tmp = tempfile.TemporaryDirectory(dir=ROOT)
         self.addCleanup(self.tmp.cleanup)
         self.dir = Path(self.tmp.name)
 
@@ -61,7 +61,7 @@ class VisualTruthTests(unittest.TestCase):
         self.assertEqual(compare_png(baseline, candidate)["changed_ratio"], 0.5)
         output = StringIO()
         with redirect_stdout(output):
-            exit_code = main([str(baseline), str(candidate)])
+            exit_code = main([str(baseline.relative_to(ROOT)), str(candidate.relative_to(ROOT))])
         self.assertEqual(exit_code, 1)
         self.assertIn('"status": "FAIL"', output.getvalue())
 
