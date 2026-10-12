@@ -1,0 +1,36 @@
+name: NEX Native Five-Module Batch Sentinel
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: write
+
+concurrency:
+  group: nex-native-module-batch-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  batch-sentinel:
+    name: NEX Native Batch / Policy and Dispatch
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout protected main
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Validate policy with synthetic histories
+        run: python3 -m unittest discover -s tests/ci -p 'test_*.py' -v
+
+      - name: Count accepted modules and trigger full native build at five
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/ci/native_batch.py \
+            --repository "$GITHUB_REPOSITORY" \
+            --head "$GITHUB_SHA"

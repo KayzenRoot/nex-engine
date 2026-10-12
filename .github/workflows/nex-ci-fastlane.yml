@@ -1,0 +1,27 @@
+name: NEX CI Fast Lane
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nex-ci-fast-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  policy-tests:
+    name: NEX Fast Lane / Batch Policy Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout tested Git HEAD
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate deterministic CI policy and safety cases
+        run: python3 -m unittest discover -s tests/ci -p 'test_*.py' -v

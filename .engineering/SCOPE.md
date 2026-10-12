@@ -1,6 +1,6 @@
 # Scope · NEX Bootstrap
 Status: CANONICAL GEF BOOTSTRAP VERIFIED + BOUNDED M00 GODOT NATIVE BASELINE VERIFIED (PR #78 implementation, PR #79 checkpoint). M01 NOT_ADMITTED.
-HISTORICAL GEF BOOTSTRAP: Source Pack, bounded Work Order/Context Lock, pinned GEF CLI v1.1.2, safe init, doctor/status, evidence and checkpoint audit. CURRENT MAINTENANCE: Source Pack reconciliation Issue #81 and CI Fast Lane PR #83. No M01 implementation admitted.
+HISTORICAL GEF BOOTSTRAP: Source Pack, bounded Work Order/Context Lock, pinned GEF CLI v1.1.2, safe init, doctor/status, evidence and checkpoint audit. CURRENT MAINTENANCE: reconcile Source Pack Issue #81 and verify the operational Fast Lane batch sentinel correction tracked in Issue #85; PR #83 has already merged in `a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56`. No M01 implementation admitted.
 IMPORTANT LATER: compare Godot-native renderer and advanced 3D scene visual benchmarks against reference targets.
 FUTURE: custom lighting, volumetrics, GPU VFX, PBR, streaming/LOD, shader tools, 2D/2.5D pipeline, game and multiplayer systems.
 OUT OF SCOPE of the completed GEF-only WO: downloading/building Godot. M00 was subsequently separately admitted, Context-Locked, implemented in PR #78 and checkpoint-promoted by PR #79. Still forbidden: browser game, engine core modifications, gameplay, auth, paid/cloud runtime, high-risk cleanup, expanding GEF.
