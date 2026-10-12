@@ -1,5 +1,5 @@
 # NEX M00 | Scope and Definition of Done
-**Status:** M00 native Godot baseline VERIFIED after PR #78 source-build implementation merge and postmerge checks; this source status becomes canonical only after the separate reviewed checkpoint-promotion PR merges.
+**Status:** M00 native Godot baseline VERIFIED after PR #78 source-build implementation merge and postmerge checks; checkpoint-promotion PR #79 was reviewed and protected-squash merged to main `2090cb28df2385b995666c8fc4d3015e11f6c407` and audited (6/6 checks). This is a completed historical promotion gate, NOT a pending M00 or M01 execution permission.
 **Included:** official Godot native editor/runtime baseline 4.7.2-stable @ `ed1daf0bf001b61586d9930840f2f1394092c079`, release SHA256, license/third-party notices, Windows source build and minimal runtime/editor smoke, Ubuntu headless CI, manifest and evidence.
 **Excluded:** shaders/renderer customizations, game feature, MMOs, 2D/2.5D improvements, M01 performance experiments, 1080p/60 or 120 claims, core fork patches, GDExtension ABI changes, cloud GPU or paid services.
 **DoD:**

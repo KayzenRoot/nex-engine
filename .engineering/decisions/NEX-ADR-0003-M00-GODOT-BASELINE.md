@@ -1,5 +1,5 @@
 # NEX-ADR-0003 | Godot native baseline for M00
-**Status:** PROPOSED; accepted only if this governance PR merges. **Owner approval:** Issue #5, 2026-10-11. **Decision type:** bounded version & native build architecture, not engine-feature coding.
+**Status:** ACCEPTED / HISTORICAL M00 BASELINE. Governance PR #76 and the separate M00 execution Context Lock were promoted; bounded implementation PR #78 and checkpoint PR #79 were subsequently protected-merged and audited. **Owner approval:** Issue #5, 2026-10-11. **Decision type:** bounded version & native build architecture, not engine-feature coding.
 ## Decision
 Use official `godotengine/godot` tag `4.7.2-stable` for the M00 baseline, pinned to commit `ed1daf0bf001b61586d9930840f2f1394092c079` (verified official tag API). Source archive `godot-4.7.2-stable.tar.xz` published GitHub asset digest: `sha256:a18ce0ccec3ecc40b0dd6c4f5132ca934e9fb7c2979717940ff32aee1eb35481`; downloader must independently verify bytes and never continue on mismatch. The official release was published 2026-08-18 (GitHub release metadata). Verify MIT and bundled third-party notices before redistribution.
 ## Architecture
@@ -9,4 +9,4 @@ Validate Node22/GEF 1.1.2 bootstrap state, Python/SCons/toolchain availability, 
 ## Alternatives and reversibility
 A later patched stable tag needs explicit ADR revision and refreshed Context Lock before execution. Falling back to unpinned `latest`, a 4.8 development pre-release, or changing core to satisfy build is not allowed. Do not activate M01 or other modules through this ADR.
 ## STOP
-Until the governance PR and a separate fresh execution Context Lock are promoted: `M00_OWNER_APPROVED_GOVERNANCE_PENDING`, no Codex implementation. Retain all gates of NEX-ADR-0002 and GitHub Ruleset.
+The M00 governance and execution Context Lock were promoted, M00 implementation was verified and checkpoint PR #79 was promoted. The preceding admission gate is historical and complete. **This ADR authorizes no further execution**, does not admit M01 or other modules and does not waive new Work Orders, Context Locks, NEX-ADR-0002 or the GitHub Ruleset.
