@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install pinned free and local Semgrep CE
-        run: python -m pip install --disable-pip-version-check semgrep==1.180.0
+        run: "python -m pip install --disable-pip-version-check --only-binary=:all: semgrep==1.180.0"
       - name: Parse and run local security rules, fail closed
         run: |
           semgrep scan --config=.semgrep/nex-security.yml --error --severity=ERROR --metrics=off --disable-version-check --exclude=tests --exclude=.engineering .
