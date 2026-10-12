@@ -30,17 +30,29 @@
         "dismiss_stale_reviews_on_push": true,
         "require_code_owner_review": false,
         "require_last_push_approval": false,
+        "required_reviewers": [],
         "required_approving_review_count": 0,
-        "required_review_thread_resolution": true
+        "required_review_thread_resolution": true,
+        "require_extra_approval_for_unattributed_changes": true
       }
     },
     {
       "type": "required_status_checks",
       "parameters": {
         "strict_required_status_checks_policy": true,
+        "do_not_enforce_on_create": false,
         "required_status_checks": [
           {
-            "context": "CodeRabbit"
+            "context": "NEX Free Review / Static"
+          },
+          {
+            "context": "NEX Fast Lane / Batch Policy Tests"
+          },
+          {
+            "context": "NEX Governance / Source Pack"
+          },
+          {
+            "context": "SonarCloud Code Analysis"
           },
           {
             "context": "Socket Security: Pull Request Alerts"
