@@ -13,7 +13,7 @@
   "gefInitialized": "VERIFIED",
   "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "M01_REQUIRES_SEPARATE_OWNER_WORK_ORDER_AND_CONTEXT_LOCK",
+  "nextLegalAction": "RECONCILE_ISSUE_81_AND_COMPLETE_FAST_LANE_PR83_BEFORE_ANY_M01_ADMISSION",
   "lastSourceInspectionDate": "2026-10-11",
   "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
@@ -66,5 +66,14 @@
     "historicCrashRootCause": "UNKNOWN_OWNER_ACCEPTED_RESIDUAL_RISK",
     "audit": "CHATGPT_NOT_INDEPENDENT_OWNER_RISK_ACCEPTED",
     "evidencePath": ".engineering/evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md"
+  },
+  "m00CheckpointPromotion": {
+    "pr": 79,
+    "mergeSha": "2090cb28df2385b995666c8fc4d3015e11f6c407",
+    "reviewedHeadSha": "a641acbf25e33ed34377f999c794007519010ef8",
+    "exactTreeSha": "8fe9c4499fb43401116905ea341ad77776460d97",
+    "preMergeGates": "TEN_OF_TEN_SUCCESS_PLUS_CODERABBIT_SUCCESS",
+    "postMergeChecks": "SIX_OF_SIX_SUCCESS",
+    "sourcePackCoherence": "DRIFT_ISSUE_81_PENDING_SEPARATE_REVIEW"
   }
 }
