@@ -50,6 +50,7 @@ class WindowsNativeLauncherTests(unittest.TestCase):
         self.assertIn('"%~dp0Start-NEX.ps1" %*', self.batch)
         self.assertIn('exit /b %NEX_EXIT%', self.batch)
         self.assertIn('powershell.exe -NoLogo -NoProfile', self.batch)
+        self.assertIn('-ExecutionPolicy RemoteSigned', self.batch)
 
     def test_headless_mode_and_instructions(self):
         self.assertIn('[switch]$SmokeOnly', self.launcher)
