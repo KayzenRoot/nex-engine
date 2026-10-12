@@ -1,0 +1,37 @@
+{
+  "kind": "nex.scene_fixture_index.v1",
+  "godot_version": "4.7.2-stable",
+  "godot_commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+  "launch_project": "nex_bench/scenes/base/project.godot",
+  "external_assets": 0,
+  "measurement": "NOT_MEASURED",
+  "scenes": [
+    {
+      "id": "corridor_static",
+      "scene_path": "nex_bench/scenes/base/corridor_static.tscn",
+      "fixture_path": "nex_bench/fixtures/base/corridor_static.json",
+      "scene_sha256": "9fada790391ce170e34115742f61ec1aa4b98d251b21a73dec675166fc20d773",
+      "seed": 101,
+      "proxy_count": 0,
+      "omni_light_count": 4
+    },
+    {
+      "id": "arena_combat",
+      "scene_path": "nex_bench/scenes/base/arena_combat.tscn",
+      "fixture_path": "nex_bench/fixtures/base/arena_combat.json",
+      "scene_sha256": "13f6e1a3258ecc7bd36edbbc0b7192509848e35404d1d30fe63a675358d4b8d9",
+      "seed": 202,
+      "proxy_count": 25,
+      "omni_light_count": 4
+    },
+    {
+      "id": "dense_city",
+      "scene_path": "nex_bench/scenes/base/dense_city.tscn",
+      "fixture_path": "nex_bench/fixtures/base/dense_city.json",
+      "scene_sha256": "429e3a173ef9a20f0388617bb2a26c557b114235b5e31fcbb3a7155f110890e1",
+      "seed": 303,
+      "proxy_count": 0,
+      "omni_light_count": 5
+    }
+  ]
+}

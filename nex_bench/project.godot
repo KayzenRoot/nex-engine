@@ -1,0 +1,14 @@
+config_version=5
+
+[application]
+config/name="NEX Engine | Unified Visual Lab"
+run/main_scene="res://main.tscn"
+config/description="Native 3D scene explorer, density stress and screenshot visual truth"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="forward_plus"

@@ -1,0 +1,245 @@
+[gd_scene load_steps=9 format=3]
+
+[sub_resource type="StandardMaterial3D" id="Stone"]
+albedo_color = Color(0.2, 0.24, 0.29, 1)
+metallic = 0.08
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Metal"]
+albedo_color = Color(0.33, 0.4, 0.45, 1)
+metallic = 0.08
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Blue"]
+albedo_color = Color(0.11, 0.32, 0.66, 1)
+metallic = 0.08
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Red"]
+albedo_color = Color(0.65, 0.14, 0.12, 1)
+metallic = 0.08
+roughness = 0.48
+
+[sub_resource type="BoxMesh" id="ArenaFloor"]
+size = Vector3(27, 0.55, 27)
+
+[sub_resource type="BoxMesh" id="ArenaPillar"]
+size = Vector3(1.4, 4, 1.4)
+
+[sub_resource type="CapsuleMesh" id="Proxy"]
+radius = 0.38
+height = 1.6
+
+[sub_resource type="SphereMesh" id="Sigil"]
+radius = 0.62
+height = 1.24
+
+[node name="ArenaCombat" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-58, 28, -5)
+light_energy = 0.85
+shadow_enabled = true
+
+[node name="ArenaFloor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.35, 0)
+mesh = SubResource("ArenaFloor")
+material_override = SubResource("Stone")
+
+[node name="CornerPillar0" type="MeshInstance3D" parent="."]
+position = Vector3(-11, 1.7, -11)
+mesh = SubResource("ArenaPillar")
+material_override = SubResource("Metal")
+
+[node name="Beacon0" type="MeshInstance3D" parent="."]
+position = Vector3(-11, 4.2, -11)
+mesh = SubResource("Sigil")
+material_override = SubResource("Blue")
+
+[node name="BeaconLight0" type="OmniLight3D" parent="."]
+position = Vector3(-11, 4.5, -11)
+light_color = Color(0.16, 0.54, 1, 1)
+light_energy = 2.5
+omni_range = 12
+
+[node name="CornerPillar1" type="MeshInstance3D" parent="."]
+position = Vector3(-11, 1.7, 11)
+mesh = SubResource("ArenaPillar")
+material_override = SubResource("Metal")
+
+[node name="Beacon1" type="MeshInstance3D" parent="."]
+position = Vector3(-11, 4.2, 11)
+mesh = SubResource("Sigil")
+material_override = SubResource("Blue")
+
+[node name="BeaconLight1" type="OmniLight3D" parent="."]
+position = Vector3(-11, 4.5, 11)
+light_color = Color(0.16, 0.54, 1, 1)
+light_energy = 2.5
+omni_range = 12
+
+[node name="CornerPillar2" type="MeshInstance3D" parent="."]
+position = Vector3(11, 1.7, -11)
+mesh = SubResource("ArenaPillar")
+material_override = SubResource("Metal")
+
+[node name="Beacon2" type="MeshInstance3D" parent="."]
+position = Vector3(11, 4.2, -11)
+mesh = SubResource("Sigil")
+material_override = SubResource("Blue")
+
+[node name="BeaconLight2" type="OmniLight3D" parent="."]
+position = Vector3(11, 4.5, -11)
+light_color = Color(0.16, 0.54, 1, 1)
+light_energy = 2.5
+omni_range = 12
+
+[node name="CornerPillar3" type="MeshInstance3D" parent="."]
+position = Vector3(11, 1.7, 11)
+mesh = SubResource("ArenaPillar")
+material_override = SubResource("Metal")
+
+[node name="Beacon3" type="MeshInstance3D" parent="."]
+position = Vector3(11, 4.2, 11)
+mesh = SubResource("Sigil")
+material_override = SubResource("Blue")
+
+[node name="BeaconLight3" type="OmniLight3D" parent="."]
+position = Vector3(11, 4.5, 11)
+light_color = Color(0.16, 0.54, 1, 1)
+light_energy = 2.5
+omni_range = 12
+
+[node name="Proxy01" type="MeshInstance3D" parent="."]
+position = Vector3(-6.6, 0.8, -6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Red")
+
+[node name="Proxy02" type="MeshInstance3D" parent="."]
+position = Vector3(-3.3, 0.8, -6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy03" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, -6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy04" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.8, -6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy05" type="MeshInstance3D" parent="."]
+position = Vector3(6.6, 0.8, -6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy06" type="MeshInstance3D" parent="."]
+position = Vector3(-6.6, 0.8, -3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Red")
+
+[node name="Proxy07" type="MeshInstance3D" parent="."]
+position = Vector3(-3.3, 0.8, -3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy08" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, -3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy09" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.8, -3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy10" type="MeshInstance3D" parent="."]
+position = Vector3(6.6, 0.8, -3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy11" type="MeshInstance3D" parent="."]
+position = Vector3(-6.6, 0.8, 0)
+mesh = SubResource("Proxy")
+material_override = SubResource("Red")
+
+[node name="Proxy12" type="MeshInstance3D" parent="."]
+position = Vector3(-3.3, 0.8, 0)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy13" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, 0)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy14" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.8, 0)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy15" type="MeshInstance3D" parent="."]
+position = Vector3(6.6, 0.8, 0)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy16" type="MeshInstance3D" parent="."]
+position = Vector3(-6.6, 0.8, 3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Red")
+
+[node name="Proxy17" type="MeshInstance3D" parent="."]
+position = Vector3(-3.3, 0.8, 3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy18" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, 3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy19" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.8, 3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy20" type="MeshInstance3D" parent="."]
+position = Vector3(6.6, 0.8, 3.3)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy21" type="MeshInstance3D" parent="."]
+position = Vector3(-6.6, 0.8, 6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Red")
+
+[node name="Proxy22" type="MeshInstance3D" parent="."]
+position = Vector3(-3.3, 0.8, 6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy23" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.8, 6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy24" type="MeshInstance3D" parent="."]
+position = Vector3(3.3, 0.8, 6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="Proxy25" type="MeshInstance3D" parent="."]
+position = Vector3(6.6, 0.8, 6.6)
+mesh = SubResource("Proxy")
+material_override = SubResource("Metal")
+
+[node name="IsometricCamera" type="Camera3D" parent="."]
+position = Vector3(30, 30, 30)
+rotation_degrees = Vector3(-35.26439, 45, 0)
+current = true
+fov = 56
+near = 0.1
+far = 300.0
+
