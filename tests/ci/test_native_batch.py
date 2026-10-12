@@ -134,6 +134,38 @@ class DecisionTests(unittest.TestCase):
                 raise AssertionError("Unexpected workflow API page")
         self.assertEqual(module.latest_anchor(Fake(), "KayzenRoot/nex-engine"), COMMITS[1])
 
+    def test_real_github_compare_url_ellipsis_is_allowed(self):
+        class FakeResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return None
+            def read(self):
+                return json.dumps({
+                    "status": "ahead", "total_commits": 1,
+                    "commits": [{"sha": COMMITS[0]}]
+                }).encode()
+        with patch.object(module, "urlopen", return_value=FakeResponse()) as request:
+            commits = module.compare_commits(
+                module.GitHub("test-token"), "KayzenRoot/nex-engine", BASE, COMMITS[0]
+            )
+        self.assertEqual(commits, [{"sha": COMMITS[0]}])
+        url = request.call_args.args[0].full_url
+        self.assertIn(f"/compare/{BASE}...{COMMITS[0]}?", url)
+
+    def test_github_path_traversal_and_unsafe_schemes_remain_blocked(self):
+        api = module.GitHub("test-token")
+        for path in (
+            "/repos/KayzenRoot/../secrets",
+            "/repos/KayzenRoot/./nex-engine",
+            "/repos/KayzenRoot/%2e%2e/secrets",
+            "/repos/KayzenRoot/nex-engine//issues",
+            "/repos/KayzenRoot/nex-engine\\\\evil",
+            "https://api.github.com/repos/KayzenRoot/nex-engine",
+        ):
+            with self.subTest(path=path), self.assertRaises(ValueError):
+                api.request("GET", path)
+
     def test_response_read_timeout_is_normalized(self):
         class SlowResponse:
             def __enter__(self):
