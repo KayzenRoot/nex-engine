@@ -1,5 +1,5 @@
 # Work Order NEX-M00-WO-001 | Native Godot baseline
-**Owner:** KayzenRoot. **Owner approval:** 2026-10-11 (Issue #5). **Class:** NECESSARY. **Risk:** STANDARD, elevated if license/core/toolchain drift. **Status:** ADMITTED_ON_EXECUTION_LOCK_PROMOTION / NOT_STARTED. No work until the exact new main SHA is attested after the lock's squash merge and the Integration Steward issues a single-writer lease. **Executor:** Codex Desktop LOCAL + Integration Steward; ChatGPT repairs reviewed issues first per ADR-0002.
+**Owner:** KayzenRoot. **Owner approval:** 2026-10-11 (Issue #5). **Class:** NECESSARY. **Risk:** STANDARD, elevated if license/core/toolchain drift. **Status:** IMPLEMENTATION_VERIFIED_POSTMERGE / CHECKPOINT_PROMOTION_SEPARATE. Review and Owner authorization for PR #78 complete; recorded SHA `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861`. No work until the exact new main SHA is attested after the lock's squash merge and the Integration Steward issues a single-writer lease. **Executor:** Codex Desktop LOCAL + Integration Steward; ChatGPT repairs reviewed issues first per ADR-0002.
 ## Objective
 Deliver a reproducible, **unmodified Godot 4.7.2-stable** editor/runtime baseline and provenance evidence for native Windows, with Ubuntu headless smoke. No renderer, gameplay or module feature implementation.
 ## Preconditions (gates)
@@ -19,3 +19,7 @@ Deliver a reproducible, **unmodified Godot 4.7.2-stable** editor/runtime baselin
 - If source Windows compilation not proved, M00 cannot claim complete; diagnostics alone do not satisfy DoD.
 ## STOP CONDITION
 `NEX_M00_WO_001_READY_FOR_EXACT_HEAD_REVIEW` on implementation PR; `STALE` for SHA/lock drift, `BLOCKED` for unknown licenses, permission, resource or safety failures; never advance M01 automatically.
+
+## Final evidence / closure (2026-10-11)
+- Implementation PR #78 reviewed at `8c26ecc019b05edef5839f21c43b4af72bb34d9c`, squash `0c6cdbfc13bd0c1c8e80d293f7da7f2302027861`; exact Git tree SHA identical; postmerge 6/6 checks SUCCESS. See `.engineering/evidence/NEX-M00-WO-001-POSTMERGE-EVIDENCE.md`.
+- CD-003 10/10 start tests PASS; cause of earlier `0xC0000005` unknown, Owner accepted bounded residual risk. No cloud GPU or paid services, renderer fork, M01, release or FPS claim. Stop condition reached for M00 implementation; promote checkpoint only by separate reviewed governance PR. M01 NOT_ADMITTED.
