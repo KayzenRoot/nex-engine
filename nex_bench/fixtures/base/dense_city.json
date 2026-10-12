@@ -3,15 +3,15 @@
   "scene_id": "dense_city",
   "scene_revision": 1,
   "seed": 303,
-  "scene_sha256": "cce6ab72fe9c54e09b49e1b1f0aa17b7fcfa4b452d352317bc9d8b27c90ea812",
+  "scene_sha256": "429e3a173ef9a20f0388617bb2a26c557b114235b5e31fcbb3a7155f110890e1",
   "scene_unit_scale_m": 1,
   "camera": {
     "preset_id": "fixed_iso_45",
     "projection": "perspective",
     "position_m": [
-      46,
-      52,
-      46
+      59,
+      59,
+      59
     ],
     "target_m": [
       0,

@@ -10,7 +10,7 @@
       "id": "corridor_static",
       "scene_path": "nex_bench/scenes/base/corridor_static.tscn",
       "fixture_path": "nex_bench/fixtures/base/corridor_static.json",
-      "scene_sha256": "d595b455f4c692c44cce38541ad1c72ccfe99e35c0fc1c37ecb8340ed5ff6f33",
+      "scene_sha256": "9fada790391ce170e34115742f61ec1aa4b98d251b21a73dec675166fc20d773",
       "seed": 101,
       "proxy_count": 0,
       "omni_light_count": 4
@@ -19,7 +19,7 @@
       "id": "arena_combat",
       "scene_path": "nex_bench/scenes/base/arena_combat.tscn",
       "fixture_path": "nex_bench/fixtures/base/arena_combat.json",
-      "scene_sha256": "cb04fde0563e4d428ab2b4414f214a8f09ce3de5a237a5f41494292e1ffcde11",
+      "scene_sha256": "13f6e1a3258ecc7bd36edbbc0b7192509848e35404d1d30fe63a675358d4b8d9",
       "seed": 202,
       "proxy_count": 25,
       "omni_light_count": 4
@@ -28,7 +28,7 @@
       "id": "dense_city",
       "scene_path": "nex_bench/scenes/base/dense_city.tscn",
       "fixture_path": "nex_bench/fixtures/base/dense_city.json",
-      "scene_sha256": "cce6ab72fe9c54e09b49e1b1f0aa17b7fcfa4b452d352317bc9d8b27c90ea812",
+      "scene_sha256": "429e3a173ef9a20f0388617bb2a26c557b114235b5e31fcbb3a7155f110890e1",
       "seed": 303,
       "proxy_count": 0,
       "omni_light_count": 5

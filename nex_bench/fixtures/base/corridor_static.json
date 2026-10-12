@@ -3,15 +3,15 @@
   "scene_id": "corridor_static",
   "scene_revision": 1,
   "seed": 101,
-  "scene_sha256": "d595b455f4c692c44cce38541ad1c72ccfe99e35c0fc1c37ecb8340ed5ff6f33",
+  "scene_sha256": "9fada790391ce170e34115742f61ec1aa4b98d251b21a73dec675166fc20d773",
   "scene_unit_scale_m": 1,
   "camera": {
     "preset_id": "fixed_iso_45",
     "projection": "perspective",
     "position_m": [
-      15,
       19,
-      18
+      19,
+      19
     ],
     "target_m": [
       0,

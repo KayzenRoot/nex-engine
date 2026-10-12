@@ -192,8 +192,8 @@ light_energy = 1.8
 omni_range = 7
 
 [node name="IsometricCamera" type="Camera3D" parent="."]
-position = Vector3(46, 52, 46)
-rotation_degrees = Vector3(-38, 45, 0)
+position = Vector3(59, 59, 59)
+rotation_degrees = Vector3(-35.26439, 45, 0)
 current = true
 fov = 58
 near = 0.1

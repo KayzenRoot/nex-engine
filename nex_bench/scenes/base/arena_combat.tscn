@@ -236,8 +236,8 @@ mesh = SubResource("Proxy")
 material_override = SubResource("Metal")
 
 [node name="IsometricCamera" type="Camera3D" parent="."]
-position = Vector3(23, 28, 23)
-rotation_degrees = Vector3(-39, 45, 0)
+position = Vector3(30, 30, 30)
+rotation_degrees = Vector3(-35.26439, 45, 0)
 current = true
 fov = 56
 near = 0.1

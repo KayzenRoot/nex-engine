@@ -3,15 +3,15 @@
   "scene_id": "arena_combat",
   "scene_revision": 1,
   "seed": 202,
-  "scene_sha256": "cb04fde0563e4d428ab2b4414f214a8f09ce3de5a237a5f41494292e1ffcde11",
+  "scene_sha256": "13f6e1a3258ecc7bd36edbbc0b7192509848e35404d1d30fe63a675358d4b8d9",
   "scene_unit_scale_m": 1,
   "camera": {
     "preset_id": "fixed_iso_45",
     "projection": "perspective",
     "position_m": [
-      23,
-      28,
-      23
+      30,
+      30,
+      30
     ],
     "target_m": [
       0,
