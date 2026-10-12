@@ -70,6 +70,21 @@ class IntegratedVisualHubTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, smoke)
 
+    def test_renderer_diagnostics_panel_does_not_claim_gpu_benchmark(self):
+        for marker in ('"DIAGNOSTICO [F9]"', "KEY_F9",
+                       'Performance.get_monitor(Performance.TIME_FPS)',
+                       'Performance.get_monitor(Performance.TIME_PROCESS)',
+                       'Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)',
+                       'Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)',
+                       'RenderingServer.get_video_adapter_name()',
+                       'RenderingServer.get_current_rendering_driver_name()',
+                       'N/A (headless / unavailable)', "NAO representa VRAM total"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, self.script)
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        self.assertIn("NEX_NATIVE_DIAGNOSTICS_PASS", smoke)
+        self.assertIn("diagnostics.visible", smoke)
+
     def test_heatmap_preview_is_native_and_exports_png(self):
         for snippet in ("func _create_heatmap(first: Image, second: Image) -> Image:",
                         "Image.create_from_data(", "Image.FORMAT_RGBA8",

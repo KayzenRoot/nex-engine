@@ -19,10 +19,14 @@ const PIXEL_TOLERANCE := 2
 var active_mode := 0
 var active_world: Node3D
 var capture_pending := false
+var diagnostics_panel: PanelContainer
+var diagnostics_label: Label
+var diagnostics_elapsed := 0.0
 
 func _ready() -> void:
     DisplayServer.window_set_title("NEX Engine | Visual Lab")
     _make_toolbar()
+    _make_diagnostics_panel()
     _activate_mode(0)
 
 func _make_toolbar() -> void:
@@ -49,6 +53,73 @@ func _make_toolbar() -> void:
             button.pressed.connect(_capture.bind("candidate"))
         else:
             button.pressed.connect(_compare_captures)
+    var diagnostics_button := Button.new()
+    diagnostics_button.text = "DIAGNOSTICO [F9]"
+    diagnostics_button.custom_minimum_size = Vector2(132, 40)
+    diagnostics_button.pressed.connect(_toggle_diagnostics)
+    toolbar.add_child(diagnostics_button)
+
+func _make_diagnostics_panel() -> void:
+    diagnostics_panel = PanelContainer.new()
+    diagnostics_panel.name = "RenderDiagnostics"
+    diagnostics_panel.anchor_top = 1.0
+    diagnostics_panel.anchor_bottom = 1.0
+    diagnostics_panel.offset_left = 16.0
+    diagnostics_panel.offset_top = -247.0
+    diagnostics_panel.offset_right = 440.0
+    diagnostics_panel.offset_bottom = -18.0
+    diagnostics_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    diagnostics_label = Label.new()
+    diagnostics_label.name = "RenderStats"
+    diagnostics_label.custom_minimum_size = Vector2(410.0, 218.0)
+    diagnostics_label.add_theme_font_size_override("font_size", 15)
+    diagnostics_panel.add_child(diagnostics_label)
+    $HUD.add_child(diagnostics_panel)
+    diagnostics_panel.visible = false
+
+func _toggle_diagnostics() -> void:
+    if diagnostics_panel == null:
+        return
+    diagnostics_panel.visible = not diagnostics_panel.visible
+    if diagnostics_panel.visible:
+        _refresh_diagnostics()
+
+func _process(delta: float) -> void:
+    if diagnostics_panel == null or not diagnostics_panel.visible:
+        return
+    diagnostics_elapsed += delta
+    if diagnostics_elapsed >= 0.75:
+        diagnostics_elapsed = 0.0
+        _refresh_diagnostics()
+
+func _refresh_diagnostics() -> void:
+    if diagnostics_label == null:
+        return
+    var driver: String = RenderingServer.get_current_rendering_driver_name()
+    var method_name: String = RenderingServer.get_current_rendering_method()
+    var adapter: String = RenderingServer.get_video_adapter_name()
+    var backend: String = DisplayServer.get_name()
+    if adapter.is_empty():
+        adapter = "N/A (headless / unavailable)"
+    var is_headless: bool = backend == "headless"
+    var fps: float = Performance.get_monitor(Performance.TIME_FPS)
+    var process_ms: float = Performance.get_monitor(Performance.TIME_PROCESS) * 1000.0
+    var calls: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+    var objects: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME))
+    var memory: float = Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)
+    var memory_text: String = "N/A (headless / unavailable)" if is_headless or memory <= 0.0 else "%.1f MiB (renderer allocation)" % (memory / (1024.0 * 1024.0))
+    diagnostics_label.text = (
+        "NEX ENGINE  |  DIAGNOSTICO LOCAL [F9]\n"
+        + "Cena: %s\n" % SCENE_LABELS[active_mode]
+        + "Render method: %s / driver: %s\n" % [method_name, driver]
+        + "Display: %s\n" % backend
+        + "Adapter: %s\n" % adapter
+        + "FPS observado: %.0f (nao e benchmark)\n" % fps
+        + "CPU process: %.2f ms/frame (nao GPU time)\n" % process_ms
+        + "Draw calls: %d | objetos 3D: %d\n" % [calls, objects]
+        + "Memoria do renderizador: %s\n" % memory_text
+        + "NAO representa VRAM total, p95 ou latencia GPU"
+    )
 
 func _unhandled_key_input(event: InputEvent) -> void:
     if not (event is InputEventKey):
@@ -65,6 +136,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
             _activate_mode(2)
         KEY_F4:
             _activate_mode(3)
+        KEY_F9:
+            _toggle_diagnostics()
         KEY_B:
             _capture("baseline")
         KEY_N:
@@ -97,6 +170,8 @@ func _activate_mode(index: int) -> void:
     world_root.add_child(next_world)
     active_world = next_world
     active_mode = index
+    if diagnostics_panel != null and diagnostics_panel.visible:
+        _refresh_diagnostics()
     title_label.text = "NEX ENGINE  /  " + SCENE_LABELS[index]
     if index == 3:
         _status("Density controls: [1-4] 25/50/100/200 proxies   [G/L/V/C] modes   |  FPS not a benchmark")

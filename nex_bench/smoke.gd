@@ -44,9 +44,26 @@ func _check_modules() -> void:
     root.add_child(window)
     await process_frame
     var toolbar := window.get_node_or_null("HUD/Toolbar")
-    if toolbar == null or toolbar.get_child_count() != 7:
-        _fail("Integrated toolbar does not expose all seven controls")
+    if toolbar == null or toolbar.get_child_count() != 8:
+        _fail("Integrated toolbar does not expose all eight controls")
         return
+    var diagnostics: Control = window.get_node_or_null("HUD/RenderDiagnostics") as Control
+    if diagnostics == null or diagnostics.visible:
+        _fail("Render diagnostics panel must exist and start hidden")
+        return
+    window.call("_toggle_diagnostics")
+    if not diagnostics.visible:
+        _fail("Render diagnostics could not be shown")
+        return
+    var stats := diagnostics.get_node_or_null("RenderStats") as Label
+    if stats == null or not stats.text.contains("FPS observado:") or not stats.text.contains("Render method:"):
+        _fail("Render diagnostics did not populate real engine monitor labels")
+        return
+    window.call("_toggle_diagnostics")
+    if diagnostics.visible:
+        _fail("Render diagnostics could not be hidden")
+        return
+    print("NEX_NATIVE_DIAGNOSTICS_PASS: F9 toggle, renderer API and headless-safe labels")
     for mode in range(4):
         window.call("_activate_mode", mode)
         await process_frame

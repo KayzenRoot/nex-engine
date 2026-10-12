@@ -55,7 +55,7 @@ class WindowsNativeLauncherTests(unittest.TestCase):
     def test_native_ci_checks_real_controls_and_powershell_smoke(self):
         smoke = (LAB / "smoke.gd").read_text(encoding="utf-8")
         workflow = (ROOT / ".github/workflows/nex-visual-lab-native-smoke.yml").read_text(encoding="utf-8")
-        self.assertIn("toolbar.get_child_count() != 7", smoke)
+        self.assertIn("toolbar.get_child_count() != 8", smoke)
         self.assertIn("workload.get_child_count() != 25", smoke)
         self.assertIn("scene_root.get_node_or_null(\"IsometricCamera\")", smoke)
         self.assertIn("pwsh -NoLogo -NoProfile -File nex_bench/Start-NEX.ps1", workflow)
