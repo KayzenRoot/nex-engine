@@ -168,14 +168,16 @@
       "parentM01": "NOT_ADMITTED_NOT_STARTED"
     }
   },
-  "checkpointReconciliation": {
-    "state": "PROPOSED_UNTIL_SEPARATE_OWNER_PROTECTED_SQUASH_AND_POSTMERGE_AUDIT",
-    "stageAProtectedMain": "6192ebb0e77e5e706466ab25e438955efad35f37",
-    "preStageBMainGitTree": "0b1d858baf33be3a4493b4d444d3bcdbdf109597",
-    "authoritySnapshotMainShaSemantics": "HISTORICAL_PRESERVED_UNCHANGED",
-    "stageBPr": "PR_CREATED_AFTER_CHECKS_TO_BE_AUDITED",
-    "postmergeMainSha": "UNKNOWN_UNTIL_ACTUAL_PROTECTED_SQUASH",
+  "checkpointReconciliationProvenance": {
+    "admissionIssue": 96,
+    "stagedFromProtectedMainSha": "6192ebb0e77e5e706466ab25e438955efad35f37",
+    "stagedFromProtectedMainTree": "0b1d858baf33be3a4493b4d444d3bcdbdf109597",
+    "promotedStageALockPr": 97,
+    "sourceGitBlobFingerprintCount": 37,
+    "stageBChangeType": "STATUS_CORRECTION_ONLY",
+    "promotionAuthority": "EFFECTIVE_ONLY_AFTER_DISTINCT_OWNER_AUTHORIZED_PROTECTED_MERGE_AND_POSTMERGE_ATTESTATION",
+    "actualStageBMergeShaAuthority": "LIVE_GITHUB_MAIN_AND_ISSUE_96_AUDIT_NOT_AN_INVENTED_PREMERGE_SHA",
     "m01Parent": "NOT_ADMITTED_NOT_STARTED",
-    "qaCiGapIssue": 20
+    "ciRegressionGapIssue": 20
   }
 }
