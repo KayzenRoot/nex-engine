@@ -1,0 +1,33 @@
+{
+  "schema_version": "scene_manifest.v1",
+  "scene_id": "corridor_static",
+  "scene_revision": 1,
+  "seed": 101,
+  "scene_sha256": "d595b455f4c692c44cce38541ad1c72ccfe99e35c0fc1c37ecb8340ed5ff6f33",
+  "scene_unit_scale_m": 1,
+  "camera": {
+    "preset_id": "fixed_iso_45",
+    "projection": "perspective",
+    "position_m": [
+      15,
+      19,
+      18
+    ],
+    "target_m": [
+      0,
+      0,
+      0
+    ],
+    "vertical_fov_degrees": 50,
+    "near_clip_m": 0.1,
+    "far_clip_m": 300
+  },
+  "renderer_id": "godot.forward_plus",
+  "quality_preset": "high",
+  "resolution": {
+    "width_px": 1280,
+    "height_px": 720,
+    "unit": "px"
+  },
+  "assets": []
+}

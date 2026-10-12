@@ -1,0 +1,201 @@
+[gd_scene load_steps=11 format=3]
+
+[sub_resource type="StandardMaterial3D" id="Stone"]
+albedo_color = Color(0.2, 0.24, 0.29, 1)
+metallic = 0.08
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Metal"]
+albedo_color = Color(0.33, 0.4, 0.45, 1)
+metallic = 0.08
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="Gold"]
+albedo_color = Color(0.83, 0.55, 0.19, 1)
+metallic = 0.08
+roughness = 0.42
+
+[sub_resource type="StandardMaterial3D" id="Blue"]
+albedo_color = Color(0.11, 0.32, 0.66, 1)
+metallic = 0.08
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="Plaza"]
+size = Vector3(60, 0.4, 60)
+
+[sub_resource type="BoxMesh" id="BlockLow"]
+size = Vector3(3.1, 4, 3.1)
+
+[sub_resource type="BoxMesh" id="BlockMid"]
+size = Vector3(3.1, 8, 3.1)
+
+[sub_resource type="BoxMesh" id="BlockHigh"]
+size = Vector3(3.1, 13, 3.1)
+
+[sub_resource type="BoxMesh" id="Road"]
+size = Vector3(50, 0.06, 3.8)
+
+[sub_resource type="SphereMesh" id="Lamp"]
+radius = 0.22
+height = 0.44
+
+[node name="DenseCity" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-58, 28, -5)
+light_energy = 0.85
+shadow_enabled = true
+
+[node name="Plaza" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.28, 0)
+mesh = SubResource("Plaza")
+material_override = SubResource("Stone")
+
+[node name="MainRoadNS" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.02, 0)
+mesh = SubResource("Road")
+material_override = SubResource("Metal")
+
+[node name="Tower_0_0" type="MeshInstance3D" parent="."]
+position = Vector3(-16, 2, -16)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_0_1" type="MeshInstance3D" parent="."]
+position = Vector3(-16, 2, -8)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_0_3" type="MeshInstance3D" parent="."]
+position = Vector3(-16, 2, 8)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_0_4" type="MeshInstance3D" parent="."]
+position = Vector3(-16, 2, 16)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_1_0" type="MeshInstance3D" parent="."]
+position = Vector3(-8, 4, -16)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_1_1" type="MeshInstance3D" parent="."]
+position = Vector3(-8, 4, -8)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_1_3" type="MeshInstance3D" parent="."]
+position = Vector3(-8, 4, 8)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_1_4" type="MeshInstance3D" parent="."]
+position = Vector3(-8, 4, 16)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_3_0" type="MeshInstance3D" parent="."]
+position = Vector3(8, 2, -16)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_3_1" type="MeshInstance3D" parent="."]
+position = Vector3(8, 2, -8)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_3_3" type="MeshInstance3D" parent="."]
+position = Vector3(8, 2, 8)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_3_4" type="MeshInstance3D" parent="."]
+position = Vector3(8, 2, 16)
+mesh = SubResource("BlockLow")
+material_override = SubResource("Blue")
+
+[node name="Tower_4_0" type="MeshInstance3D" parent="."]
+position = Vector3(16, 4, -16)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_4_1" type="MeshInstance3D" parent="."]
+position = Vector3(16, 4, -8)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_4_3" type="MeshInstance3D" parent="."]
+position = Vector3(16, 4, 8)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Tower_4_4" type="MeshInstance3D" parent="."]
+position = Vector3(16, 4, 16)
+mesh = SubResource("BlockMid")
+material_override = SubResource("Blue")
+
+[node name="Lamp_0" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 2.7, -18)
+mesh = SubResource("Lamp")
+material_override = SubResource("Gold")
+
+[node name="LampLight_0" type="OmniLight3D" parent="."]
+position = Vector3(1.8, 2.9, -18)
+light_color = Color(1, 0.74, 0.35, 1)
+light_energy = 1.8
+omni_range = 7
+
+[node name="Lamp_1" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 2.7, -9)
+mesh = SubResource("Lamp")
+material_override = SubResource("Gold")
+
+[node name="LampLight_1" type="OmniLight3D" parent="."]
+position = Vector3(1.8, 2.9, -9)
+light_color = Color(1, 0.74, 0.35, 1)
+light_energy = 1.8
+omni_range = 7
+
+[node name="Lamp_2" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 2.7, 0)
+mesh = SubResource("Lamp")
+material_override = SubResource("Gold")
+
+[node name="LampLight_2" type="OmniLight3D" parent="."]
+position = Vector3(1.8, 2.9, 0)
+light_color = Color(1, 0.74, 0.35, 1)
+light_energy = 1.8
+omni_range = 7
+
+[node name="Lamp_3" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 2.7, 9)
+mesh = SubResource("Lamp")
+material_override = SubResource("Gold")
+
+[node name="LampLight_3" type="OmniLight3D" parent="."]
+position = Vector3(1.8, 2.9, 9)
+light_color = Color(1, 0.74, 0.35, 1)
+light_energy = 1.8
+omni_range = 7
+
+[node name="Lamp_4" type="MeshInstance3D" parent="."]
+position = Vector3(1.8, 2.7, 18)
+mesh = SubResource("Lamp")
+material_override = SubResource("Gold")
+
+[node name="LampLight_4" type="OmniLight3D" parent="."]
+position = Vector3(1.8, 2.9, 18)
+light_color = Color(1, 0.74, 0.35, 1)
+light_energy = 1.8
+omni_range = 7
+
+[node name="IsometricCamera" type="Camera3D" parent="."]
+position = Vector3(46, 52, 46)
+rotation_degrees = Vector3(-38, 45, 0)
+current = true
+fov = 58
+near = 0.1
+far = 300.0
+

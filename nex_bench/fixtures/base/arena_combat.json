@@ -1,0 +1,33 @@
+{
+  "schema_version": "scene_manifest.v1",
+  "scene_id": "arena_combat",
+  "scene_revision": 1,
+  "seed": 202,
+  "scene_sha256": "cb04fde0563e4d428ab2b4414f214a8f09ce3de5a237a5f41494292e1ffcde11",
+  "scene_unit_scale_m": 1,
+  "camera": {
+    "preset_id": "fixed_iso_45",
+    "projection": "perspective",
+    "position_m": [
+      23,
+      28,
+      23
+    ],
+    "target_m": [
+      0,
+      0,
+      0
+    ],
+    "vertical_fov_degrees": 56,
+    "near_clip_m": 0.1,
+    "far_clip_m": 300
+  },
+  "renderer_id": "godot.forward_plus",
+  "quality_preset": "high",
+  "resolution": {
+    "width_px": 1280,
+    "height_px": 720,
+    "unit": "px"
+  },
+  "assets": []
+}

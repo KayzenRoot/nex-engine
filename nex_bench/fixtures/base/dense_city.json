@@ -1,0 +1,33 @@
+{
+  "schema_version": "scene_manifest.v1",
+  "scene_id": "dense_city",
+  "scene_revision": 1,
+  "seed": 303,
+  "scene_sha256": "cce6ab72fe9c54e09b49e1b1f0aa17b7fcfa4b452d352317bc9d8b27c90ea812",
+  "scene_unit_scale_m": 1,
+  "camera": {
+    "preset_id": "fixed_iso_45",
+    "projection": "perspective",
+    "position_m": [
+      46,
+      52,
+      46
+    ],
+    "target_m": [
+      0,
+      0,
+      0
+    ],
+    "vertical_fov_degrees": 58,
+    "near_clip_m": 0.1,
+    "far_clip_m": 300
+  },
+  "renderer_id": "godot.forward_plus",
+  "quality_preset": "high",
+  "resolution": {
+    "width_px": 1280,
+    "height_px": 720,
+    "unit": "px"
+  },
+  "assets": []
+}
