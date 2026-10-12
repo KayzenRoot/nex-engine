@@ -44,6 +44,7 @@ _SCENE_ID = re.compile(r"^[a-z][a-z0-9._-]{0,127}$")
 _GIT_SHA = re.compile(r"^[0-9a-f]{40}$")
 _SCENE_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _MAX_SAMPLE_COUNT = 1_000_000
+_SYNTHETIC_FPS_NOT_FINITE = "synthetic one-percent low FPS must be finite"
 
 
 def _duplicate_checked_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -321,13 +322,13 @@ def _one_percent_low_fps(frame_times: list[float]) -> tuple[int, float]:
     slowest = sorted(frame_times, reverse=True)[:slowest_count]
     mean_slowest = math.fsum(slowest) / slowest_count
     if not math.isfinite(mean_slowest) or mean_slowest <= 0:
-        raise FramePulseError("synthetic one-percent low FPS must be finite")
+        raise FramePulseError(_SYNTHETIC_FPS_NOT_FINITE)
     try:
         fps = 1000.0 / mean_slowest
     except OverflowError as exc:
-        raise FramePulseError("synthetic one-percent low FPS must be finite") from exc
+        raise FramePulseError(_SYNTHETIC_FPS_NOT_FINITE) from exc
     if not math.isfinite(fps):
-        raise FramePulseError("synthetic one-percent low FPS must be finite")
+        raise FramePulseError(_SYNTHETIC_FPS_NOT_FINITE)
     return slowest_count, fps
 
 
