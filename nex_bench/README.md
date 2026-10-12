@@ -18,3 +18,13 @@ The original standalone Godot projects at `nex_bench/scenes/base/project.godot` 
 ## Tests and limitations
 
 Existing CI: `python3 -m unittest discover -s tests/ci -p 'test_*.py' -v`; contract and FramePulse suites run in the same protected Fast Lane. The new `tests/ci/test_integrated_hub.py` asserts integrated file wiring, only static screenshot paths, bounded stress config relative to its script, and preservation of all feature test files. CI is **not** native Godot rendering; before claiming native VERIFIED, independently run the pinned Godot import/GUI smoke (F1..F4 plus screenshots), record editor messages and actual GPU backend. No measured FPS/p95/p99, GPU/VRAM, visual equivalence, production-ready engine/editor or runtime benchmark claim follows from these synthetic/static tests.
+
+## Native import smoke (local, optional)
+
+With the **pinned Godot 4.7.2 binary installed**, from repository root:
+
+```bash
+godot --headless --path nex_bench --rendering-method gl_compatibility --script res://smoke.gd
+```
+
+Expect `NEX_NATIVE_IMPORT_SMOKE_PASS` and exit code 0. This exercises main scene creation and all four world modes, **not** a Forward+ visual/GPU/performance validation. We have not run this Godot binary in the current GitHub-only session; execute locally before claiming native runtime verified.

@@ -53,6 +53,14 @@ class IntegratedVisualHubTests(unittest.TestCase):
         self.assertNotIn('OS.execute(', self.script)
         self.assertNotIn('HTTPClient', self.script)
 
+    def test_native_headless_smoke_is_reproducible(self):
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        for token in ("extends SceneTree", "NEX_NATIVE_IMPORT_SMOKE_PASS",
+                      '"res://main.tscn"', '"res://stress/density_ladder.gd"',
+                      "for mode in range(4)", 'quit(1)'):
+            with self.subTest(token=token):
+                self.assertIn(token, smoke)
+
     def test_preserves_original_standalone_projects_and_python_comparator(self):
         for path in ("scenes/base/project.godot", "stress/project.godot",
                      "visual_truth/compare.py", "fixtures/base/manifest.v1.json"):
