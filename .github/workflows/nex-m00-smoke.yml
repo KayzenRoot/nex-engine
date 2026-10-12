@@ -8,9 +8,21 @@ on:
       - '.nex/toolchain/**'
       - 'tooling/godot/**'
       - 'tests/m00/**'
-      - '.engineering/evidence/NEX-M00-WO-001-*.md'
-      - '.engineering/checkpoint-deltas/NEX-M00-WO-001-*.md'
+      - 'engine/**'
+      - 'src/native/**'
+      - 'native/**'
+      - 'godot/**'
     types: [opened, reopened, synchronize]
+  workflow_dispatch:
+    inputs:
+      verification_reason:
+        description: 'manual, five-module-batch, or critical release; always full native verification'
+        required: false
+        type: string
+
+concurrency:
+  group: nex-m00-native-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -244,7 +256,7 @@ jobs:
       - name: Checkout exact pull request head
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
 
       - name: Run M00 integrity and negative tests
@@ -259,7 +271,7 @@ jobs:
         id: build
         shell: pwsh
         env:
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           $ErrorActionPreference = 'Stop'
           $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
@@ -295,7 +307,7 @@ jobs:
         if: success() && steps.build.outputs.package_ready == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: nex-m00-godot-windows-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          name: nex-m00-godot-windows-${{ github.event.pull_request.head.sha || github.sha }}-attempt-${{ github.run_attempt }}
           path: |
             ${{ steps.build.outputs.package_path }}
             ${{ steps.build.outputs.package_path }}.sha256
@@ -306,7 +318,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: nex-m00-windows-logs-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          name: nex-m00-windows-logs-${{ github.event.pull_request.head.sha || github.sha }}-attempt-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/nex-m00-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
             ${{ runner.temp }}/nex-m00-build-runner-preflight.json
@@ -315,14 +327,13 @@ jobs:
 
   ubuntu-headless-smoke:
     name: Ubuntu official headless smoke and negative tests
-    needs: [windows-source-build]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout exact pull request head
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
 
       - name: Run M00 integrity and negative tests
@@ -332,7 +343,7 @@ jobs:
 
       - name: Verify and smoke official Linux editor
         env:
-          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha }}
+          CANDIDATE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           python3 tooling/godot/ci_build.py linux-smoke \
             --candidate-sha "$CANDIDATE_SHA" \
@@ -342,7 +353,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: nex-m00-ubuntu-smoke-${{ github.event.pull_request.head.sha }}-attempt-${{ github.run_attempt }}
+          name: nex-m00-ubuntu-smoke-${{ github.event.pull_request.head.sha || github.sha }}-attempt-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/logs/**
             ${{ runner.temp }}/nex-m00-linux-${{ github.run_id }}-${{ github.run_attempt }}/smoke-results.json
