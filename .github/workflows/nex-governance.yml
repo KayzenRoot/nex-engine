@@ -56,7 +56,7 @@ jobs:
           assert.equal(checks.strict_required_status_checks_policy,true);
           assert.deepEqual(
             checks.required_status_checks.map(x=>x.context).sort(),
-            ['CodeRabbit','Socket Security: Project Report','Socket Security: Pull Request Alerts'].sort(),
+            ['NEX Free Review / Static','NEX Fast Lane / Batch Policy Tests','NEX Governance / Source Pack','SonarCloud Code Analysis','Socket Security: Project Report','Socket Security: Pull Request Alerts'].sort(),
           );
           const pr=p.rules.find(r=>r.type==='pull_request').parameters;
           assert.deepEqual(pr.allowed_merge_methods,['squash']);

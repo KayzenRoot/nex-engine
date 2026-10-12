@@ -1,0 +1,21 @@
+rules:
+  - id: nex-unsafe-python-dynamic-evaluation
+    languages: [python]
+    severity: ERROR
+    message: "Dynamic eval/exec can execute untrusted code. Avoid unless explicitly reviewed."
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: exec(...)
+  - id: nex-unsafe-javascript-dynamic-evaluation
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "Dynamic eval executes arbitrary JavaScript. Use a parser or typed API."
+    pattern: eval(...)
+  - id: nex-python-shell-injection
+    languages: [python]
+    severity: ERROR
+    message: "Avoid subprocess shell=True with potentially untrusted inputs."
+    pattern-either:
+      - pattern: subprocess.run(..., shell=True, ...)
+      - pattern: subprocess.call(..., shell=True, ...)
+      - pattern: subprocess.Popen(..., shell=True, ...)

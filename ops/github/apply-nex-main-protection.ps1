@@ -103,7 +103,7 @@ try {
   $statusRule=@($actual.rules | Where-Object { $_.type -eq 'required_status_checks' })[0]
   if (-not $statusRule.parameters.strict_required_status_checks_policy) { throw 'Strict checks not enabled.' }
   $contexts=@($statusRule.parameters.required_status_checks | ForEach-Object { $_.context })
-  $expectedContexts=@('CodeRabbit','Socket Security: Pull Request Alerts','Socket Security: Project Report')
+  $expectedContexts=@('NEX Free Review / Static','NEX Fast Lane / Batch Policy Tests','NEX Governance / Source Pack','SonarCloud Code Analysis','Socket Security: Pull Request Alerts','Socket Security: Project Report')
   $actualContextSet=($contexts | Sort-Object -CaseSensitive) -join "`n"
   $expectedContextSet=($expectedContexts | Sort-Object -CaseSensitive) -join "`n"
   if ($contexts.Count -ne $expectedContexts.Count -or $actualContextSet -cne $expectedContextSet) { throw 'Required status check contexts do not exactly match the approved set.' }

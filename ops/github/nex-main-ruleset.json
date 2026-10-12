@@ -40,7 +40,16 @@
         "strict_required_status_checks_policy": true,
         "required_status_checks": [
           {
-            "context": "CodeRabbit"
+            "context": "NEX Free Review / Static"
+          },
+          {
+            "context": "NEX Fast Lane / Batch Policy Tests"
+          },
+          {
+            "context": "NEX Governance / Source Pack"
+          },
+          {
+            "context": "SonarCloud Code Analysis"
           },
           {
             "context": "Socket Security: Pull Request Alerts"
