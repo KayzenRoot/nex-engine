@@ -1,4 +1,9 @@
 # NEX Engine · Executor Contract
+
+## Current work status | S02 and contracts verified, Stage B checkpoint proposed
+
+Contracts #19 (PR #93) and **synthetic-only** S02 #22 (PR #95) are protected-integrated; [S02 final attestation](https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436). Stage A lock PR #97 protected-merged to `6192ebb0e77e5e706466ab25e438955efad35f37`. The prior preliminary work-order execution gates retained below are **historical** and must not cause duplicate execution. Stage B proposes a seven-file canonical status reconciliation; it is NOT merged or authoritative before its own Owner-authorized protected squash and postmerge checks. No new modules admitted: M01 parent #6, S01 #21 and future WOs remain NOT_ADMITTED. Before any execution require actual live main SHA, fresh pins, exclusive writer ownership, scoped WO, applicable tests and gates; preserve Codex-local leases. Existing GEF bootstrap worktree has a historical HEAD, not current main.
+
 Status: CANONICAL; GEF v1.1.2 and bounded M00 Godot native Windows baseline have been verified through protected PR merge and post-merge CI. Checkpoint governance PR #79 was protected-squash merged as `2090cb28df2385b995666c8fc4d3015e11f6c407` and post-merge 6/6 checks passed. This Source Pack revision corrects the Issue #81 legacy statuses, becoming authoritative only after protected merge and postmerge audit; M01 remains NOT_ADMITTED.
 This is a NEW GEF-governed project. Canonical authority lives in .engineering/ and exact Git/GitHub state.
 Before implementation read SOURCE-HIERARCHY, CHECKPOINT (JSON and MD), DECISIONS-LEDGER, SCOPE, DEFINITION-OF-DONE, ARCHITECTURE, REQUIREMENTS, active Work Order and Context Lock.

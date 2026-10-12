@@ -1,4 +1,11 @@
 # Checkpoint · NEX Engine
+
+## Current verified scope | Stage B proposed checkpoint reconciliation (2026-10-12)
+
+Contracts v1 #19 are **integrated** via protected [PR #93](https://github.com/KayzenRoot/nex-engine/pull/93), main `60c826e41aac061bcdee72e4f793508c661de933`. S02 synthetic-only FramePulse #22 is **integrated** via protected [PR #95](https://github.com/KayzenRoot/nex-engine/pull/95), main `ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd`, identical reviewed Git tree `ee8d5695c1cc94416aa155e19dbfd776b710645c`, 10/10 postmerge checks and 5/5 workflows successful. Stage A governance lock PR #97 promoted to `6192ebb0e77e5e706466ab25e438955efad35f37`, 37/37 pins valid. [S02 attestation](https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436), [contracts audit](https://github.com/KayzenRoot/nex-engine/issues/19#issuecomment-6124229771).
+
+**M00 remains verified; M01 parent #6, S01 #21 and other modules remain NOT_ADMITTED/NOT_STARTED.** Synthetic FramePulse is `SYNTHETIC_NOT_MEASURED`, NOT real FPS/GPU/VRAM profiling. Its 31 local tests were Codex-reported, not independently replayed; required CI does not execute `tests/telemetry`/`tests/contracts` (QA #20); Sonar new-code instrumented coverage was reported 0%. Existing `mainObservedSha` is a historical authority snapshot, not a live runtime main SHA. This Stage B update becomes canonical only after **separate Owner exact-head squash consent and postmerge audit**. Historical content below is deliberately retained, but superseded for current-state labels by these verified facts.
+
 Status: **M00_BASELINE_VERIFIED**, protected checkpoint PR #79 merged as `2090cb28df2385b995666c8fc4d3015e11f6c407`; exact reviewed Git tree equality and 6/6 post-merge checks verified. This Source Pack revision corrects the five historical M00 status contradictions in Issue #81; its canonical effect requires protected promotion and postmerge verification. **M01 NOT_ADMITTED and NOT_STARTED.**
 
 ## Authority and preserved history

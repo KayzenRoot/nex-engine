@@ -13,7 +13,7 @@
   "gefInitialized": "VERIFIED",
   "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "S02_SYNTHETIC_CHILD_LOCK_PROMOTION_POSTMERGE_ATTESTATION_AND_LOCAL_STEWARD_LEASE_REQUIRED_M01_PARENT_NOT_ADMITTED",
+  "nextLegalAction": "AFTER_SEPARATELY_OWNER_AUTHORIZED_STAGE_B_CHECKPOINT_PROMOTION_SEEK_OWNER_ADMISSION_FOR_NEXT_NECESSARY_WO_M01_PARENT_NOT_ADMITTED",
   "lastSourceInspectionDate": "2026-10-12",
   "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
@@ -111,7 +111,7 @@
     "id": "NEX-CONTRACT-WO-001",
     "issue": 19,
     "ownerScopeApproval": "RECORDED_2026_10_12",
-    "status": "OWNER_SCOPE_APPROVED_EXECUTION_REQUIRES_PROTECTED_LOCK_PROMOTION_AND_ACTUAL_POSTMERGE_ATTESTATION",
+    "status": "IMPLEMENTATION_INTEGRATED_POSTMERGE_VERIFIED",
     "authorityBaseSha": "d0f148f324d714fb064e3da5e19854d6be5454c8",
     "lockPath": ".engineering/context-locks/NEX-CONTRACT-WO-001-EXECUTION.json",
     "implementationWriteFiles": [
@@ -123,15 +123,25 @@
       "tests/contracts/test_ownership_locks.py"
     ],
     "executor": "CODEX_DESKTOP_LOCAL_AFTER_LOCK_PROMOTION_AND_STEWARD_LEASE",
-    "implementationStarted": false,
+    "implementationStarted": true,
     "mergeAuthorization": "SEPARATE_PROTECTED_PROMOTION_AND_INDEPENDENT_EXECUTION_MERGE_GATES",
-    "m01": "NOT_ADMITTED_NOT_STARTED"
+    "m01": "NOT_ADMITTED_NOT_STARTED",
+    "implementationVerified": {
+      "pr": 93,
+      "reviewedHeadSha": "6b61a0e57842e381a008aac290cb9b9122a01088",
+      "protectedMainMergeSha": "60c826e41aac061bcdee72e4f793508c661de933",
+      "reviewedGitTreeSha": "d6f625e87d6a19d71ba63cfc26fc225a9086d8a4",
+      "audit": "https://github.com/KayzenRoot/nex-engine/issues/19#issuecomment-6124229771",
+      "localSuite": "EXECUTOR_REPORTED_NOT_INDEPENDENTLY_REPLAYED",
+      "suiteRunByRequiredCI": false,
+      "scope": "CONTRACTS_V1_ONLY_NO_M01_PARENT_ADMISSION"
+    }
   },
   "s02Admission": {
     "id": "NEX-M01-S02-WO-001",
     "issue": 22,
     "ownerApproved": "2026-10-12",
-    "status": "SCOPE_APPROVED_LOCK_PROMOTION_PENDING_NO_EXECUTION",
+    "status": "IMPLEMENTATION_INTEGRATED_POSTMERGE_VERIFIED",
     "authorityBaseSha": "60c826e41aac061bcdee72e4f793508c661de933",
     "lockPath": ".engineering/context-locks/NEX-M01-S02-WO-001-EXECUTION.json",
     "implementationWriteFiles": [
@@ -140,8 +150,34 @@
       "tests/telemetry/test_framepulse.py",
       "nex_bench/telemetry/README.md"
     ],
-    "implementationStarted": false,
+    "implementationStarted": true,
     "parentM01": "NOT_ADMITTED_NOT_STARTED",
-    "mergingImplementationRequires": "SEPARATE_EXACT_HEAD_AUTHORIZATION"
+    "mergingImplementationRequires": "SEPARATE_EXACT_HEAD_AUTHORIZATION",
+    "implementationVerified": {
+      "pr": 95,
+      "reviewedHeadSha": "f907e894b24e282a44289cf5949bd1907c1a7a6d",
+      "protectedMainMergeSha": "ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd",
+      "reviewedGitTreeSha": "ee8d5695c1cc94416aa155e19dbfd776b710645c",
+      "postmergeChecks": "10_OF_10_SUCCESS",
+      "postmergeWorkflows": "5_OF_5_SUCCESS",
+      "audit": "https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436",
+      "localTests": "31_OF_31_EXECUTOR_REPORTED_NOT_INDEPENDENTLY_REPLAYED",
+      "suiteRunByRequiredCI": false,
+      "newCodeInstrumentedCoverage": "0.0_PERCENT_REPORTED",
+      "measurement": "SYNTHETIC_NOT_MEASURED",
+      "parentM01": "NOT_ADMITTED_NOT_STARTED"
+    }
+  },
+  "checkpointReconciliationProvenance": {
+    "admissionIssue": 96,
+    "stagedFromProtectedMainSha": "6192ebb0e77e5e706466ab25e438955efad35f37",
+    "stagedFromProtectedMainTree": "0b1d858baf33be3a4493b4d444d3bcdbdf109597",
+    "promotedStageALockPr": 97,
+    "sourceGitBlobFingerprintCount": 37,
+    "stageBChangeType": "STATUS_CORRECTION_ONLY",
+    "promotionAuthority": "EFFECTIVE_ONLY_AFTER_DISTINCT_OWNER_AUTHORIZED_PROTECTED_MERGE_AND_POSTMERGE_ATTESTATION",
+    "actualStageBMergeShaAuthority": "LIVE_GITHUB_MAIN_AND_ISSUE_96_AUDIT_NOT_AN_INVENTED_PREMERGE_SHA",
+    "m01Parent": "NOT_ADMITTED_NOT_STARTED",
+    "ciRegressionGapIssue": 20
   }
 }
