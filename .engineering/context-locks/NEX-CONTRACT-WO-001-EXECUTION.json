@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-CONTRACT-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "governanceIssue": 19,
+  "ownerApproval": {
+    "date": "2026-10-12",
+    "status": "SCOPE_APPROVED_CONTEXT_LOCK_PROMOTION_REQUIRED",
+    "record": "https://github.com/KayzenRoot/nex-engine/issues/19#issuecomment-6122906159",
+    "scopeFiles": 6
+  },
+  "status": "OWNER_APPROVED_NOT_EXECUTABLE_UNTIL_PROTECTED_PROMOTION_POSTMERGE_ATTESTATION",
+  "authorityBaseSha": "d0f148f324d714fb064e3da5e19854d6be5454c8",
+  "authorityBaseGitTreeSha": "d97a2f3717d802c25adc9fe8d3c140463c9ec307",
+  "authorityBaseMeaning": "VERIFIED_PROTECTED_MAIN_PRE_CONTEXT_LOCK_GOVERNANCE_PR_NOT_FUTURE_EXECUTOR_BASE",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "c6920e80625b7ea51a561ac12d8a95277ee9ab15"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "6290a32090eb80dbb9da8a5399811b68d3bebfb0"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "47346ad87a155fa9f45c5166ee804fba602302f8"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "6e5e657e661a70f066a25f8d8ee83a9544f28078"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "4923f3fd8eb3d7231abcb7776fb10ac6441f9330"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "4b268f761b0eb9476e4963953f08a73290a0219a"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "6e5564f15353927cad6137df9293d36f7951faf4"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/PROJECT-OVERVIEW.md",
+      "gitBlobSha1": "bf2ae28af699148e317b6872718de731560227ca"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "5c79d4e23351c64beda3604babdb43fbb34950db"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0003-M00-GODOT-BASELINE.md",
+      "gitBlobSha1": "f864207bf5565166f0491562684406808c0475e2"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-M00-WO-001.md",
+      "gitBlobSha1": "aa2c6fed25b81ea76ae00743019f9514136b30be"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M00-WO-001-EXECUTION.json",
+      "gitBlobSha1": "4a352d02cae88e01b922c08a7e3e912f4516a42f"
+    },
+    {
+      "path": ".github/workflows/nex-free-review.yml",
+      "gitBlobSha1": "cc75bb016900b0e1e4a6a8f9a408104c5f12f19c"
+    },
+    {
+      "path": ".github/workflows/nex-governance.yml",
+      "gitBlobSha1": "1a7a923fc961ea521aebd64b951c7dbd24c5c5a9"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb"
+    },
+    {
+      "path": "ops/github/nex-main-ruleset.json",
+      "gitBlobSha1": "bccaaa696ab3c822ea1ac3591037e7a1324b0785"
+    }
+  ],
+  "branchName": "governance/nex-contract-wo-001-execution-lock",
+  "promotionAllowedPaths": [
+    ".engineering/context-locks/NEX-CONTRACT-WO-001-EXECUTION.json",
+    ".engineering/work-orders/NEX-CONTRACT-WO-001.md",
+    ".engineering/evidence/NEX-CONTRACT-WO-001-ADMISSION-EVIDENCE.md",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md"
+  ],
+  "postPromotionMainSha": "RESOLVE_AND_ATTEST_IN_ISSUE_19_AFTER_SQUASH_AND_POSTMERGE_CHECKS",
+  "postPromotionFingerprints": "READ_BACK_ACTUAL_PROMOTED_MAIN_AND_VERIFY_UNCHANGED_AUTHORITY_FILES_AND_PROMOTION_FILES",
+  "scope": {
+    "writeAllowedExact": [
+      "contracts/m01/scene_manifest.v1.schema.json",
+      "contracts/m01/telemetry_run.v1.schema.json",
+      "contracts/m01/ownership.v1.json",
+      "contracts/README.md",
+      "tests/contracts/test_m01_schema.py",
+      "tests/contracts/test_ownership_locks.py"
+    ],
+    "writeForbidden": [
+      "AGENTS.md",
+      ".engineering/**",
+      ".github/**",
+      "ops/**",
+      "project.godot",
+      ".nex/**",
+      ".gef/**",
+      "tooling/**",
+      "engine/**",
+      "godot/**",
+      "native/**",
+      "src/native/**",
+      "nex_bench/**",
+      "tests/m00/**",
+      "unrelated modules or consumer worktrees",
+      "main"
+    ],
+    "singleWriter": [
+      "contracts/m01/**",
+      "contracts/README.md",
+      "tests/contracts/**"
+    ],
+    "maxImplementingAgents": 1,
+    "additionalPathsNeedNewOwnerApproval": true
+  },
+  "contracts": {
+    "sceneManifest": "Stable scene_id, revision, sha256, seed, camera, renderer, quality, pixel size, licensing and provenance; versioned JSON schema only",
+    "telemetryRun": "Run ID, 40-hex git SHA, scene id/digest, renderer/hardware toolchain trace, warmed/cold, sample counts, monotonic timing and unit ms; GPU/VRAM explicit UNAVAILABLE not zero",
+    "ownership": "Versioned unique owner per write path, no overlapping glob, acyclic dependency graph, consumer STALE on breaking version change; no assertion of Godot C++ ABI"
+  },
+  "acceptance": {
+    "tests": [
+      "JSON syntax/schema negative tests",
+      "reject invalid hash/version/clock/units/NaN/Inf/negative timings",
+      "missing asset provenance and license",
+      "missing vs zero metrics and explicit GPU UNAVAILABLE",
+      "reject writable-path collisions and cyclic DAG",
+      "two independent consumer fixtures/mocks (no real M01 implementation)"
+    ],
+    "gates": [
+      "six active FREE required GitHub status checks exact implementation PR HEAD SUCCESS",
+      "applicable GEF/CodeQL plus zero unresolved PR threads and no known HIGH/CRITICAL findings",
+      "separate owner authorization before protected implementation squash",
+      "postmerge tree and CI evidence"
+    ],
+    "noPerformanceClaim": true
+  },
+  "runtimeLockBinding": {
+    "mode": "IMMUTABLE_AUTHORITY_BASE_PLUS_POST_PROMOTION_MAIN_ATTESTATION",
+    "prerequisites": [
+      "owner scope approval in Issue #19",
+      "Context Lock governance PR reviewed, six required FREE checks and relevant additional checks success",
+      "protected SQUASH with no bypass, exact reviewed HEAD and approved promotion",
+      "postmerge canonical main SHA/tree/files and applicable checks audited",
+      "record actual new protected main SHA and promoted Git blob fingerprints in Issue #19",
+      "refresh Context Lock if canonical data/branch moved or source hashes drift",
+      "exclusive Steward writer lease, no competing branches/worktrees, clean Codex Desktop LOCAL worktree",
+      "Codex verifies current main against promotion attestation before implementing only six paths"
+    ],
+    "onFailure": "STALE_OR_BLOCKED_NO_CODE_NO_MERGE"
+  },
+  "executor": {
+    "actor": "Codex Desktop LOCAL",
+    "os": "Windows",
+    "worktree": "../nex-engine-wt/NEX-CONTRACT-WO-001",
+    "branchPrefix": "feat/nex-contract-wo-001-",
+    "steward": "Integration Steward exclusive single-writer lease",
+    "reviewFirst": "ChatGPT NOT_INDEPENDENT",
+    "noCodeRabbitGate": true
+  },
+  "constraints": {
+    "freeServicesOnly": true,
+    "noPaidApi": true,
+    "noCloudGpu": true,
+    "noGodotNativeSourceBuildForContractOnly": true,
+    "noCplusplusOrABIChanges": true,
+    "noM01": true,
+    "noAutoAdmissionOtherWO": true
+  },
+  "stopCondition": "CONTRACTS_IMPLEMENTATION_PR_EXACT_HEAD_READY_FOR_REVIEW_WITHOUT_MERGE",
+  "promotionGate": "NO_EXECUTION_UNTIL_PROTECTED_LOCK_PROMOTION_AND_POSTMERGE_ATTESTATION"
+}

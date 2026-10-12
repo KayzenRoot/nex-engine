@@ -3,7 +3,7 @@
   "project": "KayzenRoot/nex-engine",
   "status": "M00_BASELINE_VERIFIED",
   "phase": "M00_COMPLETED_M01_NOT_ADMITTED",
-  "mainObservedSha": "84063a0f7e4b216e0787b6c458408367067d40e7",
+  "mainObservedSha": "d0f148f324d714fb064e3da5e19854d6be5454c8",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
@@ -13,7 +13,7 @@
   "gefInitialized": "VERIFIED",
   "ciExactHead": "VERIFIED",
   "releaseCompletion": "NOT_BASELINED",
-  "nextLegalAction": "POST_RECONCILIATION_AUDIT_THEN_REQUEST_SEPARATE_CONTRACT_WO_OWNER_ADMISSION_AND_FRESH_CONTEXT_LOCK_M01_NOT_ADMITTED",
+  "nextLegalAction": "VERIFY_CONTRACT_LOCK_PROTECTED_MERGE_AND_POSTMERGE_SHA_FINGERPRINT_ATTESTATION_THEN_STEWARD_LEASE_BEFORE_CODEX_M01_NOT_ADMITTED",
   "lastSourceInspectionDate": "2026-10-12",
   "bootstrapExecutor": "CODEX_DESKTOP_LOCAL_OWNER_FALLBACK_CHATGPT_REPAIR",
   "sourcePackPlanningMergeSha": "a238f610f0c1bfc2e45b33b38c45dec2ab39ca3c",
@@ -76,7 +76,7 @@
     "postMergeChecks": "SIX_OF_SIX_SUCCESS",
     "sourcePackCoherence": "M00_HISTORICAL_STATUS_RECONCILIATION_IN_PROPOSED_DOC_PR_SUBJECT_TO_PROTECTED_MERGE_AUDIT"
   },
-  "mainObservedShaMeaning": "HISTORICAL_BASE_SNAPSHOT_AT_CONSOLIDATED_SOURCE_RECONCILIATION_NOT_AN_EXECUTOR_CONTEXT_LOCK",
+  "mainObservedShaMeaning": "HISTORICAL_AUTHORITY_BASE_SNAPSHOT_AT_CONTRACT_LOCK_PREPARATION_NOT_EXECUTION_CONTEXT_LOCK",
   "ciFastLaneIntegration": {
     "pr": 83,
     "mergeSha": "a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56",
@@ -106,5 +106,25 @@
     "postMergeChecks": "SEVEN_OF_SEVEN_SUCCESS",
     "coderabbit": "OPTIONAL_NOT_A_REQUIRED_MAIN_GATE",
     "measuredScope": "STATIC_CHECKS_NOT_SEMANTIC_AI_REVIEW"
+  },
+  "contractsAdmission": {
+    "id": "NEX-CONTRACT-WO-001",
+    "issue": 19,
+    "ownerScopeApproval": "RECORDED_2026_10_12",
+    "status": "OWNER_SCOPE_APPROVED_EXECUTION_REQUIRES_PROTECTED_LOCK_PROMOTION_AND_ACTUAL_POSTMERGE_ATTESTATION",
+    "authorityBaseSha": "d0f148f324d714fb064e3da5e19854d6be5454c8",
+    "lockPath": ".engineering/context-locks/NEX-CONTRACT-WO-001-EXECUTION.json",
+    "implementationWriteFiles": [
+      "contracts/m01/scene_manifest.v1.schema.json",
+      "contracts/m01/telemetry_run.v1.schema.json",
+      "contracts/m01/ownership.v1.json",
+      "contracts/README.md",
+      "tests/contracts/test_m01_schema.py",
+      "tests/contracts/test_ownership_locks.py"
+    ],
+    "executor": "CODEX_DESKTOP_LOCAL_AFTER_LOCK_PROMOTION_AND_STEWARD_LEASE",
+    "implementationStarted": false,
+    "mergeAuthorization": "SEPARATE_PROTECTED_PROMOTION_AND_INDEPENDENT_EXECUTION_MERGE_GATES",
+    "m01": "NOT_ADMITTED_NOT_STARTED"
   }
 }
