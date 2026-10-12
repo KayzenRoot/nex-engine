@@ -1,0 +1,511 @@
+{
+  "schema_version": "telemetry_run.v1",
+  "run_id": "SYNTHETIC_NOT_MEASURED_framepulse_seed_20261012_v1",
+  "git_sha": "0000000000000000000000000000000000000000",
+  "scene_id": "synthetic.framepulse.seed-20261012",
+  "scene_sha256": "a70e2fbf5cd73d077c1701acb6fd75f6bf458cf1c172f3c3a7fe6d5a2c261882",
+  "renderer_id": "godot.forward_plus",
+  "toolchain": {
+    "engine_version": "NOT_RUN_SYNTHETIC_ONLY",
+    "toolchain_id": "framepulse.synthetic-generator.v1;seed=20261012",
+    "platform": "synthetic-only"
+  },
+  "execution_mode": "synthetic",
+  "clock": {
+    "domain": "monotonic",
+    "timestamp_unit": "ms"
+  },
+  "frame_time_unit": "ms",
+  "warmup_count": 0,
+  "sample_count": 120,
+  "samples": [
+    {
+      "timestamp_ms": 0.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 8.333333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 16.666666666666668,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 25.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 33.333333333333336,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 41.66666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 50.00000000000001,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 58.33333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 66.66666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 75.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 83.33333333333333,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 91.66666666666666,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 99.99999999999999,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 108.33333333333331,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 116.66666666666664,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 124.99999999999997,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 133.33333333333331,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 141.66666666666666,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 150.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 158.33333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 166.66666666666669,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 175.00000000000003,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 183.33333333333337,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 191.6666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 200.00000000000006,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 208.3333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 216.66666666666674,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 225.00000000000009,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 233.33333333333343,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 241.66666666666677,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 250.0000000000001,
+      "frame_time_ms": 50.0
+    },
+    {
+      "timestamp_ms": 300.0000000000001,
+      "frame_time_ms": 40.0
+    },
+    {
+      "timestamp_ms": 340.0000000000001,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 348.3333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 356.66666666666674,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 365.00000000000006,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 373.33333333333337,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 381.6666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 390.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 398.3333333333333,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 406.66666666666663,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 414.99999999999994,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 423.33333333333326,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 431.6666666666666,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 439.9999999999999,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 448.3333333333332,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 456.6666666666665,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 464.99999999999983,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 473.33333333333314,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 481.66666666666646,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 489.9999999999998,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 498.3333333333331,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 506.6666666666664,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 514.9999999999998,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 523.3333333333331,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 531.6666666666665,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 539.9999999999999,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 548.3333333333333,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 556.6666666666666,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 565.0,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 573.3333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 581.6666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 590.0000000000001,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 598.3333333333335,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 606.6666666666669,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 615.0000000000002,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 623.3333333333336,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 631.666666666667,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 640.0000000000003,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 648.3333333333337,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 656.6666666666671,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 665.0000000000005,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 673.3333333333338,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 681.6666666666672,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 690.0000000000006,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 698.3333333333339,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 706.6666666666673,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 715.0000000000007,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 723.333333333334,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 731.6666666666674,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 740.0000000000008,
+      "frame_time_ms": 70.0
+    },
+    {
+      "timestamp_ms": 810.0000000000008,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 818.3333333333342,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 826.6666666666675,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 835.0000000000009,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 843.3333333333343,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 851.6666666666677,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 860.000000000001,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 868.3333333333344,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 876.6666666666678,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 885.0000000000011,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 893.3333333333345,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 901.6666666666679,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 910.0000000000013,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 918.3333333333346,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 926.666666666668,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 935.0000000000014,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 943.3333333333347,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 951.6666666666681,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 960.0000000000015,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 968.3333333333348,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 976.6666666666682,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 985.0000000000016,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 993.333333333335,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1001.6666666666683,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1010.0000000000017,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1018.3333333333351,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1026.6666666666683,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1035.0000000000016,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1043.3333333333348,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1051.666666666668,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1060.0000000000014,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1068.3333333333346,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1076.6666666666679,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1085.0000000000011,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1093.3333333333344,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1101.6666666666677,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1110.000000000001,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1118.3333333333342,
+      "frame_time_ms": 8.333333333333334
+    },
+    {
+      "timestamp_ms": 1126.6666666666674,
+      "frame_time_ms": 8.333333333333334
+    }
+  ],
+  "gpu": {
+    "availability": "UNAVAILABLE",
+    "source": "SYNTHETIC_NOT_MEASURED; no hardware query or measurement was performed."
+  },
+  "vram": {
+    "availability": "UNAVAILABLE",
+    "source": "SYNTHETIC_NOT_MEASURED; no hardware query or measurement was performed."
+  }
+}
