@@ -26,12 +26,20 @@ def _reject_non_finite(token: str) -> None:
     raise ValueError(f"non-finite JSON number is forbidden: {token}")
 
 
+def _parse_finite_float(token: str) -> float:
+    value = float(token)
+    if not math.isfinite(value):
+        _reject_non_finite(token)
+    return value
+
+
 def strict_json_loads(raw: str) -> Any:
     """Load JSON while rejecting duplicate keys and NaN/Infinity."""
     return json.loads(
         raw,
         object_pairs_hook=_reject_duplicate_keys,
         parse_constant=_reject_non_finite,
+        parse_float=_parse_finite_float,
     )
 
 
@@ -170,16 +178,17 @@ def mock_scene_consumer(scene_manifest: dict[str, Any]) -> list[str]:
         scene_manifest, read_schema("scene_manifest.v1.schema.json")
     )
     camera = scene_manifest.get("camera", {})
-    near_clip = camera.get("near_clip_m")
-    far_clip = camera.get("far_clip_m")
-    if (
-        isinstance(near_clip, (int, float))
-        and not isinstance(near_clip, bool)
-        and isinstance(far_clip, (int, float))
-        and not isinstance(far_clip, bool)
-        and far_clip <= near_clip
-    ):
-        errors.append("$.camera.far_clip_m: must exceed near_clip_m")
+    if isinstance(camera, dict):
+        near_clip = camera.get("near_clip_m")
+        far_clip = camera.get("far_clip_m")
+        if (
+            isinstance(near_clip, (int, float))
+            and not isinstance(near_clip, bool)
+            and isinstance(far_clip, (int, float))
+            and not isinstance(far_clip, bool)
+            and far_clip <= near_clip
+        ):
+            errors.append("$.camera.far_clip_m: must exceed near_clip_m")
     return errors
 
 class StrictJsonTests(unittest.TestCase):
@@ -192,6 +201,12 @@ class StrictJsonTests(unittest.TestCase):
         ):
             with self.subTest(raw=raw):
                 with self.assertRaises(ValueError):
+                    strict_json_loads(raw)
+
+    def test_overflowing_json_floats_are_rejected(self) -> None:
+        for raw in ('{"sample": 1e9999}', '{"sample": -1e9999}'):
+            with self.subTest(raw=raw):
+                with self.assertRaisesRegex(ValueError, "non-finite JSON number"):
                     strict_json_loads(raw)
 
 
@@ -327,16 +342,18 @@ def telemetry_contract_errors(
 ) -> list[str]:
     errors = limited_schema_errors(run, schema)
     samples = run.get("samples", [])
-    if run.get("sample_count") != len(samples):
-        errors.append("$.sample_count: does not equal samples length")
-    timestamps = [sample.get("timestamp_ms") for sample in samples]
-    if any(
-        isinstance(left, (int, float))
-        and isinstance(right, (int, float))
-        and right <= left
-        for left, right in zip(timestamps, timestamps[1:])
-    ):
-        errors.append("$.samples: monotonic timestamps must strictly increase")
+    if isinstance(samples, list):
+        if run.get("sample_count") != len(samples):
+            errors.append("$.sample_count: does not equal samples length")
+        if all(isinstance(sample, dict) for sample in samples):
+            timestamps = [sample.get("timestamp_ms") for sample in samples]
+            if any(
+                isinstance(left, (int, float))
+                and isinstance(right, (int, float))
+                and right <= left
+                for left, right in zip(timestamps, timestamps[1:])
+            ):
+                errors.append("$.samples: monotonic timestamps must strictly increase")
     if scene_manifest is not None:
         if run.get("scene_id") != scene_manifest.get("scene_id"):
             errors.append("$.scene_id: does not match manifest")
@@ -460,6 +477,31 @@ class TelemetryRunContractTests(unittest.TestCase):
             "used_bytes": 0,
         }
         self.assertEqual([], mock_telemetry_consumer(measured_zero, scene))
+
+class MalformedShapeRejectionTests(unittest.TestCase):
+    def test_scene_consumer_returns_errors_for_non_object_camera(self) -> None:
+        scene = valid_scene_manifest()
+        scene["camera"] = None
+
+        errors = mock_scene_consumer(scene)
+
+        self.assertTrue(errors)
+        self.assertTrue(any(error.startswith("$.camera") for error in errors), errors)
+
+    def test_telemetry_consumer_returns_errors_for_malformed_samples(self) -> None:
+        scene = valid_scene_manifest()
+        for label, samples in (("null", None), ("non-object item", [None])):
+            with self.subTest(samples=label):
+                run = valid_telemetry_run(scene)
+                run["samples"] = samples
+
+                errors = mock_telemetry_consumer(run, scene)
+
+                self.assertTrue(errors)
+                self.assertTrue(
+                    any(error.startswith("$.samples") for error in errors), errors
+                )
+
 
 if __name__ == "__main__":
     unittest.main()
