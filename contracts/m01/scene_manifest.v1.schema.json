@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/KayzenRoot/nex-engine/blob/main/contracts/m01/scene_manifest.v1.schema.json",
+  "title": "NEX scene manifest v1",
+  "description": "Deterministic scene identity and provenance. scene_sha256 is the lowercase SHA-256 digest of the exported scene artifact; this schema validates its representation, not the artifact bytes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scene_id",
+    "scene_revision",
+    "seed",
+    "scene_sha256",
+    "scene_unit_scale_m",
+    "camera",
+    "renderer_id",
+    "quality_preset",
+    "resolution",
+    "assets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "scene_manifest.v1"
+    },
+    "scene_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$",
+      "description": "Stable lowercase scene identifier."
+    },
+    "scene_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "description": "Unsigned 32-bit deterministic content seed."
+    },
+    "scene_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Lowercase SHA-256 of the exported scene artifact bytes."
+    },
+    "scene_unit_scale_m": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1000,
+      "description": "Meters represented by one scene unit."
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset_id",
+        "projection",
+        "position_m",
+        "target_m",
+        "vertical_fov_degrees",
+        "near_clip_m",
+        "far_clip_m"
+      ],
+      "properties": {
+        "preset_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+        },
+        "projection": {
+          "const": "perspective"
+        },
+        "position_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "minimum": -100000,
+            "maximum": 100000
+          },
+          "description": "Camera position in meters, ordered x, y, z."
+        },
+        "target_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "minimum": -100000,
+            "maximum": 100000
+          },
+          "description": "Look-at position in meters, ordered x, y, z."
+        },
+        "vertical_fov_degrees": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 179
+        },
+        "near_clip_m": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 1000
+        },
+        "far_clip_m": {
+          "type": "number",
+          "minimum": 0.002,
+          "maximum": 1000000,
+          "description": "Must be greater than near_clip_m; checked by consumers."
+        }
+      }
+    },
+    "renderer_id": {
+      "type": "string",
+      "enum": [
+        "godot.forward_plus",
+        "godot.mobile",
+        "godot.compatibility"
+      ]
+    },
+    "quality_preset": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "ultra"
+      ]
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width_px",
+        "height_px",
+        "unit"
+      ],
+      "properties": {
+        "width_px": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height_px": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "unit": {
+          "const": "px"
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset_id",
+          "sha256",
+          "source_uri",
+          "creator",
+          "license_id",
+          "license_uri",
+          "verification"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "source_uri": {
+            "type": "string",
+            "pattern": "^https?://[^\\s]+$",
+            "description": "Source location for the asset."
+          },
+          "creator": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "license_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9.+-]{0,63}$"
+          },
+          "license_uri": {
+            "type": "string",
+            "pattern": "^https?://[^\\s]+$"
+          },
+          "verification": {
+            "type": "object",
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "status",
+                  "evidence_uri"
+                ],
+                "properties": {
+                  "status": {
+                    "const": "VERIFIED"
+                  },
+                  "evidence_uri": {
+                    "type": "string",
+                    "pattern": "^https?://[^\\s]+$"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "const": "UNVERIFIED"
+                  }
+                }
+              }
+            ],
+            "description": "Unknown or unverified assets must never be represented as VERIFIED."
+          }
+        }
+      }
+    }
+  }
+}
