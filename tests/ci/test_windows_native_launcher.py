@@ -61,6 +61,15 @@ class WindowsNativeLauncherTests(unittest.TestCase):
         self.assertIn("pwsh -NoLogo -NoProfile -File nex_bench/Start-NEX.ps1", workflow)
         self.assertIn("NEX_POWERSHELL_LAUNCHER_SMOKE_VERIFIED", workflow)
 
+    def test_windows_native_runner_verifies_pinned_cmd_smoke(self):
+        workflow = (ROOT / ".github/workflows/nex-visual-lab-native-smoke.yml").read_text(encoding="utf-8")
+        self.assertIn("runs-on: windows-2022", workflow)
+        self.assertIn("windowsReferenceBinary.sha256", workflow)
+        self.assertIn("Get-FileHash -LiteralPath", workflow)
+        self.assertIn("Start-NEX.cmd' -GodotPath", workflow)
+        self.assertIn("NEX_WINDOWS_CMD_NATIVE_SMOKE_VERIFIED", workflow)
+        self.assertIn("if not defined CI pause", self.batch)
+
     def test_headless_mode_and_instructions(self):
         self.assertIn('[switch]$SmokeOnly', self.launcher)
         self.assertIn('if ($SmokeOnly)', self.launcher)

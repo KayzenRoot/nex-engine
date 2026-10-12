@@ -70,3 +70,41 @@ jobs:
             -GodotPath "$binary" -SmokeOnly 2>&1 | tee "$RUNNER_TEMP/nex-pwsh-smoke.log"
           grep -Fq "NEX_NATIVE_STARTUP_VALIDATED: smoke passed." "$RUNNER_TEMP/nex-pwsh-smoke.log"
           echo "NEX_POWERSHELL_LAUNCHER_SMOKE_VERIFIED"
+  windows-godot-native-smoke:
+    name: NEX Visual Lab / Windows CMD Native Smoke
+    runs-on: windows-2022
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact tested code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Fetch and verify the pinned official Godot Windows binary
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $lock = Get-Content '.nex/toolchain/NEX-M00-WO-001-toolchain-lock.json' -Raw | ConvertFrom-Json
+          $url = [string]$lock.godot.windowsReferenceBinary.url
+          $sha = [string]$lock.godot.windowsReferenceBinary.sha256
+          $expectedUrl = 'https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip'
+          if ($url -cne $expectedUrl -or $sha -cnotmatch '^[a-f0-9]{64}$') {
+            throw 'Unexpected pinned Godot Windows artifact URL or SHA-256'
+          }
+          $archive = Join-Path $env:RUNNER_TEMP 'nex-godot-win.zip'
+          & curl.exe --fail --location --retry 2 --max-time 240 --silent --show-error --output $archive $url
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned Godot Windows download failed' }
+          $actual = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -cne $sha) { throw 'Pinned Windows binary SHA-256 mismatch' }
+          $folder = Join-Path $env:RUNNER_TEMP 'nex-godot-win'
+          Expand-Archive -LiteralPath $archive -DestinationPath $folder -Force
+          $binary = Join-Path $folder 'Godot_v4.7.2-stable_win64.exe'
+          if (-not (Test-Path -LiteralPath $binary -PathType Leaf)) { throw 'Expected Windows executable missing' }
+          Write-Host 'NEX_WINDOWS_GODOT_SHA256_VERIFIED'
+      - name: Run the real Start-NEX.cmd smoke on Windows
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $binary = Join-Path $env:RUNNER_TEMP 'nex-godot-win/Godot_v4.7.2-stable_win64.exe'
+          & '.\nex_bench\Start-NEX.cmd' -GodotPath $binary -SmokeOnly
+          if ($LASTEXITCODE -ne 0) { throw "NEX Windows CMD smoke failed: exit $LASTEXITCODE" }
+          Write-Host 'NEX_WINDOWS_CMD_NATIVE_SMOKE_VERIFIED'

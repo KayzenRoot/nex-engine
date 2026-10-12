@@ -6,6 +6,6 @@ powershell.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -File "%~dp0Star
 set "NEX_EXIT=%ERRORLEVEL%"
 if not "%NEX_EXIT%"=="0" (
   echo NEX failed. Check the printed version or native smoke error above.
-  pause
+  if not defined CI pause
 )
 exit /b %NEX_EXIT%
