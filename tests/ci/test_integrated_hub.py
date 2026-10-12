@@ -51,8 +51,8 @@ class IntegratedVisualHubTests(unittest.TestCase):
     def test_native_baseline_candidate_diff_does_not_use_external_commands(self):
         for token in ('CAPTURE_ROOT := "user://visual_truth"',
                       'await RenderingServer.frame_post_draw', '$HUD.visible = false',
-                      'image.save_png(', 'Image.load_from_file(', 'first.convert(Image.FORMAT_RGB8)',
-                      'PIXEL_TOLERANCE := 2', 'ratio * 100.0'):
+                      'image.save_png(', 'Image.load_from_file(', 'first_rgb.convert(Image.FORMAT_RGB8)',
+                      'PIXEL_TOLERANCE := 2', 'float(report["changed_ratio"]) * 100.0'):
             with self.subTest(token=token):
                 self.assertIn(token, self.script)
         self.assertNotIn('OS.execute(', self.script)
