@@ -74,9 +74,9 @@ JSON includes renderer, adapter, OS, viewport, FPS cap, VSync mode, proxy count,
 Execute no repositório local, após salvar uma captura F10 pelo Godot, com Python 3 e somente a biblioteca padrão:
 
 ```powershell
-python .\nex_bench\validate_frame_observation.py "C:\CAMINHO\frame_observations\density_200_geometry_1234567890.json"
+Get-Content -LiteralPath "C:\CAMINHO\frame_observations\density_200_geometry_1234567890.json" -Raw -Encoding UTF8 | python .\nex_bench\validate_frame_observation.py
 ```
 
-O validador retorna **PASS / exit 0** e recalcula a média, FPS médio, p50/p95/p99 e tempo total a partir de **todas as amostras originais**; falha com **FAIL / exit 1** se o JSON tiver chaves duplicadas, dados ausentes, NaN/Infinity, workload inválido, mais de 1500 amostras, discrepância na contagem ou divergência de cálculos. Ele não modifica o arquivo. Preserve o JSON bruto original, saída do validador, log/screenshot e hashes SHA-256 como evidências no mesmo PR.
+O validador retorna **PASS / exit 0** e recalcula a média, FPS médio, p50/p95/p99 e tempo total a partir de **todas as amostras originais**; falha com **FAIL / exit 1** se o JSON tiver chaves duplicadas, dados ausentes, NaN/Infinity, workload inválido, mais de 1500 amostras, discrepância na contagem ou divergência de cálculos. O validador lê apenas **stdin com limite de 1 MB**, não abre caminhos fornecidos pelo usuário e não modifica o arquivo; o PowerShell seleciona explicitamente qual JSON transmitir. Preserve o JSON bruto original, saída do validador, log/screenshot e hashes SHA-256 como evidências no mesmo PR.
 
 Os testes sintéticos locais usam `python -m unittest discover -s tests/ci -p 'test_*.py'`. PASS matemático não comprova qualidade visual, GPU frametime real, VRAM total, VSync desligado, repetibilidade entre máquinas ou desempenho máximo.

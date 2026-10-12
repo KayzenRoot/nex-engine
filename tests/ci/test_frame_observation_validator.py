@@ -6,7 +6,6 @@ import math
 from contextlib import redirect_stdout
 import io
 from pathlib import Path
-import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -111,48 +110,39 @@ class FrameObservationValidatorTests(unittest.TestCase):
                     MODULE.validate_report(sample)
 
     def test_duplicate_keys_nonfinite_raw_json_and_bad_encoding_fail(self):
-        with tempfile.TemporaryDirectory() as root:
-            file = Path(root) / "bad.json"
-            for content in (
-                '{"schema_version": "a", "schema_version": "b"}',
-                '{"sample_count": NaN}',
-                '{"sample_count": 1e999}',
-                "[]",
-            ):
-                with self.subTest(content=content):
-                    file.write_text(content, encoding="utf-8")
-                    with self.assertRaises(MODULE.ObservationError):
-                        MODULE.validate_file(file)
-            file.write_bytes(b"\xff")
-            with self.assertRaises(MODULE.ObservationError):
-                MODULE.validate_file(file)
+        for content in (
+            '{"schema_version": "a", "schema_version": "b"}',
+            '{"sample_count": NaN}',
+            '{"sample_count": 1e999}',
+            "[]",
+        ):
+            with self.subTest(content=content):
+                with self.assertRaises(MODULE.ObservationError):
+                    MODULE.validate_payload(content.encode("utf-8"))
+        with self.assertRaises(MODULE.ObservationError):
+            MODULE.validate_payload(b"\xff")
 
-    def test_file_size_cap_and_missing_path(self):
-        with tempfile.TemporaryDirectory() as root:
-            missing = Path(root) / "missing.json"
-            with self.assertRaises(MODULE.ObservationError):
-                MODULE.validate_file(missing)
-            big = Path(root) / "big.json"
-            big.write_bytes(b"x" * (MODULE.MAX_BYTES + 1))
-            with self.assertRaises(MODULE.ObservationError):
-                MODULE.validate_file(big)
+    def test_input_size_cap_empty_and_no_user_controlled_file_open(self):
+        with self.assertRaises(MODULE.ObservationError):
+            MODULE.validate_payload(b"x" * (MODULE.MAX_BYTES + 1))
+        with self.assertRaises(MODULE.ObservationError):
+            MODULE.validate_payload(b"")
+        source = SOURCE.read_text(encoding="utf-8")
+        self.assertNotIn("source.read_text(", source)
+        self.assertNotIn("source.stat(", source)
+        self.assertNotIn('parser.add_argument("file"', source)
 
     def test_cli_valid_output_and_bad_exit_status(self):
-        with tempfile.TemporaryDirectory() as root:
-            file = Path(root) / "capture.json"
-            file.write_text(json.dumps(fixture()), encoding="utf-8")
-            output = io.StringIO()
-            with redirect_stdout(output):
-                result = MODULE.main([str(file)])
-            self.assertEqual(result, 0)
-            self.assertEqual(json.loads(output.getvalue())["status"], "PASS")
-
-            file.write_text('{"broken":true}', encoding="utf-8")
-            output = io.StringIO()
-            with redirect_stdout(output):
-                result = MODULE.main([str(file)])
-            self.assertEqual(result, 1)
-            self.assertEqual(json.loads(output.getvalue())["status"], "FAIL")
+        output = io.StringIO()
+        with redirect_stdout(output):
+            result = MODULE.main(json.dumps(fixture()).encode("utf-8"))
+        self.assertEqual(result, 0)
+        self.assertEqual(json.loads(output.getvalue())["status"], "PASS")
+        output = io.StringIO()
+        with redirect_stdout(output):
+            result = MODULE.main(b'{"broken":true}')
+        self.assertEqual(result, 1)
+        self.assertEqual(json.loads(output.getvalue())["status"], "FAIL")
 
     def test_raw_capture_version_requires_original_samples(self):
         sample = fixture()

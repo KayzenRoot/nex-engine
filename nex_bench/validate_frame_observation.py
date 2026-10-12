@@ -6,10 +6,8 @@ validated. This is NOT proof of screenshot quality or real GPU frame time.
 """
 from __future__ import annotations
 
-import argparse
 import json
 import math
-from pathlib import Path
 import sys
 from typing import Any
 
@@ -136,14 +134,13 @@ def validate_report(document: Any) -> dict[str, Any]:
     }
 
 
-def validate_file(source: Path) -> dict[str, Any]:
-    if not source.is_file():
-        raise ObservationError("observation file does not exist")
-    if source.stat().st_size > MAX_BYTES:
-        raise ObservationError("observation file exceeds 1 MB limit")
+def validate_payload(payload: bytes) -> dict[str, Any]:
+    """Parse size-bounded UTF-8 JSON bytes from the calling user's stdin."""
+    if len(payload) > MAX_BYTES:
+        raise ObservationError("observation input exceeds 1 MB limit")
     try:
         document = json.loads(
-            source.read_text(encoding="utf-8-sig"),
+            payload.decode("utf-8-sig"),
             object_pairs_hook=_object_pairs,
             parse_constant=_reject_constant,
         )
@@ -152,14 +149,13 @@ def validate_file(source: Path) -> dict[str, Any]:
     return validate_report(document)
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Fail-closed independent F10 interval validation; NOT a GPU benchmark."
-    )
-    parser.add_argument("file", type=Path, help="Godot F10 frame_observations/density_*.json")
-    args = parser.parse_args(argv)
+def main(input_bytes: bytes | None = None) -> int:
+    # Read-only, bounded stdin eliminates path traversal and symbolic-link races:
+    # caller explicitly selects a file with its shell, and the validator never
+    # receives a file path or opens any file itself.
     try:
-        result = validate_file(args.file)
+        payload = sys.stdin.buffer.read(MAX_BYTES + 1) if input_bytes is None else input_bytes
+        result = validate_payload(payload)
     except (ObservationError, OSError) as exc:
         print(json.dumps({"status": "FAIL", "reason": str(exc)}, sort_keys=True))
         return 1
