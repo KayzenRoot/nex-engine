@@ -60,3 +60,13 @@ jobs:
             2>&1 | tee "$RUNNER_TEMP/nex-native-smoke.log"
           grep -Fq "NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes" "$RUNNER_TEMP/nex-native-smoke.log"
           echo "NEX_LINUX_GODOT_NATIVE_IMPORT_VERIFIED"
+      - name: Exercise the real launcher PowerShell smoke against pinned Godot
+        shell: bash
+        run: |
+          set -euo pipefail
+          binary="$RUNNER_TEMP/nex_godot/Godot_v4.7.2-stable_linux.x86_64"
+          command -v pwsh
+          timeout 120s pwsh -NoLogo -NoProfile -File nex_bench/Start-NEX.ps1 \
+            -GodotPath "$binary" -SmokeOnly 2>&1 | tee "$RUNNER_TEMP/nex-pwsh-smoke.log"
+          grep -Fq "NEX_NATIVE_STARTUP_VALIDATED: smoke passed." "$RUNNER_TEMP/nex-pwsh-smoke.log"
+          echo "NEX_POWERSHELL_LAUNCHER_SMOKE_VERIFIED"

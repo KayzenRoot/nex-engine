@@ -43,6 +43,10 @@ func _check_modules() -> void:
         return
     root.add_child(window)
     await process_frame
+    var toolbar := window.get_node_or_null("HUD/Toolbar")
+    if toolbar == null or toolbar.get_child_count() != 7:
+        _fail("Integrated toolbar does not expose all seven controls")
+        return
     for mode in range(4):
         window.call("_activate_mode", mode)
         await process_frame
@@ -50,6 +54,15 @@ func _check_modules() -> void:
         if world == null or world.get_child_count() != 1:
             _fail("Mode %d not activated as a single world" % mode)
             return
+        var scene_root := world.get_child(0) as Node3D
+        if scene_root == null or scene_root.get_node_or_null("IsometricCamera") == null:
+            _fail("Mode %d missing native camera" % mode)
+            return
+        if mode == 3:
+            var workload := scene_root.get_node_or_null("WorkloadRoot")
+            if workload == null or workload.get_child_count() != 25:
+                _fail("Density Ladder must initialize exactly 25 proxy instances")
+                return
     window.queue_free()
     print("NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes, headless parser only")
     quit(0)
