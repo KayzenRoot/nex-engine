@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M01-S02-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 22,
+  "parentM01Issue": 6,
+  "ownerApproval": {
+    "date": "2026-10-12",
+    "status": "S02_SYNTHETIC_SCOPE_APPROVED_LOCK_PROMOTION_REQUIRED",
+    "record": "https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6124456702",
+    "scopeFiles": 4
+  },
+  "status": "NOT_EXECUTABLE_UNTIL_PROTECTED_LOCK_PROMOTION_POSTMERGE_ATTESTATION_AND_LOCAL_LEASE",
+  "authorityBaseSha": "60c826e41aac061bcdee72e4f793508c661de933",
+  "authorityBaseGitTreeSha": "d6f625e87d6a19d71ba63cfc26fc225a9086d8a4",
+  "authorityBaseMeaning": "HISTORICAL_PRE_PROMOTION_SNAPSHOT_NOT_RUNTIME_SHA",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "c6920e80625b7ea51a561ac12d8a95277ee9ab15"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "141a1a2ddd1ec8fd27f261397ec279f2a740c95d"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "e2eb48ca678e1828dc5341b40bdbcb40082f300b"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "6e5e657e661a70f066a25f8d8ee83a9544f28078"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "4923f3fd8eb3d7231abcb7776fb10ac6441f9330"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "4b268f761b0eb9476e4963953f08a73290a0219a"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "6e5564f15353927cad6137df9293d36f7951faf4"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/PROJECT-OVERVIEW.md",
+      "gitBlobSha1": "bf2ae28af699148e317b6872718de731560227ca"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "5c79d4e23351c64beda3604babdb43fbb34950db"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0003-M00-GODOT-BASELINE.md",
+      "gitBlobSha1": "f864207bf5565166f0491562684406808c0475e2"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-M00-WO-001.md",
+      "gitBlobSha1": "aa2c6fed25b81ea76ae00743019f9514136b30be"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M00-WO-001-EXECUTION.json",
+      "gitBlobSha1": "4a352d02cae88e01b922c08a7e3e912f4516a42f"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-CONTRACT-WO-001.md",
+      "gitBlobSha1": "4d6f419bf4c70379caded4b1619404cfee6a96d3"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-CONTRACT-WO-001-EXECUTION.json",
+      "gitBlobSha1": "1f66480404c587e6b8835fbe55998769bf6d011d"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": "contracts/README.md",
+      "gitBlobSha1": "393fb0e11bbe372e758c2e2db310ee75d48a6ead"
+    },
+    {
+      "path": ".github/workflows/nex-free-review.yml",
+      "gitBlobSha1": "cc75bb016900b0e1e4a6a8f9a408104c5f12f19c"
+    },
+    {
+      "path": ".github/workflows/nex-governance.yml",
+      "gitBlobSha1": "1a7a923fc961ea521aebd64b951c7dbd24c5c5a9"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb"
+    },
+    {
+      "path": "ops/github/nex-main-ruleset.json",
+      "gitBlobSha1": "bccaaa696ab3c822ea1ac3591037e7a1324b0785"
+    }
+  ],
+  "branchName": "governance/nex-m01-s02-wo-001-context-lock",
+  "promotionAllowedExactPaths": [
+    ".engineering/context-locks/NEX-M01-S02-WO-001-EXECUTION.json",
+    ".engineering/work-orders/NEX-M01-S02-WO-001.md",
+    ".engineering/evidence/NEX-M01-S02-WO-001-ADMISSION-EVIDENCE.md",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md"
+  ],
+  "postPromotionMainSha": "ATTEST_ACTUAL_MAIN_IN_ISSUE_22_AFTER_MERGE",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_bench/telemetry/framepulse.py",
+      "nex_bench/telemetry/fixtures/synthetic_run.v1.json",
+      "tests/telemetry/test_framepulse.py",
+      "nex_bench/telemetry/README.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/**",
+      "contracts/**",
+      "tests/contracts/**",
+      ".github/**"
+    ],
+    "writeForbidden": [
+      "main",
+      "project.godot",
+      "contracts/**",
+      "tests/contracts/**",
+      ".engineering/**",
+      ".github/**",
+      "ops/**",
+      "engine/**",
+      "godot/**",
+      "native/**",
+      "nex_bench/scenes/**",
+      "unrelated worktrees and shared lockfiles"
+    ],
+    "exclusiveWriter": "Integration Steward local Windows lease required",
+    "maxImplementingAgents": 1,
+    "expandNeedsOwner": true,
+    "parentM01": "NOT_ADMITTED_NOT_STARTED",
+    "otherM01": "NOT_ADMITTED_NOT_STARTED"
+  },
+  "contracts": {
+    "telemetryBlob": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba",
+    "sceneBlob": "0883119df41a0e2f9019d272883c278c0db887e9",
+    "ownershipBlob": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c",
+    "usage": "READ_ONLY_PINNED_NO_SCHEMA_EDITS"
+  },
+  "requirements": {
+    "syntheticOnly": true,
+    "stdlibPythonOnly": true,
+    "pQuantiles": "deterministic linear interpolation documented p50 p95 p99 ms",
+    "onePercentLow": "1000 / arithmetic_mean(slowest max(1,ceil(0.01*N)) frame_time_ms)",
+    "stutter": "configurable ms threshold and contiguous frame clusters without claiming root cause",
+    "schema": "strict minimal stdlib runtime checks, do not claim full Draft 2020-12",
+    "negativeTests": [
+      "duplicate JSON keys",
+      "parse_float overflow 1e9999 and -1e9999",
+      "NaN/Infinity",
+      "invalid frame count and sample types",
+      "bad clock/units/versions/hash",
+      "timestamp ties/reversal",
+      "invalid GPU and VRAM availability",
+      "short trace quantile edge cases"
+    ],
+    "noGPUData": true,
+    "noRealFpsClaim": true
+  },
+  "gates": {
+    "review": "six mandatory free GitHub PR checks plus relevant extra checks",
+    "local": "independent exclusive Steward lease, clean Codex Desktop worktree and actual promoted main SHA",
+    "merge": "implementation PR requires SEPARATE exact-head owner approval and postmerge audit",
+    "stop": "S02_SYNTHETIC_IMPLEMENTATION_PR_READY_FOR_OWNER_REVIEW_NO_MERGE"
+  },
+  "constraints": {
+    "noCodeRabbitWait": true,
+    "freeOnly": true,
+    "noNewDependencies": true,
+    "noRootCIChanges": true,
+    "noM01ParentAdmission": true,
+    "noNativeCode": true
+  }
+}
