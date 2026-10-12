@@ -67,3 +67,16 @@ For a meaningful comparison of two **actually different rendered screenshots**, 
 In **F4**, select count 25/50/100/200 with 1/2/3/4 and effects with G/L/V/C, then press **F10**. The app waits **2 seconds** to warm up, collects **up to 8 seconds** of actual `_process(delta)` intervals (at most **1500 samples**) and saves JSON under Godot's local `user://frame_observations/`. Press F10 again to cancel. Changing scene/count/effects during collection cancels rather than mixing scenarios. Fewer than 60 samples means **no report saved**.
 
 JSON includes renderer, adapter, OS, viewport, FPS cap, VSync mode, proxy count, effect mode, sample count, observed mean FPS, **nearest-rank p50/p95/p99 main-loop frame intervals**, and the **ordered original per-frame interval samples in milliseconds** (`frame_intervals_ms`, max 1500) so aggregates can be independently recalculated. These are **not GPU frametime, total VRAM or unthrottled maximum FPS** and may be VSync/refresh capped. Repeat the same scenario under consistent conditions before comparing runs. Native Windows/Linux CI checks only synthetic percentile math and safe start/cancel without writing fictitious measurements. On the RTX 5050, a genuine 8-second capture requires the local Codex Desktop or manual GUI session.
+
+
+### Validar o JSON de F10 automaticamente (sem GPU)
+
+Execute no repositório local, após salvar uma captura F10 pelo Godot, com Python 3 e somente a biblioteca padrão:
+
+```powershell
+python .\nex_bench\validate_frame_observation.py "C:\CAMINHO\frame_observations\density_200_geometry_1234567890.json"
+```
+
+O validador retorna **PASS / exit 0** e recalcula a média, FPS médio, p50/p95/p99 e tempo total a partir de **todas as amostras originais**; falha com **FAIL / exit 1** se o JSON tiver chaves duplicadas, dados ausentes, NaN/Infinity, workload inválido, mais de 1500 amostras, discrepância na contagem ou divergência de cálculos. Ele não modifica o arquivo. Preserve o JSON bruto original, saída do validador, log/screenshot e hashes SHA-256 como evidências no mesmo PR.
+
+Os testes sintéticos locais usam `python -m unittest discover -s tests/ci -p 'test_*.py'`. PASS matemático não comprova qualidade visual, GPU frametime real, VRAM total, VSync desligado, repetibilidade entre máquinas ou desempenho máximo.
