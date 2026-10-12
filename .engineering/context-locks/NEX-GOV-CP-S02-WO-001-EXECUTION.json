@@ -1,0 +1,242 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.governance.context_lock_proposal",
+  "id": "NEX-GOV-CP-S02-WO-001-EXECUTION",
+  "repo": "KayzenRoot/nex-engine",
+  "issue": 96,
+  "status": "PROPOSAL_ONLY_NOT_EXECUTABLE_BEFORE_PROTECTED_LOCK_PROMOTION_OWNER_ADMISSION_AND_EXCLUSIVE_WRITER",
+  "ownerScopeAuthorization": "NOT_YET_GRANTED_FOR_GOVERNANCE_EXECUTION; continuation authorizes preparing Stage A proposal only",
+  "authorityBaseSha": "ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd",
+  "authorityBaseTreeSha": "ee8d5695c1cc94416aa155e19dbfd776b710645c",
+  "authorityBaseMeaning": "IMMUTABLE_PRE_LOCK_PROPOSAL_SNAPSHOT_NOT_FUTURE_EXECUTOR_MAIN_SHA",
+  "authoritySourceFingerprintCount": 37,
+  "authoritySourceFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "c6920e80625b7ea51a561ac12d8a95277ee9ab15"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "75ba748f2b89b2e47f973e6e4750c8540da623e5"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "394ea75c15d5f55ab4fcd01467d0a3a7998ae351"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "6e5e657e661a70f066a25f8d8ee83a9544f28078"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "4b268f761b0eb9476e4963953f08a73290a0219a"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "4923f3fd8eb3d7231abcb7776fb10ac6441f9330"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "6e5564f15353927cad6137df9293d36f7951faf4"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/PROJECT-OVERVIEW.md",
+      "gitBlobSha1": "bf2ae28af699148e317b6872718de731560227ca"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "5c79d4e23351c64beda3604babdb43fbb34950db"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0001-BOOTSTRAP-ACTOR-EXCEPTION.md",
+      "gitBlobSha1": "43abfc1d50567c170bdfc91279bda93e1043141d"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0003-M00-GODOT-BASELINE.md",
+      "gitBlobSha1": "f864207bf5565166f0491562684406808c0475e2"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-GEF-WO-001.md",
+      "gitBlobSha1": "413fcf3f96e4ef0b8c4413118d52bd008a0a0ac8"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-M00-WO-001.md",
+      "gitBlobSha1": "aa2c6fed25b81ea76ae00743019f9514136b30be"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-CONTRACT-WO-001.md",
+      "gitBlobSha1": "4d6f419bf4c70379caded4b1619404cfee6a96d3"
+    },
+    {
+      "path": ".engineering/work-orders/NEX-M01-S02-WO-001.md",
+      "gitBlobSha1": "0bd621766a43133d98237b238d2bdd5285ac0a91"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-CONTRACT-WO-001-EXECUTION.json",
+      "gitBlobSha1": "1f66480404c587e6b8835fbe55998769bf6d011d"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M00-WO-001-EXECUTION.json",
+      "gitBlobSha1": "4a352d02cae88e01b922c08a7e3e912f4516a42f"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M01-S02-WO-001-EXECUTION.json",
+      "gitBlobSha1": "966d090c7ed5358035dbc81f0f842522ef53f3e7"
+    },
+    {
+      "path": ".engineering/evidence/NEX-M01-S02-WO-001-ADMISSION-EVIDENCE.md",
+      "gitBlobSha1": "b1e91a4aa46aed5f6968743a3f741545afb421de"
+    },
+    {
+      "path": "contracts/README.md",
+      "gitBlobSha1": "393fb0e11bbe372e758c2e2db310ee75d48a6ead"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": ".github/workflows/nex-free-review.yml",
+      "gitBlobSha1": "cc75bb016900b0e1e4a6a8f9a408104c5f12f19c"
+    },
+    {
+      "path": ".github/workflows/nex-governance.yml",
+      "gitBlobSha1": "1a7a923fc961ea521aebd64b951c7dbd24c5c5a9"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb"
+    },
+    {
+      "path": "ops/github/nex-main-ruleset.json",
+      "gitBlobSha1": "bccaaa696ab3c822ea1ac3591037e7a1324b0785"
+    },
+    {
+      "path": "nex_bench/telemetry/README.md",
+      "gitBlobSha1": "64aa33baf83529c47318fe0315bec170a83a0db0"
+    },
+    {
+      "path": "nex_bench/telemetry/framepulse.py",
+      "gitBlobSha1": "13f831094482297d9a669bd5e0575a624d5eb1e6"
+    },
+    {
+      "path": "nex_bench/telemetry/fixtures/synthetic_run.v1.json",
+      "gitBlobSha1": "8ae662c007ae788c46e7d7fc6c8414990ea6aa4c"
+    },
+    {
+      "path": "tests/telemetry/test_framepulse.py",
+      "gitBlobSha1": "d5fa06eebaab23cf239529c1c2c2c2e9a133ea7a"
+    }
+  ],
+  "stageA": {
+    "purpose": "PREPARE_AND_REVIEW_GOVERNANCE_PROPOSAL_ONLY",
+    "branchName": "governance/nex-gov-cp-s02-wo-001-lock",
+    "writeAllowedExact": [
+      ".engineering/work-orders/NEX-GOV-CP-S02-WO-001.md",
+      ".engineering/context-locks/NEX-GOV-CP-S02-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-GOV-CP-S02-WO-001-ADMISSION-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-GOV-CP-S02-WO-001-PROPOSED.md"
+    ],
+    "baseSha": "ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd",
+    "commitToMain": "SEPARATE_EXPLICIT_OWNER_APPROVAL_REQUIRED",
+    "autoMerge": false
+  },
+  "stageB": {
+    "purpose": "UPDATE_CANONICAL_S02_VERIFIED_CHECKPOINT_ONLY_AFTER_LOCK_PROTECTED_PROMOTION",
+    "writeAllowedExact": [
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md",
+      ".engineering/DECISIONS-LEDGER.md",
+      ".engineering/BACKLOG.md",
+      ".engineering/SCOPE.md",
+      "AGENTS.md",
+      ".engineering/work-orders/NEX-M01-S02-WO-001.md"
+    ],
+    "requiredChecks": [
+      "STAGE_A_LOCK_MERGED_POSTMERGE_CI_AUDITED",
+      "ACTUAL_NEW_MAIN_SHA_ATTESTED_IN_ISSUE_96",
+      "SOURCES_REVALIDATED_EXACT_GIT_BLOBS",
+      "OWNER_ADMISSION_FOR_STAGE_B",
+      "CLEAN_EXCLUSIVE_INTEGRATION_STEWARD_WRITER",
+      "SIX_FREE_PR_GATES_PLUS_EXTRAS",
+      "SEPARATE_EXACT_HEAD_OWNER_SQUASH_AUTHORIZATION"
+    ],
+    "prohibited": [
+      "CI_WORKFLOW_OR_ROOT_CONFIG",
+      "GODOT_OR_NATIVE",
+      "S01",
+      "M01_PARENT_ADMISSION",
+      "HISTORICAL_LOCK_REWRITE",
+      "CONTRACT_SCHEMA_EDITS",
+      "FRAMEPULSE_CODE_TESTS",
+      "OTHER_WORKTREES"
+    ],
+    "parentM01": "NOT_ADMITTED_NOT_STARTED"
+  },
+  "evidence": {
+    "s02Issue": 22,
+    "reviewedImplementationHead": "f907e894b24e282a44289cf5949bd1907c1a7a6d",
+    "protectedImplementationMergeMain": "ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd",
+    "reviewedImplementationTree": "ee8d5695c1cc94416aa155e19dbfd776b710645c",
+    "implPR": 95,
+    "implPaths": [
+      "nex_bench/telemetry/framepulse.py",
+      "nex_bench/telemetry/fixtures/synthetic_run.v1.json",
+      "tests/telemetry/test_framepulse.py",
+      "nex_bench/telemetry/README.md"
+    ],
+    "postmergeCheckRuns": "10_OF_10_SUCCESS",
+    "postmergeWorkflows": "5_OF_5_SUCCESS",
+    "localTelemetryTests": "31_OF_31_EXECUTOR_REPORTED_NOT_INDEPENDENTLY_REPLAYED",
+    "coverage": "SONARCLOUD_ZERO_PERCENT_NEW_CODE_COVERAGE",
+    "runtimeClaim": "SYNTHETIC_NOT_MEASURED"
+  },
+  "prGates": {
+    "rulesetId": 24864413,
+    "method": "PROTECTED_SQUASH_ONLY",
+    "freeChecks": [
+      "NEX Free Review / Static",
+      "NEX Fast Lane / Batch Policy Tests",
+      "NEX Governance / Source Pack",
+      "SonarCloud Code Analysis",
+      "Socket Security: Pull Request Alerts",
+      "Socket Security: Project Report"
+    ],
+    "coderabbit": "OPTIONAL_NOT_GATE",
+    "reviewActor": "CHATGPT_NOT_INDEPENDENT"
+  },
+  "postPromotionMainSha": "ATTEST_REAL_MAIN_SHA_AFTER_OWNER_AUTHORIZED_STAGE_A_MERGE",
+  "halt": "NEX_GOV_CP_S02_LOCK_PROPOSAL_REVIEW_OWNER_DECISION"
+}
