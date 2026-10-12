@@ -81,9 +81,9 @@ def validate_report(document: Any) -> dict[str, Any]:
         raise ObservationError("missing main-loop-only provenance")
     if document.get("frame_intervals_units") != "ms":
         raise ObservationError("frame_intervals_units must be ms")
-    if document.get("proxy_count") not in ALLOWED_COUNTS or type(document.get("proxy_count")) is not int:
+    if type(document.get("proxy_count")) is not int or document["proxy_count"] not in ALLOWED_COUNTS:
         raise ObservationError("proxy_count must be one of 25/50/100/200")
-    if document.get("effect_mode") not in ALLOWED_MODES:
+    if type(document.get("effect_mode")) is not str or document["effect_mode"] not in ALLOWED_MODES:
         raise ObservationError("invalid effect_mode")
     for name in ("godot", "os", "renderer", "driver", "captured_at_utc"):
         if not isinstance(document.get(name), str) or not document[name].strip():
