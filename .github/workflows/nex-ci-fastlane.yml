@@ -24,4 +24,31 @@ jobs:
         with:
           persist-credentials: false
       - name: Validate deterministic CI policy and safety cases
-        run: python3 -m unittest discover -s tests/ci -p 'test_*.py' -v
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in ci contracts telemetry; do
+            python3 - "$name" <<'PYGUARD'
+          from pathlib import Path
+          import sys
+          import unittest
+          
+          name = sys.argv[1]
+          test_dir = Path("tests") / name
+          if not test_dir.is_dir():
+              raise SystemExit(f"BLOCKED_CI_SUITE_MISSING: {test_dir}")
+          try:
+              suite = unittest.TestLoader().discover(
+                  start_dir=str(test_dir), pattern="test_*.py", top_level_dir=str(test_dir)
+              )
+          except Exception as exc:
+              raise SystemExit(f"BLOCKED_CI_DISCOVERY_{name}: {exc}") from exc
+          count = suite.countTestCases()
+          if count < 1:
+              raise SystemExit(f"BLOCKED_CI_ZERO_TESTS: {test_dir}")
+          print(f"NEX_REQUIRED_TEST_SUITE {name}: {count} collected", flush=True)
+          result = unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+          if not result.wasSuccessful():
+              raise SystemExit(f"BLOCKED_CI_TEST_FAILURE: {name}")
+          PYGUARD
+          done
