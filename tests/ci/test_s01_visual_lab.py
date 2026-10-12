@@ -52,8 +52,8 @@ class SceneVisualLabContractTests(unittest.TestCase):
         for name in IDS:
             with self.subTest(scene=name):
                 scene = (SCENES / f"{name}.tscn").read_text(encoding="utf-8")
-                declared = re.findall(r'\\[sub_resource type="[^"]+" id="([^"]+)"\\]', scene)
-                referenced = re.findall(r'SubResource\\("([^"]+)"\\)', scene)
+                declared = re.findall(r'\[sub_resource type="[^"]+" id="([^"]+)"\]', scene)
+                referenced = re.findall(r'SubResource\("([^"]+)"\)', scene)
                 self.assertEqual(len(declared), len(set(declared)))
                 self.assertTrue(set(referenced).issubset(set(declared)))
                 self.assertIn('[node name="IsometricCamera" type="Camera3D"', scene)
