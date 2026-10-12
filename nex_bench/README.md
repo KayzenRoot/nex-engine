@@ -28,3 +28,16 @@ godot --headless --path nex_bench --rendering-method gl_compatibility --script r
 ```
 
 Expect `NEX_NATIVE_IMPORT_SMOKE_PASS` and exit code 0. This exercises main scene creation and all four world modes, **not** a Forward+ visual/GPU/performance validation. We have not run this Godot binary in the current GitHub-only session; execute locally before claiming native runtime verified.
+
+## Windows: launch the integrated app with one double-click
+
+On Windows 11, **double-click `nex_bench/Start-NEX.cmd`**. The launcher checks the pinned Godot 4.7.2 version, runs all four modules through the existing headless import smoke, then opens the visual lab GUI only if validation passed. Godot must already be installed; no installer, cloud dependency, administrator access or download is required.
+
+If Godot isn't on your PATH, call from PowerShell:
+
+```powershell
+.\nex_bench\Start-NEX.ps1 -GodotPath "C:\Tools\Godot_v4.7.2-stable_win64.exe"
+.\nex_bench\Start-NEX.ps1 -GodotPath "C:\Tools\Godot_v4.7.2-stable_win64.exe" -SmokeOnly
+```
+
+Alternatively set the `NEX_GODOT_BIN` environment variable to the Godot executable before launching. A version mismatch, missing binary or failed headless smoke blocks GUI startup and shows a diagnosis; it does not silently downgrade safety. After launch use F1–F4 and B/N/D controls. **The launcher and its wiring have only source-level CI tests so far; executing it on a native Windows/Godot installation is still required.** Headless compatibility mode is not a measured Forward+ GPU test.
