@@ -2,14 +2,14 @@
 from __future__ import annotations
 
 import struct
-import subprocess
-import sys
+from contextlib import redirect_stdout
+from io import StringIO
 import tempfile
 import unittest
 from pathlib import Path
 import zlib
 
-from nex_bench.visual_truth.compare import ImageFormatError, compare_png, read_png
+from nex_bench.visual_truth.compare import ImageFormatError, compare_png, main, read_png
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -59,10 +59,11 @@ class VisualTruthTests(unittest.TestCase):
         baseline = self.png("a.png", make_png(2, 1, bytes([0, 0, 0, 0, 0, 0])))
         candidate = self.png("b.png", make_png(2, 1, bytes([0, 0, 0, 255, 0, 0])))
         self.assertEqual(compare_png(baseline, candidate)["changed_ratio"], 0.5)
-        cmd = [sys.executable, str(ROOT / "nex_bench/visual_truth/compare.py"), str(baseline), str(candidate)]
-        result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=10)
-        self.assertEqual(result.returncode, 1, result.stderr)
-        self.assertIn('"status": "FAIL"', result.stdout)
+        output = StringIO()
+        with redirect_stdout(output):
+            exit_code = main([str(baseline), str(candidate)])
+        self.assertEqual(exit_code, 1)
+        self.assertIn('"status": "FAIL"', output.getvalue())
 
     def test_tolerance_allows_small_differences(self):
         first = self.png("a.png", make_png(1, 1, bytes([20, 20, 20])))

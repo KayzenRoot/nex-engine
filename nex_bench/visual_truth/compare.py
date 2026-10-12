@@ -14,6 +14,7 @@ import zlib
 PNG_SIG = b"\x89PNG\r\n\x1a\n"
 MAX_DIMENSION = 4096
 MAX_COMPRESSED = 32 * 1024 * 1024
+MAX_FILE_BYTES = 40 * 1024 * 1024
 
 
 class ImageFormatError(ValueError):
@@ -28,6 +29,8 @@ def _paeth(a: int, b: int, c: int) -> int:
 
 def read_png(path: Path) -> tuple[int, int, bytes]:
     """Read noninterlaced 8-bit RGB/RGBA PNG into normalized RGB bytes."""
+    if path.stat().st_size > MAX_FILE_BYTES:
+        raise ImageFormatError("PNG file too large")
     content = path.read_bytes()
     if not content.startswith(PNG_SIG):
         raise ImageFormatError("Not a PNG file")
@@ -84,7 +87,7 @@ def read_png(path: Path) -> tuple[int, int, bytes]:
         decoder = zlib.decompressobj()
         raw = decoder.decompress(bytes(compressed), expected + 1)
         raw += decoder.flush(expected + 1 - len(raw))
-    except zlib.error as exc:
+    except (zlib.error, ValueError) as exc:
         raise ImageFormatError("Invalid PNG compressed data") from exc
     if not decoder.eof or decoder.unused_data or decoder.unconsumed_tail or len(raw) != expected:
         raise ImageFormatError("PNG size or zlib stream mismatch")
