@@ -79,7 +79,7 @@ def analyze_json(text: str, *, slow_frame_threshold_ms: float = 33.333) -> dict[
         )
     except FramePulseError:
         raise
-    except (json.JSONDecodeError, TypeError, ValueError, OverflowError) as exc:
+    except (TypeError, ValueError, OverflowError) as exc:
         raise FramePulseError(f"invalid JSON telemetry: {exc}") from exc
     return analyze_run(run, slow_frame_threshold_ms=slow_frame_threshold_ms)
 
@@ -87,6 +87,8 @@ def analyze_json(text: str, *, slow_frame_threshold_ms: float = 33.333) -> dict[
 def _object_with_keys(value: Any, label: str, expected: set[str]) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise FramePulseError(f"{label} must be an object")
+    if any(not isinstance(key, str) for key in value):
+        raise FramePulseError(f"{label} field names must be strings")
     actual = set(value)
     if actual != expected:
         missing = sorted(expected - actual)
@@ -160,11 +162,7 @@ def _validate_hardware(value: Any, label: str, measurement: str) -> dict[str, An
     }
 
 
-def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict[str, Any]]]:
-    telemetry = _object_with_keys(run, "telemetry run", _ROOT_KEYS)
-    if telemetry["schema_version"] != "telemetry_run.v1":
-        raise FramePulseError("schema_version must be telemetry_run.v1")
-
+def _validate_identity(telemetry: dict[str, Any]) -> dict[str, str]:
     run_id = telemetry["run_id"]
     _bounded_string(run_id, "run_id", 128)
     if not _RUN_ID.fullmatch(run_id):
@@ -187,6 +185,18 @@ def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict
     if not isinstance(renderer_id, str) or renderer_id not in _RENDERERS:
         raise FramePulseError("renderer_id is not a telemetry_run.v1 renderer")
 
+    return {
+        "run_id": run_id,
+        "git_sha": git_sha,
+        "scene_id": scene_id,
+        "scene_sha256": scene_sha256,
+        "renderer_id": renderer_id,
+    }
+
+
+def _validate_run_metadata(
+    telemetry: dict[str, Any],
+) -> tuple[dict[str, str], dict[str, str], int]:
     toolchain = _object_with_keys(
         telemetry["toolchain"], "toolchain", {"engine_version", "toolchain_id", "platform"}
     )
@@ -204,7 +214,10 @@ def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict
     warmup_count = _contract_integer(
         telemetry["warmup_count"], "warmup_count", 0, _MAX_SAMPLE_COUNT
     )
-    del warmup_count  # Validated for contract compatibility; warmup rows are not present.
+    return dict(toolchain), dict(clock), warmup_count
+
+
+def _validate_samples(telemetry: dict[str, Any]) -> list[float]:
     sample_count = _contract_integer(
         telemetry["sample_count"], "sample_count", 1, _MAX_SAMPLE_COUNT
     )
@@ -236,6 +249,17 @@ def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict
             )
         frame_times.append(frame_time)
 
+    return frame_times
+
+
+def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict[str, Any]]]:
+    telemetry = _object_with_keys(run, "telemetry run", _ROOT_KEYS)
+    if telemetry["schema_version"] != "telemetry_run.v1":
+        raise FramePulseError("schema_version must be telemetry_run.v1")
+
+    identity = _validate_identity(telemetry)
+    toolchain, clock, warmup_count = _validate_run_metadata(telemetry)
+    frame_times = _validate_samples(telemetry)
     hardware = {
         "gpu": _validate_hardware(telemetry["gpu"], "gpu", "utilization_percent"),
         "vram": _validate_hardware(telemetry["vram"], "vram", "used_bytes"),
@@ -243,16 +267,12 @@ def _validate_run(run: Any) -> tuple[dict[str, Any], list[float], dict[str, dict
     provenance = {
         "label": "SYNTHETIC_NOT_MEASURED",
         "schema_version": telemetry["schema_version"],
-        "run_id": run_id,
-        "git_sha": git_sha,
-        "scene_id": scene_id,
-        "scene_sha256": scene_sha256,
-        "renderer_id": renderer_id,
-        "toolchain": dict(toolchain),
+        **identity,
+        "toolchain": toolchain,
         "execution_mode": telemetry["execution_mode"],
-        "clock": dict(clock),
+        "clock": clock,
         "frame_time_unit": telemetry["frame_time_unit"],
-        "warmup_count": telemetry["warmup_count"],
+        "warmup_count": warmup_count,
     }
     return provenance, frame_times, hardware
 
@@ -295,6 +315,22 @@ def _stutter_clusters(frame_times: list[float], threshold_ms: float) -> list[dic
     return clusters
 
 
+def _one_percent_low_fps(frame_times: list[float]) -> tuple[int, float]:
+    sample_count = len(frame_times)
+    slowest_count = max(1, (sample_count + 99) // 100)
+    slowest = sorted(frame_times, reverse=True)[:slowest_count]
+    mean_slowest = math.fsum(slowest) / slowest_count
+    if not math.isfinite(mean_slowest) or mean_slowest <= 0:
+        raise FramePulseError("synthetic one-percent low FPS must be finite")
+    try:
+        fps = 1000.0 / mean_slowest
+    except OverflowError as exc:
+        raise FramePulseError("synthetic one-percent low FPS must be finite") from exc
+    if not math.isfinite(fps):
+        raise FramePulseError("synthetic one-percent low FPS must be finite")
+    return slowest_count, fps
+
+
 def analyze_run(
     run: Any, *, slow_frame_threshold_ms: float = 33.333
 ) -> dict[str, Any]:
@@ -306,9 +342,7 @@ def analyze_run(
     provenance, frame_times, hardware = _validate_run(run)
     ordered = sorted(frame_times)
     sample_count = len(ordered)
-    slowest_count = max(1, (sample_count + 99) // 100)
-    slowest = sorted(frame_times, reverse=True)[:slowest_count]
-    mean_slowest = math.fsum(slowest) / slowest_count
+    slowest_count, one_percent_low_fps = _one_percent_low_fps(frame_times)
     clusters = _stutter_clusters(frame_times, threshold)
 
     return {
@@ -321,7 +355,7 @@ def analyze_run(
             "p99": _percentile(ordered, 0.99),
         },
         "synthetic_one_percent_sample_count": slowest_count,
-        "synthetic_one_percent_low_fps": 1000.0 / mean_slowest,
+        "synthetic_one_percent_low_fps": one_percent_low_fps,
         "slow_frame_threshold_ms": threshold,
         "slow_frame_count": sum(1 for value in frame_times if value >= threshold),
         "stutter_clusters": clusters,

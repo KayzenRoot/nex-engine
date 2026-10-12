@@ -125,10 +125,11 @@ class FramePulseTests(unittest.TestCase):
         )
 
     def test_slow_frame_threshold_must_be_positive_and_finite(self):
+        run = make_run([10.0])
         for threshold in (0, -1, float("nan"), float("inf"), True, "20"):
             with self.subTest(threshold=threshold):
                 with self.assertRaises(FramePulseError):
-                    analyze_run(make_run([10.0]), slow_frame_threshold_ms=threshold)
+                    analyze_run(run, slow_frame_threshold_ms=threshold)
 
     def test_parser_rejects_non_object_json(self):
         for text in ("", "[]", "null", '"not a run"'):
@@ -161,8 +162,42 @@ class FramePulseTests(unittest.TestCase):
     def test_runtime_validator_rejects_non_finite_python_numbers(self):
         for invalid in (float("nan"), float("inf"), float("-inf")):
             with self.subTest(invalid=invalid):
+                run = make_run([invalid])
                 with self.assertRaises(FramePulseError):
-                    analyze_run(make_run([invalid]))
+                    analyze_run(run)
+
+    def test_tiny_positive_frame_time_cannot_produce_non_finite_fps(self):
+        run = make_run([5e-324])
+        payload = json.dumps(run, allow_nan=False)
+
+        with self.assertRaises(FramePulseError):
+            analyze_run(run)
+
+        with self.assertRaises(FramePulseError):
+            analyze_json(payload)
+
+    def test_accepted_metrics_are_strict_json_serializable(self):
+        for frame_times in ([16.67], [8.33, 8.34], [16.666, 30.0, 40.0]):
+            with self.subTest(frame_times=frame_times):
+                run = make_run(frame_times)
+                report = analyze_run(run)
+                json.dumps(report, allow_nan=False)
+
+    def test_python_mapping_objects_reject_non_string_keys(self):
+        cases = (
+            ("root", lambda run: run.__setitem__(123, "unexpected")),
+            ("toolchain", lambda run: run["toolchain"].__setitem__(123, "unexpected")),
+            ("clock", lambda run: run["clock"].__setitem__(123, "unexpected")),
+            ("sample", lambda run: run["samples"][0].__setitem__(123, "unexpected")),
+            ("gpu", lambda run: run["gpu"].__setitem__(123, "unexpected")),
+            ("vram", lambda run: run["vram"].__setitem__(123, "unexpected")),
+        )
+        for label, add_invalid_key in cases:
+            with self.subTest(label=label):
+                run = make_run([10.0])
+                add_invalid_key(run)
+                with self.assertRaises(FramePulseError):
+                    analyze_run(run)
 
     def test_missing_required_metadata_is_rejected(self):
         for field in ("run_id", "git_sha", "scene_id", "scene_sha256", "toolchain"):
@@ -269,8 +304,9 @@ class FramePulseTests(unittest.TestCase):
     def test_zero_negative_and_over_limit_frame_times_are_rejected(self):
         for value in (0, -0.1, 60000.1, True, "16.67"):
             with self.subTest(value=value):
+                run = make_run([value])
                 with self.assertRaises(FramePulseError):
-                    analyze_run(make_run([value]))
+                    analyze_run(run)
 
     def test_unbounded_integer_samples_raise_validation_errors(self):
         run = make_run([10.0])
@@ -278,8 +314,9 @@ class FramePulseTests(unittest.TestCase):
         with self.assertRaises(FramePulseError):
             analyze_run(run)
 
+        run = make_run([10.0])
         with self.assertRaises(FramePulseError):
-            analyze_run(make_run([10.0]), slow_frame_threshold_ms=10**1000)
+            analyze_run(run, slow_frame_threshold_ms=10**1000)
 
     def test_invalid_timestamps_are_rejected(self):
         for value in (-1, 1e15 + 1, False, "12"):
