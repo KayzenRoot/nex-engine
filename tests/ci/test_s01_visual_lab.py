@@ -27,7 +27,10 @@ class SceneVisualLabContractTests(unittest.TestCase):
             with self.subTest(scene=record["id"]):
                 name = record["id"]
                 data = json.loads((FIXTURES / f"{name}.json").read_text(encoding="utf-8"))
-                actual = hashlib.sha256((SCENES / f"{name}.tscn").read_bytes()).hexdigest()
+                # Match the canonical Git blob independent of Windows checkout
+                # line-ending conversion (core.autocrlf may materialize CRLF).
+                scene_bytes = (SCENES / f"{name}.tscn").read_bytes().replace(b"\r\n", b"\n")
+                actual = hashlib.sha256(scene_bytes).hexdigest()
                 self.assertEqual(data["schema_version"], "scene_manifest.v1")
                 self.assertEqual(data["scene_id"], name)
                 self.assertEqual(actual, data["scene_sha256"])
