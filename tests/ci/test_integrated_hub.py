@@ -79,6 +79,10 @@ class IntegratedVisualHubTests(unittest.TestCase):
                      "Observation cancelled: workload changed"):
             with self.subTest(name=name):
                 self.assertIn(name, self.script)
+        self.assertIn('delta <= 0.0 or delta >= 1.0', self.script)
+        self.assertIn('F10 INVALID: unsafe frame interval, no JSON saved', self.script)
+        self.assertNotIn('if delta < 1.0 and observation_frames.size()', self.script)
+        self.assertIn('window.call("_sample_frame_observation", 1.0)', (ROOT / "smoke.gd").read_text(encoding="utf-8"))
         self.assertIn('"frame_intervals_units": "ms"', self.script)
         self.assertIn('"frame_intervals_ms": observation_frames.duplicate()', self.script)
         self.assertIn("NEX_NATIVE_FRAME_OBSERVATION_PASS",

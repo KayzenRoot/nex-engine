@@ -263,12 +263,15 @@ func _sample_frame_observation(delta: float) -> void:
     if idx < 0 or idx >= levels.size() or int(levels[idx]) != observation_proxies or int(active_world.get("current_mode")) != observation_mode:
         _cancel_frame_observation("Observation cancelled: workload changed")
         return
-    if not is_finite(delta) or delta <= 0.0:
+    # Never omit slow or invalid frames while still counting elapsed time:
+    # that would bias p95/p99 and mean FPS upward, hiding a real hitch.
+    if not is_finite(delta) or delta <= 0.0 or delta >= 1.0:
+        _cancel_frame_observation("F10 INVALID: unsafe frame interval, no JSON saved")
         return
     observation_elapsed += delta
     if observation_elapsed <= OBS_WARMUP:
         return
-    if delta < 1.0 and observation_frames.size() < OBS_MAX_FRAMES:
+    if observation_frames.size() < OBS_MAX_FRAMES:
         observation_frames.append(delta * 1000.0)
     if observation_elapsed >= OBS_WARMUP + OBS_DURATION or observation_frames.size() >= OBS_MAX_FRAMES:
         _finish_frame_observation()

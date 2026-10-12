@@ -136,11 +136,30 @@ func _check_modules() -> void:
     if not bool(window.call("_begin_frame_observation")):
         _fail("F10 failed to start on F4")
         return
+    # A hitch >= 1 second must invalidate the entire run. It must never
+    # disappear from the sample list while still advancing elapsed time.
+    window.call("_sample_frame_observation", 1.0)
+    if bool(window.get("observation_active")):
+        _fail("F10 discarded a one-second hitch without invalidating observation")
+        return
+    if not (window.get("observation_frames") as Array).is_empty():
+        _fail("F10 invalid observation retained frame samples")
+        return
+    if not bool(window.call("_begin_frame_observation")):
+        _fail("F10 cannot restart after invalid interval")
+        return
+    window.call("_sample_frame_observation", 0.0)
+    if bool(window.get("observation_active")):
+        _fail("F10 accepted a zero interval")
+        return
+    if not bool(window.call("_begin_frame_observation")):
+        _fail("F10 cannot restart after zero interval")
+        return
     window.call("_cancel_frame_observation", "synthetic CI check: no JSON saved")
     if bool(window.get("observation_active")):
         _fail("F10 cancellation left active state")
         return
-    print("NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile and safe start/cancel")
+    print("NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile, fail-closed hitches and safe cancel")
 
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.
