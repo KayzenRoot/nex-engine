@@ -154,7 +154,7 @@ func _compare_captures() -> void:
         _status("Pixel reference comparison is limited to static scenes")
         return
     var directory := ProjectSettings.globalize_path(CAPTURE_ROOT)
-    var stem := SCENE_PATHS[active_mode].get_file().get_basename()
+    var stem: String = SCENE_PATHS[active_mode].get_file().get_basename()
     var baseline := directory.path_join(stem + "_baseline.png")
     var candidate := directory.path_join(stem + "_candidate.png")
     if not FileAccess.file_exists(baseline) or not FileAccess.file_exists(candidate):

@@ -37,6 +37,10 @@ func _check_modules() -> void:
     if window == null:
         _fail("Integrated main scene is not Node3D")
         return
+    if not window.has_method("_activate_mode"):
+        window.free()
+        _fail("Integrated hub script failed to load _activate_mode")
+        return
     root.add_child(window)
     await process_frame
     for mode in range(4):

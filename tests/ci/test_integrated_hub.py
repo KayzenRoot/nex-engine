@@ -14,6 +14,11 @@ class IntegratedVisualHubTests(unittest.TestCase):
         cls.script = (ROOT / "hub.gd").read_text(encoding="utf-8")
         cls.stress = (ROOT / "stress/density_ladder.gd").read_text(encoding="utf-8")
 
+    def test_godot_native_parser_regression_stem_type(self):
+        self.assertIn("var stem: String =", self.script)
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        self.assertIn("window.has_method(\"_activate_mode\")", smoke)
+
     def test_native_project_launches_hub_in_forward_plus(self):
         self.assertIn('run/main_scene="res://main.tscn"', self.project)
         self.assertIn('renderer/rendering_method="forward_plus"', self.project)
