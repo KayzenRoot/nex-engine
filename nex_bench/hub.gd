@@ -165,16 +165,35 @@ func _compare_captures() -> void:
     if first == null or second == null or first.is_empty() or second.is_empty():
         _status("BLOCKED: PNG could not be decoded")
         return
+    var report: Dictionary = _pixel_diff(first, second)
+    match str(report.get("status", "INVALID_IMAGE")):
+        "SIZE_MISMATCH":
+            _status("FAIL: screenshot resolution mismatch")
+        "INVALID_IMAGE", "BUFFER_MISMATCH":
+            _status("BLOCKED: pixel buffers incompatible")
+        _:
+            _status("VISUAL TRUTH | %.3f%% pixels changed (> %d/255) | MAE %.6f | %s" % [
+                float(report["changed_ratio"]) * 100.0,
+                int(report["pixel_tolerance"]),
+                float(report["mean_absolute_error_normalized"]),
+                str(report["status"])
+            ])
+
+# Pure native Image comparator shared by the live UI and native runner tests.
+# Keeps screenshots unchanged and does not touch user:// or invoke external programs.
+func _pixel_diff(first: Image, second: Image) -> Dictionary:
+    if first == null or second == null or first.is_empty() or second.is_empty():
+        return {"status": "INVALID_IMAGE"}
     if first.get_size() != second.get_size():
-        _status("FAIL: screenshot resolution mismatch")
-        return
-    first.convert(Image.FORMAT_RGB8)
-    second.convert(Image.FORMAT_RGB8)
-    var lhs: PackedByteArray = first.get_data()
-    var rhs: PackedByteArray = second.get_data()
-    if lhs.size() != rhs.size() or lhs.size() == 0:
-        _status("BLOCKED: pixel buffers incompatible")
-        return
+        return {"status": "SIZE_MISMATCH"}
+    var first_rgb := first.duplicate() as Image
+    var second_rgb := second.duplicate() as Image
+    first_rgb.convert(Image.FORMAT_RGB8)
+    second_rgb.convert(Image.FORMAT_RGB8)
+    var lhs: PackedByteArray = first_rgb.get_data()
+    var rhs: PackedByteArray = second_rgb.get_data()
+    if lhs.size() != rhs.size() or lhs.size() == 0 or lhs.size() % 3 != 0:
+        return {"status": "BUFFER_MISMATCH"}
     var changed := 0
     var absolute_error := 0
     for i in range(0, lhs.size(), 3):
@@ -184,12 +203,14 @@ func _compare_captures() -> void:
         absolute_error += dr + dg + db
         if maxi(dr, maxi(dg, db)) > PIXEL_TOLERANCE:
             changed += 1
-    var pixels := first.get_width() * first.get_height()
-    var ratio := float(changed) / float(pixels)
-    var mae := float(absolute_error) / float(pixels * 3 * 255)
-    _status("VISUAL TRUTH | %.3f%% pixels changed (> %d/255) | MAE %.6f | %s" % [
-        ratio * 100.0, PIXEL_TOLERANCE, mae, "PASS" if changed == 0 else "DIFF"
-    ])
+    var pixels := first_rgb.get_width() * first_rgb.get_height()
+    return {
+        "status": "PASS" if changed == 0 else "DIFF",
+        "changed_pixels": changed,
+        "changed_ratio": float(changed) / float(pixels),
+        "mean_absolute_error_normalized": float(absolute_error) / float(pixels * 3 * 255),
+        "pixel_tolerance": PIXEL_TOLERANCE
+    }
 
 func _status(message: String) -> void:
     status_label.text = message

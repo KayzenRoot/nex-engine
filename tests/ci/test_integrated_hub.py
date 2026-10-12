@@ -58,6 +58,18 @@ class IntegratedVisualHubTests(unittest.TestCase):
         self.assertNotIn('OS.execute(', self.script)
         self.assertNotIn('HTTPClient', self.script)
 
+    def test_native_visual_truth_algorithm_covered_by_godot_smoke(self):
+        for token in ('func _pixel_diff(first: Image, second: Image) -> Dictionary:',
+                      'first.duplicate() as Image', 'second.duplicate() as Image',
+                      'changed_pixels', 'SIZE_MISMATCH', 'mean_absolute_error_normalized'):
+            with self.subTest(token=token):
+                self.assertIn(token, self.script)
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        for token in ('NEX_NATIVE_VISUAL_TRUTH_PASS', 'Image.create(2, 1',
+                      'window.call("_pixel_diff"', 'changed_ratio', 'SIZE_MISMATCH'):
+            with self.subTest(token=token):
+                self.assertIn(token, smoke)
+
     def test_native_headless_smoke_is_reproducible(self):
         smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
         for token in ("extends SceneTree", "NEX_NATIVE_IMPORT_SMOKE_PASS",

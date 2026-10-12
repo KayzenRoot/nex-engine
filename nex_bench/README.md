@@ -41,3 +41,7 @@ If Godot isn't on your PATH, call from PowerShell:
 ```
 
 Alternatively set the `NEX_GODOT_BIN` environment variable to the Godot executable before launching. A version mismatch, missing binary or failed headless smoke blocks GUI startup and shows a diagnosis; it does not silently downgrade safety. After launch use F1–F4 and B/N/D controls. **The launcher and its wiring have only source-level CI tests so far; executing it on a native Windows/Godot installation is still required.** Headless compatibility mode is not a measured Forward+ GPU test.
+
+## Native Visual Truth regression smoke
+
+The same native Godot import smoke also compares small **in-memory images** through the app's own pixel-diff function. It checks identical images, one changed pixel out of two, and mismatched dimensions. Look for `NEX_NATIVE_VISUAL_TRUTH_PASS` in the Linux and Windows job logs. This test does not capture the real GPU framebuffer or replace a visible GUI/screenshot acceptance test. It intentionally does not overwrite saved user baselines.

@@ -63,6 +63,34 @@ func _check_modules() -> void:
             if workload == null or workload.get_child_count() != 25:
                 _fail("Density Ladder must initialize exactly 25 proxy instances")
                 return
+    # Check native Visual Truth algorithm using memory-only images, no screenshots
+    # and no writes to existing user://visual_truth capture files.
+    var reference := Image.create(2, 1, false, Image.FORMAT_RGB8)
+    reference.fill(Color.BLACK)
+    var identical := Image.create(2, 1, false, Image.FORMAT_RGB8)
+    identical.fill(Color.BLACK)
+    var same: Dictionary = window.call("_pixel_diff", reference, identical)
+    if same.get("status", "") != "PASS" or int(same.get("changed_pixels", -1)) != 0:
+        _fail("Native Visual Truth identical comparison failed")
+        return
+    var different := Image.create(2, 1, false, Image.FORMAT_RGB8)
+    different.fill(Color.BLACK)
+    different.set_pixel(1, 0, Color.RED)
+    var changed: Dictionary = window.call("_pixel_diff", reference, different)
+    if changed.get("status", "") != "DIFF" or int(changed.get("changed_pixels", -1)) != 1:
+        _fail("Native Visual Truth changed-pixel count incorrect")
+        return
+    if not is_equal_approx(float(changed.get("changed_ratio", -1)), 0.5):
+        _fail("Native Visual Truth changed-pixel ratio incorrect")
+        return
+    var wrong_size := Image.create(1, 1, false, Image.FORMAT_RGB8)
+    wrong_size.fill(Color.BLACK)
+    var invalid: Dictionary = window.call("_pixel_diff", reference, wrong_size)
+    if invalid.get("status", "") != "SIZE_MISMATCH":
+        _fail("Native Visual Truth mismatched dimensions not rejected")
+        return
+    print("NEX_NATIVE_VISUAL_TRUTH_PASS: identical/difference/dimensions, in-memory")
+
     window.queue_free()
     print("NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes, headless parser only")
     quit(0)
