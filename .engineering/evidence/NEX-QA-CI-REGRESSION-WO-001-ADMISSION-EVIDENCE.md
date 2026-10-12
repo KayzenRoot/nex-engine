@@ -1,0 +1,11 @@
+# NEX-QA-CI-REGRESSION-WO-001 | Admission and lock proposal evidence
+
+- **Owner scope:** explicitly requested CI correction to add compulsory contract/telemetry tests to Fast Lane; user continued the precise bounded offer on 2026-10-12, recorded [Issue #20](https://github.com/KayzenRoot/nex-engine/issues/20#issuecomment-6129959929). Scope != merge approval.
+- **Actual frozen source authority:** main `6d04200bb348a8cfeffd081b9bca6f9b51b5a9d2`, tree `326ab7fd8c5531422a0148ec7b9898128d8db3ec`, protected branch, zero open PRs at Stage A proposal formation.
+- **21/21 immutable direct Git blob SHA-1 pins:** Context Lock source list including workflow `0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb`, canonical sources, contracts, CI policy cases and telemetry unit test.
+- **Proven implementation facts:** PR #98 protected merged, postmerge 12/12 main check runs + 6/6 push workflows success, [Issue #96 final audit](https://github.com/KayzenRoot/nex-engine/issues/96#issuecomment-6129837474). Parent M01 and S01 unadmitted.
+- **Verified CI gap:** current workflow runs `tests/ci` only; contracts and telemetry not explicitly run in required job. [QA review](https://github.com/KayzenRoot/nex-engine/issues/20#issuecomment-6128661827). Tests may pass or fail; do not claim new test results absent actual run.
+- **Stage A write isolation:** exactly FOUR new proposal files, no Fast Lane workflow edit or live checkpoint edit. Stated branch/PR will undergo 6/6 protected required checks plus applicable extras; owner separately approves protected squash of exact HEAD. No concurrent local Codex writer/lease is proven from GitHub.
+- **Stage B gated:** after Stage A owner merge + audit, rebind actual main SHA, obtain exclusive one-writer lease, use exactly ONE workflow file, test negative controls, separate Stage B review and owner merge.
+- **Risk:** current `AGENTS.md` leading 'Stage B proposed' is historical relative to latest protected main. New functionality does not derive authority from that stale line, and nothing here repairs it; classify for future governance-only correction, halt if it creates material conflict with promoted checkpoint.
+- **STOP:** `LOCK_PREPARED_NOT_PROMOTED_STAGE_B_NOT_EXECUTED`.
