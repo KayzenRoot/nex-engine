@@ -1,0 +1,62 @@
+name: NEX Visual Lab Native Import Smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'nex_bench/**'
+      - 'tests/ci/test_windows_native_launcher.py'
+      - '.github/workflows/nex-visual-lab-native-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'nex_bench/**'
+      - '.github/workflows/nex-visual-lab-native-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nex-visual-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  godot-native-import:
+    name: NEX Visual Lab / Godot Native Import
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - name: Checkout exact tested code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Fetch and verify the M00 pinned official Godot 4.7.2 binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          godot_url="$(python3 -c 'import json; print(json.load(open(".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", encoding="utf-8"))["godot"]["linuxSmokeBinary"]["url"])')"
+          expected_sha="$(python3 -c 'import json; print(json.load(open(".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", encoding="utf-8"))["godot"]["linuxSmokeBinary"]["sha256"])')"
+          expected_url="https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+          if [[ "$godot_url" != "$expected_url" || ! "$expected_sha" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "::error::Unexpected Godot source URL or SHA-256 pin"
+            exit 1
+          fi
+          curl --fail --location --retry 2 --max-time 180 --silent --show-error \
+            --output "$RUNNER_TEMP/nex_godot.zip" "$godot_url"
+          echo "$expected_sha  $RUNNER_TEMP/nex_godot.zip" | sha256sum --check
+          unzip -qq "$RUNNER_TEMP/nex_godot.zip" -d "$RUNNER_TEMP/nex_godot"
+          binary="$RUNNER_TEMP/nex_godot/Godot_v4.7.2-stable_linux.x86_64"
+          test -f "$binary"
+          chmod +x "$binary"
+          "$binary" --version
+      - name: Import and execute all four native scene routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          binary="$RUNNER_TEMP/nex_godot/Godot_v4.7.2-stable_linux.x86_64"
+          timeout 120s "$binary" --headless --path nex_bench --editor --import --quit
+          timeout 120s "$binary" --headless --path nex_bench \
+            --rendering-method gl_compatibility --script res://smoke.gd \
+            2>&1 | tee "$RUNNER_TEMP/nex-native-smoke.log"
+          grep -Fq "NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes" "$RUNNER_TEMP/nex-native-smoke.log"
+          echo "NEX_LINUX_GODOT_NATIVE_IMPORT_VERIFIED"
