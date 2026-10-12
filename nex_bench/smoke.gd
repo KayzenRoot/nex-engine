@@ -118,6 +118,30 @@ func _check_modules() -> void:
         return
     print("NEX_NATIVE_CAMERA_NAVIGATION_PASS: orbit, zoom, reset, stress guard")
 
+    # Synthetic percentile mathematics only, no fabricated GPU results or files.
+    var synthetic: Array[float] = [10.0, 12.0, 16.0, 20.0, 40.0]
+    if not is_equal_approx(float(window.call("_observed_percentile_ms", synthetic, 0.50)), 16.0):
+        _fail("F10 synthetic p50 incorrect")
+        return
+    if not is_equal_approx(float(window.call("_observed_percentile_ms", synthetic, 0.95)), 40.0):
+        _fail("F10 synthetic p95 incorrect")
+        return
+    window.call("_activate_mode", 0)
+    await process_frame
+    if bool(window.call("_begin_frame_observation")):
+        _fail("F10 must be limited to F4")
+        return
+    window.call("_activate_mode", 3)
+    await process_frame
+    if not bool(window.call("_begin_frame_observation")):
+        _fail("F10 failed to start on F4")
+        return
+    window.call("_cancel_frame_observation", "synthetic CI check: no JSON saved")
+    if bool(window.get("observation_active")):
+        _fail("F10 cancellation left active state")
+        return
+    print("NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile and safe start/cancel")
+
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.
     var reference := Image.create(2, 1, false, Image.FORMAT_RGB8)

@@ -11,6 +11,12 @@ const SCENE_LABELS := ["CORRIDOR", "ARENA", "DENSE CITY", "DENSITY LADDER"]
 const DENSITY_SCRIPT := "res://stress/density_ladder.gd"
 const CAPTURE_ROOT := "user://visual_truth"
 const PIXEL_TOLERANCE := 2
+const OBS_DIR := "user://frame_observations"
+const OBS_WARMUP := 2.0
+const OBS_DURATION := 8.0
+const OBS_MIN_FRAMES := 60
+const OBS_MAX_FRAMES := 1500
+const OBS_MODES := ["geometry", "lights", "vfx", "combined"]
 
 @onready var world_root: Node3D = $WorldRoot
 @onready var title_label: Label = $HUD/Title
@@ -24,6 +30,11 @@ var diagnostics_label: Label
 var diagnostics_elapsed := 0.0
 var camera_home_position := Vector3.ZERO
 var camera_home_rotation := Vector3.ZERO
+var observation_active := false
+var observation_elapsed := 0.0
+var observation_frames: Array[float] = []
+var observation_proxies := 0
+var observation_mode := 0
 
 func _ready() -> void:
     DisplayServer.window_set_title("NEX Engine | Visual Lab")
@@ -87,6 +98,7 @@ func _toggle_diagnostics() -> void:
         _refresh_diagnostics()
 
 func _process(delta: float) -> void:
+    _sample_frame_observation(delta)
     if diagnostics_panel == null or not diagnostics_panel.visible:
         return
     diagnostics_elapsed += delta
@@ -140,6 +152,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
             _activate_mode(3)
         KEY_F9:
             _toggle_diagnostics()
+        KEY_F10:
+            if observation_active:
+                _cancel_frame_observation("Observation cancelled")
+            else:
+                _begin_frame_observation()
         KEY_LEFT:
             _move_reference_camera(-15.0, 0.0, 1.0)
         KEY_RIGHT:
@@ -179,6 +196,8 @@ func _activate_mode(index: int) -> void:
     if next_world == null:
         _status("BLOCKED: unable to create native module")
         return
+    if observation_active:
+        _cancel_frame_observation("Observation cancelled: scene switched")
     _hide_diff_preview()
     for child in world_root.get_children():
         world_root.remove_child(child)
@@ -194,9 +213,133 @@ func _activate_mode(index: int) -> void:
         _refresh_diagnostics()
     title_label.text = "NEX ENGINE  /  " + SCENE_LABELS[index]
     if index == 3:
-        _status("Density controls: [1-4] 25/50/100/200 proxies   [G/L/V/C] modes   |  FPS not a benchmark")
+        _status("Density: 1/2/3/4 load, G/L/V/C effects, F10=record 2s warmup + 8s intervals (not GPU)")
     else:
         _status("3D camera: arrows orbit/tilt, PgUp/PgDn zoom, Home reset | B baseline, N candidate, D compare")
+
+# Bounded samples of scene-tree _process(delta), not GPU frame timing.
+func _begin_frame_observation() -> bool:
+    if observation_active or active_mode != 3 or active_world == null:
+        _status("F10 observation available in F4 Density Ladder only")
+        return false
+    var raw_counts: Variant = active_world.get("counts")
+    if not (raw_counts is Array):
+        return false
+    var levels: Array = raw_counts
+    var idx: int = int(active_world.get("count_index"))
+    var mode: int = int(active_world.get("current_mode"))
+    if idx < 0 or idx >= levels.size() or mode < 0 or mode >= OBS_MODES.size():
+        return false
+    observation_proxies = int(levels[idx])
+    observation_mode = mode
+    if observation_proxies < 25 or observation_proxies > 200:
+        return false
+    observation_elapsed = 0.0
+    observation_frames.clear()
+    observation_active = true
+    _status("Recording %d proxies/%s: 2s warmup + 8s observed frames; do not change load" % [
+        observation_proxies, OBS_MODES[mode]
+    ])
+    return true
+
+func _cancel_frame_observation(reason: String) -> void:
+    observation_active = false
+    observation_frames.clear()
+    observation_elapsed = 0.0
+    _status(reason)
+
+func _sample_frame_observation(delta: float) -> void:
+    if not observation_active:
+        return
+    if active_mode != 3 or active_world == null:
+        _cancel_frame_observation("Observation cancelled: scene switched")
+        return
+    var raw_counts: Variant = active_world.get("counts")
+    if not (raw_counts is Array):
+        _cancel_frame_observation("Observation cancelled: missing workload")
+        return
+    var levels: Array = raw_counts
+    var idx: int = int(active_world.get("count_index"))
+    if idx < 0 or idx >= levels.size() or int(levels[idx]) != observation_proxies or int(active_world.get("current_mode")) != observation_mode:
+        _cancel_frame_observation("Observation cancelled: workload changed")
+        return
+    if not is_finite(delta) or delta <= 0.0:
+        return
+    observation_elapsed += delta
+    if observation_elapsed <= OBS_WARMUP:
+        return
+    if delta < 1.0 and observation_frames.size() < OBS_MAX_FRAMES:
+        observation_frames.append(delta * 1000.0)
+    if observation_elapsed >= OBS_WARMUP + OBS_DURATION or observation_frames.size() >= OBS_MAX_FRAMES:
+        _finish_frame_observation()
+
+# Nearest-rank percentile, no invented or interpolated frames.
+func _observed_percentile_ms(samples: Array[float], quantile: float) -> float:
+    if samples.is_empty():
+        return 0.0
+    var sorted: Array[float] = samples.duplicate()
+    sorted.sort()
+    var rank: int = clampi(int(ceil(quantile * float(sorted.size()))) - 1, 0, sorted.size() - 1)
+    return sorted[rank]
+
+func _finish_frame_observation() -> void:
+    observation_active = false
+    var frames: int = observation_frames.size()
+    if frames < OBS_MIN_FRAMES:
+        _status("Observation invalid: only %d samples, no JSON saved" % frames)
+        observation_frames.clear()
+        return
+    var total_ms := 0.0
+    for frame_ms in observation_frames:
+        total_ms += frame_ms
+    var mean_ms: float = total_ms / float(frames)
+    var view: Vector2 = get_viewport().get_visible_rect().size
+    var data := {
+        "schema_version": "nex_frame_observation.v1",
+        "measurement": "OBSERVED_MAIN_LOOP_DELTA_NOT_GPU_TIME",
+        "captured_at_utc": Time.get_datetime_string_from_system(true, true),
+        "godot": str(Engine.get_version_info().get("string", "unknown")),
+        "os": OS.get_name(),
+        "display": DisplayServer.get_name(),
+        "renderer": RenderingServer.get_current_rendering_method(),
+        "driver": RenderingServer.get_current_rendering_driver_name(),
+        "adapter": RenderingServer.get_video_adapter_name(),
+        "viewport_px": [int(view.x), int(view.y)],
+        "max_fps_setting": Engine.max_fps,
+        "vsync_mode": DisplayServer.window_get_vsync_mode(),
+        "proxy_count": observation_proxies,
+        "effect_mode": OBS_MODES[observation_mode],
+        "warmup_seconds": OBS_WARMUP,
+        "requested_seconds": OBS_DURATION,
+        "sample_count": frames,
+        "observed_seconds": total_ms / 1000.0,
+        "mean_interval_ms": mean_ms,
+        "p50_interval_ms": _observed_percentile_ms(observation_frames, 0.50),
+        "p95_interval_ms": _observed_percentile_ms(observation_frames, 0.95),
+        "p99_interval_ms": _observed_percentile_ms(observation_frames, 0.99),
+        "observed_mean_fps": 1000.0 / mean_ms,
+        "limitations": "May be VSync capped; main-loop deltas are NOT GPU time, total VRAM or maximum FPS."
+    }
+    var dir: String = ProjectSettings.globalize_path(OBS_DIR)
+    if DirAccess.make_dir_recursive_absolute(dir) != OK:
+        _status("Observation complete but output folder unavailable")
+        observation_frames.clear()
+        return
+    var file_name: String = "density_%d_%s_%d.json" % [
+        observation_proxies, OBS_MODES[observation_mode], int(Time.get_unix_time_from_system())
+    ]
+    var output: String = dir.path_join(file_name)
+    var stream: FileAccess = FileAccess.open(output, FileAccess.WRITE)
+    if stream == null:
+        _status("Observation complete but JSON could not be written")
+        observation_frames.clear()
+        return
+    stream.store_string(JSON.stringify(data, "  ") + "\n")
+    stream.close()
+    observation_frames.clear()
+    _status("F10 saved %d intervals, p95 %.2f ms (NOT GPU): %s" % [
+        frames, float(data["p95_interval_ms"]), output
+    ])
 
 func _reference_camera() -> Camera3D:
     if active_world == null or active_mode >= SCENE_PATHS.size():

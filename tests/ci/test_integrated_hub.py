@@ -70,6 +70,18 @@ class IntegratedVisualHubTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, smoke)
 
+    def test_bounded_f10_frame_interval_observation(self):
+        for name in ("KEY_F10", "func _begin_frame_observation() -> bool:",
+                     "func _observed_percentile_ms(", "func _finish_frame_observation()",
+                     "OBS_MAX_FRAMES := 1500", "OBS_MIN_FRAMES := 60",
+                     "OBSERVED_MAIN_LOOP_DELTA_NOT_GPU_TIME", "p50_interval_ms",
+                     "p95_interval_ms", "p99_interval_ms", "vsync_mode",
+                     "Observation cancelled: workload changed"):
+            with self.subTest(name=name):
+                self.assertIn(name, self.script)
+        self.assertIn("NEX_NATIVE_FRAME_OBSERVATION_PASS",
+                      (ROOT / "smoke.gd").read_text(encoding="utf-8"))
+
     def test_reference_camera_navigation_supports_real_nonidentical_screenshots(self):
         for name in ("KEY_LEFT", "KEY_RIGHT", "KEY_UP", "KEY_DOWN",
                      "KEY_PAGEUP", "KEY_PAGEDOWN", "KEY_HOME",
