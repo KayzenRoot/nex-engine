@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.governance.context_lock_proposal",
+  "id": "NEX-QA-CI-REGRESSION-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 20,
+  "status": "SCOPE_ADMITTED_LOCK_NOT_PROMOTED_IMPL_NOT_EXECUTABLE",
+  "ownerScopeApproval": "OWNER_CONTINUE_2026_10_12_ISSUE_20_COMMENT_6129959929_CI_ONLY_NO_MERGE",
+  "authorityBaseSha": "6d04200bb348a8cfeffd081b9bca6f9b51b5a9d2",
+  "authorityBaseTreeSha": "326ab7fd8c5531422a0148ec7b9898128d8db3ec",
+  "authorityBaseShaMeaning": "HISTORICAL_PRE_LOCK_SNAPSHOT_REBIND_ACTUAL_NEW_MAIN_AFTER_PROTECTED_MERGE",
+  "authoritySourceFingerprintCount": 21,
+  "authoritySourceFingerprints": [
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "30cd144a41b1944496cbf229c75c9b7ece99d5d9"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "092bfcc21fd2fb5dc89919a0afb535c070a01a9a"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "812011ebb1a65f5894fb5db7b7ff65813ec37779"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "4923f3fd8eb3d7231abcb7776fb10ac6441f9330"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "6e5564f15353927cad6137df9293d36f7951faf4"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "9ce21855b279d8d995e3a0eb9cb29fa97a5f7eae"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": "tests/contracts/test_m01_schema.py",
+      "gitBlobSha1": "0bf8c2cea05ef6c75487be6e7c39d3fb673a478c"
+    },
+    {
+      "path": "tests/contracts/test_ownership_locks.py",
+      "gitBlobSha1": "35df219bea5bec2aa965fe553709ff1b52f4840f"
+    },
+    {
+      "path": "tests/telemetry/test_framepulse.py",
+      "gitBlobSha1": "d5fa06eebaab23cf239529c1c2c2c2e9a133ea7a"
+    },
+    {
+      "path": "tests/ci/test_native_batch.py",
+      "gitBlobSha1": "822b25fcdf1bf4c8dcd53b522dadcf2cf64f5823"
+    },
+    {
+      "path": "nex_bench/telemetry/framepulse.py",
+      "gitBlobSha1": "13f831094482297d9a669bd5e0575a624d5eb1e6"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-GOV-CP-S02-WO-001-EXECUTION.json",
+      "gitBlobSha1": "d2c2b17ea2697b1aaa030624452076b77ff86f54"
+    }
+  ],
+  "stageA": {
+    "status": "PROPOSAL_ONLY_NO_CANONICAL_EDITS",
+    "branch": "governance/nex-qa-ci-regression-wo-001-lock",
+    "writeAllowedExact": [
+      ".engineering/work-orders/NEX-QA-CI-REGRESSION-WO-001.md",
+      ".engineering/context-locks/NEX-QA-CI-REGRESSION-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-QA-CI-REGRESSION-WO-001-ADMISSION-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-QA-CI-REGRESSION-WO-001-PROPOSED.md"
+    ],
+    "forbidAllOtherPaths": true,
+    "mergeRequires": "DISTINCT_OWNER_APPROVAL_FOR_EXACT_HEAD_BASE_TREE"
+  },
+  "stageB": {
+    "status": "BLOCKED_UNTIL_STAGE_A_PROMOTION_POSTMERGE_AUDIT_EXCLUSIVE_LEASE_AND_FRESH_SOURCE_PINS",
+    "writeAllowedExact": [
+      ".github/workflows/nex-ci-fastlane.yml"
+    ],
+    "writer": "INTEGRATION_STEWARD_OR_AUTHORIZED_SINGLE_CI_EXECUTOR",
+    "executionPermitted": false,
+    "mergeRequires": "SECOND_DISTINCT_OWNER_EXACT_HEAD_SQUASH_CONSENT",
+    "immutables": [
+      "WORKFLOW_NAME",
+      "REQUIRED_CONTEXT_NAME",
+      "PULL_REQUEST_AND_MAIN_PUSH_TRIGGERS",
+      "CONTENTS_READ_PERMISSIONS",
+      "CHECKOUT_PIN",
+      "TEN_MINUTE_TIMEOUT",
+      "TESTS_CI_CASES",
+      "NO_DEPENDENCIES_OR_PAID_RUNNERS"
+    ],
+    "forbidden": [
+      "TEST_SOURCES",
+      "CONTRACTS",
+      "GODOT_ENGINE",
+      "HISTORICAL_CONTEXT_LOCKS",
+      "CHECKPOINT_AND_AGENTS",
+      "RULESET",
+      "OTHER_WORKFLOWS",
+      "NEW_PARENT_M01_ADMISSION"
+    ]
+  },
+  "workload": {
+    "purpose": "FAIL_CLOSED_REQUIRED_CI_REGRESSION_GATE",
+    "requiredSuiteDirectories": [
+      "tests/ci",
+      "tests/contracts",
+      "tests/telemetry"
+    ],
+    "requiredDiscoveryGlob": "test_*.py",
+    "nonzeroDiscovery": true,
+    "allMustPass": true,
+    "python": "system_python3_stdlib_unittest",
+    "checks": [
+      "NEX Free Review / Static",
+      "NEX Fast Lane / Batch Policy Tests",
+      "NEX Governance / Source Pack",
+      "SonarCloud Code Analysis",
+      "Socket Security: Pull Request Alerts",
+      "Socket Security: Project Report"
+    ],
+    "coderabbit": "OPTIONAL",
+    "gpuMeasurements": "NOT_APPLICABLE",
+    "fullJsonSchemaValidator": "NOT_CLAIMED"
+  },
+  "evidence": {
+    "s02Pr": 95,
+    "s02ActualMerge": "ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd",
+    "checkpointStageBPr": 98,
+    "checkpointActualMain": "6d04200bb348a8cfeffd081b9bca6f9b51b5a9d2",
+    "checkpointReviewedTree": "326ab7fd8c5531422a0148ec7b9898128d8db3ec",
+    "postMergeChecks": "12_OF_12_SUCCESS",
+    "postMergeWorkflows": "6_OF_6_SUCCESS",
+    "currentFastLaneBlob": "0a8b477a0b4c6e4c2f256eff78221b9ba691fcfb",
+    "originalIssueAudit": "https://github.com/KayzenRoot/nex-engine/issues/20#issuecomment-6128661827"
+  },
+  "riskFlag": "AGENTS_MD_HISTORICAL_CURRENT_LINE_MENTIONS_STAGE_B_AS_PROPOSED_WHILE_LIVE_GIT_CHECKPOINT_IS_PROMOTED; DO_NOT_INFER_NEXT_FEATURE_ADMISSION",
+  "stopCondition": "NEX_QA_CI_LOCK_PROPOSAL_READY_OWNER_EXACT_HEAD_DECISION"
+}
