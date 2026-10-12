@@ -9,7 +9,9 @@
 **Tree do runtime testado:** `e0d57025928479468f52184128b73c812b950fea`
 **Correção do teste Windows commitada:** `9c17fc5b763619ef230f8f89a6bfb6b66a3b4518` (tree `6aeea09aba8069ea8c09b183ce8c0cf0a294f2ef`). O conteúdo runtime da Godot não mudou entre `ea94...` e a correção.
 
-## Resultado por critério
+## Test Matrix e resultado por critério
+
+A matriz linha a linha está em `TEST-MATRIX.md`. O `CHECKPOINT-DELTA-PROPOSED.md` é apenas sugestão anexada; checkpoint canônico não foi modificado.
 
 | Critério | Resultado e evidência |
 |---|---|
@@ -24,7 +26,7 @@
 | F9/diagnóstico visual | PASS. Screenshot registra 75 FPS observados, 16,94 ms CPU process/frame, 45 draw calls, 521 objetos 3D e 89,5 MiB de alocação do renderer. Os 89,5 MiB não representam VRAM total; 16,94 ms não é GPU time. |
 | Testes locais após correção | PASS. Python `Python 3.13.15`: CI 72/72, contratos 12/12, telemetria 31/31; total 115/115. Logs de rerun incluídos. A falha inicial exclusiva de line endings está explicada em `INITIAL-WINDOWS-CRLF-FAILURE.md`. |
 | Escopo e governança | PASS. Alterados somente o verificador e seu teste de regressão dentro desta PR; não houve alteração no core, `main`, checkpoint, ruleset, workflows ou permissões. Nenhuma nova issue/PR foi criada e não houve merge. |
-| Checks GitHub do HEAD final | PENDENTE de consulta após o push do Evidence Bundle; o estado exato do HEAD será verificado na PR antes do fechamento desta execução. |
+| Checks GitHub | 13/13 check-runs passaram no commit do bundle `016a620...`; CodeRabbit indicou review skipped. A matriz e o delta proposto são uma alteração documental posterior; os checks do novo HEAD precisam ser confirmados e constam no comentário de fechamento da PR. |
 
 ## Suítes locais após a correção
 
@@ -58,7 +60,7 @@ O primeiro CI local teve 4 falhas: hashes de cenas calculados em bytes CRLF no W
 - A janela F9 mostrou renderer allocation, não VRAM total. F10 coleta deltas do main loop; não mede GPU frametime, input-to-photon ou desempenho máximo.
 - Capturas de UI que exibiam caminho absoluto local foram preservadas localmente e excluídas do bundle publicado. Os JSONs F10, imagens de cena limpas, PNGs B/N/heatmap e logs sanitizados/sem caminho pessoal estão incluídos.
 - Não houve recompilação da Godot; a versão pinada foi verificada e usada para smoke, GUI e captura F10.
-- `SHA256SUMS.txt` contém SHA-256 dos 29 blobs publicados, no conteúdo canônico do Git; o próprio manifesto fica fora da lista.`n- Não há promoção de checkpoint nem admissão de outro módulo nesta entrega.
+- `SHA256SUMS.txt` contém SHA-256 dos 31 blobs publicados, no conteúdo canônico do Git; o próprio manifesto fica fora da lista.`n- Não há promoção de checkpoint nem admissão de outro módulo nesta entrega.
 
 ## Fechamento
 
