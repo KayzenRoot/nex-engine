@@ -35,6 +35,18 @@ func _ready() -> void:
     _build_workload()
     _show_status()
 
+# Godot JSON represents JSON numeric literals as floats, including whole numbers.
+# Permit only finite whole numbers within strict limits.
+func _json_integer(value: Variant, minimum: int, maximum: int) -> int:
+    if typeof(value) != TYPE_INT and typeof(value) != TYPE_FLOAT:
+        return -1
+    var number: float = float(value)
+    if not is_finite(number) or number != floor(number):
+        return -1
+    if number < float(minimum) or number > float(maximum):
+        return -1
+    return int(number)
+
 func _load_settings() -> bool:
     var settings_path: String = (get_script() as Script).resource_path.get_base_dir().path_join(SETTINGS_NAME)
     if not FileAccess.file_exists(settings_path):
@@ -48,27 +60,24 @@ func _load_settings() -> bool:
     if parsed.get("renderer", "") != "forward_plus":
         return false
     var levels: Variant = parsed.get("counts", [])
-    if not (levels is Array) or levels != DEFAULT_COUNTS:
+    if not (levels is Array) or levels.size() != DEFAULT_COUNTS.size():
         return false
-    var cap: Variant = parsed.get("max_proxies", 0)
-    var light_cap: Variant = parsed.get("max_lights", 0)
-    var particle_cap: Variant = parsed.get("max_particle_emitters", 0)
-    var threshold: Variant = parsed.get("minimum_safe_fps_observed", 0)
-    var safety: Variant = parsed.get("safety_consecutive_seconds", 0)
-    if not (cap is int and light_cap is int and particle_cap is int and threshold is int):
-        return false
-    if not (safety is int or safety is float):
-        return false
-    if cap != 200 or light_cap < 0 or light_cap > 6 or particle_cap < 0 or particle_cap > 4:
-        return false
-    if threshold < 5 or threshold > 30 or safety < 2 or safety > 20:
+    for i in range(DEFAULT_COUNTS.size()):
+        if _json_integer(levels[i], int(DEFAULT_COUNTS[i]), int(DEFAULT_COUNTS[i])) != int(DEFAULT_COUNTS[i]):
+            return false
+    var cap: int = _json_integer(parsed.get("max_proxies", null), 200, 200)
+    var light_cap: int = _json_integer(parsed.get("max_lights", null), 0, 6)
+    var particle_cap: int = _json_integer(parsed.get("max_particle_emitters", null), 0, 4)
+    var threshold: int = _json_integer(parsed.get("minimum_safe_fps_observed", null), 5, 30)
+    var safety: int = _json_integer(parsed.get("safety_consecutive_seconds", null), 2, 20)
+    if cap != 200 or light_cap < 0 or particle_cap < 0 or threshold < 0 or safety < 0:
         return false
     max_proxies = cap
     max_lights = light_cap
     max_particle_emitters = particle_cap
     min_safe_fps = threshold
     safety_seconds = float(safety)
-    counts = levels.duplicate()
+    counts = DEFAULT_COUNTS.duplicate()
     return true
 
 func _make_materials() -> void:

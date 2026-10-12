@@ -43,6 +43,13 @@ class DensityLadderConfigurationTests(unittest.TestCase):
             with self.subTest(key=key):
                 self.assertIn(key, self.script)
 
+    def test_godot_json_float_numbers_require_whole_bounded_values(self):
+        for expected in ("TYPE_FLOAT", "number != floor(number)", "_json_integer(",
+                         "counts = DEFAULT_COUNTS.duplicate()"):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, self.script)
+        self.assertNotIn("cap is int and light_cap is int", self.script)
+
     def test_runtime_checks_config_and_safety_fallback(self):
         for token in ("return false", "max_proxies", "safe_fps_timer", "Engine.get_frames_per_second()",
                       "count_index = 0", "current_mode = 0"):
