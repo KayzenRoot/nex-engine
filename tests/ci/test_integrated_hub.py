@@ -79,6 +79,8 @@ class IntegratedVisualHubTests(unittest.TestCase):
                      "Observation cancelled: workload changed"):
             with self.subTest(name=name):
                 self.assertIn(name, self.script)
+        self.assertIn('"frame_intervals_units": "ms"', self.script)
+        self.assertIn('"frame_intervals_ms": observation_frames.duplicate()', self.script)
         self.assertIn("NEX_NATIVE_FRAME_OBSERVATION_PASS",
                       (ROOT / "smoke.gd").read_text(encoding="utf-8"))
 

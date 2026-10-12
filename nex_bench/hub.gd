@@ -312,6 +312,8 @@ func _finish_frame_observation() -> void:
         "warmup_seconds": OBS_WARMUP,
         "requested_seconds": OBS_DURATION,
         "sample_count": frames,
+        "frame_intervals_units": "ms",
+        "frame_intervals_ms": observation_frames.duplicate(),
         "observed_seconds": total_ms / 1000.0,
         "mean_interval_ms": mean_ms,
         "p50_interval_ms": _observed_percentile_ms(observation_frames, 0.50),
