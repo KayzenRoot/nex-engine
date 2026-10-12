@@ -70,6 +70,19 @@ class IntegratedVisualHubTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, smoke)
 
+    def test_reference_camera_navigation_supports_real_nonidentical_screenshots(self):
+        for name in ("KEY_LEFT", "KEY_RIGHT", "KEY_UP", "KEY_DOWN",
+                     "KEY_PAGEUP", "KEY_PAGEDOWN", "KEY_HOME",
+                     "func _reference_camera() -> Camera3D:",
+                     "func _move_reference_camera(", "func _reset_reference_camera()",
+                     "camera_home_position", "camera.look_at(Vector3.ZERO, Vector3.UP)"):
+            with self.subTest(name=name):
+                self.assertIn(name, self.script)
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        self.assertIn("NEX_NATIVE_CAMERA_NAVIGATION_PASS", smoke)
+        self.assertIn("yaw navigation produced no visual-position change", smoke)
+        self.assertIn("Static camera keys must not modify Density Ladder", smoke)
+
     def test_renderer_diagnostics_panel_does_not_claim_gpu_benchmark(self):
         for marker in ('"DIAGNOSTICO [F9]"', "KEY_F9",
                        'Performance.get_monitor(Performance.TIME_FPS)',

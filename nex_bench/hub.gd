@@ -22,6 +22,8 @@ var capture_pending := false
 var diagnostics_panel: PanelContainer
 var diagnostics_label: Label
 var diagnostics_elapsed := 0.0
+var camera_home_position := Vector3.ZERO
+var camera_home_rotation := Vector3.ZERO
 
 func _ready() -> void:
     DisplayServer.window_set_title("NEX Engine | Visual Lab")
@@ -138,6 +140,20 @@ func _unhandled_key_input(event: InputEvent) -> void:
             _activate_mode(3)
         KEY_F9:
             _toggle_diagnostics()
+        KEY_LEFT:
+            _move_reference_camera(-15.0, 0.0, 1.0)
+        KEY_RIGHT:
+            _move_reference_camera(15.0, 0.0, 1.0)
+        KEY_UP:
+            _move_reference_camera(0.0, 10.0, 1.0)
+        KEY_DOWN:
+            _move_reference_camera(0.0, -10.0, 1.0)
+        KEY_PAGEUP:
+            _move_reference_camera(0.0, 0.0, 0.85)
+        KEY_PAGEDOWN:
+            _move_reference_camera(0.0, 0.0, 1.15)
+        KEY_HOME:
+            _reset_reference_camera()
         KEY_B:
             _capture("baseline")
         KEY_N:
@@ -170,13 +186,57 @@ func _activate_mode(index: int) -> void:
     world_root.add_child(next_world)
     active_world = next_world
     active_mode = index
+    var reference_cam: Camera3D = _reference_camera()
+    if reference_cam != null:
+        camera_home_position = reference_cam.position
+        camera_home_rotation = reference_cam.rotation_degrees
     if diagnostics_panel != null and diagnostics_panel.visible:
         _refresh_diagnostics()
     title_label.text = "NEX ENGINE  /  " + SCENE_LABELS[index]
     if index == 3:
         _status("Density controls: [1-4] 25/50/100/200 proxies   [G/L/V/C] modes   |  FPS not a benchmark")
     else:
-        _status("Reference scene | B baseline, N candidate, D compare | Native Forward+ requested, not measured")
+        _status("3D camera: arrows orbit/tilt, PgUp/PgDn zoom, Home reset | B baseline, N candidate, D compare")
+
+func _reference_camera() -> Camera3D:
+    if active_world == null or active_mode >= SCENE_PATHS.size():
+        return null
+    return active_world.get_node_or_null("IsometricCamera") as Camera3D
+
+# Camera moves change only the active reference viewport; never change source scenes,
+# saved baselines, or the dynamic density mode. Distances and elevations are bounded.
+func _move_reference_camera(yaw_degrees: float, elevation_degrees: float, zoom: float) -> bool:
+    var camera: Camera3D = _reference_camera()
+    if camera == null:
+        return false
+    var position: Vector3 = camera.position
+    var radius: float = position.length()
+    var original_radius: float = camera_home_position.length()
+    if radius < 0.1 or original_radius < 0.1 or zoom <= 0.0:
+        return false
+    var azimuth: float = atan2(position.x, position.z) + deg_to_rad(yaw_degrees)
+    var elevation: float = clampf(
+        asin(clampf(position.y / radius, -1.0, 1.0)) + deg_to_rad(elevation_degrees),
+        deg_to_rad(12.0), deg_to_rad(76.0)
+    )
+    var distance: float = clampf(radius * zoom, original_radius * 0.40, original_radius * 2.00)
+    camera.position = Vector3(
+        sin(azimuth) * cos(elevation),
+        sin(elevation),
+        cos(azimuth) * cos(elevation)
+    ) * distance
+    camera.look_at(Vector3.ZERO, Vector3.UP)
+    _status("Camera adjusted | B baseline, N candidate, D diff | HOME reset")
+    return true
+
+func _reset_reference_camera() -> bool:
+    var camera: Camera3D = _reference_camera()
+    if camera == null:
+        return false
+    camera.position = camera_home_position
+    camera.rotation_degrees = camera_home_rotation
+    _status("Camera reset | B baseline, N candidate, D diff")
+    return true
 
 func _make_density_root() -> Node3D:
     var script := load(DENSITY_SCRIPT) as Script

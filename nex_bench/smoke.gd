@@ -80,6 +80,44 @@ func _check_modules() -> void:
             if workload == null or workload.get_child_count() != 25:
                 _fail("Density Ladder must initialize exactly 25 proxy instances")
                 return
+    # Functional camera control, no rendering benchmark or user screenshot writes.
+    window.call("_activate_mode", 0)
+    await process_frame
+    var reference_camera := window.get_node_or_null("WorldRoot/CorridorStatic/IsometricCamera") as Camera3D
+    if reference_camera == null:
+        _fail("Reference camera not available for navigation")
+        return
+    var home_position: Vector3 = reference_camera.position
+    var home_rotation: Vector3 = reference_camera.rotation_degrees
+    if not bool(window.call("_move_reference_camera", 15.0, 0.0, 1.0)):
+        _fail("Camera orbit failed")
+        return
+    if reference_camera.position.distance_to(home_position) < 0.01:
+        _fail("Camera yaw navigation produced no visual-position change")
+        return
+    var orbit_position: Vector3 = reference_camera.position
+    if not bool(window.call("_move_reference_camera", 0.0, 0.0, 0.85)):
+        _fail("Camera zoom failed")
+        return
+    if reference_camera.position.length() >= orbit_position.length():
+        _fail("Camera zoom-in did not reduce radius")
+        return
+    if not bool(window.call("_reset_reference_camera")):
+        _fail("Camera Home reset failed")
+        return
+    if reference_camera.position.distance_to(home_position) > 0.001:
+        _fail("Camera Home did not restore original position")
+        return
+    if reference_camera.rotation_degrees.distance_to(home_rotation) > 0.001:
+        _fail("Camera Home did not restore original angle")
+        return
+    window.call("_activate_mode", 3)
+    await process_frame
+    if bool(window.call("_move_reference_camera", 15.0, 0.0, 1.0)):
+        _fail("Static camera keys must not modify Density Ladder")
+        return
+    print("NEX_NATIVE_CAMERA_NAVIGATION_PASS: orbit, zoom, reset, stress guard")
+
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.
     var reference := Image.create(2, 1, false, Image.FORMAT_RGB8)
