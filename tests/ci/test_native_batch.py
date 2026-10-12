@@ -122,12 +122,12 @@ class DecisionTests(unittest.TestCase):
     def test_paginated_runs_select_newest_success_by_timestamp(self):
         class Fake:
             def request(self, method, path):
-                if "page=1" in path:
+                if path.endswith("&page=1"):
                     older = {"event": "workflow_dispatch", "head_branch": "main",
                              "status": "completed", "conclusion": "success",
                              "head_sha": COMMITS[0], "created_at": "2026-10-10T00:00:00Z"}
                     return {"workflow_runs": [older] * 100}
-                if "page=2" in path:
+                if path.endswith("&page=2"):
                     return {"workflow_runs": [{"event": "workflow_dispatch", "head_branch": "main",
                                               "status": "completed", "conclusion": "success",
                                               "head_sha": COMMITS[1], "created_at": "2026-10-12T00:00:00Z"}]}
