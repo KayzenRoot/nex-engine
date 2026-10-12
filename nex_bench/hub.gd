@@ -90,6 +90,7 @@ func _activate_mode(index: int) -> void:
     if next_world == null:
         _status("BLOCKED: unable to create native module")
         return
+    _hide_diff_preview()
     for child in world_root.get_children():
         world_root.remove_child(child)
         child.queue_free()
@@ -172,11 +173,20 @@ func _compare_captures() -> void:
         "INVALID_IMAGE", "BUFFER_MISMATCH":
             _status("BLOCKED: pixel buffers incompatible")
         _:
-            _status("VISUAL TRUTH | %.3f%% pixels changed (> %d/255) | MAE %.6f | %s" % [
+            var heatmap: Image = _create_heatmap(first, second)
+            if heatmap == null:
+                _status("BLOCKED: heatmap could not be created")
+                return
+            _show_diff_preview(heatmap, report)
+            var output_path: String = directory.path_join(stem + "_heatmap.png")
+            var write_error: Error = heatmap.save_png(output_path)
+            var image_note: String = "heatmap saved" if write_error == OK else "heatmap preview only (save failed)"
+            _status("VISUAL TRUTH | %.3f%% changed (> %d/255) | MAE %.6f | %s | %s" % [
                 float(report["changed_ratio"]) * 100.0,
                 int(report["pixel_tolerance"]),
                 float(report["mean_absolute_error_normalized"]),
-                str(report["status"])
+                str(report["status"]),
+                image_note
             ])
 
 # Pure native Image comparator shared by the live UI and native runner tests.
@@ -211,6 +221,81 @@ func _pixel_diff(first: Image, second: Image) -> Dictionary:
         "mean_absolute_error_normalized": float(absolute_error) / float(pixels * 3 * 255),
         "pixel_tolerance": PIXEL_TOLERANCE
     }
+
+# Deterministic red-difference heatmap. Never modifies the source images.
+# This is an RGB pixel visualization, not GPU/perceptual validation.
+func _create_heatmap(first: Image, second: Image) -> Image:
+    if first == null or second == null or first.is_empty() or second.is_empty():
+        return null
+    if first.get_size() != second.get_size():
+        return null
+    var reference: Image = first.duplicate() as Image
+    var candidate: Image = second.duplicate() as Image
+    reference.convert(Image.FORMAT_RGB8)
+    candidate.convert(Image.FORMAT_RGB8)
+    var lhs: PackedByteArray = reference.get_data()
+    var rhs: PackedByteArray = candidate.get_data()
+    if lhs.size() != rhs.size() or lhs.size() == 0 or lhs.size() % 3 != 0:
+        return null
+    var pixels: int = reference.get_width() * reference.get_height()
+    if lhs.size() != pixels * 3:
+        return null
+    var output := PackedByteArray()
+    output.resize(pixels * 4)
+    for pixel in range(pixels):
+        var src: int = pixel * 3
+        var dst: int = pixel * 4
+        var dr: int = absi(int(lhs[src]) - int(rhs[src]))
+        var dg: int = absi(int(lhs[src + 1]) - int(rhs[src + 1]))
+        var db: int = absi(int(lhs[src + 2]) - int(rhs[src + 2]))
+        if maxi(dr, maxi(dg, db)) > PIXEL_TOLERANCE:
+            output[dst] = 255
+            output[dst + 1] = 32
+            output[dst + 2] = 48
+        else:
+            var grayscale: int = (int(lhs[src]) + int(lhs[src + 1]) + int(lhs[src + 2])) / 6
+            output[dst] = grayscale
+            output[dst + 1] = grayscale
+            output[dst + 2] = grayscale
+        output[dst + 3] = 255
+    return Image.create_from_data(reference.get_width(), reference.get_height(), false, Image.FORMAT_RGBA8, output)
+
+func _hide_diff_preview() -> void:
+    var previous: Control = $HUD.get_node_or_null("DiffPreview") as Control
+    if previous != null:
+        $HUD.remove_child(previous)
+        previous.queue_free()
+
+func _show_diff_preview(heatmap: Image, report: Dictionary) -> void:
+    _hide_diff_preview()
+    var panel := PanelContainer.new()
+    panel.name = "DiffPreview"
+    panel.anchor_left = 1.0
+    panel.anchor_top = 1.0
+    panel.anchor_right = 1.0
+    panel.anchor_bottom = 1.0
+    panel.offset_left = -464.0
+    panel.offset_top = -342.0
+    panel.offset_right = -16.0
+    panel.offset_bottom = -18.0
+    panel.mouse_filter = Control.MOUSE_FILTER_STOP
+    var content := VBoxContainer.new()
+    panel.add_child(content)
+    var title := Label.new()
+    title.text = "VISUAL TRUTH  |  %d altered pixels" % int(report.get("changed_pixels", 0))
+    content.add_child(title)
+    var preview := TextureRect.new()
+    preview.name = "HeatmapTexture"
+    preview.custom_minimum_size = Vector2(420.0, 252.0)
+    preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+    preview.texture = ImageTexture.create_from_image(heatmap)
+    content.add_child(preview)
+    var close_button := Button.new()
+    close_button.text = "FECHAR MAPA DE DIFERENCAS"
+    close_button.pressed.connect(_hide_diff_preview)
+    content.add_child(close_button)
+    $HUD.add_child(panel)
 
 func _status(message: String) -> void:
     status_label.text = message

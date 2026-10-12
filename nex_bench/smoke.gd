@@ -89,6 +89,28 @@ func _check_modules() -> void:
     if invalid.get("status", "") != "SIZE_MISMATCH":
         _fail("Native Visual Truth mismatched dimensions not rejected")
         return
+    var heatmap: Image = window.call("_create_heatmap", reference, different) as Image
+    if heatmap == null or heatmap.get_size() != Vector2i(2, 1):
+        _fail("Native Visual Truth heatmap dimensions invalid")
+        return
+    var highlighted: Color = heatmap.get_pixel(1, 0)
+    var neutral: Color = heatmap.get_pixel(0, 0)
+    if highlighted.r < 0.95 or highlighted.g > 0.2 or neutral.r > 0.5:
+        _fail("Native Visual Truth heatmap difference colors incorrect")
+        return
+    if window.call("_create_heatmap", reference, wrong_size) != null:
+        _fail("Native Visual Truth heatmap must reject mismatched dimensions")
+        return
+    window.call("_show_diff_preview", heatmap, changed)
+    if window.get_node_or_null("HUD/DiffPreview") == null:
+        _fail("Native Visual Truth heatmap preview not attached to HUD")
+        return
+    window.call("_hide_diff_preview")
+    if window.get_node_or_null("HUD/DiffPreview") != null:
+        _fail("Native Visual Truth preview close did not detach panel")
+        return
+    print("NEX_NATIVE_VISUAL_HEATMAP_PASS: red pixels, preview UI, close")
+
     print("NEX_NATIVE_VISUAL_TRUTH_PASS: identical/difference/dimensions, in-memory")
 
     window.queue_free()

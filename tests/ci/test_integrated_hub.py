@@ -70,7 +70,20 @@ class IntegratedVisualHubTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertIn(token, smoke)
 
-    def test_native_headless_smoke_is_reproducible(self):
+    def test_heatmap_preview_is_native_and_exports_png(self):
+        for snippet in ("func _create_heatmap(first: Image, second: Image) -> Image:",
+                        "Image.create_from_data(", "Image.FORMAT_RGBA8",
+                        "DiffPreview", "TextureRect.new()", "ImageTexture.create_from_image",
+                        'directory.path_join(stem + "_heatmap.png")',
+                        "heatmap.save_png(output_path)", "_hide_diff_preview()"):
+            with self.subTest(snippet=snippet):
+                self.assertIn(snippet, self.script)
+        smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
+        for snippet in ("NEX_NATIVE_VISUAL_HEATMAP_PASS", "window.call(\"_create_heatmap\"",
+                        'window.call("_show_diff_preview"', 'window.call("_hide_diff_preview"'):
+            with self.subTest(snippet=snippet):
+                self.assertIn(snippet, smoke)
+
         smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
         for token in ("extends SceneTree", "NEX_NATIVE_IMPORT_SMOKE_PASS",
                       '"res://main.tscn"', '"res://stress/density_ladder.gd"',

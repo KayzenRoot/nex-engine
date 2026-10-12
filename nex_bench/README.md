@@ -45,3 +45,9 @@ Alternatively set the `NEX_GODOT_BIN` environment variable to the Godot executab
 ## Native Visual Truth regression smoke
 
 The same native Godot import smoke also compares small **in-memory images** through the app's own pixel-diff function. It checks identical images, one changed pixel out of two, and mismatched dimensions. Look for `NEX_NATIVE_VISUAL_TRUTH_PASS` in the Linux and Windows job logs. This test does not capture the real GPU framebuffer or replace a visible GUI/screenshot acceptance test. It intentionally does not overwrite saved user baselines.
+
+## Visual Truth heatmap (desktop preview)
+
+On a static scene, press **B** then **N** to save two captures and **D** to compare them. The result now opens a **bottom-right native heatmap preview**, with altered pixels highlighted in red against a dim grayscale reference. The app also writes `<scene>_heatmap.png` beside the two screenshots in `user://visual_truth/`. Click **FECHAR MAPA DE DIFERENCAS** or switch scenes to dismiss the preview. A failed image write is reported without masking the in-memory comparison; both original captures remain untouched.
+
+The heatmap uses the native pixel tolerance of 2/255. The synthetic Godot native smoke validates altered-pixel color, panel creation and dismissal. It is **not** a real framebuffer capture or display/GPU test; real Windows screenshots and GPU performance still need observation.
