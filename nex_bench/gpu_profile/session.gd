@@ -82,6 +82,9 @@ func begin(viewport: Viewport, context: Dictionary, include_device_snapshot := t
 	if proxy_count not in [25, 50, 100, 200] or effect_mode not in ["geometry", "lights", "vfx", "combined"]:
 		last_error = "The current Density Ladder workload is invalid."
 		return false
+	if effect_mode == "combined" and proxy_count != 25:
+		last_error = "Combined GPU profiling is limited to 25 proxies by the v2 contract."
+		return false
 	var rid := viewport.get_viewport_rid()
 	if not rid.is_valid():
 		last_error = "The active viewport RID is invalid."
