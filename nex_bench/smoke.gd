@@ -256,7 +256,29 @@ func _check_modules() -> void:
     if int(cancelled_progress.get("frame_pacing_samples", -1)) != 0:
         _fail("GPU profiler cancellation retained partial monotonic pacing samples")
         return
-    print("NEX_NATIVE_GPU_PROFILE_PASS: monotonic variance/hitch, zero/rollback=>UNAVAILABLE, cancel disables measurement")
+    # Inject a changed frozen viewport size while using the *same* RID.
+    # This deterministic headless negative control proves a resized capture
+    # must fail closed; it does not claim actual GUI resize/GPU validation.
+    if not bool(profile_session.call("begin", window.get_viewport(), profile_context, false)):
+        _fail("GPU profiler could not restart for frozen viewport-size guard")
+        return
+    var frozen_size: Vector2i = profile_session.get("capture_viewport_size")
+    if frozen_size.x <= 0 or frozen_size.y <= 0:
+        _fail("GPU profiler did not freeze valid viewport dimensions")
+        return
+    profile_session.set("capture_viewport_size", frozen_size + Vector2i(1, 0))
+    var resized: Dictionary = profile_session.call("step", 0.016, window.get_viewport())
+    if not bool(resized.get("finished", false)) or resized.get("reason", "") != "viewport_changed_or_unavailable":
+        _fail("GPU profiler accepted mixed-resolution measurements")
+        return
+    var invalid_resize: Dictionary = resized.get("document", {})
+    if invalid_resize.get("run_status", "") != "INVALID" or invalid_resize.get("run_reason", "") != "viewport_changed_or_unavailable":
+        _fail("Mixed-resolution capture was not exported as INVALID")
+        return
+    if bool(profile_session.call("is_active")) or bool(profile_session.call("is_measurement_enabled")):
+        _fail("Mixed-resolution capture left viewport timing enabled")
+        return
+    print("NEX_NATIVE_GPU_PROFILE_PASS: monotonic variance/hitch, zero/rollback=>UNAVAILABLE, cancel disables measurement, mixed resolution invalidated")
 
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.
