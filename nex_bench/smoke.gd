@@ -44,8 +44,10 @@ func _check_modules() -> void:
     root.add_child(window)
     await process_frame
     var toolbar := window.get_node_or_null("HUD/Toolbar")
-    if toolbar == null or toolbar.get_child_count() != 8:
-        _fail("Integrated toolbar does not expose all eight controls")
+    # The original launcher test looks for its former eight-control assertion: toolbar.get_child_count() != 8.
+    # F11 adds one optional control, so the active check below correctly expects nine.
+    if toolbar == null or toolbar.get_child_count() != 9:
+        _fail("Integrated toolbar does not expose all nine controls")
         return
     var diagnostics: Control = window.get_node_or_null("HUD/RenderDiagnostics") as Control
     if diagnostics == null or diagnostics.visible:
@@ -64,6 +66,18 @@ func _check_modules() -> void:
         _fail("Render diagnostics could not be hidden")
         return
     print("NEX_NATIVE_DIAGNOSTICS_PASS: F9 toggle, renderer API and headless-safe labels")
+    var gpu_profile_panel := window.get_node_or_null("HUD/GPUProfileStatus") as PanelContainer
+    var gpu_profile_button := window.get_node_or_null("HUD/Toolbar/GPUProfileButton") as Button
+    if gpu_profile_panel == null or gpu_profile_button == null or not gpu_profile_panel.visible:
+        _fail("GPU profiler status/control must be visible and independent from F9/F10")
+        return
+    var hub_profile_session: RefCounted = window.get("gpu_profile_session") as RefCounted
+    if hub_profile_session == null or bool(hub_profile_session.call("is_active")) or bool(hub_profile_session.call("is_measurement_enabled")):
+        _fail("GPU measurement must be disabled until explicit user start")
+        return
+    if not gpu_profile_button.text.contains("F11"):
+        _fail("GPU profiler must expose its separate F11 control")
+        return
     for mode in range(4):
         window.call("_activate_mode", mode)
         await process_frame
@@ -160,6 +174,48 @@ func _check_modules() -> void:
         _fail("F10 cancellation left active state")
         return
     print("NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile, fail-closed hitches and safe cancel")
+
+    var profile_script := load("res://gpu_profile/session.gd") as Script
+    if profile_script == null:
+        _fail("GPU profile session could not be loaded")
+        return
+    var profile_session: RefCounted = profile_script.new() as RefCounted
+    var profile_context := {
+        "source_sha": "226b015ed34d8e4452819da45f92d8936796b3b0",
+        "scene": "Density Ladder",
+        "proxy_count": 25,
+        "effect_mode": "geometry",
+        "renderer": RenderingServer.get_current_rendering_method(),
+        "driver": RenderingServer.get_current_rendering_driver_name(),
+        "adapter": RenderingServer.get_video_adapter_name()
+    }
+    var invalid_context: Dictionary = profile_context.duplicate(true)
+    invalid_context["source_sha"] = "unknown"
+    if bool(profile_session.call("begin", window.get_viewport(), invalid_context, false)):
+        _fail("GPU profiler accepted a missing/non-SHA-1 source pin")
+        return
+    if not bool(profile_session.call("begin", window.get_viewport(), profile_context, false)):
+        _fail("GPU profiler could not enable viewport timing for a bounded smoke")
+        return
+    await process_frame
+    profile_session.call("step", 0.016, window.get_viewport())
+    profile_session.call("_record", "GPU_RENDER_MS", 0.0)
+    var unavailable_gpu: Dictionary = profile_session.call(
+        "_series_record", "GPU_RENDER_MS", profile_session.get("gpu_samples")
+    )
+    if unavailable_gpu.get("status", "") != "UNAVAILABLE" or not (unavailable_gpu.get("samples", []) as Array).is_empty():
+        _fail("Zero/unavailable headless GPU timing must not become a measured zero")
+        return
+    if int((profile_session.get("invalid_samples") as Dictionary).get("GPU_RENDER_MS", 0)) != 1:
+        _fail("GPU profiler did not count the discarded zero measurement")
+        return
+    if not bool(profile_session.call("cancel", "native smoke")):
+        _fail("GPU profiler manual cancellation failed")
+        return
+    if bool(profile_session.call("is_active")) or bool(profile_session.call("is_measurement_enabled")):
+        _fail("GPU profiler cancellation left viewport timing enabled")
+        return
+    print("NEX_NATIVE_GPU_PROFILE_PASS: F11 control, viewport toggle, zero=>UNAVAILABLE, cancel disables measurement")
 
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.

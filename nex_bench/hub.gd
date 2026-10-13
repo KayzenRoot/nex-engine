@@ -17,6 +17,8 @@ const OBS_DURATION := 8.0
 const OBS_MIN_FRAMES := 60
 const OBS_MAX_FRAMES := 1500
 const OBS_MODES := ["geometry", "lights", "vfx", "combined"]
+const GPU_PROFILE_SESSION_SCRIPT := "res://gpu_profile/session.gd"
+const GPU_PROFILE_SOURCE_SHA_ENV := "NEX_GPU_PROFILE_SOURCE_SHA"
 
 @onready var world_root: Node3D = $WorldRoot
 @onready var title_label: Label = $HUD/Title
@@ -35,11 +37,21 @@ var observation_elapsed := 0.0
 var observation_frames: Array[float] = []
 var observation_proxies := 0
 var observation_mode := 0
+var gpu_profile_session: RefCounted
+var gpu_profile_button: Button
+var gpu_profile_panel: PanelContainer
+var gpu_profile_label: Label
+var gpu_profile_workload: Dictionary = {}
+var gpu_profile_last_status := "GPU PROFILER IDLE | F11 start in F4; measurement is disabled."
 
 func _ready() -> void:
     DisplayServer.window_set_title("NEX Engine | Visual Lab")
+    var profile_script := load(GPU_PROFILE_SESSION_SCRIPT) as Script
+    if profile_script != null:
+        gpu_profile_session = profile_script.new() as RefCounted
     _make_toolbar()
     _make_diagnostics_panel()
+    _make_gpu_profile_panel()
     _activate_mode(0)
 
 func _make_toolbar() -> void:
@@ -71,6 +83,36 @@ func _make_toolbar() -> void:
     diagnostics_button.custom_minimum_size = Vector2(132, 40)
     diagnostics_button.pressed.connect(_toggle_diagnostics)
     toolbar.add_child(diagnostics_button)
+    gpu_profile_button = Button.new()
+    gpu_profile_button.name = "GPUProfileButton"
+    gpu_profile_button.text = "GPU PROFILE [F11]"
+    gpu_profile_button.custom_minimum_size = Vector2(150, 40)
+    gpu_profile_button.pressed.connect(_toggle_gpu_profile)
+    toolbar.add_child(gpu_profile_button)
+
+func _make_gpu_profile_panel() -> void:
+    gpu_profile_panel = PanelContainer.new()
+    gpu_profile_panel.name = "GPUProfileStatus"
+    gpu_profile_panel.anchor_left = 1.0
+    gpu_profile_panel.anchor_top = 1.0
+    gpu_profile_panel.anchor_right = 1.0
+    gpu_profile_panel.anchor_bottom = 1.0
+    gpu_profile_panel.offset_left = -474.0
+    gpu_profile_panel.offset_top = -116.0
+    gpu_profile_panel.offset_right = -16.0
+    gpu_profile_panel.offset_bottom = -18.0
+    gpu_profile_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    gpu_profile_label = Label.new()
+    gpu_profile_label.name = "GPUProfileStats"
+    gpu_profile_label.custom_minimum_size = Vector2(438.0, 78.0)
+    gpu_profile_label.add_theme_font_size_override("font_size", 14)
+    gpu_profile_label.text = gpu_profile_last_status
+    gpu_profile_panel.add_child(gpu_profile_label)
+    $HUD.add_child(gpu_profile_panel)
+
+func _exit_tree() -> void:
+    if gpu_profile_session != null and gpu_profile_session.is_active():
+        gpu_profile_session.cancel("visual lab closed")
 
 func _make_diagnostics_panel() -> void:
     diagnostics_panel = PanelContainer.new()
@@ -99,6 +141,7 @@ func _toggle_diagnostics() -> void:
 
 func _process(delta: float) -> void:
     _sample_frame_observation(delta)
+    _sample_gpu_profile(delta)
     if diagnostics_panel == null or not diagnostics_panel.visible:
         return
     diagnostics_elapsed += delta
@@ -157,6 +200,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
                 _cancel_frame_observation("Observation cancelled")
             else:
                 _begin_frame_observation()
+        KEY_F11:
+            _toggle_gpu_profile()
+        KEY_F12:
+            _capture_gpu_profile_screenshot()
         KEY_LEFT:
             _move_reference_camera(-15.0, 0.0, 1.0)
         KEY_RIGHT:
@@ -196,6 +243,8 @@ func _activate_mode(index: int) -> void:
     if next_world == null:
         _status("BLOCKED: unable to create native module")
         return
+    if gpu_profile_session != null and gpu_profile_session.is_active():
+        _cancel_gpu_profile("scene switched")
     if observation_active:
         _cancel_frame_observation("Observation cancelled: scene switched")
     _hide_diff_preview()
@@ -219,7 +268,7 @@ func _activate_mode(index: int) -> void:
 
 # Bounded samples of scene-tree _process(delta), not GPU frame timing.
 func _begin_frame_observation() -> bool:
-    if observation_active or active_mode != 3 or active_world == null:
+    if observation_active or (gpu_profile_session != null and gpu_profile_session.is_active()) or active_mode != 3 or active_world == null:
         _status("F10 observation available in F4 Density Ladder only")
         return false
     var raw_counts: Variant = active_world.get("counts")
@@ -247,6 +296,163 @@ func _cancel_frame_observation(reason: String) -> void:
     observation_frames.clear()
     observation_elapsed = 0.0
     _status(reason)
+
+func _toggle_gpu_profile() -> void:
+    if gpu_profile_session == null:
+        _status("GPU profiler unavailable: session module failed to load")
+        gpu_profile_last_status = "GPU PROFILER BLOCKED | session module failed to load."
+        _refresh_gpu_profile_panel()
+        return
+    if gpu_profile_session.is_active():
+        _cancel_gpu_profile("manual cancellation")
+    else:
+        _begin_gpu_profile()
+
+func _begin_gpu_profile() -> bool:
+    if gpu_profile_session == null or observation_active:
+        _status("GPU profile unavailable while F10 is recording")
+        return false
+    if active_mode != 3 or active_world == null:
+        _status("GPU profile is available in F4 Density Ladder only")
+        gpu_profile_last_status = "GPU PROFILER IDLE | select F4 Density Ladder, then press F11."
+        _refresh_gpu_profile_panel()
+        return false
+    var raw_counts: Variant = active_world.get("counts")
+    if not (raw_counts is Array):
+        _status("GPU profile blocked: Density Ladder workload unavailable")
+        return false
+    var levels: Array = raw_counts
+    var index := int(active_world.get("count_index"))
+    var mode := int(active_world.get("current_mode"))
+    if index < 0 or index >= levels.size() or mode < 0 or mode >= OBS_MODES.size():
+        _status("GPU profile blocked: invalid Density Ladder selection")
+        return false
+    var source_sha := OS.get_environment(GPU_PROFILE_SOURCE_SHA_ENV).strip_edges().to_lower()
+    gpu_profile_workload = {
+        "source_sha": source_sha,
+        "proxy_count": int(levels[index]),
+        "effect_mode": OBS_MODES[mode]
+    }
+    var context := {
+        "source_sha": source_sha,
+        "scene": "Density Ladder",
+        "proxy_count": int(levels[index]),
+        "effect_mode": OBS_MODES[mode],
+        "renderer": RenderingServer.get_current_rendering_method(),
+        "driver": RenderingServer.get_current_rendering_driver_name(),
+        "adapter": RenderingServer.get_video_adapter_name()
+    }
+    if not gpu_profile_session.begin(get_viewport(), context, true):
+        _status("GPU profile blocked: " + str(gpu_profile_session.last_error))
+        gpu_profile_last_status = "GPU PROFILER BLOCKED | " + str(gpu_profile_session.last_error)
+        _refresh_gpu_profile_panel()
+        return false
+    if gpu_profile_button != null:
+        gpu_profile_button.text = "CANCEL PROFILE [F11]"
+    gpu_profile_last_status = "GPU PROFILER WARMUP | 2 s, then 30 s capture; workload locked."
+    _refresh_gpu_profile_panel()
+    _status("GPU profile started: 2s warmup + 30s observation; F11 cancels")
+    return true
+
+func _sample_gpu_profile(delta: float) -> void:
+    if gpu_profile_session == null or not gpu_profile_session.is_active():
+        return
+    if not _gpu_profile_workload_matches():
+        _cancel_gpu_profile("workload changed; run not exported")
+        return
+    var update: Dictionary = gpu_profile_session.step(delta, get_viewport())
+    _refresh_gpu_profile_panel()
+    if bool(update.get("finished", false)):
+        _finish_gpu_profile(update)
+
+func _gpu_profile_workload_matches() -> bool:
+    if active_mode != 3 or active_world == null:
+        return false
+    var raw_counts: Variant = active_world.get("counts")
+    if not (raw_counts is Array):
+        return false
+    var levels: Array = raw_counts
+    var index := int(active_world.get("count_index"))
+    var mode := int(active_world.get("current_mode"))
+    return (
+        index >= 0 and index < levels.size()
+        and mode >= 0 and mode < OBS_MODES.size()
+        and int(levels[index]) == int(gpu_profile_workload.get("proxy_count", -1))
+        and OBS_MODES[mode] == str(gpu_profile_workload.get("effect_mode", ""))
+    )
+
+func _cancel_gpu_profile(reason: String) -> void:
+    if gpu_profile_session == null or not gpu_profile_session.is_active():
+        return
+    gpu_profile_session.cancel(reason)
+    if gpu_profile_button != null:
+        gpu_profile_button.text = "GPU PROFILE [F11]"
+    gpu_profile_last_status = "GPU PROFILER CANCELLED | %s; no partial report exported." % reason
+    _refresh_gpu_profile_panel()
+    _status("GPU profile cancelled: " + reason)
+
+func _finish_gpu_profile(update: Dictionary) -> void:
+    if gpu_profile_button != null:
+        gpu_profile_button.text = "GPU PROFILE [F11]"
+    var document: Dictionary = update.get("document", {})
+    var output_path := str(gpu_profile_session.save_document(document))
+    if output_path.is_empty():
+        gpu_profile_last_status = "GPU PROFILER %s | capture was not saved; see local output limits." % str(update.get("state", "INVALID"))
+        _status("GPU profile collected but JSON export failed")
+    else:
+        var series: Dictionary = document.get("series", {})
+        var gpu: Dictionary = series.get("GPU_RENDER_MS", {})
+        var cpu: Dictionary = series.get("CPU_RENDER_MS", {})
+        gpu_profile_last_status = "GPU PROFILER %s | GPU=%s n=%d, CPU=%s n=%d\n%s" % [
+            str(document.get("run_status", "INVALID")),
+            str(gpu.get("status", "UNAVAILABLE")), int(gpu.get("valid_sample_count", 0)),
+            str(cpu.get("status", "UNAVAILABLE")), int(cpu.get("valid_sample_count", 0)), output_path
+        ]
+        _status("GPU profile %s: %s" % [str(document.get("run_status", "INVALID")), output_path])
+    _refresh_gpu_profile_panel()
+
+func _refresh_gpu_profile_panel() -> void:
+    if gpu_profile_panel == null or gpu_profile_label == null:
+        return
+    gpu_profile_label.text = gpu_profile_last_status
+    if gpu_profile_session != null and gpu_profile_session.is_active():
+        var progress: Dictionary = gpu_profile_session.progress()
+        var elapsed := float(progress.get("elapsed_seconds", 0.0))
+        var observed := float(progress.get("observed_seconds", 0.0))
+        var phase := str(progress.get("state", "WARMUP"))
+        var invalid: Dictionary = progress.get("invalid_samples", {})
+        gpu_profile_label.text = "GPU PROFILER %s | %s\nWarmup %.1f/2s | captura %.1f/30s\nGPU %d (+%d inválidas) | CPU %d | loop %d" % [
+            phase, str(gpu_profile_workload.get("effect_mode", "")),
+            minf(elapsed, 2.0), observed,
+            int(progress.get("gpu_samples", 0)), int(invalid.get("GPU_RENDER_MS", 0)),
+            int(progress.get("cpu_samples", 0)), int(progress.get("main_loop_samples", 0))
+        ]
+
+func _capture_gpu_profile_screenshot() -> void:
+    if active_mode != 3 or capture_pending:
+        _status("Profiler screenshot is available in F4 only")
+        return
+    if gpu_profile_session != null and gpu_profile_session.is_active():
+        _status("Wait for the GPU capture to finish before saving a HUD screenshot")
+        return
+    capture_pending = true
+    await RenderingServer.frame_post_draw
+    var image := get_viewport().get_texture().get_image()
+    capture_pending = false
+    if image == null or image.is_empty():
+        _status("BLOCKED: GPU profiler screenshot unavailable")
+        return
+    var directory := ProjectSettings.globalize_path("user://gpu_profiles")
+    if DirAccess.make_dir_recursive_absolute(directory) != OK:
+        _status("BLOCKED: profiler screenshot folder unavailable")
+        return
+    var filename := "gpu_profile_ui_%d_%d.png" % [int(Time.get_unix_time_from_system()), Time.get_ticks_usec()]
+    var output_path := directory.path_join(filename)
+    var error := image.save_png(output_path)
+    if error != OK:
+        _status("BLOCKED: profiler screenshot could not be written")
+        return
+    _status("GPU profiler HUD screenshot saved: %s" % output_path)
 
 func _sample_frame_observation(delta: float) -> void:
     if not observation_active:
