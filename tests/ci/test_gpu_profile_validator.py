@@ -393,6 +393,23 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertEqual(result["series"]["GPU_RENDER_MS"]["status"], "UNAVAILABLE")
         self.assertEqual(result["series"]["GPU_RENDER_MS"]["valid_sample_count"], 0)
 
+    def test_bounded_json_parser_exceptions_return_structured_fail(self):
+        # Even byte-bounded JSON may exceed Python's integer digit or parser
+        # nesting limits; these are hostile input, not programmer crashes.
+        hostile_documents = (
+            b'{"schema_version":' + b'9' * 10000 + b'}',
+            b'[' * 20000 + b'0' + b']' * 20000,
+        )
+        for payload in hostile_documents:
+            with self.subTest(bytes=len(payload)):
+                self.assertLess(len(payload), MODULE.MAX_BYTES)
+                with self.assertRaises(MODULE.ProfileError):
+                    MODULE.validate_payload(payload)
+                with redirect_stdout(io.StringIO()) as output:
+                    code = MODULE.main(payload)
+                self.assertEqual(code, 1)
+                self.assertEqual(json.loads(output.getvalue())["status"], "FAIL")
+
     def test_duplicate_json_keys_are_rejected(self):
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_payload(b'{"schema_version":"nex_gpu_render_profile.v1","schema_version":"spoof"}')
