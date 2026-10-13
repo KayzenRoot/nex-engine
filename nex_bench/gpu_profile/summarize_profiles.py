@@ -13,7 +13,10 @@ import statistics
 import sys
 from typing import Any
 
-from validate_gpu_profile import MAX_BYTES, ProfileError, SCHEMA_VERSION, validate_report
+if __package__:
+    from .validate_gpu_profile import MAX_BYTES, ProfileError, SCHEMA_VERSION, validate_report
+else:
+    from validate_gpu_profile import MAX_BYTES, ProfileError, SCHEMA_VERSION, validate_report
 
 MIN_REPEATS = 3
 MAX_REPEATS = 12
