@@ -1,0 +1,14 @@
+NEX: verified Godot 4.7.2.stable.official.ed1daf0bf
+NEX: checking 4 modules with local headless smoke...
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NEX_NATIVE_DIAGNOSTICS_PASS: F9 toggle, renderer API and headless-safe labels
+NEX_NATIVE_CAMERA_NAVIGATION_PASS: orbit, zoom, reset, stress guard
+NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile, fail-closed hitches and safe cancel
+NEX_NATIVE_GPU_PROFILE_PASS: F11 control, viewport toggle, zero=>UNAVAILABLE, cancel disables measurement
+NEX_NATIVE_VISUAL_HEATMAP_PASS: red pixels, preview UI, close
+NEX_NATIVE_VISUAL_TRUTH_PASS: identical/difference/dimensions, in-memory
+NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes, headless parser only
+
+NEX_NATIVE_STARTUP_VALIDATED: smoke passed.
+NEX_GUI_STARTED: pid=11480; F1-F4 scenes, B/N screenshots, D compare.
