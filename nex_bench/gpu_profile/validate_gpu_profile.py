@@ -1,4 +1,4 @@
-"""Strict, bounded validator for nex_gpu_render_profile.v1 exports.
+"""Strict, bounded validator for versioned nex_gpu_render_profile exports.
 
 The CLI reads one JSON document from stdin, never opens a caller-supplied path,
 uses only the Python standard library, and independently recomputes aggregates.
@@ -20,8 +20,12 @@ class ProfileError(ValueError):
     """An invalid, inconsistent, unsupported, or oversized profile document."""
 
 
-SCHEMA_VERSION = "nex_gpu_render_profile.v1"
-FORMULA_VERSION = "nex-percentile-and-one-percent-low-v1"
+SCHEMA_VERSION = "nex_gpu_render_profile.v2"
+LEGACY_SCHEMA_VERSION = "nex_gpu_render_profile.v1"
+FORMULA_VERSION_V1 = "nex-percentile-and-one-percent-low-v1"
+FORMULA_VERSION_V2 = "nex-percentile-and-one-percent-low-monotonic-v2"
+FRAME_PACING_PROVIDER = "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback"
+FRAME_PACING_FORMULA = "1000 / mean(slowest ceil(0.01*n) positive FRAME_PACING_INTERVAL_MS samples)"
 MAX_BYTES = 8_000_000
 MAX_SAMPLES = 16_000
 MIN_VALID_SAMPLES = 300
@@ -38,17 +42,27 @@ TOP_KEYS = frozenset({
     "adapter", "viewport", "workload", "settings", "measurement", "series",
     "device_snapshot",
 })
-SERIES_SPECS = {
+SERIES_SPECS_V1 = {
     "GPU_RENDER_MS": ("ms", "RenderingServer.viewport_get_measured_render_time_gpu", 60_000.0),
     "CPU_RENDER_MS": ("ms", "RenderingServer.viewport_get_measured_render_time_cpu", 60_000.0),
     "MAIN_LOOP_INTERVAL_MS": ("ms", "SceneTree._process(delta)", 1000.0),
     "RENDERER_ALLOCATION_BYTES": ("bytes", "Performance.RENDER_VIDEO_MEM_USED", MAX_SAFE_INTEGER),
 }
-MEASUREMENT_KEYS = frozenset({
+SERIES_SPECS_V2 = {
+    **SERIES_SPECS_V1,
+    "FRAME_PACING_INTERVAL_MS": ("ms", FRAME_PACING_PROVIDER, 1000.0),
+}
+MEASUREMENT_KEYS_V1 = frozenset({
     "provider", "warmup_seconds", "requested_seconds", "observed_seconds",
     "warmup_frames_discarded", "invalid_main_loop_samples", "percentile_method",
     "formula_version", "one_percent_low_fps_formula", "one_percent_low_fps",
     "temporal_alignment_note",
+})
+MEASUREMENT_KEYS_V2 = MEASUREMENT_KEYS_V1 | frozenset({
+    "one_percent_low_fps_source", "frame_pacing_provider", "frame_pacing_status",
+    "frame_pacing_unavailable_reason", "invalid_frame_pacing_samples",
+    "delta_derived_one_percent_low_fps_label", "delta_derived_one_percent_low_fps",
+    "frame_pacing_limitation",
 })
 SERIES_KEYS = frozenset({
     "status", "unit", "provider", "samples", "valid_sample_count",
@@ -152,8 +166,8 @@ def _validate_series_samples(name: str, samples_raw: Any, maximum: float) -> lis
     samples: list[float] = []
     for index, raw in enumerate(samples_raw):
         metric = _finite_number(raw, f"{label}.samples[{index}]", maximum=maximum)
-        if name == "MAIN_LOOP_INTERVAL_MS" and metric >= 1000.0:
-            raise ProfileError("main-loop interval must be below 1000 ms")
+        if name in {"MAIN_LOOP_INTERVAL_MS", "FRAME_PACING_INTERVAL_MS"} and metric >= 1000.0:
+            raise ProfileError(name.lower() + " must be below 1000 ms")
         samples.append(metric)
     return samples
 
@@ -168,16 +182,24 @@ def _validate_measured_series(name: str, record: dict[str, Any], samples: list[f
         _close(actual, expected, _series_label(name, "aggregates." + key))
 
 
-def _validate_unavailable_series(record: dict[str, Any], valid_count: int) -> None:
+def _validate_unavailable_series(
+    record: dict[str, Any], valid_count: int, *, allow_partial_samples: bool = False
+) -> None:
     reason = record["unavailable_reason"]
     if not isinstance(reason, str) or not reason.strip():
         raise ProfileError("UNAVAILABLE series must state a cause")
-    if valid_count >= MIN_VALID_SAMPLES or record["aggregates"] is not None:
+    if (valid_count >= MIN_VALID_SAMPLES and not allow_partial_samples) or record["aggregates"] is not None:
         raise ProfileError("UNAVAILABLE series cannot hide enough measured samples or claim aggregates")
 
 
-def _validate_series(name: str, value: Any) -> tuple[dict[str, Any], list[float], dict[str, Any]]:
-    unit, provider, maximum = SERIES_SPECS[name]
+def _validate_series(
+    name: str,
+    value: Any,
+    series_specs: dict[str, tuple[str, str, float]],
+    *,
+    allow_partial_unavailable: bool = False,
+) -> tuple[dict[str, Any], list[float], dict[str, Any]]:
+    unit, provider, maximum = series_specs[name]
     label = _series_label(name)
     record = _exact_object(value, SERIES_KEYS, label)
     status = record["status"]
@@ -193,7 +215,9 @@ def _validate_series(name: str, value: Any) -> tuple[dict[str, Any], list[float]
     if status == "MEASURED":
         _validate_measured_series(name, record, samples, valid_count, maximum)
     else:
-        _validate_unavailable_series(record, valid_count)
+        if allow_partial_unavailable and valid_count >= MIN_VALID_SAMPLES and invalid_count == 0:
+            raise ProfileError(label + " cannot discard valid ticks without a recorded invalid sample")
+        _validate_unavailable_series(record, valid_count, allow_partial_samples=allow_partial_unavailable)
     facts = {"status": status, "valid_sample_count": valid_count, "invalid_sample_count": invalid_count}
     return record, samples, facts
 
@@ -261,8 +285,9 @@ def _validate_device_snapshot_status(device: dict[str, Any], measured: int) -> N
         raise ProfileError("UNAVAILABLE device snapshot has measured data or no cause")
 
 
-def _validate_profile_identity(report: dict[str, Any]) -> tuple[str, str]:
-    if report["schema_version"] != SCHEMA_VERSION:
+def _validate_profile_identity(report: dict[str, Any]) -> tuple[str, str, str]:
+    schema_version = report["schema_version"]
+    if schema_version not in {LEGACY_SCHEMA_VERSION, SCHEMA_VERSION}:
         raise ProfileError("unsupported schema_version")
     run_id = _text(report["run_id"], "run_id")
     if not RUN_ID_RE.fullmatch(run_id):
@@ -278,7 +303,7 @@ def _validate_profile_identity(report: dict[str, Any]) -> tuple[str, str]:
         _text(report[key], key)
     if not report["godot_version"].startswith("4.7.2"):
         raise ProfileError("profile must identify pinned Godot 4.7.2")
-    return run_id, run_status
+    return run_id, run_status, schema_version
 
 
 def _validate_viewport(value: Any) -> None:
@@ -310,8 +335,9 @@ def _validate_settings(value: Any) -> None:
     _integer(settings["max_fps"], "settings.max_fps", maximum=100_000)
 
 
-def _validate_measurement(value: Any) -> tuple[float, int]:
-    measurement = _exact_object(value, MEASUREMENT_KEYS, "measurement")
+def _validate_measurement(value: Any, schema_version: str, run_status: str) -> tuple[dict[str, Any], float, int, int]:
+    measurement_keys = MEASUREMENT_KEYS_V1 if schema_version == LEGACY_SCHEMA_VERSION else MEASUREMENT_KEYS_V2
+    measurement = _exact_object(value, measurement_keys, "measurement")
     if measurement["provider"] != "Godot RenderingServer per-viewport render timing":
         raise ProfileError("measurement provider is invalid")
     warmup = _finite_number(measurement["warmup_seconds"], "measurement.warmup_seconds", maximum=2.0)
@@ -320,57 +346,163 @@ def _validate_measurement(value: Any) -> tuple[float, int]:
         raise ProfileError("profile must use the locked 2s warmup and 30s observation")
     if not math.isclose(requested, 30.0, rel_tol=0.0, abs_tol=LOCKED_DURATION_TOLERANCE_SECONDS):
         raise ProfileError("profile must use the locked 2s warmup and 30s observation")
-    observed = _finite_number(measurement["observed_seconds"], "measurement.observed_seconds", maximum=30.1)
+    if schema_version == SCHEMA_VERSION and run_status == "INVALID":
+        raw_observed = measurement["observed_seconds"]
+        if type(raw_observed) not in (int, float):
+            raise ProfileError("measurement.observed_seconds must be finite and non-negative for an invalid v2 run")
+        try:
+            observed = float(raw_observed)
+        except (OverflowError, ValueError):
+            raise ProfileError("measurement.observed_seconds must be finite and non-negative for an invalid v2 run") from None
+        if not math.isfinite(observed) or not 0.0 <= observed <= 30.1:
+            raise ProfileError("measurement.observed_seconds must be finite and non-negative for an invalid v2 run")
+    else:
+        observed = _finite_number(measurement["observed_seconds"], "measurement.observed_seconds", maximum=30.1)
     _integer(measurement["warmup_frames_discarded"], "measurement.warmup_frames_discarded")
     invalid_loop = _integer(measurement["invalid_main_loop_samples"], "measurement.invalid_main_loop_samples")
-    if measurement["percentile_method"] != "nearest_rank" or measurement["formula_version"] != FORMULA_VERSION:
+    expected_formula_version = FORMULA_VERSION_V1 if schema_version == LEGACY_SCHEMA_VERSION else FORMULA_VERSION_V2
+    expected_low_formula = (
+        "1000 / mean(slowest ceil(0.01*n) positive MAIN_LOOP_INTERVAL_MS samples)"
+        if schema_version == LEGACY_SCHEMA_VERSION else FRAME_PACING_FORMULA
+    )
+    if measurement["percentile_method"] != "nearest_rank" or measurement["formula_version"] != expected_formula_version:
         raise ProfileError("percentile or 1% low formula version is unsupported")
-    if measurement["one_percent_low_fps_formula"] != "1000 / mean(slowest ceil(0.01*n) positive MAIN_LOOP_INTERVAL_MS samples)":
-        raise ProfileError("1% low formula must be explicitly tied to MAIN_LOOP_INTERVAL_MS")
+    if measurement["one_percent_low_fps_formula"] != expected_low_formula:
+        raise ProfileError("1% low formula is not tied to the schema's declared interval series")
     _text(measurement["temporal_alignment_note"], "measurement.temporal_alignment_note")
-    return observed, invalid_loop
+    invalid_frame_pacing = 0
+    if schema_version == SCHEMA_VERSION:
+        if measurement["one_percent_low_fps_source"] != "FRAME_PACING_INTERVAL_MS":
+            raise ProfileError("v2 1% low source must be monotonic frame pacing")
+        if measurement["frame_pacing_provider"] != FRAME_PACING_PROVIDER:
+            raise ProfileError("v2 frame pacing provider is invalid")
+        if measurement["frame_pacing_status"] not in {"MEASURED", "UNAVAILABLE"}:
+            raise ProfileError("v2 frame pacing status is invalid")
+        frame_reason = measurement["frame_pacing_unavailable_reason"]
+        if measurement["frame_pacing_status"] == "MEASURED" and frame_reason != "":
+            raise ProfileError("MEASURED frame pacing cannot include an unavailable reason")
+        if measurement["frame_pacing_status"] == "UNAVAILABLE" and (not isinstance(frame_reason, str) or not frame_reason.strip()):
+            raise ProfileError("UNAVAILABLE frame pacing must state a cause")
+        invalid_frame_pacing = _integer(measurement["invalid_frame_pacing_samples"], "measurement.invalid_frame_pacing_samples")
+        if measurement["frame_pacing_status"] == "MEASURED" and invalid_frame_pacing != 0:
+            raise ProfileError("MEASURED frame pacing cannot contain invalid monotonic ticks")
+        if "invalid_monotonic_tick" in frame_reason and invalid_frame_pacing == 0:
+            raise ProfileError("invalid monotonic tick reason requires a positive invalid tick count")
+        if measurement["delta_derived_one_percent_low_fps_label"] != "DELTA_DERIVED_VSYNC_LIMITED":
+            raise ProfileError("legacy delta-derived FPS must be labeled DELTA_DERIVED_VSYNC_LIMITED")
+        if measurement["delta_derived_one_percent_low_fps"] is not None:
+            _finite_number(measurement["delta_derived_one_percent_low_fps"], "measurement.delta_derived_one_percent_low_fps", maximum=100_000.0)
+        _text(measurement["frame_pacing_limitation"], "measurement.frame_pacing_limitation")
+    return measurement, observed, invalid_loop, invalid_frame_pacing
 
 
 def _validate_series_collection(
-    value: Any, invalid_loop: int, observed: float
-) -> tuple[dict[str, dict[str, Any]], dict[str, list[float]], dict[str, Any]]:
-    series_value = _exact_object(value, frozenset(SERIES_SPECS), "series")
+    value: Any,
+    invalid_loop: int,
+    invalid_frame_pacing: int,
+    observed: float,
+    schema_version: str,
+    measurement: dict[str, Any],
+) -> tuple[dict[str, dict[str, Any]], dict[str, list[float]], dict[str, dict[str, Any]]]:
+    series_specs = SERIES_SPECS_V1 if schema_version == LEGACY_SCHEMA_VERSION else SERIES_SPECS_V2
+    series_value = _exact_object(value, frozenset(series_specs), "series")
     series_facts: dict[str, dict[str, Any]] = {}
     raw_samples: dict[str, list[float]] = {}
-    for name in SERIES_SPECS:
-        _, samples, facts = _validate_series(name, series_value[name])
+    for name in series_specs:
+        _, samples, facts = _validate_series(
+            name,
+            series_value[name],
+            series_specs,
+            allow_partial_unavailable=(schema_version == SCHEMA_VERSION and name == "FRAME_PACING_INTERVAL_MS"),
+        )
         series_facts[name] = facts
         raw_samples[name] = samples
     if invalid_loop != series_facts["MAIN_LOOP_INTERVAL_MS"]["invalid_sample_count"]:
         raise ProfileError("measurement invalid main-loop count differs from its raw series")
-    main_loop = raw_samples["MAIN_LOOP_INTERVAL_MS"]
-    if not math.isclose(math.fsum(main_loop) / 1000.0, observed, rel_tol=1e-5, abs_tol=0.05):
-        raise ProfileError("observed_seconds differs from raw MAIN_LOOP_INTERVAL_MS coverage")
-    main_record = series_value["MAIN_LOOP_INTERVAL_MS"]
-    return series_facts, raw_samples, main_record
+    if schema_version == LEGACY_SCHEMA_VERSION:
+        main_loop = raw_samples["MAIN_LOOP_INTERVAL_MS"]
+        if not math.isclose(math.fsum(main_loop) / 1000.0, observed, rel_tol=1e-5, abs_tol=0.05):
+            raise ProfileError("observed_seconds differs from raw MAIN_LOOP_INTERVAL_MS coverage")
+    else:
+        pacing_record = series_value["FRAME_PACING_INTERVAL_MS"]
+        pacing_facts = series_facts["FRAME_PACING_INTERVAL_MS"]
+        if invalid_frame_pacing != pacing_facts["invalid_sample_count"]:
+            raise ProfileError("measurement invalid frame-pacing count differs from its raw series")
+        if measurement["frame_pacing_status"] != pacing_facts["status"]:
+            raise ProfileError("measurement frame-pacing status differs from its series")
+        if measurement["frame_pacing_unavailable_reason"] != pacing_record["unavailable_reason"]:
+            raise ProfileError("measurement frame-pacing reason differs from its series")
+        pacing = raw_samples["FRAME_PACING_INTERVAL_MS"]
+        if not math.isclose(math.fsum(pacing) / 1000.0, observed, rel_tol=1e-5, abs_tol=0.05):
+            raise ProfileError("observed_seconds differs from monotonic FRAME_PACING_INTERVAL_MS coverage")
+    return series_facts, raw_samples, series_value
 
 
-def _validate_one_percent_low(measurement: dict[str, Any], main_record: dict[str, Any], main_loop: list[float]) -> None:
-    if main_record["status"] == "MEASURED":
-        expected_low = _one_percent_low_fps(main_loop)
-        actual_low = _finite_number(measurement["one_percent_low_fps"], "measurement.one_percent_low_fps", maximum=100_000.0)
-        _close(actual_low, expected_low, "measurement.one_percent_low_fps")
+def _validate_one_percent_low(
+    measurement: dict[str, Any],
+    series_records: dict[str, dict[str, Any]],
+    raw_samples: dict[str, list[float]],
+    schema_version: str,
+) -> None:
+    if schema_version == LEGACY_SCHEMA_VERSION:
+        record = series_records["MAIN_LOOP_INTERVAL_MS"]
+        samples = raw_samples["MAIN_LOOP_INTERVAL_MS"]
+        field_name = "measurement.one_percent_low_fps"
+    else:
+        record = series_records["FRAME_PACING_INTERVAL_MS"]
+        samples = raw_samples["FRAME_PACING_INTERVAL_MS"]
+        field_name = "measurement.one_percent_low_fps"
+    if record["status"] == "MEASURED":
+        expected_low = _one_percent_low_fps(samples)
+        actual_low = _finite_number(measurement["one_percent_low_fps"], field_name, maximum=100_000.0)
+        _close(actual_low, expected_low, field_name)
     elif measurement["one_percent_low_fps"] is not None:
-        raise ProfileError("1% low FPS must be unavailable when main-loop samples are insufficient")
+        raise ProfileError("1% low FPS must be unavailable when its authoritative interval series is unavailable")
+    if schema_version == SCHEMA_VERSION:
+        main_record = series_records["MAIN_LOOP_INTERVAL_MS"]
+        main_samples = raw_samples["MAIN_LOOP_INTERVAL_MS"]
+        delta_low = measurement["delta_derived_one_percent_low_fps"]
+        if main_record["status"] == "MEASURED":
+            if delta_low is None:
+                raise ProfileError("delta-derived diagnostic is missing despite measured MAIN_LOOP_INTERVAL_MS")
+            _close(
+                _finite_number(delta_low, "measurement.delta_derived_one_percent_low_fps", maximum=100_000.0),
+                _one_percent_low_fps(main_samples),
+                "measurement.delta_derived_one_percent_low_fps",
+            )
+        elif delta_low is not None:
+            raise ProfileError("delta-derived diagnostic must be unavailable when MAIN_LOOP_INTERVAL_MS is unavailable")
 
 
-def _validate_run_completion(run_status: str, run_reason: str, observed: float, main_record: dict[str, Any]) -> None:
+def _validate_run_completion(
+    run_status: str,
+    run_reason: str,
+    observed: float,
+    series_records: dict[str, dict[str, Any]],
+    schema_version: str,
+) -> None:
+    required_record_name = "MAIN_LOOP_INTERVAL_MS" if schema_version == LEGACY_SCHEMA_VERSION else "FRAME_PACING_INTERVAL_MS"
+    required_record = series_records[required_record_name]
     if run_status == "COMPLETE":
         if run_reason != "requested_observation_window_elapsed" or observed < 29.9:
             raise ProfileError("COMPLETE requires the full requested observation window")
-        if main_record["status"] != "MEASURED":
-            raise ProfileError("COMPLETE requires measured MAIN_LOOP_INTERVAL_MS")
+        if required_record["status"] != "MEASURED":
+            raise ProfileError("COMPLETE requires its schema's authoritative frame-interval series to be MEASURED")
         return
     if run_reason not in {
         "unsafe_main_loop_interval", "viewport_changed_or_unavailable",
-        "sample_cap_reached_before_requested_duration",
+        "sample_cap_reached_before_requested_duration", "invalid_monotonic_tick",
+        "insufficient_frame_pacing_samples",
     }:
         raise ProfileError("INVALID run reason is not an explicit supported stop condition")
+    if schema_version == SCHEMA_VERSION and run_reason == "invalid_monotonic_tick":
+        pacing_record = series_records["FRAME_PACING_INTERVAL_MS"]
+        if pacing_record["status"] != "UNAVAILABLE" or int(pacing_record["invalid_sample_count"]) < 1:
+            raise ProfileError("invalid_monotonic_tick must fail closed with an unavailable frame-pacing series")
+    if schema_version == SCHEMA_VERSION and run_reason == "insufficient_frame_pacing_samples":
+        pacing_record = series_records["FRAME_PACING_INTERVAL_MS"]
+        if pacing_record["status"] != "UNAVAILABLE" or int(pacing_record["valid_sample_count"]) >= MIN_VALID_SAMPLES:
+            raise ProfileError("insufficient frame-pacing run must remain unavailable below the sample threshold")
 
 
 def _validation_result(
@@ -390,11 +522,11 @@ def _validation_result(
             **series_facts[name],
             "aggregates": _aggregates(raw_samples[name]) if series_facts[name]["status"] == "MEASURED" else None,
         }
-        for name in SERIES_SPECS
+        for name in series_facts
     }
     return {
         "status": "PASS",
-        "schema_version": SCHEMA_VERSION,
+        "schema_version": report["schema_version"],
         "run_id": run_id,
         "run_status": run_status,
         "source_sha": report["source_sha"],
@@ -410,16 +542,18 @@ def _validation_result(
 def validate_report(document: Any) -> dict[str, Any]:
     """Validate a complete bounded report and return independently computed metrics."""
     report = _exact_object(document, TOP_KEYS, "profile")
-    run_id, run_status = _validate_profile_identity(report)
+    run_id, run_status, schema_version = _validate_profile_identity(report)
     _validate_viewport(report["viewport"])
     count, mode = _validate_workload(report["workload"])
     _validate_settings(report["settings"])
-    measurement = _exact_object(report["measurement"], MEASUREMENT_KEYS, "measurement")
-    observed, invalid_loop = _validate_measurement(measurement)
-    series_facts, raw_samples, main_record = _validate_series_collection(report["series"], invalid_loop, observed)
-    main_loop = raw_samples["MAIN_LOOP_INTERVAL_MS"]
-    _validate_one_percent_low(measurement, main_record, main_loop)
-    _validate_run_completion(run_status, report["run_reason"], observed, main_record)
+    measurement, observed, invalid_loop, invalid_frame_pacing = _validate_measurement(
+        report["measurement"], schema_version, run_status
+    )
+    series_facts, raw_samples, series_records = _validate_series_collection(
+        report["series"], invalid_loop, invalid_frame_pacing, observed, schema_version, measurement
+    )
+    _validate_one_percent_low(measurement, series_records, raw_samples, schema_version)
+    _validate_run_completion(run_status, report["run_reason"], observed, series_records, schema_version)
     device_facts = _validate_device_snapshot(report["device_snapshot"])
     return _validation_result(report, run_id, run_status, count, mode, observed, measurement, series_facts, raw_samples, device_facts)
 

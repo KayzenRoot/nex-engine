@@ -8,8 +8,11 @@ const MIN_VALID_SAMPLES := 300
 const MAX_SAMPLES_PER_SERIES := 16000
 const MAX_EXPORT_BYTES := 8_000_000
 const OUTPUT_DIR := "user://gpu_profiles"
-const SCHEMA_VERSION := "nex_gpu_render_profile.v1"
-const FORMULA_VERSION := "nex-percentile-and-one-percent-low-v1"
+const SCHEMA_VERSION := "nex_gpu_render_profile.v2"
+const FORMULA_VERSION := "nex-percentile-and-one-percent-low-monotonic-v2"
+const FRAME_PACING_PROVIDER := "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback"
+const FRAME_PACING_FORMULA := "1000 / mean(slowest ceil(0.01*n) positive FRAME_PACING_INTERVAL_MS samples)"
+const MONOTONIC_TICK_UNAVAILABLE := -1
 const SERIES_SPECS := {
 	"GPU_RENDER_MS": {
 		"unit": "ms",
@@ -22,6 +25,10 @@ const SERIES_SPECS := {
 	"MAIN_LOOP_INTERVAL_MS": {
 		"unit": "ms",
 		"provider": "SceneTree._process(delta)"
+	},
+	"FRAME_PACING_INTERVAL_MS": {
+		"unit": "ms",
+		"provider": FRAME_PACING_PROVIDER
 	},
 	"RENDERER_ALLOCATION_BYTES": {
 		"unit": "bytes",
@@ -40,12 +47,16 @@ var invalid_samples := {
 	"GPU_RENDER_MS": 0,
 	"CPU_RENDER_MS": 0,
 	"MAIN_LOOP_INTERVAL_MS": 0,
+	"FRAME_PACING_INTERVAL_MS": 0,
 	"RENDERER_ALLOCATION_BYTES": 0
 }
 var gpu_samples: Array[float] = []
 var cpu_samples: Array[float] = []
 var main_loop_samples: Array[float] = []
+var frame_pacing_samples: Array[float] = []
 var allocation_samples: Array[float] = []
+var last_callback_tick_usec := 0
+var frame_pacing_clock_invalid := false
 var device_snapshots: Array[Dictionary] = []
 var viewport_rid := RID()
 var profile_viewport: Viewport
@@ -75,6 +86,10 @@ func begin(viewport: Viewport, context: Dictionary, include_device_snapshot := t
 		return false
 
 	_reset_capture()
+	last_callback_tick_usec = Time.get_ticks_usec()
+	if last_callback_tick_usec <= 0:
+		last_error = "The monotonic clock is unavailable."
+		return false
 	viewport_rid = rid
 	profile_viewport = viewport
 	run_context = context.duplicate(true)
@@ -89,29 +104,43 @@ func begin(viewport: Viewport, context: Dictionary, include_device_snapshot := t
 	return true
 
 
-func step(delta: float, viewport: Viewport) -> Dictionary:
+func step(delta: float, viewport: Viewport, monotonic_tick_usec: Variant = MONOTONIC_TICK_UNAVAILABLE) -> Dictionary:
 	if not active:
 		return {"finished": false, "state": last_state}
 	if not is_instance_valid(viewport) or viewport.get_viewport_rid() != viewport_rid:
 		return _finish("INVALID", "viewport_changed_or_unavailable")
+	var tick_value: Variant = monotonic_tick_usec
+	if typeof(monotonic_tick_usec) == TYPE_INT and int(monotonic_tick_usec) == MONOTONIC_TICK_UNAVAILABLE:
+		tick_value = Time.get_ticks_usec()
+	var interval_usec := _monotonic_interval_usec(tick_value)
+	if interval_usec <= 0:
+		return _finish("INVALID", "invalid_monotonic_tick")
 	if not is_finite(delta) or delta <= 0.0 or delta >= 1.0:
 		invalid_samples["MAIN_LOOP_INTERVAL_MS"] = int(invalid_samples["MAIN_LOOP_INTERVAL_MS"]) + 1
 		return _finish("INVALID", "unsafe_main_loop_interval")
-
-	elapsed_seconds += delta
+	var interval_seconds := float(interval_usec) / 1_000_000.0
+	var previous_elapsed := elapsed_seconds
+	elapsed_seconds += interval_seconds
 	if elapsed_seconds <= WARMUP_SECONDS:
 		warmup_frames_discarded += 1
 		last_state = "WARMUP"
 		return {"finished": false, "state": last_state}
+	if previous_elapsed < WARMUP_SECONDS:
+		warmup_frames_discarded += 1
+		last_state = "COLLECTING"
+		return {"finished": false, "state": last_state}
 
-	observed_seconds += delta
+	observed_seconds += interval_seconds
 	last_state = "COLLECTING"
 	_record("MAIN_LOOP_INTERVAL_MS", delta * 1000.0)
+	_record("FRAME_PACING_INTERVAL_MS", float(interval_usec) / 1000.0)
 	_record("GPU_RENDER_MS", RenderingServer.viewport_get_measured_render_time_gpu(viewport_rid))
 	_record("CPU_RENDER_MS", RenderingServer.viewport_get_measured_render_time_cpu(viewport_rid))
 	_record("RENDERER_ALLOCATION_BYTES", Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED))
 
 	if observed_seconds >= OBSERVATION_SECONDS:
+		if frame_pacing_samples.size() < MIN_VALID_SAMPLES:
+			return _finish("INVALID", "insufficient_frame_pacing_samples")
 		return _finish("COMPLETE", "requested_observation_window_elapsed")
 	if _sample_cap_reached():
 		return _finish("INVALID", "sample_cap_reached_before_requested_duration")
@@ -137,6 +166,7 @@ func progress() -> Dictionary:
 		"gpu_samples": gpu_samples.size(),
 		"cpu_samples": cpu_samples.size(),
 		"main_loop_samples": main_loop_samples.size(),
+		"frame_pacing_samples": frame_pacing_samples.size(),
 		"allocation_samples": allocation_samples.size(),
 		"invalid_samples": invalid_samples.duplicate(true)
 	}
@@ -180,6 +210,10 @@ func _record(name: String, raw_value: float) -> void:
 	if name == "MAIN_LOOP_INTERVAL_MS" and value >= 1000.0:
 		invalid_samples[name] = int(invalid_samples[name]) + 1
 		return
+	if name == "FRAME_PACING_INTERVAL_MS" and value >= 1000.0:
+		invalid_samples[name] = int(invalid_samples[name]) + 1
+		frame_pacing_clock_invalid = true
+		return
 	if name == "RENDERER_ALLOCATION_BYTES":
 		value = float(int(value))
 		if value <= 0.0:
@@ -192,6 +226,8 @@ func _record(name: String, raw_value: float) -> void:
 			cpu_samples.append(value)
 		"MAIN_LOOP_INTERVAL_MS":
 			main_loop_samples.append(value)
+		"FRAME_PACING_INTERVAL_MS":
+			frame_pacing_samples.append(value)
 		"RENDERER_ALLOCATION_BYTES":
 			allocation_samples.append(value)
 
@@ -201,11 +237,18 @@ func _sample_cap_reached() -> bool:
 		gpu_samples.size() >= MAX_SAMPLES_PER_SERIES
 		or cpu_samples.size() >= MAX_SAMPLES_PER_SERIES
 		or main_loop_samples.size() >= MAX_SAMPLES_PER_SERIES
+		or frame_pacing_samples.size() >= MAX_SAMPLES_PER_SERIES
 		or allocation_samples.size() >= MAX_SAMPLES_PER_SERIES
 	)
 
 
 func _finish(run_status: String, reason: String) -> Dictionary:
+	if run_status == "COMPLETE" and frame_pacing_clock_invalid:
+		run_status = "INVALID"
+		reason = "invalid_monotonic_tick"
+	elif run_status == "COMPLETE" and frame_pacing_samples.size() < MIN_VALID_SAMPLES:
+		run_status = "INVALID"
+		reason = "insufficient_frame_pacing_samples"
 	active = false
 	_disable_measurement()
 	if capture_device_telemetry:
@@ -230,9 +273,13 @@ func _build_document(run_status: String, reason: String) -> Dictionary:
 			device_status = "MEASURED"
 			device_reason = ""
 			break
+	var frame_pacing_record := _series_record("FRAME_PACING_INTERVAL_MS", frame_pacing_samples)
 	var one_percent_low: Variant = null
+	if frame_pacing_record["status"] == "MEASURED":
+		one_percent_low = _one_percent_low_fps(frame_pacing_samples)
+	var delta_derived_one_percent_low: Variant = null
 	if main_loop_samples.size() >= MIN_VALID_SAMPLES:
-		one_percent_low = _one_percent_low_fps(main_loop_samples)
+		delta_derived_one_percent_low = _one_percent_low_fps(main_loop_samples)
 	return {
 		"schema_version": SCHEMA_VERSION,
 		"run_id": "%d-%d" % [int(Time.get_unix_time_from_system()), Time.get_ticks_usec()],
@@ -269,14 +316,23 @@ func _build_document(run_status: String, reason: String) -> Dictionary:
 			"invalid_main_loop_samples": int(invalid_samples["MAIN_LOOP_INTERVAL_MS"]),
 			"percentile_method": "nearest_rank",
 			"formula_version": FORMULA_VERSION,
-			"one_percent_low_fps_formula": "1000 / mean(slowest ceil(0.01*n) positive MAIN_LOOP_INTERVAL_MS samples)",
+			"one_percent_low_fps_formula": FRAME_PACING_FORMULA,
 			"one_percent_low_fps": one_percent_low,
+			"one_percent_low_fps_source": "FRAME_PACING_INTERVAL_MS",
+			"frame_pacing_provider": FRAME_PACING_PROVIDER,
+			"frame_pacing_status": frame_pacing_record["status"],
+			"frame_pacing_unavailable_reason": frame_pacing_record["unavailable_reason"],
+			"invalid_frame_pacing_samples": int(invalid_samples["FRAME_PACING_INTERVAL_MS"]),
+			"delta_derived_one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+			"delta_derived_one_percent_low_fps": delta_derived_one_percent_low,
+			"frame_pacing_limitation": "Monotonic Time.get_ticks_usec callback intervals are CPU callback pacing, not display presentation or input-to-photon latency.",
 			"temporal_alignment_note": "Viewport render timing can describe earlier rendered work and is not guaranteed to align one-to-one with the current _process(delta)."
 		},
 		"series": {
 			"GPU_RENDER_MS": _series_record("GPU_RENDER_MS", gpu_samples),
 			"CPU_RENDER_MS": _series_record("CPU_RENDER_MS", cpu_samples),
 			"MAIN_LOOP_INTERVAL_MS": _series_record("MAIN_LOOP_INTERVAL_MS", main_loop_samples),
+			"FRAME_PACING_INTERVAL_MS": frame_pacing_record,
 			"RENDERER_ALLOCATION_BYTES": _series_record("RENDERER_ALLOCATION_BYTES", allocation_samples)
 		},
 		"device_snapshot": {
@@ -296,7 +352,10 @@ func _series_record(name: String, samples: Array[float]) -> Dictionary:
 	var unavailable_reason := ""
 	var status := "MEASURED"
 	var aggregates: Variant = null
-	if valid_count < MIN_VALID_SAMPLES:
+	if name == "FRAME_PACING_INTERVAL_MS" and frame_pacing_clock_invalid:
+		status = "UNAVAILABLE"
+		unavailable_reason = "invalid_monotonic_tick_sequence"
+	elif valid_count < MIN_VALID_SAMPLES:
 		status = "UNAVAILABLE"
 		unavailable_reason = "fewer_than_%d_valid_samples" % MIN_VALID_SAMPLES
 	else:
@@ -340,6 +399,25 @@ func _one_percent_low_fps(samples: Array[float]) -> float:
 	for index in range(ordered.size() - slowest_count, ordered.size()):
 		slowest_total += ordered[index]
 	return 1000.0 / (slowest_total / float(slowest_count))
+
+
+func _monotonic_interval_usec(tick_usec: Variant) -> int:
+	if typeof(tick_usec) != TYPE_INT or int(tick_usec) <= 0 or last_callback_tick_usec <= 0:
+		invalid_samples["FRAME_PACING_INTERVAL_MS"] = int(invalid_samples["FRAME_PACING_INTERVAL_MS"]) + 1
+		frame_pacing_clock_invalid = true
+		return -1
+	var current_tick := int(tick_usec)
+	if current_tick <= last_callback_tick_usec:
+		invalid_samples["FRAME_PACING_INTERVAL_MS"] = int(invalid_samples["FRAME_PACING_INTERVAL_MS"]) + 1
+		frame_pacing_clock_invalid = true
+		return -1
+	var interval_usec := current_tick - last_callback_tick_usec
+	if interval_usec >= 1_000_000:
+		invalid_samples["FRAME_PACING_INTERVAL_MS"] = int(invalid_samples["FRAME_PACING_INTERVAL_MS"]) + 1
+		frame_pacing_clock_invalid = true
+		return -1
+	last_callback_tick_usec = current_tick
+	return interval_usec
 
 
 func _capture_device_snapshot() -> Dictionary:
@@ -401,13 +479,17 @@ func _reset_capture() -> void:
 		"GPU_RENDER_MS": 0,
 		"CPU_RENDER_MS": 0,
 		"MAIN_LOOP_INTERVAL_MS": 0,
+		"FRAME_PACING_INTERVAL_MS": 0,
 		"RENDERER_ALLOCATION_BYTES": 0
 	}
 	gpu_samples.clear()
 	cpu_samples.clear()
 	main_loop_samples.clear()
+	frame_pacing_samples.clear()
 	allocation_samples.clear()
 	device_snapshots.clear()
+	last_callback_tick_usec = 0
+	frame_pacing_clock_invalid = false
 
 
 func _is_sha1(value: String) -> bool:

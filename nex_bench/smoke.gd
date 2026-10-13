@@ -184,6 +184,39 @@ func _check_modules() -> void:
     if not utc_timestamp.contains("T") or not utc_timestamp.ends_with("Z"):
         _fail("GPU profile timestamps must serialize explicit UTC with a Z suffix")
         return
+    var clock_probe: RefCounted = profile_script.new() as RefCounted
+    clock_probe.set("last_callback_tick_usec", 1_000_000)
+    var first_interval := int(clock_probe.call("_monotonic_interval_usec", 1_010_000))
+    var variable_interval := int(clock_probe.call("_monotonic_interval_usec", 1_023_333))
+    var slow_frame_interval := int(clock_probe.call("_monotonic_interval_usec", 1_123_333))
+    var synthetic_pacing: Array[float] = [float(first_interval) / 1000.0, float(variable_interval) / 1000.0, float(slow_frame_interval) / 1000.0]
+    if first_interval != 10_000 or variable_interval != 13_333 or slow_frame_interval != 100_000:
+        _fail("GPU profiler did not preserve variable monotonic callback intervals")
+        return
+    if not is_equal_approx(float(clock_probe.call("_one_percent_low_fps", synthetic_pacing)), 10.0):
+        _fail("GPU profiler 1% low did not use the simulated monotonic slow frame")
+        return
+    var zero_tick_probe: RefCounted = profile_script.new() as RefCounted
+    zero_tick_probe.set("last_callback_tick_usec", 1_000_000)
+    if int(zero_tick_probe.call("_monotonic_interval_usec", 0)) >= 0:
+        _fail("GPU profiler accepted a zero monotonic tick")
+        return
+    var zero_tick_series: Dictionary = zero_tick_probe.call(
+        "_series_record", "FRAME_PACING_INTERVAL_MS", zero_tick_probe.get("frame_pacing_samples")
+    )
+    if zero_tick_series.get("status", "") != "UNAVAILABLE" or zero_tick_series.get("unavailable_reason", "") != "invalid_monotonic_tick_sequence":
+        _fail("Zero monotonic ticks did not fail closed as UNAVAILABLE")
+        return
+    var missing_tick_probe: RefCounted = profile_script.new() as RefCounted
+    missing_tick_probe.set("last_callback_tick_usec", 1_000_000)
+    if int(missing_tick_probe.call("_monotonic_interval_usec", null)) >= 0:
+        _fail("GPU profiler accepted a missing monotonic tick")
+        return
+    var rollback_probe: RefCounted = profile_script.new() as RefCounted
+    rollback_probe.set("last_callback_tick_usec", 1_000_000)
+    if int(rollback_probe.call("_monotonic_interval_usec", 999_999)) >= 0:
+        _fail("GPU profiler accepted a rolled-back monotonic tick")
+        return
     var profile_context := {
         "source_sha": "226b015ed34d8e4452819da45f92d8936796b3b0",
         "scene": "Density Ladder",
@@ -219,7 +252,11 @@ func _check_modules() -> void:
     if bool(profile_session.call("is_active")) or bool(profile_session.call("is_measurement_enabled")):
         _fail("GPU profiler cancellation left viewport timing enabled")
         return
-    print("NEX_NATIVE_GPU_PROFILE_PASS: F11 control, viewport toggle, zero=>UNAVAILABLE, cancel disables measurement")
+    var cancelled_progress: Dictionary = profile_session.call("progress")
+    if int(cancelled_progress.get("frame_pacing_samples", -1)) != 0:
+        _fail("GPU profiler cancellation retained partial monotonic pacing samples")
+        return
+    print("NEX_NATIVE_GPU_PROFILE_PASS: monotonic variance/hitch, zero/rollback=>UNAVAILABLE, cancel disables measurement")
 
     # Check native Visual Truth algorithm using memory-only images, no screenshots
     # and no writes to existing user://visual_truth capture files.

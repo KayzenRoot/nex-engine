@@ -56,6 +56,7 @@ def fixture():
         "samples": [],
         "unavailable_reason": "No device snapshot was requested in this synthetic validator fixture.",
     }
+
     return {
         "schema_version": "nex_gpu_render_profile.v1",
         "run_id": "1791841414-1791841414000000",
@@ -108,6 +109,36 @@ def fixture():
     }
 
 
+def fixture_v2():
+    document = fixture()
+    document["schema_version"] = "nex_gpu_render_profile.v2"
+    measurement = document["measurement"]
+    measurement.update({
+        "formula_version": "nex-percentile-and-one-percent-low-monotonic-v2",
+        "one_percent_low_fps_formula": "1000 / mean(slowest ceil(0.01*n) positive FRAME_PACING_INTERVAL_MS samples)",
+        "one_percent_low_fps_source": "FRAME_PACING_INTERVAL_MS",
+        "frame_pacing_provider": "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback",
+        "frame_pacing_status": "MEASURED",
+        "frame_pacing_unavailable_reason": "",
+        "invalid_frame_pacing_samples": 0,
+        "delta_derived_one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+        "delta_derived_one_percent_low_fps": 1000.0 / 101.0,
+        "frame_pacing_limitation": "Callback pacing only; not display presentation or input-to-photon latency.",
+    })
+    # 299 normal 99 ms intervals and one simulated 399 ms hitch cover exactly
+    # 30 seconds. The slowest 1% calculation must include that actual hitch.
+    pacing = [99.0] * 299 + [399.0]
+    measurement["observed_seconds"] = math.fsum(pacing) / 1000.0
+    slowest = sorted(pacing)[-math.ceil(0.01 * len(pacing)):]
+    measurement["one_percent_low_fps"] = 1000.0 / (math.fsum(slowest) / len(slowest))
+    document["series"]["FRAME_PACING_INTERVAL_MS"] = series(
+        "ms",
+        "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback",
+        pacing,
+    )
+    return document
+
+
 class GPUProfileValidatorTests(unittest.TestCase):
     def test_recalculates_nearest_rank_aggregates_and_main_loop_one_percent_low(self):
         report = MODULE.validate_report(fixture())
@@ -116,6 +147,67 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertAlmostEqual(report["one_percent_low_fps"], 1000.0 / 101.0)
         self.assertEqual(report["series"]["GPU_RENDER_MS"]["valid_sample_count"], 300)
         self.assertEqual(report["series"]["GPU_RENDER_MS"]["aggregates"]["p99"], 2.5)
+
+    def test_v2_uses_monotonic_callback_intervals_for_1_percent_low(self):
+        document = fixture_v2()
+        report = MODULE.validate_report(document)
+        self.assertEqual(report["schema_version"], "nex_gpu_render_profile.v2")
+        self.assertAlmostEqual(report["one_percent_low_fps"], 1000.0 / 199.0)
+        self.assertNotAlmostEqual(report["one_percent_low_fps"], document["measurement"]["delta_derived_one_percent_low_fps"])
+        self.assertEqual(report["series"]["FRAME_PACING_INTERVAL_MS"]["valid_sample_count"], 300)
+
+    def test_v2_rejects_zero_and_rollback_intervals(self):
+        for bad_interval in (0.0, -1.0):
+            with self.subTest(bad_interval=bad_interval):
+                document = fixture_v2()
+                document["series"]["FRAME_PACING_INTERVAL_MS"]["samples"][0] = bad_interval
+                document["series"]["FRAME_PACING_INTERVAL_MS"]["aggregates"] = percentiles(
+                    document["series"]["FRAME_PACING_INTERVAL_MS"]["samples"]
+                )
+                with self.assertRaises(MODULE.ProfileError):
+                    MODULE.validate_report(document)
+
+    def test_v2_unavailable_monotonic_clock_cannot_claim_1_percent_low_or_complete(self):
+        document = fixture_v2()
+        document["run_status"] = "INVALID"
+        document["run_reason"] = "invalid_monotonic_tick"
+        document["measurement"].update({
+            "observed_seconds": 0.001,
+            "frame_pacing_status": "UNAVAILABLE",
+            "frame_pacing_unavailable_reason": "monotonic_clock_tick_zero_or_rollback",
+            "invalid_frame_pacing_samples": 1,
+            "one_percent_low_fps": None,
+        })
+        document["series"]["FRAME_PACING_INTERVAL_MS"] = series(
+            "ms",
+            "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback",
+            [1.0],
+            status="UNAVAILABLE",
+            invalid=1,
+            reason="monotonic_clock_tick_zero_or_rollback",
+        )
+        self.assertEqual(MODULE.validate_report(document)["run_status"], "INVALID")
+        document["run_status"] = "COMPLETE"
+        document["run_reason"] = "requested_observation_window_elapsed"
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
+    def test_v2_cancellation_cannot_be_serialized_as_complete(self):
+        document = fixture_v2()
+        document["run_status"] = "COMPLETE"
+        document["run_reason"] = "user_cancelled"
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
+    def test_historical_v1_gpu_profiles_remain_readable(self):
+        evidence = ROOT / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-10-13-final-head"
+        captures = sorted(path for path in evidence.glob("gpu_profile_*.json") if not path.name.endswith(".validation.json"))
+        self.assertEqual(len(captures), 12)
+        for capture in captures:
+            with self.subTest(capture=capture.name):
+                result = MODULE.validate_payload(capture.read_bytes())
+                self.assertEqual(result["status"], "PASS")
+                self.assertEqual(result["schema_version"], "nex_gpu_render_profile.v1")
 
     def test_unavailable_gpu_is_explicit_and_keeps_no_synthetic_zero_samples(self):
         document = fixture()
@@ -279,7 +371,11 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertIn("func _toggle_gpu_profile()", hub)
         self.assertIn("func _capture_gpu_profile_screenshot()", hub)
         self.assertIn("nex_frame_observation.v1", hub)
-        self.assertIn("nex_gpu_render_profile.v1", session)
+        self.assertIn("nex_gpu_render_profile.v2", session)
+        validator = (ROOT / "nex_bench" / "gpu_profile" / "validate_gpu_profile.py").read_text(encoding="utf-8")
+        self.assertIn("nex_gpu_render_profile.v1", validator)
+        self.assertIn("FRAME_PACING_INTERVAL_MS", session)
+        self.assertIn("Time.get_ticks_usec()", session)
         self.assertIn("RenderingServer.viewport_set_measure_render_time(viewport_rid, true)", session)
         self.assertIn("RenderingServer.viewport_set_measure_render_time(viewport_rid, false)", session)
         self.assertIn('Time.get_datetime_string_from_system(true, false) + "Z"', session)
