@@ -260,6 +260,67 @@ class GPUProfileValidatorTests(unittest.TestCase):
                 self.assertEqual(result["status"], "PASS")
                 self.assertEqual(result["schema_version"], "nex_gpu_render_profile.v1")
 
+    def test_six_real_v2_frame_pacing_captures_remain_valid(self):
+        # Archived R1 hardware evidence: guard against future v1/v2
+        # validator regressions, not a claim the current R3 code was retested.
+        evidence = (
+            ROOT / "nex_bench" / "gpu_profile" / "evidence"
+            / "windows-rtx5050-2026-10-13-frame-pacing-correction"
+        )
+        expected_one_percent_low = {
+            "1791883867-295809379": (200, "geometry", 2250, 66.866880),
+            "1791883979-407576457": (200, "geometry", 2250, 71.246914),
+            "1791884017-445689369": (200, "geometry", 2249, 68.236907),
+            "1791884095-523815570": (25, "combined", 2250, 68.335438),
+            "1791884133-561569147": (25, "combined", 2250, 68.928521),
+            "1791884170-598874419": (25, "combined", 2250, 69.359002),
+        }
+        captures = sorted(
+            path for path in evidence.glob("gpu_profile_*.json")
+            if not path.name.endswith(".validation.json")
+        )
+        self.assertEqual({path.stem.removeprefix("gpu_profile_") for path in captures},
+                         set(expected_one_percent_low))
+        self.assertEqual(len(captures), 6)
+        for capture in captures:
+            with self.subTest(capture=capture.name):
+                result = MODULE.validate_payload(capture.read_bytes())
+                run_id = capture.stem.removeprefix("gpu_profile_")
+                count, effect, samples, low = expected_one_percent_low[run_id]
+                self.assertEqual(result["status"], "PASS")
+                self.assertEqual(result["run_status"], "COMPLETE")
+                self.assertEqual(result["schema_version"], MODULE.SCHEMA_VERSION)
+                self.assertEqual(
+                    result["source_sha"],
+                    "179ede475fa8ef13bbaaeb9af3e37caf373e0d51",
+                )
+                self.assertEqual(result["workload"],
+                                 {"proxy_count": count, "effect_mode": effect})
+                self.assertEqual(
+                    result["series"]["FRAME_PACING_INTERVAL_MS"]["status"],
+                    "MEASURED",
+                )
+                self.assertEqual(
+                    result["series"]["FRAME_PACING_INTERVAL_MS"]["valid_sample_count"],
+                    samples,
+                )
+                self.assertAlmostEqual(result["one_percent_low_fps"], low, places=5)
+                self.assertGreaterEqual(result["observed_seconds"], 30.0)
+                self.assertLessEqual(result["observed_seconds"], 30.1)
+
+    def test_real_v2_pacing_aggregate_tampering_fails_closed(self):
+        # Static repository path only; no user-provided path or GPU operation.
+        capture = (
+            ROOT / "nex_bench" / "gpu_profile" / "evidence"
+            / "windows-rtx5050-2026-10-13-frame-pacing-correction"
+            / "gpu_profile_1791883867-295809379.json"
+        )
+        document = json.loads(capture.read_text(encoding="utf-8"))
+        self.assertEqual(MODULE.validate_report(document)["status"], "PASS")
+        document["measurement"]["one_percent_low_fps"] += 5.0
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
     def test_unavailable_gpu_is_explicit_and_keeps_no_synthetic_zero_samples(self):
         document = fixture()
         document["series"]["GPU_RENDER_MS"] = series(
