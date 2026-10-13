@@ -27,7 +27,9 @@ MAX_SAMPLES = 16_000
 MIN_VALID_SAMPLES = 300
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
-RUN_ID_RE = re.compile(r"^[0-9]{10,}-[0-9]{6,}$")
+RUN_ID_RE = re.compile(r"^\d{10,}-\d{6,}$", re.ASCII)
+SERIES_PREFIX = "series."
+LOCKED_DURATION_TOLERANCE_SECONDS = 1e-9
 ALLOWED_COUNTS = frozenset({25, 50, 100, 200})
 ALLOWED_MODES = frozenset({"geometry", "lights", "vfx", "combined"})
 TOP_KEYS = frozenset({
@@ -139,48 +141,102 @@ def _close(actual: float, expected: float, name: str) -> None:
         raise ProfileError(name + " differs from the independently recalculated value")
 
 
-def _validate_series(name: str, value: Any) -> tuple[dict[str, Any], list[float], dict[str, Any]]:
-    unit, provider, maximum = SERIES_SPECS[name]
-    record = _exact_object(value, SERIES_KEYS, "series." + name)
-    status = record["status"]
-    if status not in {"MEASURED", "UNAVAILABLE"}:
-        raise ProfileError("series." + name + ".status is not an allowed status")
-    if record["unit"] != unit or record["provider"] != provider:
-        raise ProfileError("series." + name + " has mismatched measurement provenance")
-    samples_raw = record["samples"]
+def _series_label(name: str, field: str = "") -> str:
+    return SERIES_PREFIX + name + ("." + field if field else "")
+
+
+def _validate_series_samples(name: str, samples_raw: Any, maximum: float) -> list[float]:
+    label = _series_label(name)
     if type(samples_raw) is not list or len(samples_raw) > MAX_SAMPLES:
-        raise ProfileError("series." + name + ".samples exceeds its bound or is not an array")
+        raise ProfileError(label + ".samples exceeds its bound or is not an array")
     samples: list[float] = []
     for index, raw in enumerate(samples_raw):
-        metric = _finite_number(raw, f"series.{name}.samples[{index}]", maximum=maximum)
+        metric = _finite_number(raw, f"{label}.samples[{index}]", maximum=maximum)
         if name == "MAIN_LOOP_INTERVAL_MS" and metric >= 1000.0:
             raise ProfileError("main-loop interval must be below 1000 ms")
         samples.append(metric)
-    valid_count = _integer(record["valid_sample_count"], "series." + name + ".valid_sample_count")
-    invalid_count = _integer(record["invalid_sample_count"], "series." + name + ".invalid_sample_count")
-    if valid_count != len(samples):
-        raise ProfileError("series." + name + " valid count differs from raw sample count")
+    return samples
+
+
+def _validate_measured_series(name: str, record: dict[str, Any], samples: list[float], valid_count: int, maximum: float) -> None:
+    if valid_count < MIN_VALID_SAMPLES or record["unavailable_reason"] != "":
+        raise ProfileError("MEASURED series requires enough valid samples and no unavailable reason")
+    aggregate_label = _series_label(name, "aggregates")
+    aggregates = _exact_object(record["aggregates"], frozenset({"mean", "p50", "p95", "p99"}), aggregate_label)
+    for key, expected in _aggregates(samples).items():
+        actual = _finite_number(aggregates[key], _series_label(name, "aggregates." + key), maximum=maximum)
+        _close(actual, expected, _series_label(name, "aggregates." + key))
+
+
+def _validate_unavailable_series(record: dict[str, Any], valid_count: int) -> None:
     reason = record["unavailable_reason"]
+    if not isinstance(reason, str) or not reason.strip():
+        raise ProfileError("UNAVAILABLE series must state a cause")
+    if valid_count >= MIN_VALID_SAMPLES or record["aggregates"] is not None:
+        raise ProfileError("UNAVAILABLE series cannot hide enough measured samples or claim aggregates")
+
+
+def _validate_series(name: str, value: Any) -> tuple[dict[str, Any], list[float], dict[str, Any]]:
+    unit, provider, maximum = SERIES_SPECS[name]
+    label = _series_label(name)
+    record = _exact_object(value, SERIES_KEYS, label)
+    status = record["status"]
+    if status not in {"MEASURED", "UNAVAILABLE"}:
+        raise ProfileError(_series_label(name, "status is not an allowed status"))
+    if record["unit"] != unit or record["provider"] != provider:
+        raise ProfileError(label + " has mismatched measurement provenance")
+    samples = _validate_series_samples(name, record["samples"], maximum)
+    valid_count = _integer(record["valid_sample_count"], _series_label(name, "valid_sample_count"))
+    invalid_count = _integer(record["invalid_sample_count"], _series_label(name, "invalid_sample_count"))
+    if valid_count != len(samples):
+        raise ProfileError(label + " valid count differs from raw sample count")
     if status == "MEASURED":
-        if valid_count < MIN_VALID_SAMPLES or reason != "":
-            raise ProfileError("MEASURED series requires enough valid samples and no unavailable reason")
-        aggregates = _exact_object(record["aggregates"], frozenset({"mean", "p50", "p95", "p99"}), "series." + name + ".aggregates")
-        recalculated = _aggregates(samples)
-        for key, expected in recalculated.items():
-            actual = _finite_number(aggregates[key], "series." + name + ".aggregates." + key, maximum=maximum)
-            _close(actual, expected, "series." + name + ".aggregates." + key)
+        _validate_measured_series(name, record, samples, valid_count, maximum)
     else:
-        if not isinstance(reason, str) or not reason.strip():
-            raise ProfileError("UNAVAILABLE series must state a cause")
-        if valid_count >= MIN_VALID_SAMPLES or record["aggregates"] is not None:
-            raise ProfileError("UNAVAILABLE series cannot hide enough measured samples or claim aggregates")
-        if name in {"GPU_RENDER_MS", "CPU_RENDER_MS", "MAIN_LOOP_INTERVAL_MS"} and any(sample == 0.0 for sample in samples):
-            raise ProfileError("UNAVAILABLE render series cannot substitute zero samples")
-    return record, samples, {"status": status, "valid_sample_count": valid_count, "invalid_sample_count": invalid_count}
+        _validate_unavailable_series(record, valid_count)
+    facts = {"status": status, "valid_sample_count": valid_count, "invalid_sample_count": invalid_count}
+    return record, samples, facts
+
+
+DEVICE_KEYS = frozenset({"status", "provider", "scope", "samples", "unavailable_reason"})
+DEVICE_SAMPLE_KEYS = frozenset({"status", "provider", "scope", "captured_at_utc", "exit_code", "raw_csv", "unavailable_reason"})
+
+
+def _validate_measured_device_sample(item: dict[str, Any]) -> None:
+    _integer(item["exit_code"], "device snapshot exit_code", maximum=0)
+    if not isinstance(item["raw_csv"], str) or not item["raw_csv"].strip() or item["unavailable_reason"] != "":
+        raise ProfileError("measured device snapshot must include successful raw nvidia-smi output")
+    try:
+        columns = next(csv.reader([item["raw_csv"]], skipinitialspace=True))
+    except (csv.Error, StopIteration):
+        raise ProfileError("device snapshot CSV is invalid") from None
+    if len(columns) != 8 or any(not column.strip() for column in columns):
+        raise ProfileError("device snapshot must preserve all eight requested device fields")
+
+
+def _validate_unavailable_device_sample(item: dict[str, Any], index: int) -> None:
+    _integer(item["exit_code"], f"device_snapshot.samples[{index}].exit_code", minimum=-1)
+    if item["raw_csv"] != "" or not isinstance(item["unavailable_reason"], str) or not item["unavailable_reason"].strip():
+        raise ProfileError("unavailable device snapshot must state a cause and contain no raw data")
+
+
+def _validate_device_sample(index: int, sample: Any) -> bool:
+    label = f"device_snapshot.samples[{index}]"
+    item = _exact_object(sample, DEVICE_SAMPLE_KEYS, label)
+    if item["provider"] != "nvidia-smi" or item["scope"] != "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED":
+        raise ProfileError("device snapshot sample provenance is invalid")
+    _timestamp(item["captured_at_utc"], label + ".captured_at_utc")
+    if item["status"] == "MEASURED":
+        _validate_measured_device_sample(item)
+        return True
+    if item["status"] == "UNAVAILABLE":
+        _validate_unavailable_device_sample(item, index)
+        return False
+    raise ProfileError("device snapshot sample has a spoofed status")
 
 
 def _validate_device_snapshot(value: Any) -> dict[str, Any]:
-    device = _exact_object(value, frozenset({"status", "provider", "scope", "samples", "unavailable_reason"}), "device_snapshot")
+    device = _exact_object(value, DEVICE_KEYS, "device_snapshot")
     if device["provider"] != "nvidia-smi --query-gpu (device-wide; never process-attributed under WDDM)":
         raise ProfileError("device snapshot provider is not independently labeled")
     if device["scope"] != "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED":
@@ -190,39 +246,22 @@ def _validate_device_snapshot(value: Any) -> dict[str, Any]:
     samples = device["samples"]
     if type(samples) is not list or len(samples) > 2:
         raise ProfileError("device_snapshot.samples must contain at most the start/end snapshots")
-    measured = 0
-    for index, sample in enumerate(samples):
-        item = _exact_object(sample, frozenset({"status", "provider", "scope", "captured_at_utc", "exit_code", "raw_csv", "unavailable_reason"}), f"device_snapshot.samples[{index}]")
-        if item["provider"] != "nvidia-smi" or item["scope"] != "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED":
-            raise ProfileError("device snapshot sample provenance is invalid")
-        _timestamp(item["captured_at_utc"], f"device_snapshot.samples[{index}].captured_at_utc")
-        if item["status"] == "MEASURED":
-            if item["exit_code"] != 0 or not isinstance(item["raw_csv"], str) or not item["raw_csv"].strip() or item["unavailable_reason"] != "":
-                raise ProfileError("measured device snapshot must include successful raw nvidia-smi output")
-            try:
-                columns = next(csv.reader([item["raw_csv"]], skipinitialspace=True))
-            except (csv.Error, StopIteration):
-                raise ProfileError("device snapshot CSV is invalid") from None
-            if len(columns) != 8 or any(not column.strip() for column in columns):
-                raise ProfileError("device snapshot must preserve all eight requested device fields")
-            measured += 1
-        elif item["status"] == "UNAVAILABLE":
-            _integer(item["exit_code"], f"device_snapshot.samples[{index}].exit_code", minimum=-1)
-            if item["raw_csv"] != "" or not isinstance(item["unavailable_reason"], str) or not item["unavailable_reason"].strip():
-                raise ProfileError("unavailable device snapshot must state a cause and contain no raw data")
-        else:
-            raise ProfileError("device snapshot sample has a spoofed status")
-    if device["status"] == "MEASURED":
-        if measured == 0 or device["unavailable_reason"] != "":
-            raise ProfileError("MEASURED device snapshot has no successful sample")
-    elif measured > 0 or not isinstance(device["unavailable_reason"], str) or not device["unavailable_reason"].strip():
-        raise ProfileError("UNAVAILABLE device snapshot has measured data or no cause")
+    measured = sum(_validate_device_sample(index, sample) for index, sample in enumerate(samples))
+    _validate_device_snapshot_status(device, measured)
     return {"status": device["status"], "sample_count": measured}
 
 
-def validate_report(document: Any) -> dict[str, Any]:
-    """Validate a complete bounded report and return independently computed metrics."""
-    report = _exact_object(document, TOP_KEYS, "profile")
+def _validate_device_snapshot_status(device: dict[str, Any], measured: int) -> None:
+    if device["status"] == "MEASURED":
+        if measured == 0 or device["unavailable_reason"] != "":
+            raise ProfileError("MEASURED device snapshot has no successful sample")
+        return
+    reason = device["unavailable_reason"]
+    if measured > 0 or not isinstance(reason, str) or not reason.strip():
+        raise ProfileError("UNAVAILABLE device snapshot has measured data or no cause")
+
+
+def _validate_profile_identity(report: dict[str, Any]) -> tuple[str, str]:
     if report["schema_version"] != SCHEMA_VERSION:
         raise ProfileError("unsupported schema_version")
     run_id = _text(report["run_id"], "run_id")
@@ -239,8 +278,11 @@ def validate_report(document: Any) -> dict[str, Any]:
         _text(report[key], key)
     if not report["godot_version"].startswith("4.7.2"):
         raise ProfileError("profile must identify pinned Godot 4.7.2")
+    return run_id, run_status
 
-    viewport = _exact_object(report["viewport"], frozenset({"rid", "resolution_px"}), "viewport")
+
+def _validate_viewport(value: Any) -> None:
+    viewport = _exact_object(value, frozenset({"rid", "resolution_px"}), "viewport")
     _text(viewport["rid"], "viewport.rid")
     resolution = viewport["resolution_px"]
     if type(resolution) is not list or len(resolution) != 2:
@@ -248,7 +290,9 @@ def validate_report(document: Any) -> dict[str, Any]:
     for index, dimension in enumerate(resolution):
         _integer(dimension, f"viewport.resolution_px[{index}]", minimum=1, maximum=16384)
 
-    workload = _exact_object(report["workload"], frozenset({"scene", "proxy_count", "effect_mode", "layout"}), "workload")
+
+def _validate_workload(value: Any) -> tuple[int, str]:
+    workload = _exact_object(value, frozenset({"scene", "proxy_count", "effect_mode", "layout"}), "workload")
     if workload["scene"] != "Density Ladder" or workload["layout"] != "built-in deterministic grid":
         raise ProfileError("workload scene/layout provenance is invalid")
     count = _integer(workload["proxy_count"], "workload.proxy_count", minimum=1, maximum=200)
@@ -257,17 +301,24 @@ def validate_report(document: Any) -> dict[str, Any]:
         raise ProfileError("unsupported Density Ladder workload")
     if mode == "combined" and count != 25:
         raise ProfileError("the authorized combined workload is bounded to 25 proxies")
+    return count, mode
 
-    settings = _exact_object(report["settings"], frozenset({"vsync_mode", "max_fps"}), "settings")
+
+def _validate_settings(value: Any) -> None:
+    settings = _exact_object(value, frozenset({"vsync_mode", "max_fps"}), "settings")
     _integer(settings["vsync_mode"], "settings.vsync_mode", maximum=10)
     _integer(settings["max_fps"], "settings.max_fps", maximum=100_000)
 
-    measurement = _exact_object(report["measurement"], MEASUREMENT_KEYS, "measurement")
+
+def _validate_measurement(value: Any) -> tuple[float, int]:
+    measurement = _exact_object(value, MEASUREMENT_KEYS, "measurement")
     if measurement["provider"] != "Godot RenderingServer per-viewport render timing":
         raise ProfileError("measurement provider is invalid")
     warmup = _finite_number(measurement["warmup_seconds"], "measurement.warmup_seconds", maximum=2.0)
     requested = _finite_number(measurement["requested_seconds"], "measurement.requested_seconds", maximum=30.0)
-    if warmup != 2.0 or requested != 30.0:
+    if not math.isclose(warmup, 2.0, rel_tol=0.0, abs_tol=LOCKED_DURATION_TOLERANCE_SECONDS):
+        raise ProfileError("profile must use the locked 2s warmup and 30s observation")
+    if not math.isclose(requested, 30.0, rel_tol=0.0, abs_tol=LOCKED_DURATION_TOLERANCE_SECONDS):
         raise ProfileError("profile must use the locked 2s warmup and 30s observation")
     observed = _finite_number(measurement["observed_seconds"], "measurement.observed_seconds", maximum=30.1)
     _integer(measurement["warmup_frames_discarded"], "measurement.warmup_frames_discarded")
@@ -277,8 +328,13 @@ def validate_report(document: Any) -> dict[str, Any]:
     if measurement["one_percent_low_fps_formula"] != "1000 / mean(slowest ceil(0.01*n) positive MAIN_LOOP_INTERVAL_MS samples)":
         raise ProfileError("1% low formula must be explicitly tied to MAIN_LOOP_INTERVAL_MS")
     _text(measurement["temporal_alignment_note"], "measurement.temporal_alignment_note")
+    return observed, invalid_loop
 
-    series_value = report["series"]
+
+def _validate_series_collection(
+    value: Any, invalid_loop: int, observed: float
+) -> tuple[dict[str, dict[str, Any]], dict[str, list[float]], dict[str, Any]]:
+    series_value = value
     if type(series_value) is not dict or frozenset(series_value) != frozenset(SERIES_SPECS):
         raise ProfileError("series must contain the four exact, distinct measurement families")
     series_facts: dict[str, dict[str, Any]] = {}
@@ -293,6 +349,10 @@ def validate_report(document: Any) -> dict[str, Any]:
     if not math.isclose(math.fsum(main_loop) / 1000.0, observed, rel_tol=1e-5, abs_tol=0.05):
         raise ProfileError("observed_seconds differs from raw MAIN_LOOP_INTERVAL_MS coverage")
     main_record = series_value["MAIN_LOOP_INTERVAL_MS"]
+    return series_facts, raw_samples, main_record
+
+
+def _validate_one_percent_low(measurement: dict[str, Any], main_record: dict[str, Any], main_loop: list[float]) -> None:
     if main_record["status"] == "MEASURED":
         expected_low = _one_percent_low_fps(main_loop)
         actual_low = _finite_number(measurement["one_percent_low_fps"], "measurement.one_percent_low_fps", maximum=100_000.0)
@@ -300,18 +360,40 @@ def validate_report(document: Any) -> dict[str, Any]:
     elif measurement["one_percent_low_fps"] is not None:
         raise ProfileError("1% low FPS must be unavailable when main-loop samples are insufficient")
 
+
+def _validate_run_completion(run_status: str, run_reason: str, observed: float, main_record: dict[str, Any]) -> None:
     if run_status == "COMPLETE":
-        if report["run_reason"] != "requested_observation_window_elapsed" or observed < 29.9:
+        if run_reason != "requested_observation_window_elapsed" or observed < 29.9:
             raise ProfileError("COMPLETE requires the full requested observation window")
         if main_record["status"] != "MEASURED":
             raise ProfileError("COMPLETE requires measured MAIN_LOOP_INTERVAL_MS")
-    elif report["run_reason"] not in {
+        return
+    if run_reason not in {
         "unsafe_main_loop_interval", "viewport_changed_or_unavailable",
         "sample_cap_reached_before_requested_duration",
     }:
         raise ProfileError("INVALID run reason is not an explicit supported stop condition")
 
-    device_facts = _validate_device_snapshot(report["device_snapshot"])
+
+def _validation_result(
+    report: dict[str, Any],
+    run_id: str,
+    run_status: str,
+    count: int,
+    mode: str,
+    observed: float,
+    measurement: dict[str, Any],
+    series_facts: dict[str, dict[str, Any]],
+    raw_samples: dict[str, list[float]],
+    device_facts: dict[str, Any],
+) -> dict[str, Any]:
+    validated_series = {
+        name: {
+            **series_facts[name],
+            "aggregates": _aggregates(raw_samples[name]) if series_facts[name]["status"] == "MEASURED" else None,
+        }
+        for name in SERIES_SPECS
+    }
     return {
         "status": "PASS",
         "schema_version": SCHEMA_VERSION,
@@ -320,17 +402,28 @@ def validate_report(document: Any) -> dict[str, Any]:
         "source_sha": report["source_sha"],
         "workload": {"proxy_count": count, "effect_mode": mode},
         "observed_seconds": observed,
-        "series": {
-            name: {
-                **series_facts[name],
-                "aggregates": _aggregates(raw_samples[name]) if series_facts[name]["status"] == "MEASURED" else None,
-            }
-            for name in SERIES_SPECS
-        },
+        "series": validated_series,
         "one_percent_low_fps": measurement["one_percent_low_fps"],
         "device_snapshot": device_facts,
         "limitations": "Per-viewport render time is not input-to-photon; renderer allocation is not total VRAM; device-wide WDDM memory is not process-attributed.",
     }
+
+
+def validate_report(document: Any) -> dict[str, Any]:
+    """Validate a complete bounded report and return independently computed metrics."""
+    report = _exact_object(document, TOP_KEYS, "profile")
+    run_id, run_status = _validate_profile_identity(report)
+    _validate_viewport(report["viewport"])
+    count, mode = _validate_workload(report["workload"])
+    _validate_settings(report["settings"])
+    measurement = _exact_object(report["measurement"], MEASUREMENT_KEYS, "measurement")
+    observed, invalid_loop = _validate_measurement(measurement)
+    series_facts, raw_samples, main_record = _validate_series_collection(report["series"], invalid_loop, observed)
+    main_loop = raw_samples["MAIN_LOOP_INTERVAL_MS"]
+    _validate_one_percent_low(measurement, main_record, main_loop)
+    _validate_run_completion(run_status, report["run_reason"], observed, main_record)
+    device_facts = _validate_device_snapshot(report["device_snapshot"])
+    return _validation_result(report, run_id, run_status, count, mode, observed, measurement, series_facts, raw_samples, device_facts)
 
 
 def validate_payload(payload: bytes) -> dict[str, Any]:

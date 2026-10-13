@@ -131,6 +131,12 @@ class GPUProfileValidatorTests(unittest.TestCase):
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_payload(b'{"schema_version":"nex_gpu_render_profile.v1","schema_version":"spoof"}')
 
+    def test_run_id_digits_are_ascii_only(self):
+        document = fixture()
+        document["run_id"] = "١791841414-1791841414000000"
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
     def test_nonfinite_constants_and_values_are_rejected(self):
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_payload(b'{"value":NaN}')
@@ -143,6 +149,15 @@ class GPUProfileValidatorTests(unittest.TestCase):
         document = fixture()
         document["series"]["GPU_RENDER_MS"]["samples"] = [0.0] * 300
         document["series"]["GPU_RENDER_MS"]["aggregates"] = {"mean": 0.0, "p50": 0.0, "p95": 0.0, "p99": 0.0}
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
+    def test_unavailable_gpu_cannot_substitute_zero_sample(self):
+        document = fixture()
+        document["series"]["GPU_RENDER_MS"] = series(
+            "ms", "RenderingServer.viewport_get_measured_render_time_gpu", [0.0],
+            status="UNAVAILABLE", invalid=299, reason="gpu_timing_unavailable",
+        )
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_report(document)
 
@@ -187,6 +202,15 @@ class GPUProfileValidatorTests(unittest.TestCase):
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_report(document)
 
+    def test_locked_durations_use_explicit_float_representation_tolerance(self):
+        document = fixture()
+        document["measurement"]["warmup_seconds"] = 2.0 - 5e-10
+        document["measurement"]["requested_seconds"] = 30.0 - 5e-10
+        self.assertEqual(MODULE.validate_report(document)["status"], "PASS")
+        document["measurement"]["warmup_seconds"] = 1.999
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
     def test_main_loop_formula_is_not_conflated_with_gpu_series(self):
         document = fixture()
         document["measurement"]["one_percent_low_fps"] = 1000.0 / 2.5
@@ -200,6 +224,20 @@ class GPUProfileValidatorTests(unittest.TestCase):
             MODULE.validate_report(document)
         document = fixture()
         document["device_snapshot"]["status"] = "PASS"
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+        document = fixture()
+        document["device_snapshot"]["samples"] = [
+            {
+                "status": "MEASURED",
+                "provider": "nvidia-smi",
+                "scope": "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED",
+                "captured_at_utc": "2026-10-13T02:00:00Z",
+                "exit_code": 0.0,
+                "raw_csv": "NVIDIA GeForce RTX 5050, 617.14, 8151 MiB, P3, 7 %, 1592 MiB, 1000, 2000",
+                "unavailable_reason": "",
+            }
+        ]
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_report(document)
 
