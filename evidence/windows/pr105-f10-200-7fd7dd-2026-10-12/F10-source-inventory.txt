@@ -1,0 +1,5 @@
+Fresh capture created by the only F10 replay in this evidence bundle.
+filename=density_200_geometry_1791849528.json
+size_bytes=8123
+last_write_utc=2026-10-12T23:58:48.4345148Z
+sha256=6b98893bcb5f65271199b2ee4fa837267ed2ee944de75b8c340889b665b3feb6
