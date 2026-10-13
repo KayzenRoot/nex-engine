@@ -56,6 +56,8 @@ var main_loop_samples: Array[float] = []
 var frame_pacing_samples: Array[float] = []
 var allocation_samples: Array[float] = []
 var last_callback_tick_usec := 0
+# Freeze dimensions for the entire capture, not only when exporting metadata.
+var capture_viewport_size := Vector2i.ZERO
 var frame_pacing_clock_invalid := false
 var device_snapshots: Array[Dictionary] = []
 var viewport_rid := RID()
@@ -86,6 +88,7 @@ func begin(viewport: Viewport, context: Dictionary, include_device_snapshot := t
 		return false
 
 	_reset_capture()
+	capture_viewport_size = Vector2i(viewport.get_visible_rect().size)
 	last_callback_tick_usec = Time.get_ticks_usec()
 	if last_callback_tick_usec <= 0:
 		last_error = "The monotonic clock is unavailable."
@@ -108,6 +111,9 @@ func step(delta: float, viewport: Viewport, monotonic_tick_usec: Variant = MONOT
 	if not active:
 		return {"finished": false, "state": last_state}
 	if not is_instance_valid(viewport) or viewport.get_viewport_rid() != viewport_rid:
+		return _finish("INVALID", "viewport_changed_or_unavailable")
+	if Vector2i(viewport.get_visible_rect().size) != capture_viewport_size:
+		# Mixed-resolution measurements cannot form a comparable 30 s run.
 		return _finish("INVALID", "viewport_changed_or_unavailable")
 	var tick_value: Variant = monotonic_tick_usec
 	if typeof(monotonic_tick_usec) == TYPE_INT and int(monotonic_tick_usec) == MONOTONIC_TICK_UNAVAILABLE:
@@ -489,6 +495,7 @@ func _reset_capture() -> void:
 	allocation_samples.clear()
 	device_snapshots.clear()
 	last_callback_tick_usec = 0
+	capture_viewport_size = Vector2i.ZERO
 	frame_pacing_clock_invalid = false
 
 
