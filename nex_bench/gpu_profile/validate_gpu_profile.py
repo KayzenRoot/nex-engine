@@ -334,9 +334,7 @@ def _validate_measurement(value: Any) -> tuple[float, int]:
 def _validate_series_collection(
     value: Any, invalid_loop: int, observed: float
 ) -> tuple[dict[str, dict[str, Any]], dict[str, list[float]], dict[str, Any]]:
-    series_value = value
-    if type(series_value) is not dict or frozenset(series_value) != frozenset(SERIES_SPECS):
-        raise ProfileError("series must contain the four exact, distinct measurement families")
+    series_value = _exact_object(value, frozenset(SERIES_SPECS), "series")
     series_facts: dict[str, dict[str, Any]] = {}
     raw_samples: dict[str, list[float]] = {}
     for name in SERIES_SPECS:
