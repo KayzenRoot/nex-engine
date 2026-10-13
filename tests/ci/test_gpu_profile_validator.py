@@ -260,6 +260,34 @@ class GPUProfileValidatorTests(unittest.TestCase):
                 self.assertEqual(result["status"], "PASS")
                 self.assertEqual(result["schema_version"], "nex_gpu_render_profile.v1")
 
+    def test_v2_partial_resize_run_is_invalid_not_a_complete_benchmark(self):
+        # Synthetic validator fixture for the R3 fail-closed resize path.
+        # Real Windows GUI/RTX5050 evidence remains a separate requirement.
+        document = fixture_v2()
+        document["run_status"] = "INVALID"
+        document["run_reason"] = "viewport_changed_or_unavailable"
+        document["measurement"].update({
+            "observed_seconds": 9.9,
+            "frame_pacing_status": "UNAVAILABLE",
+            "frame_pacing_unavailable_reason": "viewport_resized_during_capture",
+            "one_percent_low_fps": None,
+        })
+        document["series"]["FRAME_PACING_INTERVAL_MS"] = series(
+            "ms",
+            "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback",
+            [99.0] * 100,
+            status="UNAVAILABLE",
+            reason="viewport_resized_during_capture",
+        )
+        result = MODULE.validate_report(document)
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["run_status"], "INVALID")
+        self.assertIsNone(result["one_percent_low_fps"])
+        document["run_status"] = "COMPLETE"
+        document["run_reason"] = "requested_observation_window_elapsed"
+        with self.assertRaises(MODULE.ProfileError):
+            MODULE.validate_report(document)
+
     def test_six_real_v2_frame_pacing_captures_remain_valid(self):
         # Archived R1 hardware evidence: guard against future v1/v2
         # validator regressions, not a claim the current R3 code was retested.
