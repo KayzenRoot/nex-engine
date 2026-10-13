@@ -433,6 +433,18 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertIn("NEX_NATIVE_GPU_PROFILE_PASS", smoke)
         self.assertNotIn("RenderingServer.viewport_set_measure_render_time", hub)
 
+    def test_readme_does_not_conflate_v2_pacing_with_v1_delta(self):
+        readme = (ROOT / "nex_bench" / "README.md").read_text(encoding="utf-8")
+        self.assertIn("**No schema v2**", readme)
+        self.assertIn("**No schema histórico v1**", readme)
+        self.assertIn("`FRAME_PACING_INTERVAL_MS`", readme)
+        self.assertIn("`MAIN_LOOP_INTERVAL_MS`", readme)
+        self.assertIn("`DELTA_DERIVED_VSYNC_LIMITED`", readme)
+        self.assertIn("não são intercambiáveis", readme)
+        self.assertNotIn("1% low somente da série `MAIN_LOOP_INTERVAL_MS`", readme)
+        self.assertIn("INVALID / viewport_changed_or_unavailable", readme)
+        self.assertIn("uma captura negativa real", readme)
+
     def test_profiler_status_never_displays_absolute_output_paths(self):
         hub = (ROOT / "nex_bench" / "hub.gd").read_text(encoding="utf-8")
         self.assertIn("var display_name := output_path.get_file()", hub)
