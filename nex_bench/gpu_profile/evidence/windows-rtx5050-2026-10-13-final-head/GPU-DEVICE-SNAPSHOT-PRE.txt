@@ -1,0 +1,4 @@
+Captured UTC: 2026-10-13T03:13:09.4221973Z
+Scope: NVIDIA device-wide WDDM snapshot before the final matrix; not process-attributed to Godot.
+Command: nvidia-smi --query-gpu=name,driver_version,memory.total,pstate,utilization.gpu,memory.used --format=csv,noheader
+NVIDIA GeForce RTX 5050, 617.14, 8151 MiB, P3, 10 %, 1335 MiB

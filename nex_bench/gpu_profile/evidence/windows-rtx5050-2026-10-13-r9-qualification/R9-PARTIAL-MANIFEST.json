@@ -1,0 +1,1043 @@
+{
+  "schema_version": "nex_s04_r9_partial_evidence.v1",
+  "status": "BLOCKED",
+  "stop_condition": "NEX_S04_R9_EVIDENCE_INCOMPLETE_INVALID_MONOTONIC_TICK_NO_MERGE",
+  "repository": "KayzenRoot/nex-engine",
+  "pull_request": 107,
+  "branch": "feat/nex-m01-s04-gpu-profile-delta-001",
+  "measured_product_source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+  "expected_main_base_sha": "226b015ed34d8e4452819da45f92d8936796b3b0",
+  "evidence_commit_sha": null,
+  "evidence_commit_sha_note": "Obtained from Git after committing this bundle; the containing commit SHA is intentionally not self-embedded.",
+  "environment": {
+    "os": "Windows 11 Pro",
+    "build": 26300,
+    "godot_version": "4.7.2.stable.official.ed1daf0bf",
+    "godot_executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+    "gpu": "NVIDIA GeForce RTX 5050",
+    "driver_version": "617.14",
+    "renderer": "forward_plus",
+    "rendering_driver": "vulkan",
+    "viewport_px": [
+      1280,
+      720
+    ],
+    "vsync_mode": 1,
+    "max_fps": 0,
+    "f9_observed_fps": 75,
+    "f9_draw_calls": 49,
+    "f9_objects_3d": 631,
+    "f9_renderer_allocation_mib": 87.5,
+    "memory_scope": "nvidia-smi memory is device-wide WDDM and not process-attributed"
+  },
+  "exclusive_session": {
+    "single_writer": true,
+    "godot_pid": 5964,
+    "mutexes": [
+      "Local\\NEX_M01_S04_GPU_PROFILE_WRITER",
+      "Local\\NEX_M01_S04_GPU_PROFILE_RTX5050"
+    ],
+    "acquired": true,
+    "released_and_verified_free": true,
+    "closeout_artifact": "EXCLUSIVE-LEASE-CLOSEOUT.txt"
+  },
+  "requested_positive_reports": 12,
+  "complete_positive_reports": 8,
+  "invalid_positive_attempts": 1,
+  "remaining_positive_not_run": 4,
+  "negative_viewport_resize": "NOT_RUN_AFTER_INVALID_RESULT",
+  "negative_combined_50_rejection": "NOT_RUN_AFTER_INVALID_RESULT",
+  "physical_runs": [
+    {
+      "run_number": 1,
+      "run_id": "1791932529-210208543",
+      "captured_at_utc": "2026-10-13T23:02:09Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 25,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.008071,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336920444444445,
+          "p50": 13.339,
+          "p95": 15.721,
+          "p99": 16.822
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.24392266669538287,
+          "p50": 0.293999999761581,
+          "p95": 0.340999990701675,
+          "p99": 0.354999989271164
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.24142666641871136,
+          "p50": 0.230000004172325,
+          "p95": 0.310000002384186,
+          "p99": 0.356000006198883
+        }
+      },
+      "one_percent_low_fps": 59.0699310936412,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932529-210208543.json",
+      "raw_json_sha256": "a3709d9b81207c328747236c24df3c2c891a1853f2eb86510065660d083633be",
+      "validation_output": "gpu_profile_1791932529-210208543.json.validation.json",
+      "validation_output_sha256": "ec27f72574c83c7c8078435ecfcb04c5656322195f33da2c64c64c0917973370",
+      "f12_screenshot": "gpu_profile_ui_1791932584_265410590.png",
+      "f12_screenshot_sha256": "7bbb5505f8121c2e17845eaa3c6591d167cf39e712d926476e623eb8ab10e1a5",
+      "telemetry_log": "RUN-01-TELEMETRY.csv",
+      "telemetry_log_sha256": "b3500b2ca937b81c065a7fef58a03593e0f345c1ddca84e3e6864d359e8cd2dd"
+    },
+    {
+      "run_number": 2,
+      "run_id": "1791932692-373124913",
+      "captured_at_utc": "2026-10-13T23:04:52Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 25,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.006346,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336153777777778,
+          "p50": 13.336,
+          "p95": 13.599,
+          "p99": 16.727
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.24367377752065658,
+          "p50": 0.293999999761581,
+          "p95": 0.34400001168251,
+          "p99": 0.35699999332428
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.23566799952586492,
+          "p50": 0.229000002145767,
+          "p95": 0.289000004529953,
+          "p99": 0.323000013828278
+        }
+      },
+      "one_percent_low_fps": 59.2304166216001,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932692-373124913.json",
+      "raw_json_sha256": "00b7134adfb6b9cc7fa626fbc755ae4e5c606897207395eadcd0abe34198cb77",
+      "validation_output": "gpu_profile_1791932692-373124913.json.validation.json",
+      "validation_output_sha256": "737c3af19c86e6dc046d319fbf812e90a5e8859a7a659ad6993274134a910dd1",
+      "f12_screenshot": "gpu_profile_ui_1791932695_376700274.png",
+      "f12_screenshot_sha256": "504cb0e02bef4f0bcaad27923a626539f73b6af3ed19da7736c6800dc7ca82c1",
+      "telemetry_log": "RUN-02-TELEMETRY.csv",
+      "telemetry_log_sha256": "a9bf6bad2d0244bff5043dec34b0485a5798d313dcf52b31666287b6c80ccd5c"
+    },
+    {
+      "run_number": 3,
+      "run_id": "1791932752-433667500",
+      "captured_at_utc": "2026-10-13T23:05:52Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 25,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.006631,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336280444444444,
+          "p50": 13.331,
+          "p95": 13.744,
+          "p99": 17.085
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.25976222241918245,
+          "p50": 0.312999993562698,
+          "p95": 0.358000010251999,
+          "p99": 0.370000004768372
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.23969644372330773,
+          "p50": 0.234999999403954,
+          "p95": 0.293000012636185,
+          "p99": 0.340999990701675
+        }
+      },
+      "one_percent_low_fps": 58.1946992219622,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932752-433667500.json",
+      "raw_json_sha256": "9ea8649202899a223367c97f09e625c58175c0f0147243e5902217bc651e62fb",
+      "validation_output": "gpu_profile_1791932752-433667500.json.validation.json",
+      "validation_output_sha256": "01e8c97742a7ee26c781edbcbbb582e62d6561d9259e6e92832bbabacf7a2378",
+      "f12_screenshot": "gpu_profile_ui_1791932755_436741339.png",
+      "f12_screenshot_sha256": "c792b3572c2dcd8ef7794f5ff7e5ebb18745e000929a63359ec93596827df97f",
+      "telemetry_log": "RUN-03-TELEMETRY.csv",
+      "telemetry_log_sha256": "13f9d9432c85cba0812dcf3029b6515b421a667ad66a03b7225a51223736061e"
+    },
+    {
+      "run_number": 4,
+      "run_id": "1791932802-483419600",
+      "captured_at_utc": "2026-10-13T23:06:42Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 100,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.0072479999999,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336554666666666,
+          "p50": 13.33,
+          "p95": 13.672,
+          "p99": 14.002
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.2886782231794463,
+          "p50": 0.270999997854233,
+          "p95": 0.495000004768372,
+          "p99": 0.513999998569489
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.2630457779036628,
+          "p50": 0.243000000715256,
+          "p95": 0.365000009536743,
+          "p99": 0.474000006914139
+        }
+      },
+      "one_percent_low_fps": 69.1259474763018,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932802-483419600.json",
+      "raw_json_sha256": "5b2a24404004a61dbf5f23997579173affc195779db69cb67dcedc04abb9522e",
+      "validation_output": "gpu_profile_1791932802-483419600.json.validation.json",
+      "validation_output_sha256": "d5f0bc6ac184a4e2dc090b05cc07f2b64cd3e3027bfc39fedade21dbbfb73ac8",
+      "f12_screenshot": "gpu_profile_ui_1791932805_486581741.png",
+      "f12_screenshot_sha256": "4a4b86a9acb08a9ca30144981aa164cea63d7019e87310f92327f29e76862128",
+      "telemetry_log": "RUN-04-TELEMETRY.csv",
+      "telemetry_log_sha256": "312c3b0ee6f597ef67ce6138b3a7baab8a30ad41dceb3fd4d713318a27e8fb09"
+    },
+    {
+      "run_number": 5,
+      "run_id": "1791932845-526668766",
+      "captured_at_utc": "2026-10-13T23:07:25Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 100,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.006561,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336249333333335,
+          "p50": 13.331,
+          "p95": 14.257,
+          "p99": 15.384
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.30277511015865544,
+          "p50": 0.259999990463257,
+          "p95": 0.470999985933304,
+          "p99": 0.504999995231628
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.29007155564758513,
+          "p50": 0.279000014066696,
+          "p95": 0.439999997615814,
+          "p99": 0.568000018596649
+        }
+      },
+      "one_percent_low_fps": 64.310120176042,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932845-526668766.json",
+      "raw_json_sha256": "331c7e947d6b3b8539cf8d8bf6f722a70024f3c888d8d0cee2c47787ee7fb3fd",
+      "validation_output": "gpu_profile_1791932845-526668766.json.validation.json",
+      "validation_output_sha256": "2195b837043b01c38f0426211932dac5d5d773d5c24d8125b160902f914d6fed",
+      "f12_screenshot": "gpu_profile_ui_1791932851_531827054.png",
+      "f12_screenshot_sha256": "947d7f4387580ae78bc9ad36a3074915fc56c82f2a53e3b840ec01d8da51d704",
+      "telemetry_log": "RUN-05-TELEMETRY.csv",
+      "telemetry_log_sha256": "9246b709d17af1f7610fe31bad37079b2e25c042f4b88ef2fbef75e01f5a6430"
+    },
+    {
+      "run_number": 6,
+      "run_id": "1791932894-574871020",
+      "captured_at_utc": "2026-10-13T23:08:14Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 100,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.00739,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336617777777777,
+          "p50": 13.335,
+          "p95": 15.266,
+          "p99": 16.428
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.31411288756794403,
+          "p50": 0.263000011444092,
+          "p95": 0.479999989271164,
+          "p99": 0.505999982357025
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.2521302221881019,
+          "p50": 0.238000005483627,
+          "p95": 0.33500000834465,
+          "p99": 0.409999996423721
+        }
+      },
+      "one_percent_low_fps": 60.3772792422914,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932894-574871020.json",
+      "raw_json_sha256": "99ae65b583ca5b0d71cd466b1542476e4003c5667b5a5c9832a7ed04264fb8fa",
+      "validation_output": "gpu_profile_1791932894-574871020.json.validation.json",
+      "validation_output_sha256": "f5126e47f139f2cec825ae1b34979504d94a38afee144072ba97dabd15e432b8",
+      "f12_screenshot": "gpu_profile_ui_1791932897_578170402.png",
+      "f12_screenshot_sha256": "f6bb47605fd09769750d4c0207e6f8d2be51d34ecb1658e9239a639decfee190",
+      "telemetry_log": "RUN-06-TELEMETRY.csv",
+      "telemetry_log_sha256": "d29a246b0d942705ca9f818648623dfaa57d08367d64631dcc2e36765511eba7"
+    },
+    {
+      "run_number": 7,
+      "run_id": "1791932946-627102729",
+      "captured_at_utc": "2026-10-13T23:09:06Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 200,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.0073319999999,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336592,
+          "p50": 13.349,
+          "p95": 16.515,
+          "p99": 17.176
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.44770177854432003,
+          "p50": 0.395000010728836,
+          "p95": 0.63400000333786,
+          "p99": 0.656000018119812
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.25130977746513167,
+          "p50": 0.25,
+          "p95": 0.308999985456467,
+          "p99": 0.358000010251999
+        }
+      },
+      "one_percent_low_fps": 57.5103518633354,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791932946-627102729.json",
+      "raw_json_sha256": "cfbec619c637e176b69ae61ab52150ab008bb7d50210b4db2bdf25aaabbd1f56",
+      "validation_output": "gpu_profile_1791932946-627102729.json.validation.json",
+      "validation_output_sha256": "db7fc040f7b3d22d80e0757a01683e19854ea2cbed5e6f7466044b396214d0dd",
+      "f12_screenshot": "gpu_profile_ui_1791932949_630114821.png",
+      "f12_screenshot_sha256": "884861b26935c0abfce7d24b7c0132bc88f1487cdb4e47e4a978e7c3ebfe2ca9",
+      "telemetry_log": "RUN-07-TELEMETRY.csv",
+      "telemetry_log_sha256": "7b8d1b33838fedd353775601039627ddb85d4d764201bfe324ea2339306a5210"
+    },
+    {
+      "run_number": 8,
+      "run_id": "1791933058-739560811",
+      "captured_at_utc": "2026-10-13T23:10:58Z",
+      "status": "COMPLETE",
+      "reason": "requested_observation_window_elapsed",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 200,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 30.006095,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 13.336042222222222,
+          "p50": 13.334,
+          "p95": 13.829,
+          "p99": 15.689
+        }
+      },
+      "gpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.342878223631117,
+          "p50": 0.277999997138977,
+          "p95": 0.565999984741211,
+          "p99": 0.606000006198883
+        }
+      },
+      "cpu_render": {
+        "status": "MEASURED",
+        "valid_sample_count": 2250,
+        "invalid_sample_count": 0,
+        "unavailable_reason": null,
+        "aggregates": {
+          "mean": 0.26562933292653823,
+          "p50": 0.24600000679493,
+          "p95": 0.365000009536743,
+          "p99": 0.402999997138977
+        }
+      },
+      "one_percent_low_fps": 62.5581382698051,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791933058-739560811.json",
+      "raw_json_sha256": "86bf257598ac7ab503ab50ed8353f46a0352a6a9872c616b9aacda98dfb373dd",
+      "validation_output": "gpu_profile_1791933058-739560811.json.validation.json",
+      "validation_output_sha256": "c2fd84cb43dbcd8f891f073cdef5b70e8071ca71b1932f8fd2608a48f53cd570",
+      "f12_screenshot": "gpu_profile_ui_1791933063_743804350.png",
+      "f12_screenshot_sha256": "e89a61e75461932df2cdb76ae02f2dc7dc68e2913f50ee7a6437c1f5aa1457ab",
+      "telemetry_log": "RUN-08-TELEMETRY.csv",
+      "telemetry_log_sha256": "28e788f3f1f8fab74382d484e9347b44baa009ae77d2deb3d7141648c0bfdcca"
+    },
+    {
+      "run_number": 9,
+      "run_id": "1791933080-760888025",
+      "captured_at_utc": "2026-10-13T23:11:20Z",
+      "status": "INVALID",
+      "reason": "invalid_monotonic_tick",
+      "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+      "workload": {
+        "effect_mode": "geometry",
+        "layout": "built-in deterministic grid",
+        "proxy_count": 200,
+        "scene": "Density Ladder"
+      },
+      "observed_seconds": 0.0,
+      "warmup_seconds_requested": 2.0,
+      "observation_seconds_requested": 30.0,
+      "viewport": {
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "rid": "RID(3689376907264)"
+      },
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "adapter": "NVIDIA GeForce RTX 5050",
+      "settings": {
+        "max_fps": 0,
+        "vsync_mode": 1
+      },
+      "os": "Windows",
+      "godot_version": "4.7.2-stable (official)",
+      "frame_pacing": {
+        "status": "UNAVAILABLE",
+        "valid_sample_count": 0,
+        "invalid_sample_count": 1,
+        "unavailable_reason": "invalid_monotonic_tick_sequence",
+        "aggregates": null
+      },
+      "gpu_render": {
+        "status": "UNAVAILABLE",
+        "valid_sample_count": 0,
+        "invalid_sample_count": 0,
+        "unavailable_reason": "fewer_than_300_valid_samples",
+        "aggregates": null
+      },
+      "cpu_render": {
+        "status": "UNAVAILABLE",
+        "valid_sample_count": 0,
+        "invalid_sample_count": 0,
+        "unavailable_reason": "fewer_than_300_valid_samples",
+        "aggregates": null
+      },
+      "one_percent_low_fps": null,
+      "validator_status": "PASS",
+      "raw_json": "gpu_profile_1791933080-760888025.json",
+      "raw_json_sha256": "55c179e05b4b8d3b09dcd19c253d42e23af2a4e0adb70a11c11f7a0d1d94b96e",
+      "validation_output": "gpu_profile_1791933080-760888025.json.validation.json",
+      "validation_output_sha256": "73271c683527883b0f897120f43500f8bfb8118c94407f3a2d347ec722c4cf88",
+      "f12_screenshot": "gpu_profile_ui_1791933082_763088682.png",
+      "f12_screenshot_sha256": "909ca160388a1bbf53668c10b205c9b02c9c9d8ea4a61c4c0ba65ee8a481c522",
+      "telemetry_log": "RUN-09-TELEMETRY.csv",
+      "telemetry_log_sha256": "8a278f934482763b24272829c25a7df794a50df0fc6fcb6f775b9afccaddf715"
+    }
+  ],
+  "local_checks": {
+    "Start-NEX_native_smoke": {
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "Godot-GUI.log"
+    },
+    "gpu_profile_v2_validator": {
+      "complete_reports_pass": 8,
+      "invalid_report_classified_pass": 1
+    },
+    "tests_ci": {
+      "status": "FAIL_LOCAL_WINDOWS_BYTES",
+      "ran": 106,
+      "passed": 100,
+      "failed": 6,
+      "cause": "core.autocrlf=true line-ending conversion in the six v2 checkout files; original worktree and HEAD blobs are all 18/18 byte-exact",
+      "log": "LOCAL-TESTS-CI.log"
+    },
+    "tests_contracts": {
+      "status": "PASS",
+      "ran": 12,
+      "log": "LOCAL-TESTS-CONTRACTS.log"
+    },
+    "tests_telemetry": {
+      "status": "PASS",
+      "ran": 31,
+      "log": "LOCAL-TESTS-TELEMETRY.log"
+    },
+    "github_exact_evidence_head": "PENDING_AFTER_PUSH"
+  },
+  "historical_preservation": {
+    "expected_capture_count": 18,
+    "original_worktree_and_head_blobs_exact": "18/18",
+    "new_windows_worktree_raw_bytes_exact": "12/18",
+    "six_line_ending_conversions_documented": true,
+    "artifact": "HISTORICAL-PRESERVATION-CHECK.txt"
+  },
+  "artifacts": [
+    {
+      "path": "EXCLUSIVE-LEASE-CLOSEOUT.txt",
+      "bytes": 673,
+      "sha256": "35e5ba554d2487215b7b806ba26593be29de72b5506f6e46c6a0f0be68660ac4"
+    },
+    {
+      "path": "GPU-F9-DIAGNOSTICS-AFTER-FOCUS.png",
+      "bytes": 110368,
+      "sha256": "a7c88f9fe4644b36a2def6f442ae747a8b11cf20b4547a39131729a36619966c"
+    },
+    {
+      "path": "GUI-INITIAL.png",
+      "bytes": 80590,
+      "sha256": "caeb2ed404cd3e2bb726c019633310842625b35a7b7769e691952a2b0ee7d1ab"
+    },
+    {
+      "path": "GUI-LAUNCH-RESULT.txt",
+      "bytes": 350,
+      "sha256": "d790b5d91e5de105b3ad25f51a746f0d959dd0b387df15f9905c994865ca8e8f"
+    },
+    {
+      "path": "Godot-GUI.log",
+      "bytes": 659,
+      "sha256": "29b0bf1cbf328b8a51209831320271112c29e5f9d57e235690a52fc5ec643569"
+    },
+    {
+      "path": "HISTORICAL-PRESERVATION-CHECK.txt",
+      "bytes": 8127,
+      "sha256": "5341ad3344d56aa83cd4da8768080fa89cb9d8856509ae97e7c53874b620285d"
+    },
+    {
+      "path": "LOCAL-TESTS-CI.log",
+      "bytes": 6996,
+      "sha256": "b037e3b940b44e3098a629d93c8108f1c0663e15bef2bb79803f05012f03efe5"
+    },
+    {
+      "path": "LOCAL-TESTS-CONTRACTS.log",
+      "bytes": 226,
+      "sha256": "0f1f1c5900036a9bd3d5720d6a11a1560b342b8a3aaa10f4517ed6db9223335f"
+    },
+    {
+      "path": "LOCAL-TESTS-TELEMETRY.log",
+      "bytes": 245,
+      "sha256": "ed76094ac2f22219bb71dc81df9179a4cb088da73654f794f6a6b9f6754c2b01"
+    },
+    {
+      "path": "POST-STOP-DEVICE-SNAPSHOT.txt",
+      "bytes": 124,
+      "sha256": "090eabf87c85c31446ee7d2cd660e04f4f8bae749c72e5656dcbf6f0feba53d7"
+    },
+    {
+      "path": "RUN-01-PROGRESS.png",
+      "bytes": 65114,
+      "sha256": "a07704e2b045cfc0e27ba2ce995f8c48bfd3e28b0a180efc60b7eca66486dc6a"
+    },
+    {
+      "path": "RUN-01-TELEMETRY.csv",
+      "bytes": 85,
+      "sha256": "b3500b2ca937b81c065a7fef58a03593e0f345c1ddca84e3e6864d359e8cd2dd"
+    },
+    {
+      "path": "RUN-01-VALIDATION-RESULT.txt",
+      "bytes": 552,
+      "sha256": "599bd36340d27132d9d7ea7294fcef98dbb10185dc3ea81d7beddebb570996e6"
+    },
+    {
+      "path": "RUN-02-TELEMETRY.csv",
+      "bytes": 504,
+      "sha256": "a9bf6bad2d0244bff5043dec34b0485a5798d313dcf52b31666287b6c80ccd5c"
+    },
+    {
+      "path": "RUN-03-TELEMETRY.csv",
+      "bytes": 502,
+      "sha256": "13f9d9432c85cba0812dcf3029b6515b421a667ad66a03b7225a51223736061e"
+    },
+    {
+      "path": "RUN-04-TELEMETRY.csv",
+      "bytes": 501,
+      "sha256": "312c3b0ee6f597ef67ce6138b3a7baab8a30ad41dceb3fd4d713318a27e8fb09"
+    },
+    {
+      "path": "RUN-05-TELEMETRY.csv",
+      "bytes": 503,
+      "sha256": "9246b709d17af1f7610fe31bad37079b2e25c042f4b88ef2fbef75e01f5a6430"
+    },
+    {
+      "path": "RUN-06-TELEMETRY.csv",
+      "bytes": 502,
+      "sha256": "d29a246b0d942705ca9f818648623dfaa57d08367d64631dcc2e36765511eba7"
+    },
+    {
+      "path": "RUN-07-TELEMETRY.csv",
+      "bytes": 502,
+      "sha256": "7b8d1b33838fedd353775601039627ddb85d4d764201bfe324ea2339306a5210"
+    },
+    {
+      "path": "RUN-08-FOCUS-RECOVERY.txt",
+      "bytes": 453,
+      "sha256": "06c8fb6ac4d00e23e228f56dcf2a7275ed1e19c96b11aba028d689984fc6ad82"
+    },
+    {
+      "path": "RUN-08-TELEMETRY.csv",
+      "bytes": 499,
+      "sha256": "28e788f3f1f8fab74382d484e9347b44baa009ae77d2deb3d7141648c0bfdcca"
+    },
+    {
+      "path": "RUN-09-TELEMETRY.csv",
+      "bytes": 83,
+      "sha256": "8a278f934482763b24272829c25a7df794a50df0fc6fcb6f775b9afccaddf715"
+    },
+    {
+      "path": "SCENE-25-GEOMETRY-PRE-RUN.png",
+      "bytes": 61145,
+      "sha256": "6cfc79f2ae0d1e0f237216c09817cf758d132e92c1337e9495d0aeb732c386d8"
+    },
+    {
+      "path": "gpu_profile_1791932529-210208543.json",
+      "bytes": 197625,
+      "sha256": "a3709d9b81207c328747236c24df3c2c891a1853f2eb86510065660d083633be"
+    },
+    {
+      "path": "gpu_profile_1791932529-210208543.json.validation.json",
+      "bytes": 2072,
+      "sha256": "ec27f72574c83c7c8078435ecfcb04c5656322195f33da2c64c64c0917973370"
+    },
+    {
+      "path": "gpu_profile_1791932692-373124913.json",
+      "bytes": 204741,
+      "sha256": "00b7134adfb6b9cc7fa626fbc755ae4e5c606897207395eadcd0abe34198cb77"
+    },
+    {
+      "path": "gpu_profile_1791932692-373124913.json.validation.json",
+      "bytes": 2090,
+      "sha256": "737c3af19c86e6dc046d319fbf812e90a5e8859a7a659ad6993274134a910dd1"
+    },
+    {
+      "path": "gpu_profile_1791932752-433667500.json",
+      "bytes": 197607,
+      "sha256": "9ea8649202899a223367c97f09e625c58175c0f0147243e5902217bc651e62fb"
+    },
+    {
+      "path": "gpu_profile_1791932752-433667500.json.validation.json",
+      "bytes": 2072,
+      "sha256": "01e8c97742a7ee26c781edbcbbb582e62d6561d9259e6e92832bbabacf7a2378"
+    },
+    {
+      "path": "gpu_profile_1791932802-483419600.json",
+      "bytes": 212165,
+      "sha256": "5b2a24404004a61dbf5f23997579173affc195779db69cb67dcedc04abb9522e"
+    },
+    {
+      "path": "gpu_profile_1791932802-483419600.json.validation.json",
+      "bytes": 2107,
+      "sha256": "d5f0bc6ac184a4e2dc090b05cc07f2b64cd3e3027bfc39fedade21dbbfb73ac8"
+    },
+    {
+      "path": "gpu_profile_1791932845-526668766.json",
+      "bytes": 206050,
+      "sha256": "331c7e947d6b3b8539cf8d8bf6f722a70024f3c888d8d0cee2c47787ee7fb3fd"
+    },
+    {
+      "path": "gpu_profile_1791932845-526668766.json.validation.json",
+      "bytes": 2092,
+      "sha256": "2195b837043b01c38f0426211932dac5d5d773d5c24d8125b160902f914d6fed"
+    },
+    {
+      "path": "gpu_profile_1791932894-574871020.json",
+      "bytes": 196972,
+      "sha256": "99ae65b583ca5b0d71cd466b1542476e4003c5667b5a5c9832a7ed04264fb8fa"
+    },
+    {
+      "path": "gpu_profile_1791932894-574871020.json.validation.json",
+      "bytes": 2058,
+      "sha256": "f5126e47f139f2cec825ae1b34979504d94a38afee144072ba97dabd15e432b8"
+    },
+    {
+      "path": "gpu_profile_1791932946-627102729.json",
+      "bytes": 196370,
+      "sha256": "cfbec619c637e176b69ae61ab52150ab008bb7d50210b4db2bdf25aaabbd1f56"
+    },
+    {
+      "path": "gpu_profile_1791932946-627102729.json.validation.json",
+      "bytes": 2057,
+      "sha256": "db7fc040f7b3d22d80e0757a01683e19854ea2cbed5e6f7466044b396214d0dd"
+    },
+    {
+      "path": "gpu_profile_1791933058-739560811.json",
+      "bytes": 202172,
+      "sha256": "86bf257598ac7ab503ab50ed8353f46a0352a6a9872c616b9aacda98dfb373dd"
+    },
+    {
+      "path": "gpu_profile_1791933058-739560811.json.validation.json",
+      "bytes": 2090,
+      "sha256": "c2fd84cb43dbcd8f891f073cdef5b70e8071ca71b1932f8fd2608a48f53cd570"
+    },
+    {
+      "path": "gpu_profile_1791933080-760888025.json",
+      "bytes": 4346,
+      "sha256": "55c179e05b4b8d3b09dcd19c253d42e23af2a4e0adb70a11c11f7a0d1d94b96e"
+    },
+    {
+      "path": "gpu_profile_1791933080-760888025.json.validation.json",
+      "bytes": 1412,
+      "sha256": "73271c683527883b0f897120f43500f8bfb8118c94407f3a2d347ec722c4cf88"
+    },
+    {
+      "path": "gpu_profile_ui_1791932584_265410590.png",
+      "bytes": 67142,
+      "sha256": "7bbb5505f8121c2e17845eaa3c6591d167cf39e712d926476e623eb8ab10e1a5"
+    },
+    {
+      "path": "gpu_profile_ui_1791932695_376700274.png",
+      "bytes": 66815,
+      "sha256": "504cb0e02bef4f0bcaad27923a626539f73b6af3ed19da7736c6800dc7ca82c1"
+    },
+    {
+      "path": "gpu_profile_ui_1791932755_436741339.png",
+      "bytes": 66927,
+      "sha256": "c792b3572c2dcd8ef7794f5ff7e5ebb18745e000929a63359ec93596827df97f"
+    },
+    {
+      "path": "gpu_profile_ui_1791932805_486581741.png",
+      "bytes": 81208,
+      "sha256": "4a4b86a9acb08a9ca30144981aa164cea63d7019e87310f92327f29e76862128"
+    },
+    {
+      "path": "gpu_profile_ui_1791932851_531827054.png",
+      "bytes": 80725,
+      "sha256": "947d7f4387580ae78bc9ad36a3074915fc56c82f2a53e3b840ec01d8da51d704"
+    },
+    {
+      "path": "gpu_profile_ui_1791932897_578170402.png",
+      "bytes": 80766,
+      "sha256": "f6bb47605fd09769750d4c0207e6f8d2be51d34ecb1658e9239a639decfee190"
+    },
+    {
+      "path": "gpu_profile_ui_1791932949_630114821.png",
+      "bytes": 96574,
+      "sha256": "884861b26935c0abfce7d24b7c0132bc88f1487cdb4e47e4a978e7c3ebfe2ca9"
+    },
+    {
+      "path": "gpu_profile_ui_1791933063_743804350.png",
+      "bytes": 97581,
+      "sha256": "e89a61e75461932df2cdb76ae02f2dc7dc68e2913f50ee7a6437c1f5aa1457ab"
+    },
+    {
+      "path": "gpu_profile_ui_1791933082_763088682.png",
+      "bytes": 95455,
+      "sha256": "909ca160388a1bbf53668c10b205c9b02c9c9d8ea4a61c4c0ba65ee8a481c522"
+    },
+    {
+      "path": "R9-PARTIAL-REPORT.md",
+      "sha256": "c4620c1e41672f141597c2adb8820ab55bb0989e24e1ed79d76f3d5e291704ac"
+    }
+  ],
+  "report": "R9-PARTIAL-REPORT.md",
+  "sha256_list": "SHA256SUMS.txt"
+}

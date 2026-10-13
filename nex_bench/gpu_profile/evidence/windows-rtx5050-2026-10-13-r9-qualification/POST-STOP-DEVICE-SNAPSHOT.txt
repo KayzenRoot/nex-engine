@@ -1,0 +1,2 @@
+NVIDIA GeForce RTX 5050, 617.14, 1 %, 39, 8151 MiB, 1134 MiB
+DEVICE_MEMORY_SCOPE=WDDM device-wide; not process-attributed

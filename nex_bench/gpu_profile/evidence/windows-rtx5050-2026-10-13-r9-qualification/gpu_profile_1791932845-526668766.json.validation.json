@@ -1,0 +1,75 @@
+{
+  "device_snapshot": {
+    "sample_count": 2,
+    "status": "MEASURED"
+  },
+  "limitations": "Per-viewport render time is not input-to-photon; renderer allocation is not total VRAM; device-wide WDDM memory is not process-attributed.",
+  "observed_seconds": 30.006561,
+  "one_percent_low_fps": 64.310120176042,
+  "run_id": "1791932845-526668766",
+  "run_status": "COMPLETE",
+  "schema_version": "nex_gpu_render_profile.v2",
+  "series": {
+    "CPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.29007155564758513,
+        "p50": 0.279000014066696,
+        "p95": 0.439999997615814,
+        "p99": 0.568000018596649
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2250
+    },
+    "FRAME_PACING_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 13.336249333333335,
+        "p50": 13.331,
+        "p95": 14.257,
+        "p99": 15.384
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2250
+    },
+    "GPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.30277511015865544,
+        "p50": 0.259999990463257,
+        "p95": 0.470999985933304,
+        "p99": 0.504999995231628
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2250
+    },
+    "MAIN_LOOP_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 13.333135111111096,
+        "p50": 13.333,
+        "p95": 13.3333333333333,
+        "p99": 13.3333333333333
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2250
+    },
+    "RENDERER_ALLOCATION_BYTES": {
+      "aggregates": {
+        "mean": 91702320.0,
+        "p50": 91702320.0,
+        "p95": 91702320.0,
+        "p99": 91702320.0
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2250
+    }
+  },
+  "source_sha": "d59c94da13839ba1c6c2e894d4d1147ff3fddc78",
+  "status": "PASS",
+  "workload": {
+    "effect_mode": "geometry",
+    "proxy_count": 100
+  }
+}

@@ -1,0 +1,11 @@
+python=C:\Users\csn19\AppData\Local\Programs\Python\Python313\python.exe
+raw_path=D:\Projects\nex-engine-R9-evidence\nex_bench\gpu_profile\evidence\windows-rtx5050-2026-10-13-r9-qualification\gpu_profile_1791932529-210208543.json
+raw_sha256=a3709d9b81207c328747236c24df3c2c891a1853f2eb86510065660d083633be
+validator_exit=0
+validator_status=PASS
+run_id=1791932529-210208543
+run_status=COMPLETE
+run_reason=requested_observation_window_elapsed
+source_sha=d59c94da13839ba1c6c2e894d4d1147ff3fddc78
+workload=25/geometry
+observed_seconds=30.008071
