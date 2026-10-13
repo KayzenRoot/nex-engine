@@ -180,6 +180,10 @@ func _check_modules() -> void:
         _fail("GPU profile session could not be loaded")
         return
     var profile_session: RefCounted = profile_script.new() as RefCounted
+    var utc_timestamp := str(profile_session.call("_utc_timestamp"))
+    if not utc_timestamp.contains("T") or not utc_timestamp.ends_with("Z"):
+        _fail("GPU profile timestamps must serialize explicit UTC with a Z suffix")
+        return
     var profile_context := {
         "source_sha": "226b015ed34d8e4452819da45f92d8936796b3b0",
         "scene": "Density Ladder",

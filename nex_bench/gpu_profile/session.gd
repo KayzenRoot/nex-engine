@@ -238,7 +238,7 @@ func _build_document(run_status: String, reason: String) -> Dictionary:
 		"run_id": "%d-%d" % [int(Time.get_unix_time_from_system()), Time.get_ticks_usec()],
 		"run_status": run_status,
 		"run_reason": reason,
-		"captured_at_utc": Time.get_datetime_string_from_system(true, true),
+		"captured_at_utc": _utc_timestamp(),
 		"source_sha": str(run_context.get("source_sha", "")).to_lower(),
 		"godot_version": str(Engine.get_version_info().get("string", "unknown")),
 		"os": OS.get_name(),
@@ -359,7 +359,7 @@ func _capture_device_snapshot() -> Dictionary:
 			"status": "UNAVAILABLE",
 			"provider": "nvidia-smi",
 			"scope": "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED",
-			"captured_at_utc": Time.get_datetime_string_from_system(true, true),
+			"captured_at_utc": _utc_timestamp(),
 			"exit_code": exit_code,
 			"raw_csv": "",
 			"unavailable_reason": "nvidia-smi was not available or returned no device row."
@@ -368,7 +368,7 @@ func _capture_device_snapshot() -> Dictionary:
 		"status": "MEASURED",
 		"provider": "nvidia-smi",
 		"scope": "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED",
-		"captured_at_utc": Time.get_datetime_string_from_system(true, true),
+		"captured_at_utc": _utc_timestamp(),
 		"exit_code": exit_code,
 		"raw_csv": raw_csv,
 		"unavailable_reason": ""
@@ -380,7 +380,7 @@ func _unavailable_device_snapshot(reason: String) -> Dictionary:
 		"status": "UNAVAILABLE",
 		"provider": "nvidia-smi",
 		"scope": "DEVICE_WIDE_NOT_PROCESS_ATTRIBUTED",
-		"captured_at_utc": Time.get_datetime_string_from_system(true, true),
+		"captured_at_utc": _utc_timestamp(),
 		"exit_code": -1,
 		"raw_csv": "",
 		"unavailable_reason": reason
@@ -417,3 +417,7 @@ func _is_sha1(value: String) -> bool:
 		if not "0123456789abcdef".contains(character):
 			return false
 	return true
+
+
+func _utc_timestamp() -> String:
+	return Time.get_datetime_string_from_system(true, false) + "Z"

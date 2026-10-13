@@ -244,6 +244,7 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertIn("nex_gpu_render_profile.v1", session)
         self.assertIn("RenderingServer.viewport_set_measure_render_time(viewport_rid, true)", session)
         self.assertIn("RenderingServer.viewport_set_measure_render_time(viewport_rid, false)", session)
+        self.assertIn('Time.get_datetime_string_from_system(true, false) + "Z"', session)
         self.assertIn("NEX_NATIVE_GPU_PROFILE_PASS", smoke)
         self.assertNotIn("RenderingServer.viewport_set_measure_render_time", hub)
 
