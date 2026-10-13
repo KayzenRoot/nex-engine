@@ -1,0 +1,8 @@
+PYTHON=C:\Users\csn19\AppData\Local\Programs\Python\Python313\python.exe
+SUITE=tests\telemetry
+EXIT_CODE=0
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 0.096s
+
+OK

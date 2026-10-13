@@ -1,0 +1,8 @@
+LAUNCH_EXIT=0
+SOURCE_SHA=d59c94da13839ba1c6c2e894d4d1147ff3fddc78
+GODOT_PROCESSES=
+
+ProcessId   : 5964
+Name        : Godot_v4.7.2-stable_win64.exe
+CommandLine : "D:\NEX-M00-WO-001-LOCAL-20261011\review-correction-delta-evidence\official-smoke\distribution\Godot_v4.7.2-stable_win64.exe" --path "D:\Projects\nex-engine-R9-evidence\nex_bench"
+

@@ -1,0 +1,2 @@
+UTC: 2026-10-13T23:10:12.4216320Z
+Before Run 08, the first control attempt aborted at the foreground-PID guard before F11 was sent. The current foreground was PID 11000; no new raw profile appeared after Run 07. Godot PID 5964 remained the only Godot process. The operator successfully reacquired the Godot window with user32 thread-input attachment and SetForegroundWindow/SwitchToThisWindow. Run 08 will recheck foreground immediately before each key.
