@@ -199,6 +199,57 @@ class GPUProfileValidatorTests(unittest.TestCase):
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_report(document)
 
+
+    def test_v2_invalid_observed_seconds_rejects_invalid_values(self):
+        for bad in (-0.1, 30.101, float("nan"), float("inf"), True, "0", 10 ** 1000):
+            with self.subTest(value=str(bad)[:36]):
+                document = fixture_v2()
+                document["run_status"] = "INVALID"
+                document["run_reason"] = "insufficient_frame_pacing_samples"
+                document["measurement"]["observed_seconds"] = bad
+                with self.assertRaisesRegex(MODULE.ProfileError, "measurement.observed_seconds"):
+                    MODULE.validate_report(document)
+
+    def test_v2_invalid_run_with_zero_observation_is_preserved(self):
+        document = fixture_v2()
+        document["run_status"] = "INVALID"
+        document["run_reason"] = "insufficient_frame_pacing_samples"
+        document["measurement"].update({
+            "observed_seconds": 0.0,
+            "frame_pacing_status": "UNAVAILABLE",
+            "frame_pacing_unavailable_reason": "no_callback_interval_collected",
+            "one_percent_low_fps": None,
+        })
+        document["series"]["FRAME_PACING_INTERVAL_MS"] = series(
+            "ms",
+            "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback",
+            [],
+            status="UNAVAILABLE",
+            reason="no_callback_interval_collected",
+        )
+        result = MODULE.validate_report(document)
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["run_status"], "INVALID")
+        self.assertIsNone(result["one_percent_low_fps"])
+
+    def test_v2_split_guards_reject_pacing_and_duration_spoofing(self):
+        corruptions = (
+            ("frame_pacing_provider", "forged callback provider"),
+            ("one_percent_low_fps_source", "MAIN_LOOP_INTERVAL_MS"),
+            ("frame_pacing_status", "UNAVAILABLE"),
+            ("invalid_frame_pacing_samples", 1),
+            ("delta_derived_one_percent_low_fps_label", "MEASURED"),
+            ("delta_derived_one_percent_low_fps", None),
+            ("frame_pacing_limitation", ""),
+            ("observed_seconds", 29.0),
+        )
+        for key, value in corruptions:
+            with self.subTest(field=key):
+                document = fixture_v2()
+                document["measurement"][key] = value
+                with self.assertRaises(MODULE.ProfileError):
+                    MODULE.validate_report(document)
+
     def test_historical_v1_gpu_profiles_remain_readable(self):
         evidence = ROOT / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-10-13-final-head"
         captures = sorted(path for path in evidence.glob("gpu_profile_*.json") if not path.name.endswith(".validation.json"))
