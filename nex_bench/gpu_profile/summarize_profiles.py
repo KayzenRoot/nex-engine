@@ -93,47 +93,54 @@ def _series_p95(runs: list[dict[str, Any]], name: str) -> dict[str, Any]:
     }
 
 
-def summarize(batch: Any) -> dict[str, Any]:
-    if type(batch) is not dict or frozenset(batch) != frozenset({"captures"}):
-        raise ProfileError("batch must contain only the captures array")
-    captures = batch["captures"]
-    if type(captures) is not list or not MIN_REPEATS <= len(captures) <= MAX_REPEATS:
-        raise ProfileError("batch requires 3 to 12 captured documents")
-    verified_runs: list[dict[str, Any]] = []
-    seen_ids: set[str] = set()
+def _validated_capture(
+    document: Any, seen_ids: set[str]
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    if type(document) is not dict:
+        raise ProfileError("capture is not a JSON object")
+    serialized = json.dumps(document, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    if len(serialized.encode("utf-8")) > MAX_BYTES:
+        raise ProfileError("an individual capture exceeds the strict 8 MB budget")
+    run = validate_report(document)
+    if run["schema_version"] != SCHEMA_VERSION or run["run_status"] != "COMPLETE":
+        raise ProfileError("repeatability requires COMPLETE v2 captures, not v1 or INVALID")
+    if run["run_id"] in seen_ids:
+        raise ProfileError("duplicate run_id is not an independent repetition")
+    seen_ids.add(run["run_id"])
+    return _context(document), run
+
+
+def _validated_runs(captures: list[Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     reference: dict[str, Any] | None = None
+    seen_ids: set[str] = set()
+    runs: list[dict[str, Any]] = []
     for index, document in enumerate(captures):
-        if type(document) is not dict:
-            raise ProfileError("capture is not a JSON object")
-        serialized = json.dumps(document, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-        if len(serialized.encode("utf-8")) > MAX_BYTES:
-            raise ProfileError("an individual capture exceeds the strict 8 MB budget")
-        run = validate_report(document)
-        if run["schema_version"] != SCHEMA_VERSION or run["run_status"] != "COMPLETE":
-            raise ProfileError("repeatability requires COMPLETE v2 captures, not v1 or INVALID")
-        if run["run_id"] in seen_ids:
-            raise ProfileError("duplicate run_id is not an independent repetition")
-        seen_ids.add(run["run_id"])
-        current = _context(document)
+        current, run = _validated_capture(document, seen_ids)
         if reference is None:
             reference = current
         elif current != reference:
             raise ProfileError("mixed capture context at index " + str(index))
-        verified_runs.append(run)
-    verified_runs.sort(key=lambda item: item["run_id"])
+        runs.append(run)
+    if reference is None:
+        raise ProfileError("capture context unavailable")
+    runs.sort(key=lambda item: item["run_id"])
+    return reference, runs
+
+
+def _result(reference: dict[str, Any], runs: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "status": "PASS",
         "schema_version": "nex_gpu_repeatability.v1",
         "context": reference,
-        "repeat_count": len(verified_runs),
-        "run_ids": [run["run_id"] for run in verified_runs],
+        "repeat_count": len(runs),
+        "run_ids": [run["run_id"] for run in runs],
         "cpu_callback_one_percent_low_fps": {
             "status": "MEASURED_CALLBACK_ONLY",
-            **_distribution([float(run["one_percent_low_fps"]) for run in verified_runs]),
+            **_distribution([float(run["one_percent_low_fps"]) for run in runs]),
         },
-        "gpu_render_p95_ms": _series_p95(verified_runs, "GPU_RENDER_MS"),
-        "cpu_render_p95_ms": _series_p95(verified_runs, "CPU_RENDER_MS"),
-        "renderer_allocation_p95_bytes": _series_p95(verified_runs, "RENDERER_ALLOCATION_BYTES"),
+        "gpu_render_p95_ms": _series_p95(runs, "GPU_RENDER_MS"),
+        "cpu_render_p95_ms": _series_p95(runs, "CPU_RENDER_MS"),
+        "renderer_allocation_p95_bytes": _series_p95(runs, "RENDERER_ALLOCATION_BYTES"),
         "environment_status": (
             "NVIDIA_DRIVER_VERSION_UNVERIFIED"
             if reference["nvidia_driver_version"] is None else "DRIVER_VERSION_RECORDED"
@@ -149,6 +156,15 @@ def summarize(batch: Any) -> dict[str, Any]:
         ],
     }
 
+
+def summarize(batch: Any) -> dict[str, Any]:
+    if type(batch) is not dict or frozenset(batch) != frozenset({"captures"}):
+        raise ProfileError("batch must contain only the captures array")
+    captures = batch["captures"]
+    if type(captures) is not list or not MIN_REPEATS <= len(captures) <= MAX_REPEATS:
+        raise ProfileError("batch requires 3 to 12 captured documents")
+    reference, runs = _validated_runs(captures)
+    return _result(reference, runs)
 
 def validate_batch_payload(payload: bytes) -> dict[str, Any]:
     if len(payload) > MAX_BATCH_BYTES:
