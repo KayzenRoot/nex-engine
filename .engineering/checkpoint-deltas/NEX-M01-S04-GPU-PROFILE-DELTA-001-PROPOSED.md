@@ -1,0 +1,4 @@
+# NEX-M01-S04-GPU-PROFILE-DELTA-001 | Proposed checkpoint delta (NOT CANONICAL)
+**No canonical status update was made.** Upon future separately authorized protected Stage A lock merge, the only valid stage transition is `OWNER_SCOPE_APPROVED_LOCK_PROMOTED_POSTMERGE_ATTESTED`, after the actual new-main SHA, identical reviewed tree, successful required checks and Steward exclusive lease are verified. This does **not** mark M01 parent admitted, implemented, tested or complete.
+
+Later, when an independently reviewed Stage B implementation PR is merged with separate Owner exact-head approval and its own post-merge audit, propose status `GPU_PROFILER_INCREMENT_INTEGRATED` linked to concrete Windows GPU evidence. Do not mark `GPU_RENDER_MS` as available unless raw GPU timing exists and is independently checked. Do not close parent issue #6 or self-promote `.engineering/CHECKPOINT.md` or `.json`.

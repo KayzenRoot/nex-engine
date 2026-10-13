@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M01-S04-GPU-PROFILE-DELTA-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 24,
+  "parentM01Issue": 6,
+  "scopeApproval": {
+    "status": "OWNER_APPROVED_SUB_INCREMENT_ONLY",
+    "record": "https://github.com/KayzenRoot/nex-engine/issues/24#issuecomment-6136220475",
+    "date": "2026-10-12"
+  },
+  "status": "NOT_EXECUTABLE_UNTIL_PROTECTED_LOCK_PROMOTION_POSTMERGE_ATTESTATION_AND_STEWARD_LEASE",
+  "authorityBaseSha": "d4a6db4d9e32cfb89a088675eadbfa9f755a62d0",
+  "authorityBaseGitTreeSha": "43c51e175e651cb00f347cf4577b8db64a5f3dea",
+  "authorityBaseMeaning": "HISTORICAL_IMMUTABLE_PRE_PROMOTION_SNAPSHOT_NOT_FUTURE_RUNTIME_SHA",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "9ce21855b279d8d995e3a0eb9cb29fa97a5f7eae"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "30cd144a41b1944496cbf229c75c9b7ece99d5d9"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "092bfcc21fd2fb5dc89919a0afb535c070a01a9a"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "0494797784b4162e6d51eae22bb99ef33a477bc2"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "4923f3fd8eb3d7231abcb7776fb10ac6441f9330"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "6e5564f15353927cad6137df9293d36f7951faf4"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "812011ebb1a65f5894fb5db7b7ff65813ec37779"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0002-CHATGPT-REVIEW-REPAIR-FIRST.md",
+      "gitBlobSha1": "bccd53f9a55c89af152bcda193d50dc6a28c617f"
+    },
+    {
+      "path": ".engineering/context-locks/NEX-M01-S02-WO-001-EXECUTION.json",
+      "gitBlobSha1": "966d090c7ed5358035dbc81f0f842522ef53f3e7"
+    },
+    {
+      "path": "nex_bench/hub.gd",
+      "gitBlobSha1": "f7382f1ecf942bff2897a6e5fe6529d3336e3f32"
+    },
+    {
+      "path": "nex_bench/smoke.gd",
+      "gitBlobSha1": "9c03e517e14fba876663f45a248538354cfd53c3"
+    },
+    {
+      "path": "nex_bench/project.godot",
+      "gitBlobSha1": "e44f2b1771c63320323430fed9445d5eaaefbde2"
+    },
+    {
+      "path": "nex_bench/README.md",
+      "gitBlobSha1": "4193f9a111243c3505c8f31e1f5ef3146bc654f5"
+    },
+    {
+      "path": "nex_bench/validate_frame_observation.py",
+      "gitBlobSha1": "f505cd26e2d728bbd7b787e7fd7d1fe48f3a5942"
+    },
+    {
+      "path": "nex_bench/stress/density_ladder.gd",
+      "gitBlobSha1": "129c2005b49720d5f31e7621b17d2cbff34d044d"
+    },
+    {
+      "path": "nex_bench/stress/config/ladder.v1.json",
+      "gitBlobSha1": "7301cf1573af2123825d2a73847aafd8ce4fcf2b"
+    },
+    {
+      "path": "tests/ci/test_frame_observation_validator.py",
+      "gitBlobSha1": "59b28faba38bb6beef12a55d5db732103ca92880"
+    },
+    {
+      "path": "tests/ci/test_integrated_hub.py",
+      "gitBlobSha1": "815fddcde30b7030f01acf76f72a8127ec9c50b0"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0f3f66e65e21b28ec70b2612f05320f362ccdc5f"
+    },
+    {
+      "path": ".github/workflows/nex-visual-lab-native-smoke.yml",
+      "gitBlobSha1": "1dffd0a2a11e1fc45efc9ed3c73f9ecc7df31790"
+    }
+  ],
+  "promotionAllowedExactPaths": [
+    ".engineering/work-orders/NEX-M01-S04-GPU-PROFILE-DELTA-001.md",
+    ".engineering/context-locks/NEX-M01-S04-GPU-PROFILE-DELTA-001-EXECUTION.json",
+    ".engineering/evidence/NEX-M01-S04-GPU-PROFILE-DELTA-001-ADMISSION-EVIDENCE.md",
+    ".engineering/checkpoint-deltas/NEX-M01-S04-GPU-PROFILE-DELTA-001-PROPOSED.md"
+  ],
+  "postPromotionMainSha": "ATTEST_LIVE_MAIN_AFTER_STAGE_A_MERGE",
+  "futureImplementationBranch": "feat/nex-m01-s04-gpu-profile-delta-001",
+  "executionMode": "CODEX_DESKTOP_LOCAL_WINDOWS_GPU_SINGLE_WRITER",
+  "gpuLease": "EXCLUSIVE_RTX_5050_PER_RUN_NO_PARALLEL_GPU_BENCHMARKS",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_bench/hub.gd",
+      "nex_bench/smoke.gd",
+      "nex_bench/README.md",
+      "nex_bench/gpu_profile/**",
+      "tests/ci/test_gpu_profile_*.py"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/**",
+      "contracts/**",
+      ".github/workflows/**",
+      "nex_bench/project.godot",
+      "nex_bench/stress/**",
+      "nex_bench/telemetry/**",
+      "other agent branches and worktrees"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "Godot core changes",
+      "force push",
+      "ruleset bypass",
+      "paid/cloud APIs",
+      "canonical checkpoint self-promotion"
+    ]
+  },
+  "prConditions": {
+    "oneImplementationPr": true,
+    "merge": "SEPARATELY_OWNER_AUTHORIZED_EXACT_HEAD_PROTECTED_SQUASH",
+    "contextLock": "REVALIDATE_LIVE_MAIN_BEFORE_EXECUTION",
+    "checks": "ALL_REQUIRED_SUCCESS",
+    "sourceBase": "MUST_USE_ACTUAL_POST_STAGE_A_MAIN_SHA"
+  },
+  "stop": "LOCK_PROMOTION_PENDING_OWNER_SEPARATE_CONSENT"
+}
