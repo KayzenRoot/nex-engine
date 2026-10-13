@@ -248,6 +248,13 @@ class GPUProfileValidatorTests(unittest.TestCase):
         self.assertIn("NEX_NATIVE_GPU_PROFILE_PASS", smoke)
         self.assertNotIn("RenderingServer.viewport_set_measure_render_time", hub)
 
+    def test_profiler_status_never_displays_absolute_output_paths(self):
+        hub = (ROOT / "nex_bench" / "hub.gd").read_text(encoding="utf-8")
+        self.assertIn("var display_name := output_path.get_file()", hub)
+        self.assertIn("int(cpu.get(\"valid_sample_count\", 0)), display_name", hub)
+        self.assertIn("str(document.get(\"run_status\", \"INVALID\")), display_name", hub)
+        self.assertIn('"GPU profiler HUD screenshot saved: %s" % filename', hub)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -400,15 +400,16 @@ func _finish_gpu_profile(update: Dictionary) -> void:
         gpu_profile_last_status = "GPU PROFILER %s | capture was not saved; see local output limits." % str(update.get("state", "INVALID"))
         _status("GPU profile collected but JSON export failed")
     else:
+        var display_name := output_path.get_file()
         var series: Dictionary = document.get("series", {})
         var gpu: Dictionary = series.get("GPU_RENDER_MS", {})
         var cpu: Dictionary = series.get("CPU_RENDER_MS", {})
         gpu_profile_last_status = "GPU PROFILER %s | GPU=%s n=%d, CPU=%s n=%d\n%s" % [
             str(document.get("run_status", "INVALID")),
             str(gpu.get("status", "UNAVAILABLE")), int(gpu.get("valid_sample_count", 0)),
-            str(cpu.get("status", "UNAVAILABLE")), int(cpu.get("valid_sample_count", 0)), output_path
+            str(cpu.get("status", "UNAVAILABLE")), int(cpu.get("valid_sample_count", 0)), display_name
         ]
-        _status("GPU profile %s: %s" % [str(document.get("run_status", "INVALID")), output_path])
+        _status("GPU profile %s: %s" % [str(document.get("run_status", "INVALID")), display_name])
     _refresh_gpu_profile_panel()
 
 func _refresh_gpu_profile_panel() -> void:
@@ -452,7 +453,7 @@ func _capture_gpu_profile_screenshot() -> void:
     if error != OK:
         _status("BLOCKED: profiler screenshot could not be written")
         return
-    _status("GPU profiler HUD screenshot saved: %s" % output_path)
+    _status("GPU profiler HUD screenshot saved: %s" % filename)
 
 func _sample_frame_observation(delta: float) -> void:
     if not observation_active:
