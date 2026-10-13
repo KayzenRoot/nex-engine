@@ -8,6 +8,7 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import hashlib
 import math
 from pathlib import Path
 import unittest
@@ -287,6 +288,39 @@ class GPUProfileValidatorTests(unittest.TestCase):
         document["run_reason"] = "requested_observation_window_elapsed"
         with self.assertRaises(MODULE.ProfileError):
             MODULE.validate_report(document)
+
+
+    def test_18_archived_raw_captures_keep_independently_pinned_sha256(self):
+        # Hashes taken from immutable R1 and v1 preservation attestations.
+        # Pin the EXPECTED bytes in test code, not a mutable manifest beside
+        # the evidence, so the test catches semantically valid raw-file edits.
+        expected_sha256 = {
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861284-94123612.json": "9148d8dffb48438f55c009c69688d25fb705b11b4838eafc23a128562051646d",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861329-139216409.json": "fd91f410bb4b887c800d6ac50452661b8a9176fc9478b8b157484dfda994b4eb",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861370-179258950.json": "ed280f709f35c2d9fce7c6331f776665e1811c18e0add7aa4e5123d3d4d6ff70",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861416-225833049.json": "ff8998241082f4774603a3f343c4751f96e6c4f4c0c626b76b6a021b58a7b74c",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861457-266323495.json": "616de9aca967412c0f0530617dff9ed7722c30d7b1be238d216346e76df6d9a3",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861498-308227035.json": "32095289d969f0ace51138dbb2951a72355e77558b5d5a6f40b7b320cdd205ce",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861543-352488133.json": "1961dce9ad38052eb71703b6f47ea9c563ba44eb9a53d98805364878f5690b6c",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861586-395620628.json": "a55a00f009de884b35b68bace517f13d3851ef6f10a743e1568ba68e2084d806",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861628-438132686.json": "ff04b97671fcd0e6864dad1bf987f4161a6feb95df6476f66e9bd6663a2f1684",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861677-486406171.json": "a36dc739726810cfdadd29876c2be3f4948b5253d8bb9c8090d17b49537fea33",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861719-528357532.json": "649354009b037486e2808ab45ea5b3908ff0dac12e37249016a609ba0e90276b",
+            "windows-rtx5050-2026-10-13-final-head/gpu_profile_1791861761-570303070.json": "bcf18aa22cb49194bfc2efcd642b81ae9a88ca4978c4a9efab9ea208e5720aa7",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791883867-295809379.json": "05449c489cc2133dd6c547a576c1ee9c72ded2c2b788e96c0843e977c0278896",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791883979-407576457.json": "2fd2771f28117a47b4c9accdb556efbf65a9542898c97a53987167f7396e0e0d",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884017-445689369.json": "816f54ab093735c559c41a90200ee21e5a65a52a49c557e0fcb17e8deb974776",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884095-523815570.json": "2a491a7d47b061e175f6710cf9a14a9bed422772c85676fbdf5332764cfaf3bc",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884133-561569147.json": "e0cd47b18a15fbb82656de1ce4b6641678263490d907cd9f3fc725b6017c28e3",
+            "windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884170-598874419.json": "e113c88ab2ba2a689c93460ddfc31522928f1d7de6a2c045ad163639f5bd88a5",
+        }
+        evidence_root = ROOT / "nex_bench" / "gpu_profile" / "evidence"
+        self.assertEqual(len(expected_sha256), 18)
+        for relative, expected_hash in expected_sha256.items():
+            with self.subTest(archived_raw_capture=relative):
+                capture = evidence_root / relative
+                self.assertTrue(capture.is_file(), "archived raw capture is missing")
+                self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
 
     def test_six_real_v2_frame_pacing_captures_remain_valid(self):
         # Archived R1 hardware evidence: guard against future v1/v2
