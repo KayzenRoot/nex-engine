@@ -616,7 +616,12 @@ def validate_payload(payload: bytes) -> dict[str, Any]:
             object_pairs_hook=_pairs_no_duplicates,
             parse_constant=_reject_constant,
         )
-    except (UnicodeError, json.JSONDecodeError) as exc:
+    except ProfileError:
+        # Preserve the existing explicit duplicate-key and non-JSON-constant errors.
+        raise
+    except (UnicodeError, json.JSONDecodeError, ValueError, RecursionError) as exc:
+        # json.loads can also raise ValueError for excessively long integers
+        # or RecursionError for deeply nested (but byte-bounded) documents.
         raise ProfileError("invalid UTF-8 profile JSON: " + str(exc)) from None
     return validate_report(document)
 
