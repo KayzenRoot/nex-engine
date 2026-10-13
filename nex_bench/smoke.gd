@@ -231,6 +231,31 @@ func _check_modules() -> void:
     if bool(profile_session.call("begin", window.get_viewport(), invalid_context, false)):
         _fail("GPU profiler accepted a missing/non-SHA-1 source pin")
         return
+    # Contract v2 permits 25 combined, not 50/100/200 combined. Fail
+    # BEFORE enabling viewport rendering measurement or collecting samples.
+    var forbidden_combined: Dictionary = profile_context.duplicate(true)
+    forbidden_combined["effect_mode"] = "combined"
+    forbidden_combined["proxy_count"] = 50
+    if bool(profile_session.call("begin", window.get_viewport(), forbidden_combined, false)):
+        _fail("GPU profiler accepted combined 50 despite v2 validator 25-only contract")
+        return
+    if bool(profile_session.call("is_active")) or bool(profile_session.call("is_measurement_enabled")):
+        _fail("Rejected combined workload left viewport GPU timing enabled")
+        return
+    if not str(profile_session.get("last_error")).contains("25 proxies"):
+        _fail("Rejected combined workload did not explain its 25-proxy restriction")
+        return
+    var allowed_combined: Dictionary = profile_context.duplicate(true)
+    allowed_combined["effect_mode"] = "combined"
+    if not bool(profile_session.call("begin", window.get_viewport(), allowed_combined, false)):
+        _fail("GPU profiler incorrectly rejected the allowed combined 25 workload")
+        return
+    if not bool(profile_session.call("cancel", "smoke combined 25 admission check")):
+        _fail("Combined 25 workload cancellation failed")
+        return
+    if bool(profile_session.call("is_active")) or bool(profile_session.call("is_measurement_enabled")):
+        _fail("Cancelling allowed combined 25 left viewport timing enabled")
+        return
     if not bool(profile_session.call("begin", window.get_viewport(), profile_context, false)):
         _fail("GPU profiler could not enable viewport timing for a bounded smoke")
         return
