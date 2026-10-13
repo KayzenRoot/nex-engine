@@ -1,0 +1,18 @@
+{
+  "effect_mode": "geometry",
+  "frame_intervals_units": "ms",
+  "limitations": "Main-loop delta only; VSync may cap intervals; not GPU time, GPU memory or input-to-photon.",
+  "measurement": "OBSERVED_MAIN_LOOP_DELTA_NOT_GPU_TIME",
+  "proxy_count": 200,
+  "recalculated": {
+    "mean_interval_ms": 13.369170840289371,
+    "observed_mean_fps": 74.7989543963637,
+    "observed_seconds": 8.008133333333333,
+    "p50_interval_ms": 13.333,
+    "p95_interval_ms": 13.333,
+    "p99_interval_ms": 13.8888888888889
+  },
+  "sample_count": 599,
+  "schema_version": "nex_frame_observation.v1",
+  "status": "PASS"
+}

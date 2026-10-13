@@ -15,7 +15,10 @@ def verify():
     for row in index["scenes"]:
         scene = ROOT / row["scene_path"]
         fixture = json.loads((ROOT / row["fixture_path"]).read_text(encoding="utf-8"))
-        digest = hashlib.sha256(scene.read_bytes()).hexdigest()
+        # Git may materialize this text scene as CRLF on Windows when
+        # core.autocrlf is enabled. Fixture hashes describe canonical LF bytes.
+        canonical_bytes = scene.read_bytes().replace(b"\r\n", b"\n")
+        digest = hashlib.sha256(canonical_bytes).hexdigest()
         assert digest == row["scene_sha256"] == fixture["scene_sha256"], row["id"]
         assert fixture["schema_version"] == "scene_manifest.v1"
         assert fixture["scene_id"] == row["id"]

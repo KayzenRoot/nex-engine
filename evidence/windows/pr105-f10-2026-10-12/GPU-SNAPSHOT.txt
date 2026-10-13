@@ -1,0 +1,20 @@
+Capturado UTC: 2026-10-12T22:47:43Z
+
+Host:
+OS: Microsoft Windows 11 Pro, version 10.0.26300, build 26300, 64 bits
+Tela principal: 2560x1080
+
+GPU (consulta instantanea depois das execucoes, nao e uma medida durante F10):
+Campos: nome, driver, memoria total, memoria utilizada, utilizacao, temperatura
+NVIDIA GeForce RTX 5050, 617.14, 8151 MiB, 1591 MiB, 17 %, 47
+
+Godot usado:
+Versao: 4.7.2.stable.official.ed1daf0bf
+Commit oficial conforme toolchain lock: ed1daf0bf001b61586d9930840f2f1394092c079
+SHA-256 esperado do ZIP Windows conforme lock: 731980f9608d61333e5baf54a2ef17210acc7a538446c0cb9969f002aca1e953
+SHA-256 observado do executavel: ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424
+Backend F9: forward_plus / vulkan
+Viewport F10: 1280x720
+F10: max_fps_setting=0; vsync_mode=1
+
+Leitura: a consulta de GPU acima e um ponto no tempo posterior as coletas. A evidência direta da sessão e F1-F9-RTX5050.jpg; F10 JSON mede delta do main loop, nao tempo de GPU nem VRAM total.
