@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M11 asset pipeline contract v1
+
+**Contrato M11 v1 integrado** por PR #171, squash `92ede8238e91a3e75456a03d9557310f33199527` (código `292c8ac4`). `contracts/m11/asset_pipeline.v1.schema.json` define estágios raw→imported→cooked→validated, licença SPDX/atribuição/verificação, import settings, dependências, política de licenciamento, orçamentos e proveniência. Ownership prospectivo de `nex_modules/assets/**`, docs e **19 testes novos** (suíte de contratos 169 OK; total 529 em worktree LF limpo).
+
+**Parent M11 (#16) continua NOT_ADMITTED.** Nenhum asset importado/cookado/carregado, licença verificada, engine ou CI alterado; licenciamento/qualidade `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M10-FEEDBACK planner prototype
 
 **M10-FEEDBACK integrado como protótipo isolado** por PR #169, squash `0709923347d8bd145046e69c997f6a6fa8ef81ed` (código `e62d9290`). Em `nex_modules/animation/combat_feedback/`, o planejador determinístico consome `feedback.v1`: fases do ataque, hit events, timeline priorizada, budgets de hit-stop/shake/concorrência, conflitos e exportação de observação para planos seguros. **66 asserts headless** e 9 testes estruturais.
