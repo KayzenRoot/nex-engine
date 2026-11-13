@@ -1,0 +1,23 @@
+NEX-M01-S04 / R9 RESUMPTION - SESSION FACTS
+Date: 2026-11-13 (local)
+Measured code SHA: d59c94da13839ba1c6c2e894d4d1147ff3fddc78
+PR #107 head at capture time: 280beff0f9c5a850d3a44c2b6e2b9362d47ee672 (code identity with measured SHA: zero diff)
+Protected main: 226b015ed34d8e4452819da45f92d8936796b3b0
+Godot: 4.7.2.stable.official.ed1daf0bf, binary SHA-256 ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424
+GPU: NVIDIA GeForce RTX 5050, driver 617.14; renderer forward_plus / Vulkan; viewport 1280x720; VSync 1; max_fps 0
+Environment variable: NEX_GPU_PROFILE_SOURCE_SHA=d59c94da13839ba1c6c2e894d4d1147ff3fddc78
+Leases: Local\NEX_M01_S04_GPU_PROFILE_WRITER + Local\NEX_M01_S04_GPU_PROFILE_RTX5050 (exclusive, released)
+Native smoke: Start-NEX.ps1 -SmokeOnly exit 0, NEX_NATIVE_IMPORT_SMOKE_PASS
+Session: single GUI session, serial scenarios, one F11 start per capture
+
+Scenario log (orchestrator):
+  10:48:51 F11 start 200 geometry -> 10:49:23 COMPLETE file gpu_profile_1794577762-42755782.json observed=30.002913s valid_pacing=1800
+  10:49:26 F11 start 25 combined #1 -> 10:49:58 COMPLETE file gpu_profile_1794577798-78108593.json observed=30.003097s valid_pacing=1800
+  10:49:59 F11 start 25 combined #2 -> 10:50:30 COMPLETE file gpu_profile_1794577830-110647047.json observed=30.003243s valid_pacing=1800
+  10:50:31 F11 start 25 combined #3 -> 10:51:03 COMPLETE file gpu_profile_1794577863-143192521.json observed=30.003239s valid_pacing=1800
+  10:51:06 F11 start resize-negative; 10:51:11 SetWindowPos 960x600=True; no invalidation/export within 20s; run cancelled by workload change (no export)
+  10:51:35 F11 start Combined50 denial -> no new file (expected); screenshot captured
+  10:52:57 supporting diagnostic: window 960x600, F11 25 geometry -> COMPLETE viewport=1280x720
+Resize-negative classification: NOT_EXERCISABLE under display/window/stretch/mode=canvas_items (viewport fixed at project size)
+Denial evidence: UI text GPU profile blocked: Combined GPU profiling is limited to 25 proxies by the v2 contract.
+Validator: nex_bench/gpu_profile/validate_gpu_profile.py v2 via stdin, exit 0 (PASS) on all five documents
