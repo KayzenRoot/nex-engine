@@ -1,0 +1,67 @@
+{
+  "schema_version": "m06_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m06/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m06-atlas", "m06-lod", "m06-culling", "m06-streaming", "m06-framepacer", "m06-qa"]
+    },
+    {
+      "path": "nex_modules/performance/atlas/**",
+      "owner": "m06-atlas",
+      "mode": "future-write",
+      "consumers": ["m06-lod", "m06-culling", "m06-streaming", "m06-framepacer", "m06-qa"]
+    },
+    {
+      "path": "nex_modules/performance/lod/**",
+      "owner": "m06-lod",
+      "mode": "future-write",
+      "consumers": ["m06-culling", "m06-streaming", "m06-qa"]
+    },
+    {
+      "path": "nex_modules/performance/culling/**",
+      "owner": "m06-culling",
+      "mode": "future-write",
+      "consumers": ["m06-streaming", "m06-qa"]
+    },
+    {
+      "path": "nex_modules/performance/streaming/**",
+      "owner": "m06-streaming",
+      "mode": "future-write",
+      "consumers": ["m06-framepacer", "m06-qa"]
+    },
+    {
+      "path": "nex_modules/performance/framepacer/**",
+      "owner": "m06-framepacer",
+      "mode": "future-write",
+      "consumers": ["m06-qa"]
+    },
+    {
+      "path": "tests/performance/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m02/**",
+    "contracts/m03/**",
+    "contracts/m04/**",
+    "contracts/m05/**",
+    "contracts/m06/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M06-CONTRACT-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 11,
+  "parentM06Issue": 11,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-13",
+    "record": "Standing authorization to continue without asking; executor selected the M06 performance contract to close the M03-M06 interface chain.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "beab4ac0eab6b57455cde57ff6627b74b46a4cd7",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M05_FXBUDGET_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "bf8c28baffd24438489d0c15317290b3db687388"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "be33f389d7a5f1e860a6a31c29505b61a884807e"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m01/scene_manifest.v1.schema.json", "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"},
+    {"path": "contracts/m01/telemetry_run.v1.schema.json", "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"},
+    {"path": "contracts/m01/ownership.v1.json", "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"},
+    {"path": "contracts/m02/render_core.v1.schema.json", "gitBlobSha1": "3ecd8191daea7c1e43401d16d3aea1cf1dca9cfe"},
+    {"path": "contracts/m03/lighting.v1.schema.json", "gitBlobSha1": "031c8e221b29dabe77a1e329247536b6c636d0b9"},
+    {"path": "contracts/m03/ownership.v1.json", "gitBlobSha1": "434c878f47253f8adaa5abd40fad6d0e5e62e67a"},
+    {"path": "contracts/m04/material.v1.schema.json", "gitBlobSha1": "9c1ad6df798973ca83f1cb4b990c7179cd0401c0"},
+    {"path": "contracts/m04/ownership.v1.json", "gitBlobSha1": "090868ab2dc9cbc03dccbbe1d6164c253356154d"},
+    {"path": "contracts/m05/spellfx.v1.schema.json", "gitBlobSha1": "442cd3f5bfffb91dd6728a7bb4cc48ac537b0908"},
+    {"path": "contracts/m05/ownership.v1.json", "gitBlobSha1": "3f7c82a402cfce77fe3d9ea8473182be9c6ae221"},
+    {"path": "nex_modules/vfx/fxbudget/fx_budget_planner.gd", "gitBlobSha1": "a6e1960495f28348ed3833f050a10ff89ce99040"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "contracts/m06/**",
+      "docs/contracts/m06.md",
+      "tests/contracts/test_m06_performance_contract.py",
+      ".engineering/work-orders/NEX-M06-CONTRACT-WO-001.md",
+      ".engineering/context-locks/NEX-M06-CONTRACT-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M06-CONTRACT-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M06-CONTRACT-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/m01/**",
+      "contracts/m02/**",
+      "contracts/m03/**",
+      "contracts/m04/**",
+      "contracts/m05/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/** (exceto m06)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "engine/renderer changes",
+      "new measurements or benchmark claims",
+      "M06 parent admission",
+      "project.godot/CI changes",
+      "fabricated FPS or regression claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
