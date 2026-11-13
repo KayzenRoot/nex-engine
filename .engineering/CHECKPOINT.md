@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S03 DepthWeave prototype
+
+**M02-S03 integrado como protótipo isolado** por PR #129, squash `9adc0e68b3f2b3f3c5508ac2557a134455d3f0b8` (código `68378db6`). O planejador em `nex_modules/render3d/depth_composition/` cobre passes opaco/alfa/overlay, riscos de Z-fighting, histerese contra flicker, conflitos alfa×crítico e overlay×gameplay, com **37 asserts headless** e 8 testes estruturais. Draft de contrato M08 2.5D anexado como `DRAFT_NOT_PROMOTED`.
+
+`Visual/edge/aliasing/frame-time = INCONCLUSIVE_NOT_RUN` (sem rendering). Parent M02 (#7) continua **NOT_ADMITTED**; M02-S04 (TemporalGuard) pode consumir o plano/histerese com mocks sob WO própria. M03–M12 seguem sem admissão.
+
+
 ## Current verified scope | 2026-11-13 · M02-S02 Sightline prototype
 
 **M02-S02 integrado como protótipo isolado** por PR #127, squash `6b4ba4d5ccdc50bdcb0b825c4571058bbb81a0d6` (código `6057c1da`). O controlador Sightline em `nex_modules/render3d/sightline/` implementa oclusão por AABB, prioridades jogador→ameaça→decoração, fade/silhueta com histerese, cap de reveals, visibilidade de gameplay separada da legibilidade visual e alerta de ameaça bloqueada. **49 asserts headless** e 9 testes estruturais.
