@@ -7,24 +7,11 @@ from pathlib import Path
 from typing import Any
 
 from test_m01_schema import limited_schema_errors, strict_json_loads
+from test_m02_render_contract import _resolve_refs
 from test_ownership_locks import normalize_path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_DIR = REPO_ROOT / "contracts" / "m07"
-
-
-def _resolve_refs(node: Any, definitions: dict[str, Any], seen: tuple[str, ...] = ()) -> Any:
-    """Expand local $ref nodes so the limited checker can evaluate the schema."""
-    if isinstance(node, dict):
-        if "$ref" in node:
-            name = str(node["$ref"]).rsplit("/", 1)[-1]
-            if name not in definitions or name in seen:
-                raise ValueError(f"unresolvable schema reference: {node['$ref']}")
-            return _resolve_refs(definitions[name], definitions, seen + (name,))
-        return {key: _resolve_refs(value, definitions, seen) for key, value in node.items()}
-    if isinstance(node, list):
-        return [_resolve_refs(value, definitions, seen) for value in node]
-    return node
 
 
 def read_schema(filename: str) -> dict[str, Any]:
@@ -289,12 +276,6 @@ class M07OwnershipTests(unittest.TestCase):
                     f"overlapping write paths: {base!r} and {existing!r}",
                 )
             bases.append(base)
-
-    def test_absolute_and_traversal_paths_are_rejected(self) -> None:
-        for path in ("/etc/passwd", "C:/Windows/system32", "../outside", "a/../../outside"):
-            with self.subTest(path=path):
-                with self.assertRaises(ValueError):
-                    normalize_path(path)
 
 
 if __name__ == "__main__":
