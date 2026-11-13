@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M05-FXBUDGET planner prototype
+
+**M05-FXBUDGET integrado como protótipo isolado** por PR #155, squash `ae134a408b8777a9970acb6f165429bd0d439c38` (código `10ecb58a`). Em `nex_modules/vfx/fxbudget/`, o planejador determinístico consome `spellfx.v1`, valida identidade/fases/emissores/autoridade/light bridge/decal policy, agrega emissores/partículas/GPU/decals e gera planos de redução de partículas e conversão GPU→CPU. **57 asserts headless** e 9 testes estruturais.
+
+**Parent M05 (#10) continua NOT_ADMITTED.** Nenhuma partícula/emissor/luz/decal, cena, engine ou CI; totais aritméticos, conversão não medida; qualidade/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M04-TEXTUREBUDGET planner prototype
 
 **M04-TEXTUREBUDGET integrado como protótipo isolado** por PR #153, squash `253afe6c8dc8efad5060b739425ca45612df8023` (código `658ee86f`). Em `nex_modules/materials/texturebudget/`, o planejador determinístico consome descritores `material.v1`, deduplica por SHA-256, estima bytes decodificados com mips, calcula pressão de atlas, emite achados e gera plano de downscale guloso. **55 asserts headless** e 9 testes estruturais.
