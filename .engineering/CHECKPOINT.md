@@ -1,5 +1,16 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · ADMIN_SOLO security correction
+
+Desenvolvimento sob **NEX-ADR-0004 / NEX-D-014** (`ADMIN_SOLO / NOT_INDEPENDENT`; nenhum revisor humano externo exigido). NEX-GOV-SOLO-WO-001 (#108) promovido por PR #109 em `47f95521821f71196ec54c8d74b20fa9c3a2a4a5`.
+
+M01-S04 GPU Profiler integrado por PR #107 em `4d69b7bd264f4814317c6e5fe98eaccdc2b620e0`, com correção de importação de evidências na PR #110 (`71d6750fc63a7ff2431bc77aada9f1330016d2de`). Matriz física RTX 5050: **12/12 COMPLETE** no código medido `d59c94da13839ba1c6c2e894d4d1147ff3fddc78`; limitações documentadas: resize-negative não exercitável sob `canvas_items` e pacing não comparável entre sessões de ~75 e ~60 callbacks/s. Isso **não** admite o parent M01 #6 nem M02–M12.
+
+O **Security Rating C** do SonarCloud na main (3 vulnerabilidades MAJOR em `tooling/godot/ci_build.py`: `pythonsecurity:S5144` SSRF e `pythonsecurity:S6350` ×2 command argument injection) foi corrigido na PR #112, squash `0d8e562fa63d291b910f4f9756eb04ac52ffebd1`. HEAD exato `ee717eab47f6d00f18e87fedad1c1a3d17e8d220` com **16/16 checks SUCCESS**, incluindo build nativo Windows e smoke Ubuntu oficiais; análise Sonar do PR: **0 novas vulnerabilidades / new_security_rating A**; pós-merge na main: `security_rating=1.0`, `vulnerabilities=0`. Sem supressão, sem alteração de quality gate, workflow ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+M00 baseline, contracts e S02 permanecem verificados conforme o histórico abaixo. M01 parent, S01, S05+ e M02–M12 permanecem **NOT_ADMITTED**.
+
+
 ## Current verified scope | Stage B proposed checkpoint reconciliation (2026-10-12)
 
 Contracts v1 #19 are **integrated** via protected [PR #93](https://github.com/KayzenRoot/nex-engine/pull/93), main `60c826e41aac061bcdee72e4f793508c661de933`. S02 synthetic-only FramePulse #22 is **integrated** via protected [PR #95](https://github.com/KayzenRoot/nex-engine/pull/95), main `ef20ad4e03e3fd588ec6f6386fd88ce45e1dd6cd`, identical reviewed Git tree `ee8d5695c1cc94416aa155e19dbfd776b710645c`, 10/10 postmerge checks and 5/5 workflows successful. Stage A governance lock PR #97 promoted to `6192ebb0e77e5e706466ab25e438955efad35f37`, 37/37 pins valid. [S02 attestation](https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436), [contracts audit](https://github.com/KayzenRoot/nex-engine/issues/19#issuecomment-6124229771).
