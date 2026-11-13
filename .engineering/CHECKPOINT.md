@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S01 camera prototype
+
+**M02-S01 integrado como protótipo isolado** por PR #125, squash `9fea0f384f933b7619f0bd68b3b1f28747a1b9f7` (código `9f8d4ce`). O rig isométrico determinístico vive em `nex_modules/render3d/camera/` (perspectiva inclinada e ortográfica, dead zone, bounds, zoom, sincronização mundo↔tela, enquadramento por aspect e replay), com **32 asserts headless** e 10 testes estruturais. O estado segue o contrato `render_core.v1`; **nenhuma integração no engine** foi feita.
+
+`Performance/FPS A/B = INCONCLUSIVE_NOT_RUN` (sem mudança de rendering). Parent M02 (#7) continua **NOT_ADMITTED**; S02/S03 (Sightline/DepthWeave) podem consumir a API com mocks, mas exigem WO própria e admissão do Owner. M03–M12 permanecem sem admissão.
+
+
 ## Current verified scope | 2026-11-13 · M01 baseline audit pack (S07)
 
 **S07 integrado** por PR #123, squash `ed72f90e341c9e0d1dc136354ea4d8f53ce2f583`. O audit pack em `docs/benchmarks/m01/` congela o baseline M01 como **instrumento verificável**: manifesto de 71 artefatos com SHA-256 de blobs Git (`build_manifest.py --check` → `MANIFEST_OK`), baseline, orçamento **proposto**, riscos, desvios, links de CI e insumos de pesquisa.
