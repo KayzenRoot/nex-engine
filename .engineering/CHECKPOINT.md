@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M06 performance contract v1
+
+**Contrato M06 v1 integrado** por PR #157, squash `7e21d7087097de4bcceca6d328d4edfe341e977e` (código `78af311c`). `contracts/m06/performance.v1.schema.json` define workload, frame interval, timings GPU/CPU/pacing, recursos, classificação de gargalo com evidência/confiança e comparação opcional. Ownership prospectivo de atlas/LOD/culling/streaming/framepacer, docs e **17 testes novos** (suíte de contratos 110 OK; total 440 em worktree LF limpo). A cadeia de interfaces M03–M06 está definida.
+
+**Parent M06 (#11) continua NOT_ADMITTED.** Nenhuma captura, medição, benchmark, engine ou CI alterado; nenhum claim de FPS/regressão. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M05-FXBUDGET planner prototype
 
 **M05-FXBUDGET integrado como protótipo isolado** por PR #155, squash `ae134a408b8777a9970acb6f165429bd0d439c38` (código `10ecb58a`). Em `nex_modules/vfx/fxbudget/`, o planejador determinístico consome `spellfx.v1`, valida identidade/fases/emissores/autoridade/light bridge/decal policy, agrega emissores/partículas/GPU/decals e gera planos de redução de partículas e conversão GPU→CPU. **57 asserts headless** e 9 testes estruturais.
