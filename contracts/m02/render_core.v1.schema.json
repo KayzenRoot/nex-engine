@@ -1,0 +1,477 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nex-engine.local/contracts/m02/render_core.v1.schema.json",
+  "title": "NEX M02 render core contract v1",
+  "description": "Versioned interface for isometric 3D render observations. Representation only: this schema does not implement M02, admit the module, or establish performance claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "frame_id",
+    "captured_at_utc",
+    "camera",
+    "render_settings",
+    "performance",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "render_core.v1"
+    },
+    "frame_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"
+    },
+    "captured_at_utc": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preset_id",
+        "projection",
+        "position_m",
+        "target_m",
+        "view_rotation_degrees",
+        "viewport"
+      ],
+      "properties": {
+        "preset_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"
+        },
+        "projection": {
+          "enum": [
+            "isometric_orthographic",
+            "isometric_perspective"
+          ]
+        },
+        "position_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "target_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "view_rotation_degrees": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "yaw_deg",
+            "pitch_deg"
+          ],
+          "properties": {
+            "yaw_deg": {
+              "type": "number",
+              "minimum": -360,
+              "maximum": 360
+            },
+            "pitch_deg": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            }
+          }
+        },
+        "ortho_size_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000
+        },
+        "vertical_fov_degrees": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 179
+        },
+        "near_clip_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100
+        },
+        "far_clip_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100000
+        },
+        "stability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "snap_to_pixel",
+            "anchor_offset_px"
+          ],
+          "properties": {
+            "snap_to_pixel": {
+              "type": "boolean"
+            },
+            "anchor_offset_px": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "integer",
+                "minimum": -4096,
+                "maximum": 4096
+              }
+            }
+          }
+        },
+        "viewport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width_px",
+            "height_px",
+            "unit"
+          ],
+          "properties": {
+            "width_px": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            },
+            "height_px": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16384
+            },
+            "unit": {
+              "const": "px"
+            }
+          }
+        }
+      }
+    },
+    "render_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "renderer_id",
+        "driver_id",
+        "vsync_mode",
+        "max_fps",
+        "resolution_scale",
+        "msaa",
+        "shadow_quality",
+        "directional_shadow_cascades",
+        "glow_enabled",
+        "ssao_enabled",
+        "sdfgi_enabled"
+      ],
+      "properties": {
+        "renderer_id": {
+          "const": "godot.forward_plus"
+        },
+        "driver_id": {
+          "enum": [
+            "vulkan",
+            "d3d12"
+          ]
+        },
+        "vsync_mode": {
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        "max_fps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 240
+        },
+        "resolution_scale": {
+          "type": "number",
+          "minimum": 0.25,
+          "maximum": 2.0
+        },
+        "msaa": {
+          "enum": [
+            "disabled",
+            "2x",
+            "4x",
+            "8x"
+          ]
+        },
+        "shadow_quality": {
+          "enum": [
+            "off",
+            "low",
+            "medium",
+            "high",
+            "ultra"
+          ]
+        },
+        "directional_shadow_cascades": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "glow_enabled": {
+          "type": "boolean"
+        },
+        "ssao_enabled": {
+          "type": "boolean"
+        },
+        "sdfgi_enabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "measurement_status",
+        "frame_interval",
+        "gpu_render_time",
+        "cpu_render_time",
+        "draw_calls",
+        "objects_rendered",
+        "renderer_allocation_bytes"
+      ],
+      "properties": {
+        "measurement_status": {
+          "enum": [
+            "MEASURED",
+            "UNAVAILABLE"
+          ]
+        },
+        "cpu_render_time": {
+          "$ref": "#/$defs/optional_number"
+        },
+        "draw_calls": {
+          "$ref": "#/$defs/optional_integer"
+        },
+        "objects_rendered": {
+          "$ref": "#/$defs/optional_integer"
+        },
+        "renderer_allocation_bytes": {
+          "$ref": "#/$defs/optional_integer"
+        },
+        "gpu_render_time": {
+          "$ref": "#/$defs/optional_number"
+        },
+        "frame_interval": {
+          "$ref": "#/$defs/frame_interval"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "base_sha",
+        "head_sha",
+        "godot_version",
+        "hardware",
+        "capture_mode",
+        "measurement_status"
+      ],
+      "properties": {
+        "base_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "head_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "godot_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "hardware": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "gpu_model",
+            "driver_version"
+          ],
+          "properties": {
+            "gpu_model": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "driver_version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60
+            },
+            "device_memory_mib": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            }
+          }
+        },
+        "capture_mode": {
+          "enum": [
+            "windowed",
+            "fullscreen",
+            "headless"
+          ]
+        },
+        "measurement_status": {
+          "enum": [
+            "MEASURED",
+            "UNAVAILABLE"
+          ]
+        },
+        "evidence_uri": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      }
+    }
+  },
+  "$defs": {
+    "frame_interval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "provider",
+            "samples_ms"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "provider": {
+              "const": "SceneTree._process(delta)"
+            },
+            "samples_ms": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 16000,
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1000
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "provider",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "provider": {
+              "const": "SceneTree._process(delta)"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
+    },
+    "optional_number": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "value"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "value": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
+    },
+    "optional_integer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "value"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
+    }
+  }
+}
