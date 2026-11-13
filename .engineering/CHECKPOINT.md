@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M04-TEXTUREBUDGET planner prototype
+
+**M04-TEXTUREBUDGET integrado como protótipo isolado** por PR #153, squash `253afe6c8dc8efad5060b739425ca45612df8023` (código `658ee86f`). Em `nex_modules/materials/texturebudget/`, o planejador determinístico consome descritores `material.v1`, deduplica por SHA-256, estima bytes decodificados com mips, calcula pressão de atlas, emite achados e gera plano de downscale guloso. **55 asserts headless** e 9 testes estruturais.
+
+**Parent M04 (#9) continua NOT_ADMITTED.** Nenhum decoding/upload/atlas packing, material, shader ou rendering; bytes/tiles são aritméticos, não VRAM; qualidade/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M04/M05 contracts v1
 
 **Contratos M04/M05 integrados** por PR #151, squash `bc404723a77a7941ef0d820a58894021cd3e7c2f` (código `e1d89ade`). `contracts/m04/material.v1.schema.json` define observação PBR (superfície, alpha/cull, variantes, texturas com slot/SHA-256/dimensões, orçamento) e `contracts/m05/spellfx.v1.schema.json` define magias (fases, emissores, gameplay authority, light bridge, decal policy, orçamento FX). Ownership prospectivo, docs e **36 testes novos** (suíte de contratos 93 OK; total 405 em worktree LF limpo).
