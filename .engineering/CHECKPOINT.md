@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S04 TemporalGuard prototype
+
+**M02-S04 integrado como protótipo isolado** por PR #131, squash `fae4f9a88e352709ca6ccab7b0d377cd6adacb66` (código `9a1bdde1`). Em `nex_modules/render3d/temporal/`, o analisador determinístico cobre ghosting, flicker, shimmer, render scale e sharpness, emitindo `BASELINE_ACCEPTABLE` / `DEFECT_REPRODUCED` / `INCONCLUSIVE` e ações `KEEP_NATIVE` / `EVALUATE_COMPOSITOR` / `NO_GO`, com toggle de postprocess guardado e rollback. **51 asserts headless** e 8 testes estruturais.
+
+**Decisão de risco ELEVATED registrada:** análise/gate apenas; sem render thread, CompositorEffect, shader ou renderer core; nenhuma operação irreversível. Qualidade temporal real é `INCONCLUSIVE_NOT_RUN`; compositor/render-thread exigem WO separada do Owner e ABI review. Parent M02 (#7) continua **NOT_ADMITTED**; M02-S05 pode consumir o gate como mock sob WO própria. M03–M12 seguem sem admissão.
+
+
 ## Current verified scope | 2026-11-13 · M02-S03 DepthWeave prototype
 
 **M02-S03 integrado como protótipo isolado** por PR #129, squash `9adc0e68b3f2b3f3c5508ac2557a134455d3f0b8` (código `68378db6`). O planejador em `nex_modules/render3d/depth_composition/` cobre passes opaco/alfa/overlay, riscos de Z-fighting, histerese contra flicker, conflitos alfa×crítico e overlay×gameplay, com **37 asserts headless** e 8 testes estruturais. Draft de contrato M08 2.5D anexado como `DRAFT_NOT_PROMOTED`.
