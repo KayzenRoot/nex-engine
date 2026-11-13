@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M03_LIGHTBUDGET_PROTOTYPE_INTEGRATED_M03_PARENT_NOT_ADMITTED",
-  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET",
-  "mainObservedSha": "efa7c29766ffa807ee6a793bb790ef7af87e8f9c",
+  "status": "M04_M05_CONTRACTS_V1_INTEGRATED_PARENTS_NOT_ADMITTED",
+  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS",
+  "mainObservedSha": "bc404723a77a7941ef0d820a58894021cd3e7c2f",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
@@ -76,7 +76,7 @@
     "postMergeChecks": "SIX_OF_SIX_SUCCESS",
     "sourcePackCoherence": "M00_HISTORICAL_STATUS_RECONCILIATION_IN_PROPOSED_DOC_PR_SUBJECT_TO_PROTECTED_MERGE_AUDIT"
   },
-  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M03_LIGHTBUDGET_2026_11_13",
+  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M04_M05_CONTRACTS_2026_11_13",
   "ciFastLaneIntegration": {
     "pr": 83,
     "mergeSha": "a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56",
@@ -553,5 +553,32 @@
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM03": "NOT_ADMITTED"
+  },
+  "m04M05Contracts": {
+    "id": "NEX-M04-M05-CONTRACTS-WO-001",
+    "issues": [
+      9,
+      10
+    ],
+    "pr": 151,
+    "reviewedHeadSha": "83c45702f3be00c56545aaeb2130cd05e24663a5",
+    "protectedMergeSha": "bc404723a77a7941ef0d820a58894021cd3e7c2f",
+    "codeSha": "e1d89adeb6c86507032571987075b75c6ec64b70",
+    "contracts": [
+      "contracts/m04/material.v1.schema.json",
+      "contracts/m05/spellfx.v1.schema.json"
+    ],
+    "documentation": [
+      "docs/contracts/m04.md",
+      "docs/contracts/m05.md"
+    ],
+    "structuralTests": 36,
+    "contractSuiteTests": 93,
+    "implementation": false,
+    "performance": "INCONCLUSIVE_NOT_RUN",
+    "checkpointDelta": "PROPOSED_NOT_PROMOTED",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "parentM04": "NOT_ADMITTED",
+    "parentM05": "NOT_ADMITTED"
   }
 }
