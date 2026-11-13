@@ -40,8 +40,8 @@ SERIES_KEYS = (
     "RENDERER_ALLOCATION_BYTES",
 )
 ROW_RE = re.compile(r"^\|")
-SUM_RE = re.compile(r"^([0-9a-f]{64}) \*(.+)$")
-SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+SUM_RE = re.compile(r"^([\da-f]{64}) \*(.+)$")
+SHA_RE = re.compile(r"^[\da-f]{40}$")
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -53,11 +53,15 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
     return result
 
 
+def _reject_non_finite(token: str) -> None:
+    raise ValueError(f"non-finite JSON: {token}")
+
+
 def load_json(path: Path) -> Any:
     return json.loads(
         path.read_text(encoding="utf-8-sig"),
         object_pairs_hook=_reject_duplicate_keys,
-        parse_constant=lambda token: (_ for _ in ()).throw(ValueError(f"non-finite JSON: {token}")),
+        parse_constant=_reject_non_finite,
     )
 
 
@@ -90,6 +94,19 @@ def _hash_variants(name: str) -> set[str]:
     return variants
 
 
+def _verify_entry(digest: str, name: str) -> str | None:
+    if Path(name).name != name or "/" in name or "\\" in name:
+        return f"unsafe checksum path: {name!r}"
+    if not (BUNDLE / name).is_file():
+        return f"missing bundle file: {name}"
+    variants = _hash_variants(name)
+    if digest not in variants:
+        return f"hash mismatch: {name}"
+    if re.fullmatch(r"gpu_profile_\d+-\d+\.json", name) and digest != hashlib.sha256(_bundle_bytes(name)).hexdigest():
+        return f"measurement capture must match the LF Git blob: {name}"
+    return None
+
+
 def verify_bundle() -> dict[str, Any]:
     """Verify every file listed in SHA256SUMS.txt; never follow a path outside the bundle."""
     errors: list[str] = []
@@ -101,19 +118,9 @@ def verify_bundle() -> dict[str, Any]:
         if match is None:
             errors.append(f"malformed checksum line: {line!r}")
             continue
-        digest, name = match.groups()
-        if Path(name).name != name or "/" in name or "\\" in name:
-            errors.append(f"unsafe checksum path: {name!r}")
-            continue
-        if not (BUNDLE / name).is_file():
-            errors.append(f"missing bundle file: {name}")
-            continue
-        variants = _hash_variants(name)
-        if digest not in variants:
-            errors.append(f"hash mismatch: {name}")
-            continue
-        if re.fullmatch(r"gpu_profile_[0-9]+-[0-9]+\.json", name) and digest != hashlib.sha256(_bundle_bytes(name)).hexdigest():
-            errors.append(f"measurement capture must match the LF Git blob: {name}")
+        error = _verify_entry(*match.groups())
+        if error is not None:
+            errors.append(error)
             continue
         verified += 1
     if errors:
@@ -136,7 +143,7 @@ def parse_analysis_table() -> list[dict[str, Any]]:
         if len(cells) < 3 or cells[0] in ("Cenário", "---") or not cells[1].isdigit():
             continue
         scenario, count_text, run_id = cells[0], cells[1], cells[2]
-        if not re.fullmatch(r"[0-9]{6,}-[0-9]{6,}", run_id):
+        if not re.fullmatch(r"\d{6,}-\d{6,}", run_id):
             continue
         preset = scenario.split("-", 1)[0]
         if preset not in PRESET_ORDER:
@@ -346,7 +353,7 @@ def _observations(runs: list[dict[str, Any]], cells: list[dict[str, Any]]) -> li
 def _capture_paths() -> dict[str, Path]:
     captures: dict[str, Path] = {}
     for path in BUNDLE.glob("gpu_profile_*.json"):
-        match = re.fullmatch(r"gpu_profile_([0-9]+-[0-9]+)\.json", path.name)
+        match = re.fullmatch(r"gpu_profile_(\d+-\d+)\.json", path.name)
         if match is not None:
             captures[match.group(1)] = path
     return captures
@@ -482,31 +489,30 @@ def build_atlas() -> dict[str, Any]:
 
 
 def render_markdown(atlas: dict[str, Any]) -> str:
-    lines: list[str] = []
-    lines.append("# NEX M06 · Bottleneck Atlas — S05 Lighting Matrix")
-    lines.append("")
-    lines.append("**Status:** `EVIDENCE_DERIVED_ATLAS / SINGLE_SESSION / NO_NEW_MEASUREMENT / ADMIN_SOLO_NOT_INDEPENDENT`")
-    lines.append("")
-    lines.append(f"**Fonte:** `{atlas['source_bundle']}` · **Code SHA medido:** `{atlas['source_sha']}`")
-    lines.append(
-        f"**Hardware:** {atlas['hardware']['adapter']} · driver {atlas['hardware']['driver']} · "
-        f"{atlas['godot_version']} · vsync {atlas['settings']['vsync_mode']}"
-    )
-    lines.append(f"**Capturas:** {atlas['capture_count']} · **Hashes:** {atlas['bundle_verification']['status']} "
-                 f"({atlas['bundle_verification']['verified_files']} arquivos)")
-    lines.append("")
-    lines.append("## Resumo")
-    lines.append("")
     summary = atlas["summary"]
-    lines.append(f"- Classificação dominante: **{summary['dominant_classification']}** "
-                 f"({summary['classification_counts'].get(summary['dominant_classification'], 0)}/{atlas['capture_count']} runs).")
-    lines.append(f"- Maior GPU p95: **{summary['max_gpu_p95_ms']:.3f} ms** em `{summary['max_gpu_p95_run']}`.")
-    lines.append(f"- Spread de GPU p50 nas 3 repetições baseline-25: **{summary['baseline25_gpu_p50_spread_ms']:.3f} ms**.")
-    lines.append("")
-    lines.append("## Runs")
-    lines.append("")
-    lines.append("| Cenário | Count | Run | GPU p50 | GPU p95 | CPU p50 | CPU p95 | Pacing p95 | 1% low | Classe | Pressão | Δ GPU p95 |")
-    lines.append("|---|---:|---|---:|---:|---:|---:|---:|---:|---|---|---:|")
+    lines: list[str] = [
+        "# NEX M06 · Bottleneck Atlas — S05 Lighting Matrix",
+        "",
+        "**Status:** `EVIDENCE_DERIVED_ATLAS / SINGLE_SESSION / NO_NEW_MEASUREMENT / ADMIN_SOLO_NOT_INDEPENDENT`",
+        "",
+        f"**Fonte:** `{atlas['source_bundle']}` · **Code SHA medido:** `{atlas['source_sha']}`",
+        f"**Hardware:** {atlas['hardware']['adapter']} · driver {atlas['hardware']['driver']} · "
+        f"{atlas['godot_version']} · vsync {atlas['settings']['vsync_mode']}",
+        f"**Capturas:** {atlas['capture_count']} · **Hashes:** {atlas['bundle_verification']['status']} "
+        f"({atlas['bundle_verification']['verified_files']} arquivos)",
+        "",
+        "## Resumo",
+        "",
+        f"- Classificação dominante: **{summary['dominant_classification']}** "
+        f"({summary['classification_counts'].get(summary['dominant_classification'], 0)}/{atlas['capture_count']} runs).",
+        f"- Maior GPU p95: **{summary['max_gpu_p95_ms']:.3f} ms** em `{summary['max_gpu_p95_run']}`.",
+        f"- Spread de GPU p50 nas 3 repetições baseline-25: **{summary['baseline25_gpu_p50_spread_ms']:.3f} ms**.",
+        "",
+        "## Runs",
+        "",
+        "| Cenário | Count | Run | GPU p50 | GPU p95 | CPU p50 | CPU p95 | Pacing p95 | 1% low | Classe | Pressão | Δ GPU p95 |",
+        "|---|---:|---|---:|---:|---:|---:|---:|---:|---|---|---:|",
+    ]
     for run in atlas["runs"]:
         delta = run["delta_vs_baseline"]
         delta_text = "—" if delta is None else f"{delta['gpu_p95_pct']:+.1f}%"
@@ -517,30 +523,26 @@ def render_markdown(atlas: dict[str, Any]) -> str:
             f"{run['frame_pacing_ms']['p95']:.3f} | {run['one_percent_low_fps']:.2f} | "
             f"{run['classification']} | {run['render_pressure']} | {delta_text} |"
         )
-    lines.append("")
-    lines.append("## Referências baseline")
-    lines.append("")
-    lines.append("| Count | Runs | GPU p95 mediana | CPU p95 mediana | Pacing p95 mediana |")
-    lines.append("|---:|---:|---:|---:|---:|")
+    lines.extend(["", "## Referências baseline", "", "| Count | Runs | GPU p95 mediana | CPU p95 mediana | Pacing p95 mediana |", "|---:|---:|---:|---:|---:|"])
     for count in sorted(atlas["baseline_references"], key=int):
         reference = atlas["baseline_references"][count]
         lines.append(
             f"| {count} | {reference['runs']} | {reference['gpu_p95_median_ms']:.3f} | "
             f"{reference['cpu_p95_median_ms']:.3f} | {reference['pacing_p95_median_ms']:.3f} |"
         )
-    lines.append("")
-    lines.append("## Observações")
-    lines.append("")
+    lines.extend(["", "## Observações", ""])
     for observation in atlas["observations"]:
         lines.append(f"- {observation}")
-    lines.append("")
-    lines.append("## Limitações")
-    lines.append("")
+    lines.extend(["", "## Limitações", ""])
     for limitation in atlas["limitations"]:
         lines.append(f"- {limitation}")
-    lines.append("")
-    lines.append("Atlas gerado por `docs/benchmarks/m06/tools/build_atlas.py`; não é benchmark, não é claim de FPS e não generaliza.")
-    lines.append("")
+    lines.extend(
+        [
+            "",
+            "Atlas gerado por `docs/benchmarks/m06/tools/build_atlas.py`; não é benchmark, não é claim de FPS e não generaliza.",
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
