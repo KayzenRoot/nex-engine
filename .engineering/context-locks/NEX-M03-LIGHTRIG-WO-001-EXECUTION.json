@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "kind": "nex.execution.context_lock",
-  "id": "NEX-M03-S01-WO-001-EXECUTION",
+  "id": "NEX-M03-LIGHTRIG-WO-001-EXECUTION",
   "repository": "KayzenRoot/nex-engine",
   "issue": 8,
   "parentM03Issue": 8,
@@ -44,10 +44,10 @@
     "writeAllowedExact": [
       "nex_modules/lighting/light_rig/**",
       "tests/ci/test_light_rig_planner.py",
-      ".engineering/work-orders/NEX-M03-S01-WO-001.md",
-      ".engineering/context-locks/NEX-M03-S01-WO-001-EXECUTION.json",
-      ".engineering/evidence/NEX-M03-S01-WO-001-EVIDENCE.md",
-      ".engineering/checkpoint-deltas/NEX-M03-S01-WO-001-PROPOSED.md"
+      ".engineering/work-orders/NEX-M03-LIGHTRIG-WO-001.md",
+      ".engineering/context-locks/NEX-M03-LIGHTRIG-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M03-LIGHTRIG-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M03-LIGHTRIG-WO-001-PROPOSED.md"
     ],
     "readOnly": [
       "AGENTS.md",

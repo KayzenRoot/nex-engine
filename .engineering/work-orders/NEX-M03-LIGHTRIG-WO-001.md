@@ -1,10 +1,10 @@
-# NEX-M03-S01-WO-001 | Planejador determinístico de light rig
+# NEX-M03-LIGHTRIG-WO-001 | Planejador determinístico de light rig
 
 **Status:** `OWNER_STANDING_AUTHORIZATION / EXECUTABLE`
 **Admissão:** Autorização permanente do Owner; selecionado como incremento independente após o contrato M03 v1.
 **Base:** `main` `edd3bc3003acae681f46227367d8c11b06cad99f`.
 **Modo:** ADMIN_SOLO (`NOT_INDEPENDENT`), NEX-ADR-0004 / NEX-D-014. **Risco:** STANDARD.
-**Lock:** `.engineering/context-locks/NEX-M03-S01-WO-001-EXECUTION.json` (21 fingerprints).
+**Lock:** `.engineering/context-locks/NEX-M03-LIGHTRIG-WO-001-EXECUTION.json` (21 fingerprints).
 
 ## Objetivo
 

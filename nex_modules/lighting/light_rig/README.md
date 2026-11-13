@@ -1,7 +1,7 @@
-# NEX M03-S01 · Light-rig planner (prototype)
+# NEX M03-LIGHTRIG · Light-rig planner (prototype)
 
 **Status:** `PROTOTYPE / PLANNING_ONLY / NO_RENDERING / NO_SHADOW_IMPLEMENTATION / NO_PERFORMANCE_CLAIM`
-**Work Order:** NEX-M03-S01-WO-001 (Issue #8) · **Audit:** ADMIN_SOLO `NOT_INDEPENDENT`
+**Work Order:** NEX-M03-LIGHTRIG-WO-001 (Issue #8) · **Audit:** ADMIN_SOLO `NOT_INDEPENDENT`
 **Engine:** Godot 4.7.2-stable. Self-contained project for deterministic headless tests; not wired into `nex_bench` or the engine tree.
 
 ## What it does
@@ -48,7 +48,7 @@ The planner does not redefine or modify the contract.
   --rendering-method gl_compatibility --script res://smoke.gd
 ```
 
-Expected: `NEX_M03_S01_SMOKE_PASS: 70 checks`; log committed under `evidence/`.
+Expected: `NEX_M03_LIGHTRIG_SMOKE_PASS: 70 checks`; log committed under `evidence/`.
 
 ## Limits (explicit)
 

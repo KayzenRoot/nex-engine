@@ -1,7 +1,7 @@
 extends Node
 class_name LightRigPlanner
 
-# NEX-M03-S01 prototype: deterministic light-rig planner.
+# NEX-M03-LIGHTRIG prototype: deterministic light-rig planner.
 # Planning only: no light, shadow map, GI probe, shader or renderer is created.
 # Vocabulary and limits follow the integrated lighting.v1 contract.
 

@@ -1,4 +1,4 @@
-# Evidence Bundle · NEX-M03-S01-WO-001 (Deterministic light-rig planner)
+# Evidence Bundle · NEX-M03-LIGHTRIG-WO-001 (Deterministic light-rig planner)
 
 **Status:** `PROTOTYPE_EVIDENCE / PLANNING_ONLY / NO_RENDERING / NO_SHADOW_IMPLEMENTATION / NO_PERFORMANCE_CLAIM`
 **Issue:** #8 · **Base:** `edd3bc3003acae681f46227367d8c11b06cad99f` · **Code SHA:** `9c252e8062141f90f7c30e156b0ff35eee1fb4ab`
@@ -16,7 +16,7 @@
   --rendering-method gl_compatibility --script res://smoke.gd
 ```
 
-Resultado: **`NEX_M03_S01_SMOKE_PASS: 70 checks`** (exit 0), log em `nex_modules/lighting/light_rig/evidence/headless-smoke-2026-11-13.log`.
+Resultado: **`NEX_M03_LIGHTRIG_SMOKE_PASS: 70 checks`** (exit 0), log em `nex_modules/lighting/light_rig/evidence/headless-smoke-2026-11-13.log`.
 
 Cobertura dos 70 checks:
 - configuração: limites de luzes, sombras, cascatas e atlas; restauração de defaults;

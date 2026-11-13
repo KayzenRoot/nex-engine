@@ -1,4 +1,4 @@
-"""Structural acceptance tests for the NEX M03-S01 light-rig planner prototype."""
+"""Structural acceptance tests for the NEX M03-LIGHTRIG light-rig planner prototype."""
 from __future__ import annotations
 
 import json
@@ -112,9 +112,9 @@ class LightRigPlannerApiTests(unittest.TestCase):
 
 class LightRigPlannerEvidenceTests(unittest.TestCase):
     def test_smoke_marker_and_evidence_pass(self) -> None:
-        self.assertIn("NEX_M03_S01_SMOKE_PASS", SMOKE.read_text(encoding="utf-8"))
+        self.assertIn("NEX_M03_LIGHTRIG_SMOKE_PASS", SMOKE.read_text(encoding="utf-8"))
         log = EVIDENCE.read_text(encoding="utf-8")
-        self.assertRegex(log, r"NEX_M03_S01_SMOKE_PASS: \d+ checks")
+        self.assertRegex(log, r"NEX_M03_LIGHTRIG_SMOKE_PASS: \d+ checks")
         self.assertIn("4.7.2", log)
 
     def test_readme_documents_limits(self) -> None:
