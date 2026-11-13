@@ -3,7 +3,7 @@ Status: CANONICAL_BOOTSTRAP_POLICY; GEF v1.1.2 verified in PR #74. Bounded M00 G
 No secrets, API tokens, auth material or private GEF journals in tracked files, issue bodies, evidence or logs.
 Use the npm registry package pinned at v1.1.2; upstream release cites source commit af1fe9371a3883cbd8a4aafcbb405ddcd4c2ca82 and verified npm integrity/provenance; verify installed artifact/environment rather than presuming the consumer result.
 Installation and GEF init apply run with least privileges after read-only preview and inspection. Never run untrusted hooks or overwrite unknown/owned files to force PASS.
-Do not bypass branch protection, reviewers, required CI or code-review gates; no force push or history rewrite.
+Do not bypass branch protection, required CI or technical audit gates; no force push or history rewrite. No external human reviewer is required in the Owner-approved solo workflow: GitHub ruleset #24864413 already requires zero approving reviews and no Code Owner review. Audit by the author is labeled ADMIN_SOLO / NOT_INDEPENDENT; missing independent human review is never a security defect by itself. Preserve all risk-class proof obligations, automated security checks, fail-closed handling and block known HIGH/CRITICAL defects. See NEX-ADR-0004.
 If SECURITY, RECOVERY_REQUIRED, collision, unexpected permissions, unknown source/HEAD or high-severity defect is observed: STOP=BLOCKED with evidence, retain journals and state.
 No paid external service or real authentication in this increment.
 
