@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M10 combat feedback contract v1
+
+**Contrato M10 v1 integrado** por PR #167, squash `5ad895d5d51bf0858c4873884a0a314b23218847` (código `97c80641`). `contracts/m10/feedback.v1.schema.json` define fases de ataque, hit events, canais (hit-stop, shake, flash, recoil, damage number), prioridade/intensidade, orçamentos de hit-stop/shake/concorrência/total, performance e proveniência. Ownership prospectivo de `nex_modules/animation/**`, docs e **20 testes novos** (suíte de contratos 150 OK; total 501 em worktree LF limpo).
+
+**Parent M10 (#15) continua NOT_ADMITTED.** Nenhuma animação, câmera, shader, cena, engine ou CI alterado; game feel/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M08-COMPOSITION planner prototype
 
 **M08-COMPOSITION integrado como protótipo isolado** por PR #165, squash `8dada408436766009e66fa57830f08b06e99f1bb` (código `0f1cc07f`). Em `nex_modules/render2_5d/composition/`, o planejador determinístico consome `composition.v1`: stack de camadas/entidades críticas, políticas de profundidade/alpha/HUD, ordem de draw por papel, conflitos (alpha sobre crítico, HUD cobrindo gameplay, overrides, riscos do plano 3D) e exportação de observação. **69 asserts headless** e 9 testes estruturais.
