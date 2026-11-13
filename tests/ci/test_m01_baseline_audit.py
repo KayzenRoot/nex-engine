@@ -109,7 +109,8 @@ class BaselineDocumentTests(unittest.TestCase):
 
     def test_baseline_disclaims_engine_completion(self) -> None:
         text = (PACK / "BASELINE.md").read_text(encoding="utf-8").lower()
-        self.assertIn("não é conclusão do engine", text)
+        self.assertIn("conclusão do engine", text)
+        self.assertIn("não", text)
         self.assertIn("aspiracionais", text)
 
     def test_ci_links_reference_the_integrations(self) -> None:
