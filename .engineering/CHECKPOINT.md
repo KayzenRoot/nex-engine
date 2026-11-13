@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S06 R&D decision atlas
+
+**M02-S06 integrado como pesquisa/planejamento** por PR #135, squash `23deddb50259850dc243c37c7f09b786d6a3a2de`; limpeza de bytecode gerado na PR #136 (`4ce2b7f3`). O atlas em `docs/research/nex-m02/` traz 5 hipóteses refutáveis (IsoDirector, Sightline, DepthWeave, TemporalGuard, RenderPassport) com gap nativo, alternativa simples, contrato de dados, custo/risco, compatibilidade 2.5D, rollback e A/B/A. O motor determinístico recomenda **4× RESEARCH_MORE** (features sem gap medido) e **1× GO** (RenderPassport como ferramenta de processo); **5 redundâncias** são `NO_GO`. Contratos C1–C4 são `DRAFT_NOT_PROMOTED`.
+
+**Todas as decisões do Owner permanecem PENDING.** Nenhuma implementação, shader, addon, compositor, 2.5D, contrato promovido ou alteração de engine/CI/`project.godot`. Parent M02 (#7) continua **NOT_ADMITTED**; M02-S07 (QA/integração) permanece não admitido.
+
+
 ## Current verified scope | 2026-11-13 · M02-S05 RenderPassport prototype
 
 **M02-S05 integrado como protótipo isolado** por PR #133, squash `043a0124a803753a8521f397d7d3f1d370cba630` (código `2613f51d`). Em `nex_modules/render3d/profiles/`, a matriz de 9 capacidades com fontes oficiais, o RenderPassport (inventário + probe runtime + fallback Vulkan→D3D12→GL) e os perfis Quality/Balanced/Performance reversíveis foram verificados com **87 asserts headless** e 9 testes estruturais. Flags explícitas: sem escrita de `project.godot`, sem coleta remota, GPU não implica capacidade.
