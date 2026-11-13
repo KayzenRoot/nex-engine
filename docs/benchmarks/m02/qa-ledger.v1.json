@@ -3,7 +3,7 @@
   "source_sha": "9b40dac928d568cb7783b9e8ae830f35fa2acc21",
   "baseline": {
     "manifest": "docs/benchmarks/m01/manifest.json",
-    "sha256": "2f39e64f019d9d6c9dade93b5e28e8220236a78aa99da246b39e28f39074a51f"
+    "sha256": "ba0b744322aed7a08fba1adc6e0779434a115db4f3831fc83f13f09660f92931"
   },
   "contract": {
     "path": "docs/benchmarks/m02/qa-contract.v1.json",
@@ -22,8 +22,8 @@
       "evidence": [
         {
           "path": "nex_modules/render3d/camera/evidence/headless-smoke-2026-11-13.log",
-          "sha256": "2d5a2851278c8d4509a54dbe43490beecdab04d0dae00ed1600eed418ca15e39",
-          "bytes": 110
+          "sha256": "f0120b10be6606e37450d59b6265efcf4bf92fcff721b13536de52540535a997",
+          "bytes": 107
         }
       ]
     },
@@ -39,8 +39,8 @@
       "evidence": [
         {
           "path": "nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log",
-          "sha256": "6d4db872807fcf0aac5ad5e115a1c8d42be0ffce5ee8c7a9ca5d81f4ccda758e",
-          "bytes": 110
+          "sha256": "64f410ea1aeba53518dc21d9f0af40b8386458830c1f2c6a46990ff460e76b2a",
+          "bytes": 107
         }
       ]
     },
@@ -56,8 +56,8 @@
       "evidence": [
         {
           "path": "nex_modules/render3d/depth_composition/evidence/headless-smoke-2026-11-13.log",
-          "sha256": "3f30ed6ca4dfe10b14c9f2be93c8f42f957f3ed29a9a7dd2ff4305f28e131d4c",
-          "bytes": 110
+          "sha256": "3899c6bd6d501f01ed7eaee6b1b05266bfb20d4973be99e14353b7ad568392a6",
+          "bytes": 107
         }
       ]
     },
@@ -73,8 +73,8 @@
       "evidence": [
         {
           "path": "nex_modules/render3d/temporal/evidence/headless-smoke-2026-11-13.log",
-          "sha256": "996786119c6945954530a292bfb3194d53532fd2f45cebb6352bae0f223c7e5a",
-          "bytes": 110
+          "sha256": "03699812d326f9b90df8e8ee7301d98bc74952e2e1fe362b852c86448023b3ab",
+          "bytes": 107
         }
       ]
     },
@@ -90,8 +90,8 @@
       "evidence": [
         {
           "path": "nex_modules/render3d/profiles/evidence/headless-smoke-2026-11-13.log",
-          "sha256": "dfd0250e2cc3659ce1b97b3c45bb4e93d6e7cb3653ecc6e171d01d8baecc39bd",
-          "bytes": 110
+          "sha256": "4d6cc20124af5bd081167731d49f96f312ff36b62421328138f26037ff94a379",
+          "bytes": 107
         }
       ]
     },
@@ -107,8 +107,8 @@
       "evidence": [
         {
           "path": "docs/research/nex-m02/hypotheses.v1.json",
-          "sha256": "40f90a80ea58beb7c69c0e0c8b7289c36b31571231f0dcb31c40cb4566d23359",
-          "bytes": 8021
+          "sha256": "662b5541127e753506b420f9a265c209a008ca4870a2d6dd5097f0d5880fbb1b",
+          "bytes": 7891
         }
       ]
     }

@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -53,17 +54,29 @@ PERFORMANCE_STATUSES = {"MEASURED", "INCONCLUSIVE_NOT_RUN", "NOT_APPLICABLE_RESE
 STRUCTURAL_STATUSES = {"PASS", "FAIL", "BLOCKED"}
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def staged_blob(relative: str) -> bytes:
+    """Hash committed content, not a CRLF-converted working-tree checkout."""
+    result = subprocess.run(
+        ["git", "-C", str(REPO), "cat-file", "blob", ":" + relative],
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise SystemExit(f"EVIDENCE NOT IN THE GIT INDEX: {relative}")
+    return result.stdout
+
+
+def staged_sha(relative: str) -> tuple[str, int]:
+    content = staged_blob(relative)
+    return hashlib.sha256(content).hexdigest(), len(content)
 
 
 def _evidence_entries(component: dict) -> list[dict]:
     entries = []
     for relative in component["evidence"]:
-        path = REPO / relative
-        if not path.is_file():
+        if not (REPO / relative).is_file():
             raise SystemExit(f"MISSING EVIDENCE: {relative}")
-        entries.append({"path": relative, "sha256": sha256(path), "bytes": path.stat().st_size})
+        digest, size = staged_sha(relative)
+        entries.append({"path": relative, "sha256": digest, "bytes": size})
     return entries
 
 
@@ -76,8 +89,10 @@ def build() -> dict:
     return {
         "schema_version": "nex_m02_qa_ledger.v1",
         "source_sha": SOURCE_SHA,
-        "baseline": {"manifest": str(BASELINE.relative_to(REPO)).replace("\\", "/"), "sha256": sha256(BASELINE)},
-        "contract": {"path": str(CONTRACT.relative_to(REPO)).replace("\\", "/"), "sha256": sha256(CONTRACT)},
+        "baseline": {"manifest": str(BASELINE.relative_to(REPO)).replace("\\", "/"),
+                     "sha256": staged_sha(str(BASELINE.relative_to(REPO)).replace("\\", "/"))[0]},
+        "contract": {"path": str(CONTRACT.relative_to(REPO)).replace("\\", "/"),
+                     "sha256": staged_sha(str(CONTRACT.relative_to(REPO)).replace("\\", "/"))[0]},
         "components": components,
         "scenes": SCENES,
         "targets": {

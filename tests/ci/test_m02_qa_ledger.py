@@ -81,7 +81,7 @@ class QaLedgerTests(unittest.TestCase):
         for component in self.ledger["components"]:
             for evidence in component["evidence"]:
                 with self.subTest(path=evidence["path"]):
-                    self.assertEqual(TOOL.sha256(REPO / evidence["path"]), evidence["sha256"])
+                    self.assertEqual(TOOL.staged_sha(evidence["path"])[0], evidence["sha256"])
 
     def test_scene_pass_without_evidence_is_rejected(self):
         tampered = json.loads(json.dumps(self.ledger))
