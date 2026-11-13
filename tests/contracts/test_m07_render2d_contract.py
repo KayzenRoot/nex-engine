@@ -7,13 +7,29 @@ from pathlib import Path
 from typing import Any
 
 from test_m01_schema import limited_schema_errors, strict_json_loads
+from test_ownership_locks import normalize_path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_DIR = REPO_ROOT / "contracts" / "m07"
 
 
+def _resolve_refs(node: Any, definitions: dict[str, Any], seen: tuple[str, ...] = ()) -> Any:
+    """Expand local $ref nodes so the limited checker can evaluate the schema."""
+    if isinstance(node, dict):
+        if "$ref" in node:
+            name = str(node["$ref"]).rsplit("/", 1)[-1]
+            if name not in definitions or name in seen:
+                raise ValueError(f"unresolvable schema reference: {node['$ref']}")
+            return _resolve_refs(definitions[name], definitions, seen + (name,))
+        return {key: _resolve_refs(value, definitions, seen) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_resolve_refs(value, definitions, seen) for value in node]
+    return node
+
+
 def read_schema(filename: str) -> dict[str, Any]:
-    return strict_json_loads((SCHEMA_DIR / filename).read_text(encoding="utf-8"))
+    raw = strict_json_loads((SCHEMA_DIR / filename).read_text(encoding="utf-8"))
+    return _resolve_refs(raw, raw.get("$defs", {}))
 
 
 def read_manifest() -> dict[str, Any]:
@@ -151,27 +167,6 @@ def mock_render2d_consumer(document: dict[str, Any]) -> list[str]:
         if provenance.get("measurement_status") == "MEASURED" and not provenance.get("evidence_uri"):
             errors.append("$.provenance.evidence_uri: required when provenance is MEASURED")
     return errors
-
-
-def normalize_path(path: str) -> str:
-    if not isinstance(path, str) or not path.strip():
-        raise ValueError("empty path")
-    raw = path.replace("\\", "/")
-    if raw.startswith("/") or re.match(r"^[a-zA-Z]:", raw):
-        raise ValueError("absolute paths are not allowed")
-    parts: list[str] = []
-    for part in raw.split("/"):
-        if part in ("", "."):
-            continue
-        if part == "..":
-            if not parts:
-                raise ValueError("path escapes repository root")
-            parts.pop()
-        else:
-            parts.append(part.casefold())
-    if not parts:
-        raise ValueError("empty normalized path")
-    return "/".join(parts)
 
 
 class Render2DContractTests(unittest.TestCase):
