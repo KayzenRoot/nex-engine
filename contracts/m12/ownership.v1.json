@@ -1,0 +1,51 @@
+{
+  "schema_version": "m12_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m12/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m12-brand-tokens", "m12-logo-system", "m12-ui-kit", "m12-qa"]
+    },
+    {
+      "path": "nex_modules/brand/tokens/**",
+      "owner": "m12-brand-tokens",
+      "mode": "future-write",
+      "consumers": ["m12-logo-system", "m12-ui-kit", "m12-qa"]
+    },
+    {
+      "path": "nex_modules/brand/logo/**",
+      "owner": "m12-logo-system",
+      "mode": "future-write",
+      "consumers": ["m12-ui-kit", "m12-qa"]
+    },
+    {
+      "path": "nex_modules/brand/ui_kit/**",
+      "owner": "m12-ui-kit",
+      "mode": "future-write",
+      "consumers": ["m12-qa"]
+    },
+    {
+      "path": "tests/brand/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m12/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
