@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S02 Sightline prototype
+
+**M02-S02 integrado como protótipo isolado** por PR #127, squash `6b4ba4d5ccdc50bdcb0b825c4571058bbb81a0d6` (código `6057c1da`). O controlador Sightline em `nex_modules/render3d/sightline/` implementa oclusão por AABB, prioridades jogador→ameaça→decoração, fade/silhueta com histerese, cap de reveals, visibilidade de gameplay separada da legibilidade visual e alerta de ameaça bloqueada. **49 asserts headless** e 9 testes estruturais.
+
+`Performance/frame-time/VRAM = INCONCLUSIVE_NOT_RUN` (sem rendering; cenas reais não executadas; AABBs mock). Parent M02 (#7) continua **NOT_ADMITTED**; M02-S03 (DepthWeave) pode consumir a API com mocks sob WO própria. M03–M12 seguem sem admissão.
+
+
 ## Current verified scope | 2026-11-13 · M02-S01 camera prototype
 
 **M02-S01 integrado como protótipo isolado** por PR #125, squash `9fea0f384f933b7619f0bd68b3b1f28747a1b9f7` (código `9f8d4ce`). O rig isométrico determinístico vive em `nex_modules/render3d/camera/` (perspectiva inclinada e ortográfica, dead zone, bounds, zoom, sincronização mundo↔tela, enquadramento por aspect e replay), com **32 asserts headless** e 10 testes estruturais. O estado segue o contrato `render_core.v1`; **nenhuma integração no engine** foi feita.
