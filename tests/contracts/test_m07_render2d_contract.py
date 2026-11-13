@@ -1,6 +1,7 @@
 """M07 advanced 2D pipeline contract tests using the limited stdlib checker."""
 from __future__ import annotations
 
+import itertools
 import re
 import unittest
 from pathlib import Path
@@ -264,18 +265,12 @@ class M07OwnershipTests(unittest.TestCase):
             self.assertNotIn("..", entry["path"])
 
     def test_write_paths_are_disjoint(self) -> None:
-        manifest = read_manifest()
-        bases: list[str] = []
-        for entry in manifest["paths"]:
-            base = normalize_path(entry["path"]).removesuffix("/**")
-            for existing in bases:
-                self.assertFalse(
-                    base == existing
-                    or base.startswith(existing + "/")
-                    or existing.startswith(base + "/"),
-                    f"overlapping write paths: {base!r} and {existing!r}",
-                )
-            bases.append(base)
+        bases = [normalize_path(entry["path"]).removesuffix("/**") for entry in read_manifest()["paths"]]
+        for first, second in itertools.combinations(bases, 2):
+            self.assertFalse(
+                first == second or first.startswith(second + "/") or second.startswith(first + "/"),
+                f"overlapping write paths: {first!r} and {second!r}",
+            )
 
 
 if __name__ == "__main__":
