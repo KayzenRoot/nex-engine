@@ -1,0 +1,144 @@
+{
+  "schema_version": "nex_m02_qa_ledger.v1",
+  "source_sha": "9b40dac928d568cb7783b9e8ae830f35fa2acc21",
+  "baseline": {
+    "manifest": "docs/benchmarks/m01/manifest.json",
+    "sha256": "2f39e64f019d9d6c9dade93b5e28e8220236a78aa99da246b39e28f39074a51f"
+  },
+  "contract": {
+    "path": "docs/benchmarks/m02/qa-contract.v1.json",
+    "sha256": "c29f5f98ebd1bd154f6dde381733b8b724a99b8711dd6f38cb4e14a651efa511"
+  },
+  "components": [
+    {
+      "id": "S01",
+      "name": "Isometric camera",
+      "module": "nex_modules/render3d/camera/",
+      "structural_checks": 32,
+      "structural_status": "PASS",
+      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "performance": "INCONCLUSIVE_NOT_RUN",
+      "note": "Structural smoke only; real-scene A/B/A not run.",
+      "evidence": [
+        {
+          "path": "nex_modules/render3d/camera/evidence/headless-smoke-2026-11-13.log",
+          "sha256": "2d5a2851278c8d4509a54dbe43490beecdab04d0dae00ed1600eed418ca15e39",
+          "bytes": 110
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "name": "Sightline reveal",
+      "module": "nex_modules/render3d/sightline/",
+      "structural_checks": 49,
+      "structural_status": "PASS",
+      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "performance": "INCONCLUSIVE_NOT_RUN",
+      "note": "Mock occluders only; real obscurance not measured.",
+      "evidence": [
+        {
+          "path": "nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log",
+          "sha256": "6d4db872807fcf0aac5ad5e115a1c8d42be0ffce5ee8c7a9ca5d81f4ccda758e",
+          "bytes": 110
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "name": "DepthWeave composition",
+      "module": "nex_modules/render3d/depth_composition/",
+      "structural_checks": 37,
+      "structural_status": "PASS",
+      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "performance": "INCONCLUSIVE_NOT_RUN",
+      "note": "Mock spheres; z-fighting on real meshes not measured.",
+      "evidence": [
+        {
+          "path": "nex_modules/render3d/depth_composition/evidence/headless-smoke-2026-11-13.log",
+          "sha256": "3f30ed6ca4dfe10b14c9f2be93c8f42f957f3ed29a9a7dd2ff4305f28e131d4c",
+          "bytes": 110
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "name": "TemporalGuard gate",
+      "module": "nex_modules/render3d/temporal/",
+      "structural_checks": 51,
+      "structural_status": "PASS",
+      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "performance": "INCONCLUSIVE_NOT_RUN",
+      "note": "Synthetic sequences; real TAA/upscale not measured.",
+      "evidence": [
+        {
+          "path": "nex_modules/render3d/temporal/evidence/headless-smoke-2026-11-13.log",
+          "sha256": "996786119c6945954530a292bfb3194d53532fd2f45cebb6352bae0f223c7e5a",
+          "bytes": 110
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "name": "RenderPassport profiles",
+      "module": "nex_modules/render3d/profiles/",
+      "structural_checks": 87,
+      "structural_status": "PASS",
+      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "performance": "INCONCLUSIVE_NOT_RUN",
+      "note": "Capability states documented, not probed on real scenes.",
+      "evidence": [
+        {
+          "path": "nex_modules/render3d/profiles/evidence/headless-smoke-2026-11-13.log",
+          "sha256": "dfd0250e2cc3659ce1b97b3c45bb4e93d6e7cb3653ecc6e171d01d8baecc39bd",
+          "bytes": 110
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "name": "R&D decision atlas",
+      "module": "docs/research/nex-m02/",
+      "structural_checks": 16,
+      "structural_status": "PASS",
+      "scene_comparison": "NOT_APPLICABLE_RESEARCH",
+      "performance": "NOT_APPLICABLE_RESEARCH",
+      "note": "Research only; no rendering claim.",
+      "evidence": [
+        {
+          "path": "docs/research/nex-m02/hypotheses.v1.json",
+          "sha256": "40f90a80ea58beb7c69c0e0c8b7289c36b31571231f0dcb31c40cb4566d23359",
+          "bytes": 8021
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    "corridor_static",
+    "arena_combat",
+    "dense_city"
+  ],
+  "targets": {
+    "quality_1080p60": "ASPIRATIONAL_NOT_MEASURED",
+    "performance_120": "EXPERIMENTAL_NOT_MEASURED"
+  },
+  "defects": {
+    "high": 0,
+    "critical": 0
+  },
+  "integration": {
+    "mode": "SERIAL_STEWARD",
+    "conflicts": 0,
+    "pending_external_prs": 0
+  },
+  "security": {
+    "new_high_critical": 0,
+    "new_assets": false
+  },
+  "claims": {
+    "scene_pass": false,
+    "measured_gain": false,
+    "performance_attained": false
+  },
+  "interface": "docs/benchmarks/m02/INTERFACE-M03-M06.md"
+}

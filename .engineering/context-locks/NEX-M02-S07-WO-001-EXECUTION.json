@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M02-S07-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 34,
+  "parentM02Issue": 7,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_IN_SESSION",
+    "date": "2026-11-13",
+    "record": "Owner delegated the choice ('escolha vc a melhor opção'); executor selected M02-S07 as the consolidation gate for S01-S06.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "9b40dac928d568cb7783b9e8ae830f35fa2acc21",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M02_S06_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "6f25b3a921709b7fd93b51544546231086aa27d5"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "5fcc3fb86a8c0c51c5c5b47435349dbfa9ce4bdc"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": "contracts/m02/render_core.v1.schema.json",
+      "gitBlobSha1": "3ecd8191daea7c1e43401d16d3aea1cf1dca9cfe"
+    },
+    {
+      "path": "docs/benchmarks/m01/manifest.json",
+      "gitBlobSha1": "452fb7e8cd0f3c89e0281a0a3cc66afeed93f77d"
+    },
+    {
+      "path": "docs/benchmarks/m01/budget.v1.json",
+      "gitBlobSha1": "ecc5bae0764d8aef4b03927bd71d3fffee53e193"
+    },
+    {
+      "path": "docs/research/nex-m02/hypotheses.v1.json",
+      "gitBlobSha1": "c6b90ae44210cf05b1756c2d35e1cb6b60c0cde3"
+    },
+    {
+      "path": "docs/research/nex-m02/DECISION-ATLAS.md",
+      "gitBlobSha1": "d8354ba4f86ca6d9aac88244eb4ef29d24a4ddde"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "docs/benchmarks/m02/**",
+      "tests/ci/test_m02_qa_ledger.py",
+      ".engineering/work-orders/NEX-M02-S07-WO-001.md",
+      ".engineering/context-locks/NEX-M02-S07-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M02-S07-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M02-S07-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/** (exceto benchmarks/m02)",
+      "docs/research/nex-m02/**"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "engine/renderer changes",
+      "shader/compositor implementation",
+      "2.5D implementation",
+      "contracts changes",
+      "project.godot/CI changes",
+      "fabricated scene/performance PASS"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
