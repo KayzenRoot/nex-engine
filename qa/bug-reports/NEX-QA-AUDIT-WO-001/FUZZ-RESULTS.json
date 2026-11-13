@@ -1,0 +1,46 @@
+{
+  "schema": "nex.qa.fuzz.v1",
+  "generated_by": "NEX-QA-AUDIT-WO-001",
+  "repo_root": "C:\\Users\\csn19\\Documents\\nex-engine.worktrees\\qa-audit",
+  "python": "3.13.15",
+  "targets": {
+    "gpu_profile_validator": {
+      "cases": 17,
+      "expected_accept": 0,
+      "expected_reject": 17,
+      "unexpected": [],
+      "unexpected_accepts": []
+    },
+    "framepulse_analyzer": {
+      "cases": 16,
+      "expected_accept": 1,
+      "expected_reject": 15,
+      "unexpected": [
+        {
+          "case": "[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[",
+          "detail": "RecursionError: maximum recursion depth exceeded while decoding a JSON array from a unicode string"
+        }
+      ],
+      "unexpected_accepts": []
+    },
+    "visual_truth_png": {
+      "cases": 14,
+      "expected_accept": 1,
+      "expected_reject": 13,
+      "unexpected": [],
+      "unexpected_accepts": []
+    },
+    "ci_build_allowlist": {
+      "cases": 21,
+      "expected_accept": 7,
+      "expected_reject": 14,
+      "unexpected": [],
+      "unexpected_accepts": []
+    }
+  },
+  "totals": {
+    "cases": 68,
+    "unexpected_exceptions": 1,
+    "unexpected_accepts": 0
+  }
+}
