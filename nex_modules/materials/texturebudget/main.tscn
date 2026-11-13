@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://texture_budget_planner.gd" id="1_texture_budget"]
+
+[node name="TextureBudgetPlanner" type="Node"]
+script = ExtResource("1_texture_budget")
