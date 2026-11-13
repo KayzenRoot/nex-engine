@@ -35,8 +35,8 @@ Cada caso declara expectativa `accept`/`reject`; o harness classifica exceções
 - **Observado:** `RecursionError` não capturado (traceback) — `analyze_json` captura `TypeError`, `ValueError` e `OverflowError`, mas não `RecursionError`.
 - **Contraste:** `validate_gpu_profile.validate_payload` captura `(ValueError, RecursionError)` e converte em `ProfileError`; o comportamento é inconsistente entre validadores.
 - **Impacto:** baixo (ferramenta local; entrada não confiável pode causar falha não controlada do processo chamador). Não há serviço remoto nem bypass de validação.
-- **Correção proposta (não aplicada — fora do escopo de QA):** incluir `RecursionError` no `except` de `analyze_json` e levantar `FramePulseError("invalid JSON telemetry: ...")`; teste de regressão correspondente.
-- **Status:** `OPEN` — requer Correction WO próprio. O teste em `tests/ci/test_qa_audit_regressions.py` documenta o comportamento atual (aceita `FramePulseError` ou `RecursionError`) e deve ser endurecido para exigir `FramePulseError` após a correção.
+- **Correção aplicada (NEX-QA-FINDING-001-CORRECTION):** `RecursionError` incluído no `except` de `analyze_json`, convertido em `FramePulseError("invalid JSON telemetry: ...")`; teste de regressão endurecido para exigir `FramePulseError` apenas.
+- **Status:** `FIXED` — correção integrada no mesmo PR do Correction WO (`NEX-QA-FINDING-001-CORRECTION`), com suíte `tests/ci` verde. O harness original continua registrando 67 casos e o comportamento profundo agora é controlado.
 
 ## Comportamentos verificados (sem defeito)
 

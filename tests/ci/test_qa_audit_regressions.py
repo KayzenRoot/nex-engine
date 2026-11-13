@@ -55,9 +55,9 @@ class FramePulseRobustnessTests(unittest.TestCase):
                     FRAMEPULSE.analyze_json(payload)
 
     def test_deep_nesting_is_not_silently_accepted(self) -> None:
-        # QA-FINDING-001 (OPEN): current code propagates RecursionError instead of
-        # FramePulseError. After the Correction WO, this must require FramePulseError only.
-        with self.assertRaises((FRAMEPULSE.FramePulseError, RecursionError)):
+        # QA-FINDING-001: fixed in NEX-QA-FINDING-001-CORRECTION; deep JSON must be
+        # rejected with the controlled FramePulseError, never an uncaught RecursionError.
+        with self.assertRaises(FRAMEPULSE.FramePulseError):
             FRAMEPULSE.analyze_json("[" * 10000)
 
 

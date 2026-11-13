@@ -80,7 +80,7 @@ def analyze_json(text: str, *, slow_frame_threshold_ms: float = 33.333) -> dict[
         )
     except FramePulseError:
         raise
-    except (TypeError, ValueError, OverflowError) as exc:
+    except (TypeError, ValueError, OverflowError, RecursionError) as exc:
         raise FramePulseError(f"invalid JSON telemetry: {exc}") from exc
     return analyze_run(run, slow_frame_threshold_ms=slow_frame_threshold_ms)
 
