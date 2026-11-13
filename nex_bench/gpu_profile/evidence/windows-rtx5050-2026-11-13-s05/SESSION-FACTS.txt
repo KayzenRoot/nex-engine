@@ -1,0 +1,11 @@
+NEX-M01-S05 LIGHTING MATRIX - SESSION FACTS
+Code SHA measured: 0b8388faba69358027780a2cc0ea73d3449eab6d
+Base main at branch creation: c0cf30bd95cf6f7918c2ce284d8f27b883ccc760
+Godot: 4.7.2.stable.official.ed1daf0bf, binary SHA-256 ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424
+GPU: NVIDIA GeForce RTX 5050, driver 617.14; renderer forward_plus / Vulkan; viewport 1280x720; VSync 1; max_fps 0
+Scene: res://scenes/lighting_matrix/lighting_matrix.tscn (standalone; reuses gpu_profile/session.gd read-only)
+Presets: baseline, lights (4 omni), shadows (directional+omni), vfx (4 emitters), combined (25 only)
+Plan: 4 presets x 3 counts + combined-25 + baseline-25 x2 repeats = 15 runs, serial, one GUI session
+Leases: Local\NEX_M01_S04_GPU_PROFILE_WRITER + Local\NEX_M01_S04_GPU_PROFILE_RTX5050 (exclusive)
+Validation: nex_bench/gpu_profile/validate_gpu_profile.py v2 via stdin, PASS on every COMPLETE capture
+Limitations: single session, 1 repetition per cell (baseline-25 x3), no cross-session comparison, not a benchmark claim

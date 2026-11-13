@@ -1,6 +1,7 @@
 """Structural checks for the NEX M01-S05 lighting matrix measurement stage."""
 from __future__ import annotations
 
+import importlib.util
 import json
 import re
 import unittest
@@ -11,6 +12,16 @@ SCENE_DIR = REPO / "nex_bench" / "scenes" / "lighting_matrix"
 PRESETS_PATH = REPO / "nex_bench" / "presets" / "lighting_matrix" / "presets.v1.json"
 SESSION_PATH = REPO / "nex_bench" / "gpu_profile" / "session.gd"
 ALLOWED_MODES = {"geometry", "lights", "vfx", "combined"}
+EVIDENCE_DIR = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-13-s05"
+
+
+def _load_module(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class LightingMatrixPresetTests(unittest.TestCase):
@@ -73,6 +84,41 @@ class LightingMatrixScriptTests(unittest.TestCase):
             self.assertIn(key, self.script)
         self.assertIn("max_proxy_count", self.script)
         self.assertIn("mini(count, cap)", self.script)
+
+
+class LightingMatrixValidatorTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.validator = _load_module(SCENE_DIR / "validate_lighting_matrix.py", "s05_validator")
+        cls.documents = sorted(path for path in EVIDENCE_DIR.glob("gpu_profile_*.json")
+                               if not path.name.endswith(".s05-validation.json"))
+
+    def test_every_committed_capture_validates(self) -> None:
+        self.assertEqual(15, len(self.documents))
+        for path in self.documents:
+            with self.subTest(path=path.name):
+                document = self.validator._loads(path.read_bytes())
+                result = self.validator.validate_document(document)
+                self.assertEqual("PASS", result["status"])
+                self.assertEqual("COMPLETE", result["run_status"])
+                self.assertEqual("Lighting Matrix", document["workload"]["scene"])
+
+    def test_forged_aggregate_is_rejected(self) -> None:
+        document = self.validator._loads(self.documents[0].read_bytes())
+        document["series"]["GPU_RENDER_MS"]["aggregates"]["p50"] += 0.05
+        with self.assertRaises(self.validator.LightingMatrixError):
+            self.validator.validate_document(document)
+
+    def test_wrong_scene_provenance_is_rejected(self) -> None:
+        document = self.validator._loads(self.documents[0].read_bytes())
+        document["workload"]["scene"] = "Density Ladder"
+        with self.assertRaises(self.validator.LightingMatrixError):
+            self.validator.validate_document(document)
+
+    def test_s04_validator_rejects_lighting_matrix_by_design(self) -> None:
+        s04 = _load_module(REPO / "nex_bench" / "gpu_profile" / "validate_gpu_profile.py", "s05_s04_validator")
+        with self.assertRaises(s04.ProfileError):
+            s04.validate_payload(self.documents[0].read_bytes())
 
 
 if __name__ == "__main__":
