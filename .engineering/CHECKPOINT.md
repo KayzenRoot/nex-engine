@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M06 Bottleneck Atlas (S05)
+
+**M06-BOTTLENECK-ATLAS integrado** por PR #159, squash `9f0cd8440de26c660e451ee6a3bda89729aa73cc` (código `99c9fcb4`). Em `docs/benchmarks/m06/`, o builder determinístico recomputa as 15 capturas S05, verifica 32 hashes do bundle, confere os JSONs de validação e gera `atlas.v1.json` + `ATLAS.md` com referências baseline, deltas e classificação no vocabulário `performance.v1`. **12 testes** de estrutura/reprodutibilidade; `--check` detecta artefatos defasados.
+
+**Resultados derivados:** 15/15 runs `pacing` (vsync 60 Hz); GPU p95 máximo **1.194 ms** em `combined-25`; deltas GPU p95 vs baseline-25: lights +54.1%, shadows +154.1%, vfx +30.4%, combined +559.7%; spread baseline-25 **0.002 ms**. Nenhuma captura ou medição nova; não é benchmark, FPS ou generalização. Parent M06 (#11) continua **NOT_ADMITTED**.
+
+
 ## Current verified scope | 2026-11-13 · M06 performance contract v1
 
 **Contrato M06 v1 integrado** por PR #157, squash `7e21d7087097de4bcceca6d328d4edfe341e977e` (código `78af311c`). `contracts/m06/performance.v1.schema.json` define workload, frame interval, timings GPU/CPU/pacing, recursos, classificação de gargalo com evidência/confiança e comparação opcional. Ownership prospectivo de atlas/LOD/culling/streaming/framepacer, docs e **17 testes novos** (suíte de contratos 110 OK; total 440 em worktree LF limpo). A cadeia de interfaces M03–M06 está definida.
