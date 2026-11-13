@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M08_CONTRACT_V1_INTEGRATED_M08_PARENT_NOT_ADMITTED",
-  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT",
-  "mainObservedSha": "5814115e19dbd6d9756482f6c0eabf3a9397da11",
+  "status": "M08_COMPOSITION_PROTOTYPE_INTEGRATED_M08_PARENT_NOT_ADMITTED",
+  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION",
+  "mainObservedSha": "8dada408436766009e66fa57830f08b06e99f1bb",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
@@ -76,7 +76,7 @@
     "postMergeChecks": "SIX_OF_SIX_SUCCESS",
     "sourcePackCoherence": "M00_HISTORICAL_STATUS_RECONCILIATION_IN_PROPOSED_DOC_PR_SUBJECT_TO_PROTECTED_MERGE_AUDIT"
   },
-  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M08_CONTRACT_2026_11_13",
+  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M08_COMPOSITION_2026_11_13",
   "ciFastLaneIntegration": {
     "pr": 83,
     "mergeSha": "a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56",
@@ -698,6 +698,27 @@
     "contractSuiteTests": 130,
     "implementation": false,
     "visualClaim": false,
+    "checkpointDelta": "PROPOSED_NOT_PROMOTED",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "parentM08": "NOT_ADMITTED"
+  },
+  "m08CompositionPrototype": {
+    "id": "NEX-M08-COMPOSITION-WO-001",
+    "issue": 13,
+    "pr": 165,
+    "reviewedHeadSha": "5461b6174f3e9a0f0955c1bda46cf32549d97895",
+    "protectedMergeSha": "8dada408436766009e66fa57830f08b06e99f1bb",
+    "codeSha": "0f1cc07f8175b0f4b17a535721df28a2dcbf3814",
+    "modulePath": "nex_modules/render2_5d/composition/",
+    "contracts": [
+      "contracts/m08/composition.v1.schema.json"
+    ],
+    "headlessChecks": 69,
+    "structuralTests": 9,
+    "engineIntegration": false,
+    "renderingIntegration": false,
+    "visualQuality": "INCONCLUSIVE_NOT_RUN",
+    "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM08": "NOT_ADMITTED"
