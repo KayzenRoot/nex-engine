@@ -1,0 +1,41 @@
+{
+  "schema_version": "nex_m01_performance_budget.v1",
+  "status": "PROPOSED_PENDING_OWNER_APPROVAL",
+  "basis": {
+    "manifest": "manifest.json",
+    "measured_platform": "Windows 11 26300 / RTX 5050 / driver 617.14 / Godot 4.7.2 Forward+ Vulkan",
+    "viewport": [1280, 720],
+    "vsync": 1,
+    "max_fps": 0,
+    "warmup_seconds": 2.0,
+    "observation_seconds": 30.0,
+    "single_session": true,
+    "repetitions": "1 per cell; baseline-25 x3"
+  },
+  "ceilings": [
+    {"id": "s04-baseline-200g-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S04 Density Ladder 200 geometry", "measured": 0.295, "ceiling": 0.40, "unit": "ms"},
+    {"id": "s05-baseline-200g-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S05 baseline 200 proxies", "measured": 0.218, "ceiling": 0.30, "unit": "ms"},
+    {"id": "s05-lights-200g-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S05 4 omni lights 200 proxies", "measured": 0.321, "ceiling": 0.45, "unit": "ms"},
+    {"id": "s05-shadows-200g-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S05 directional+omni shadows 200 proxies", "measured": 0.547, "ceiling": 0.75, "unit": "ms"},
+    {"id": "s05-vfx-200g-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S05 4 particle emitters 200 proxies", "measured": 0.261, "ceiling": 0.36, "unit": "ms"},
+    {"id": "s05-combined-25-gpu-p95", "metric": "GPU_RENDER_MS.p95", "scenario": "S05 shadows+particles 25 proxies", "measured": 1.194, "ceiling": 1.60, "unit": "ms"},
+    {"id": "pacing-p95", "metric": "FRAME_PACING_INTERVAL_MS.p95", "scenario": "any audited run", "measured_max": 17.25, "ceiling": 18.0, "unit": "ms"},
+    {"id": "one-percent-low", "metric": "one_percent_low_fps", "scenario": "any audited run", "measured_min": 52.66, "floor": 50.0, "unit": "fps-derived"},
+    {"id": "fresh-session-allocation-delta", "metric": "RENDERER_ALLOCATION_BYTES delta", "scenario": "new module vs baseline in a fresh session", "ceiling_percent": 15.0, "note": "allocation is renderer-side and session-history; not device VRAM"}
+  ],
+  "targets": [
+    {"id": "quality-1080p60", "resolution": "1920x1080", "frame_budget_ms": 16.7, "status": "ASPIRATIONAL_NOT_MEASURED"},
+    {"id": "performance-120", "resolution": "experimental", "frame_budget_ms": 8.3, "status": "ASPIRATIONAL_NOT_MEASURED"}
+  ],
+  "claims": {
+    "engine_complete": false,
+    "targets_achieved": false,
+    "gpu_benchmark_claim": false,
+    "cross_session_comparison_allowed": false,
+    "headless_or_ci_as_gpu_benchmark": false
+  },
+  "approval": {
+    "required": "OWNER",
+    "scope": "budgets are proposals for future module admissions; they do not authorize implementation"
+  }
+}
