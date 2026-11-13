@@ -1,0 +1,51 @@
+{
+  "schema_version": "m07_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m07/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m07-canvas", "m07-lighting2d", "m07-particles2d"]
+    },
+    {
+      "path": "nex_modules/render2d/canvas/**",
+      "owner": "m07-canvas",
+      "mode": "future-write",
+      "consumers": ["m07-lighting2d", "m07-particles2d"]
+    },
+    {
+      "path": "nex_modules/render2d/lighting2d/**",
+      "owner": "m07-lighting2d",
+      "mode": "future-write",
+      "consumers": ["m07-particles2d"]
+    },
+    {
+      "path": "nex_modules/render2d/particles2d/**",
+      "owner": "m07-particles2d",
+      "mode": "future-write",
+      "consumers": []
+    },
+    {
+      "path": "tests/render2d/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m07/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
