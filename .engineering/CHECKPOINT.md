@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M08-COMPOSITION planner prototype
+
+**M08-COMPOSITION integrado como protótipo isolado** por PR #165, squash `8dada408436766009e66fa57830f08b06e99f1bb` (código `0f1cc07f`). Em `nex_modules/render2_5d/composition/`, o planejador determinístico consome `composition.v1`: stack de camadas/entidades críticas, políticas de profundidade/alpha/HUD, ordem de draw por papel, conflitos (alpha sobre crítico, HUD cobrindo gameplay, overrides, riscos do plano 3D) e exportação de observação. **69 asserts headless** e 9 testes estruturais.
+
+**Parent M08 (#13) continua NOT_ADMITTED.** Sem camada/viewport/shader/cena/rendering; alpha-over-critical é aritmético, não pixel coverage; composição visual/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M08 2.5D composition contract v1
 
 **Contrato M08 v1 integrado** por PR #163, squash `5814115e19dbd6d9756482f6c0eabf3a9397da11` (código `53c38b35`). `contracts/m08/composition.v1.schema.json` formaliza o rascunho DepthWeave: referência ao plano 3D, stack de camadas 2.5D, política de profundidade, alpha guard, HUD/overlay safety, entidades críticas, performance e proveniência. Ownership prospectivo de `nex_modules/render2_5d/**`, docs e **20 testes novos** (suíte de contratos 130 OK; total 472 em worktree LF limpo).
