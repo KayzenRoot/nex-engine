@@ -1,0 +1,71 @@
+{
+  "schema_version": "nex_m02_capability_matrix.v1",
+  "godot": "4.7.2-stable",
+  "verification": "DOCUMENTED_UNVERIFIED_UNLESS_PROBED",
+  "measurement_note": "Statuses are documentation-derived unless a runtime probe supplies them. A GPU name never implies a capability.",
+  "drivers": {
+    "forward_plus": ["vulkan", "d3d12"],
+    "gl_compatibility": ["opengl3"]
+  },
+  "fallbacks": {
+    "forward_plus+vulkan": ["forward_plus+d3d12", "gl_compatibility+opengl3"],
+    "forward_plus+d3d12": ["gl_compatibility+opengl3"],
+    "gl_compatibility+opengl3": []
+  },
+  "capabilities": [
+    {
+      "id": "camera.perspective",
+      "category": "camera",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "SUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html"
+    },
+    {
+      "id": "camera.orthographic",
+      "category": "camera",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "SUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html"
+    },
+    {
+      "id": "visibility.mesh_lod",
+      "category": "visibility",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "UNSUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html"
+    },
+    {
+      "id": "visibility.visibility_ranges",
+      "category": "visibility",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "UNSUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html"
+    },
+    {
+      "id": "visibility.occlusion_culling",
+      "category": "visibility",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "UNSUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html"
+    },
+    {
+      "id": "composition.render_scale",
+      "category": "composition",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "SUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html"
+    },
+    {
+      "id": "composition.msaa",
+      "category": "composition",
+      "states": {"forward_plus": "SUPPORTED", "gl_compatibility": "SUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html"
+    },
+    {
+      "id": "composition.temporal_aa",
+      "category": "composition",
+      "states": {"forward_plus": "REQUIRES_MEASUREMENT", "gl_compatibility": "UNSUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html"
+    },
+    {
+      "id": "composition.depth_prepass",
+      "category": "composition",
+      "states": {"forward_plus": "REQUIRES_MEASUREMENT", "gl_compatibility": "UNSUPPORTED"},
+      "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html"
+    }
+  ]
+}

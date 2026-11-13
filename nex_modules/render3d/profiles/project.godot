@@ -1,0 +1,9 @@
+config_version=5
+
+[application]
+config/name="NEX M02 Render Passport Tests"
+config/description="Capability matrix and graphics profile tests; no engine integration"
+run/main_scene="res://main.tscn"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
