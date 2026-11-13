@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M03-LIGHTBUDGET arbiter prototype
+
+**M03-LIGHTBUDGET integrado como protótipo isolado** por PR #149, squash `efa7c29766ffa807ee6a793bb790ef7af87e8f9c` (código `26f6ab93`). Em `nex_modules/lighting/budget/`, o árbitro determinístico calibra `nex_light_cost_model.v1` pelas capturas reais S05 (RTX 5050, sessão única, GPU p95 a 25 proxies), projeta custo com breakdown, veredito `FIT`/`TIGHT`/`OVER_BUDGET` e escada de degradação ordenada com `recommended_step`. **57 asserts headless** e 9 testes estruturais.
+
+**Parent M03 (#8) continua NOT_ADMITTED.** Nenhuma captura ou rendering novo; coeficientes não generalizam para outras cenas/hardware; projeção não é frame time nem benchmark. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M03-SHADOWSTAB analyzer prototype
 
 **M03-SHADOWSTAB integrado como protótipo isolado** por PR #147, squash `fa1acb3a6e0f0c01f6551e49b0266d8d584b5ef9` (código `6db0a5ee`). Em `nex_modules/lighting/shadows/`, o analisador determinístico consome `lighting.plan.v1`/`lighting.v1` e reporta splits de cascata, pressão de atlas, heurísticas de bias/softness, orçamento e coerência de casters, com veredictos `STABLE_CONFIG_HEURISTIC`, `STABLE_CONFIG_HEURISTIC_WITH_NOTES`, `RISK_REPRODUCED` ou `INCONCLUSIVE`. **51 asserts headless** e 9 testes estruturais.
