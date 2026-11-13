@@ -141,7 +141,7 @@ def png_chunk(kind: bytes, body: bytes) -> bytes:
     return struct.pack(">I", len(body)) + kind + body + struct.pack(">I", zlib.crc32(kind + body) & 0xFFFFFFFF)
 
 
-def png_bytes(width: int, height: int, color_type: int, payload: bytes, filter_method: int = 0) -> bytes:
+def png_bytes(width: int, height: int, color_type: int, payload: bytes) -> bytes:
     header = struct.pack(">IIBBBBB", width, height, 8, color_type, 0, 0, 0)
     return b"\x89PNG\r\n\x1a\n" + png_chunk(b"IHDR", header) + png_chunk(b"IDAT", zlib.compress(payload)) + png_chunk(b"IEND", b"")
 
@@ -189,7 +189,7 @@ def expect_reject(url: str) -> None:
 
 for url in [
     "",
-    "http://github.com/godotengine/godot/releases/download/x/file.zip",
+    ALLOWED[0].replace("https://", "http://"),
     "https://evil.example/godot.zip",
     "https://github.com.evil.example/godot.zip",
     "https://github.com@evil.example/godot.zip",
