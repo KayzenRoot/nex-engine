@@ -1,0 +1,11 @@
+{
+  "schema_version": "nex_brand_palette.v1",
+  "status": "PROVISIONAL_BRAND_MASTER_NOT_DISTRIBUTION_RELEASE",
+  "colors": [
+    {"id": "graphite", "hex": "#0B0F14", "role": "background"},
+    {"id": "cobalt", "hex": "#2F6BFF", "role": "primary"},
+    {"id": "cyan", "hex": "#35D0FF", "role": "accent"},
+    {"id": "amber", "hex": "#FFB020", "role": "highlight"},
+    {"id": "mist", "hex": "#E8EEF7", "role": "text"}
+  ]
+}
