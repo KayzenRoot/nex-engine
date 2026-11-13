@@ -1,7 +1,7 @@
 # Checkpoint Delta · NEX-M02-S06-WO-001 (PROPOSED)
 
 **Status:** `PROPOSED / NOT_PROMOTED / REQUIRES_OWNER_DECISION`
-**Base:** `75fc18bf482d0ea5dd07118082f14890545fd4f5` · **Code SHA:** `f1340378ca46454a6e41fa41e0b232de1a47adf1`
+**Base:** `75fc18bf482d0ea5dd07118082f14890545fd4f5` · **Code SHA:** `99e4ed6b9dd68237714fb27de43b4e188d08be5d`
 **Audit:** `ADMIN_SOLO / NOT_INDEPENDENT`
 
 ## Delta proposto
