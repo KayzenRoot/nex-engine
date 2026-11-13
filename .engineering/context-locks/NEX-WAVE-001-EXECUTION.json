@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-WAVE-001-MULTI-FRONT-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_IN_SESSION",
+    "date": "2026-11-13",
+    "record": "Owner selected 'Onda máxima — 6 frentes' in the active session after reviewing the dependency analysis; scope listed below.",
+    "externalHumanReviewerRequired": false,
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT"
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "9282ee4027af79bf7e6afddb557445d0d57c57d3",
+  "authorityBaseMeaning": "LIVE_MAIN_AT_WAVE_ADMISSION_2026_11_13",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "bb5f1fa140021c5b063345df5f20c3aaaa61aa86"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "0ce49cd682d621ab8a42d6bb67be54350d9f27fd"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "gpuLease": "EXCLUSIVE_RTX_5050_PER_RUN_NO_PARALLEL_GPU_BENCHMARKS",
+  "increments": [
+    {
+      "id": "NEX-M01-S05-WO-001",
+      "issue": 25,
+      "title": "Matriz cinematográfica: iluminação, VFX e qualidade Forward+",
+      "writeAllowedExact": [
+        "nex_bench/scenes/lighting_matrix/**",
+        "nex_bench/presets/lighting_matrix/**",
+        "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/**",
+        "tests/ci/test_lighting_matrix.py"
+      ],
+      "branch": "feat/nex-m01-s05-cinematic-matrix",
+      "risk": "STANDARD",
+      "gpu": true
+    },
+    {
+      "id": "NEX-M01-S06-WO-001",
+      "issue": 26,
+      "title": "Radar R&D: tecnologias proprietárias orientadas por evidência",
+      "writeAllowedExact": [
+        "docs/research/nex-m01/**",
+        "tests/ci/test_research_notes.py"
+      ],
+      "branch": "feat/nex-m01-s06-rd-radar",
+      "risk": "LOW",
+      "gpu": false
+    },
+    {
+      "id": "NEX-QA-AUDIT-WO-001",
+      "issue": 20,
+      "title": "Bug Hunter: auditoria de robustez e regressões",
+      "writeAllowedExact": [
+        "qa/bug-reports/NEX-QA-AUDIT-WO-001/**",
+        "tests/ci/test_qa_audit_regressions.py"
+      ],
+      "branch": "qa/nex-qa-audit-wo-001",
+      "risk": "STANDARD",
+      "gpu": false
+    },
+    {
+      "id": "NEX-M12-S01-WO-001",
+      "issue": 17,
+      "title": "Brand master: direção visual, SVG e ícones",
+      "writeAllowedExact": [
+        "assets/brand/**",
+        "docs/brand/**",
+        "tests/ci/test_brand_assets.py"
+      ],
+      "branch": "feat/nex-m12-s01-brand-master",
+      "risk": "LOW",
+      "gpu": false
+    },
+    {
+      "id": "NEX-M02-CONTRACT-WO-001",
+      "issue": 7,
+      "title": "Contrato core de renderização 3D isométrica",
+      "writeAllowedExact": [
+        "contracts/m02/**",
+        "docs/contracts/m02.md",
+        "tests/contracts/test_m02_render_contract.py"
+      ],
+      "branch": "contracts/nex-m02-render-core",
+      "risk": "STANDARD",
+      "gpu": false
+    },
+    {
+      "id": "NEX-M07-CONTRACT-WO-001",
+      "issue": 12,
+      "title": "Contrato de interface do pipeline 2D",
+      "writeAllowedExact": [
+        "contracts/m07/**",
+        "docs/contracts/m07.md",
+        "tests/contracts/test_m07_render2d_contract.py"
+      ],
+      "branch": "contracts/nex-m07-render2d-interface",
+      "risk": "STANDARD",
+      "gpu": false
+    }
+  ],
+  "scope": {
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/**",
+      "contracts/m01/**",
+      "nex_bench/** (exceto paths de S05)",
+      "tooling/**",
+      "tests/m00/**"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "paid/cloud APIs",
+      "canonical checkpoint self-promotion outside a docs-only governance PR",
+      "changes to contracts/m01/**",
+      "M02-M12 implementation outside listed contract/design paths"
+    ]
+  },
+  "prConditions": {
+    "onePrPerIncrement": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_6_REQUIRED_CHECKS",
+    "contextLock": "REVALIDATE_LIVE_MAIN_BEFORE_EACH_MERGE",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_CANONICAL_FINGERPRINTS_CHANGE"
+}
