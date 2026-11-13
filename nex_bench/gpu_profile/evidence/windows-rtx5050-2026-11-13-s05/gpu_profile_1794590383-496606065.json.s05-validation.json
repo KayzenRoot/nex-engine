@@ -1,0 +1,69 @@
+{
+  "observed_seconds": 30.003164,
+  "one_percent_low_fps": 53.5827511170515,
+  "run_id": "1794590383-496606065",
+  "run_status": "COMPLETE",
+  "series": {
+    "CPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.25294166653520533,
+        "p50": 0.247999995946884,
+        "p95": 0.324000000953674,
+        "p99": 0.458000004291534
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 1800
+    },
+    "FRAME_PACING_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 16.668424444444444,
+        "p50": 16.666,
+        "p95": 16.993,
+        "p99": 17.905
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 1800
+    },
+    "GPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.17896778092616136,
+        "p50": 0.178000003099442,
+        "p95": 0.180999994277954,
+        "p99": 0.181999996304512
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 1800
+    },
+    "MAIN_LOOP_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 16.66137037037037,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 1800
+    },
+    "RENDERER_ALLOCATION_BYTES": {
+      "aggregates": {
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 1800
+    }
+  },
+  "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d",
+  "status": "PASS",
+  "workload": {
+    "effect_mode": "geometry",
+    "proxy_count": 25
+  }
+}
