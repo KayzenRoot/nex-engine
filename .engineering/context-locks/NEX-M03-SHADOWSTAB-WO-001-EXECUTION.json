@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M03-SHADOWSTAB-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 8,
+  "parentM03Issue": 8,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-13",
+    "record": "Standing authorization to continue without asking; executor selected the M03 shadow-stability analyzer as the next independent increment after the light-rig planner.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "346c6dd6bd85c12e3aad1250d8cae95b195bd605",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M03_LIGHTRIG_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "c6bd8cc716b607ca355dd6a1aa8327b0f2518dc9"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "f61ae7f663c802c53659bc052c145fa6373199f3"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m01/scene_manifest.v1.schema.json", "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"},
+    {"path": "contracts/m01/telemetry_run.v1.schema.json", "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"},
+    {"path": "contracts/m01/ownership.v1.json", "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"},
+    {"path": "contracts/m02/render_core.v1.schema.json", "gitBlobSha1": "3ecd8191daea7c1e43401d16d3aea1cf1dca9cfe"},
+    {"path": "contracts/m03/lighting.v1.schema.json", "gitBlobSha1": "031c8e221b29dabe77a1e329247536b6c636d0b9"},
+    {"path": "contracts/m03/ownership.v1.json", "gitBlobSha1": "434c878f47253f8adaa5abd40fad6d0e5e62e67a"},
+    {"path": "nex_modules/lighting/light_rig/light_rig_planner.gd", "gitBlobSha1": "9e40b3374e701deace5732c1aa6d5395d47220e2"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_modules/lighting/shadows/**",
+      "tests/ci/test_shadow_stability_analyzer.py",
+      ".engineering/work-orders/NEX-M03-SHADOWSTAB-WO-001.md",
+      ".engineering/context-locks/NEX-M03-SHADOWSTAB-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M03-SHADOWSTAB-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M03-SHADOWSTAB-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/lighting/light_rig/**",
+      "nex_modules/render3d/**",
+      "nex_modules/render2d/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/**"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "engine/renderer changes",
+      "shader/material changes",
+      "real shadow implementation",
+      "M03 parent admission",
+      "project.godot/CI changes",
+      "fabricated visual or performance claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}

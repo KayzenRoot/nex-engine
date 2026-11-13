@@ -1,0 +1,9 @@
+config_version=5
+
+[application]
+config/name="NEX M03 Shadow Stability Analyzer Tests"
+config/description="Deterministic shadow-stability risk analysis; no engine integration"
+run/main_scene="res://main.tscn"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
