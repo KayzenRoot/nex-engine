@@ -248,258 +248,23 @@
             "UNAVAILABLE"
           ]
         },
-        "frame_interval": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "provider",
-                "samples_ms"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "provider": {
-                  "const": "SceneTree._process(delta)"
-                },
-                "samples_ms": {
-                  "type": "array",
-                  "minItems": 1,
-                  "maxItems": 16000,
-                  "items": {
-                    "type": "number",
-                    "exclusiveMinimum": 0,
-                    "maximum": 1000
-                  }
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "provider",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "provider": {
-                  "const": "SceneTree._process(delta)"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
-        },
-        "gpu_render_time": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "value"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "value": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 60000
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
-        },
         "cpu_render_time": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "value"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "value": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 60000
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
+          "$ref": "#/$defs/optional_number"
         },
         "draw_calls": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "value"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "value": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 9007199254740991
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
+          "$ref": "#/$defs/optional_integer"
         },
         "objects_rendered": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "value"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "value": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 9007199254740991
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
+          "$ref": "#/$defs/optional_integer"
         },
         "renderer_allocation_bytes": {
-          "oneOf": [
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "value"
-              ],
-              "properties": {
-                "status": {
-                  "const": "MEASURED"
-                },
-                "value": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 9007199254740991
-                }
-              }
-            },
-            {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "status",
-                "unavailable_reason"
-              ],
-              "properties": {
-                "status": {
-                  "const": "UNAVAILABLE"
-                },
-                "unavailable_reason": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 240
-                }
-              }
-            }
-          ]
+          "$ref": "#/$defs/optional_integer"
+        },
+        "gpu_render_time": {
+          "$ref": "#/$defs/optional_number"
+        },
+        "frame_interval": {
+          "$ref": "#/$defs/frame_interval"
         }
       }
     },
@@ -572,6 +337,141 @@
           "maxLength": 512
         }
       }
+    }
+  },
+  "$defs": {
+    "frame_interval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "provider",
+            "samples_ms"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "provider": {
+              "const": "SceneTree._process(delta)"
+            },
+            "samples_ms": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 16000,
+              "items": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1000
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "provider",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "provider": {
+              "const": "SceneTree._process(delta)"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
+    },
+    "optional_number": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "value"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "value": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 60000
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
+    },
+    "optional_integer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "value"
+          ],
+          "properties": {
+            "status": {
+              "const": "MEASURED"
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "unavailable_reason"
+          ],
+          "properties": {
+            "status": {
+              "const": "UNAVAILABLE"
+            },
+            "unavailable_reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            }
+          }
+        }
+      ]
     }
   }
 }
