@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nex-engine.local/contracts/m05/spellfx.v1.schema.json",
+  "title": "NEX M05 SpellFX contract v1",
+  "description": "Versioned spell VFX observation. Representation only: does not implement or admit M05.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "observation_id", "captured_at_utc", "spells", "fx_budget", "performance", "provenance"],
+  "properties": {
+    "schema_version": {"const": "spellfx.v1"},
+    "observation_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"},
+    "captured_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+    "spells": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["spell_id", "element", "phases", "gameplay_authority"],
+        "properties": {
+          "spell_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+          "element": {"enum": ["fire", "ice", "lightning", "arcane", "nature", "physical"]},
+          "phases": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["phase", "duration_ms", "emitters"],
+              "properties": {
+                "phase": {"enum": ["cast", "travel", "impact", "linger"]},
+                "duration_ms": {"type": "integer", "minimum": 0, "maximum": 60000},
+                "emitters": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 16,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["emitter_id", "kind", "amount", "lifetime_ms", "gpu", "light_bridge"],
+                    "properties": {
+                      "emitter_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+                      "kind": {"enum": ["particles", "trail", "beam", "decal", "light"]},
+                      "amount": {"type": "integer", "minimum": 0, "maximum": 100000},
+                      "lifetime_ms": {"type": "integer", "minimum": 0, "maximum": 60000},
+                      "gpu": {"type": "boolean"},
+                      "light_bridge": {"type": "boolean"}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "gameplay_authority": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["damage_owner", "hit_detection", "cancel_on_death"],
+            "properties": {
+              "damage_owner": {"enum": ["gameplay", "visual_only"]},
+              "hit_detection": {"enum": ["gameplay", "visual_only"]},
+              "cancel_on_death": {"type": "boolean"}
+            }
+          },
+          "decal_policy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["max_decals", "fade_ms"],
+            "properties": {
+              "max_decals": {"type": "integer", "minimum": 0, "maximum": 256},
+              "fade_ms": {"type": "integer", "minimum": 0, "maximum": 60000}
+            }
+          }
+        }
+      }
+    },
+    "fx_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_emitters", "max_particles", "max_gpu_particles", "max_decals"],
+      "properties": {
+        "max_emitters": {"type": "integer", "minimum": 0, "maximum": 256},
+        "max_particles": {"type": "integer", "minimum": 0, "maximum": 1000000},
+        "max_gpu_particles": {"type": "integer", "minimum": 0, "maximum": 64},
+        "max_decals": {"type": "integer", "minimum": 0, "maximum": 256}
+      }
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["measurement_status", "frame_interval", "gpu_render_time", "cpu_render_time", "draw_calls", "renderer_allocation_bytes"],
+      "properties": {
+        "measurement_status": {"enum": ["MEASURED", "UNAVAILABLE"]},
+        "frame_interval": {"$ref": "#/$defs/frame_interval"},
+        "gpu_render_time": {"$ref": "#/$defs/optional_number"},
+        "cpu_render_time": {"$ref": "#/$defs/optional_number"},
+        "draw_calls": {"$ref": "#/$defs/optional_integer"},
+        "renderer_allocation_bytes": {"$ref": "#/$defs/optional_integer"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base_sha", "head_sha", "godot_version", "hardware", "capture_mode", "measurement_status"],
+      "properties": {
+        "base_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "head_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "godot_version": {"type": "string", "minLength": 1, "maxLength": 80},
+        "hardware": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gpu_model", "driver_version"],
+          "properties": {
+            "gpu_model": {"type": "string", "minLength": 1, "maxLength": 120},
+            "driver_version": {"type": "string", "minLength": 1, "maxLength": 60},
+            "device_memory_mib": {"type": "integer", "minimum": 0, "maximum": 1048576}
+          }
+        },
+        "capture_mode": {"enum": ["windowed", "fullscreen", "headless"]},
+        "measurement_status": {"enum": ["MEASURED", "UNAVAILABLE"]},
+        "evidence_uri": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    }
+  },
+  "$defs": {
+    "frame_interval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "provider", "samples_ms"],
+          "properties": {
+            "status": {"const": "MEASURED"},
+            "provider": {"const": "SceneTree._process(delta)"},
+            "samples_ms": {"type": "array", "minItems": 1, "maxItems": 16000, "items": {"type": "number", "exclusiveMinimum": 0, "maximum": 1000}}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "provider", "unavailable_reason"],
+          "properties": {
+            "status": {"const": "UNAVAILABLE"},
+            "provider": {"const": "SceneTree._process(delta)"},
+            "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}
+          }
+        }
+      ]
+    },
+    "optional_number": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value"],
+          "properties": {"status": {"const": "MEASURED"}, "value": {"type": "number", "minimum": 0, "maximum": 60000}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "unavailable_reason"],
+          "properties": {"status": {"const": "UNAVAILABLE"}, "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}}
+        }
+      ]
+    },
+    "optional_integer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value"],
+          "properties": {"status": {"const": "MEASURED"}, "value": {"type": "integer", "minimum": 0, "maximum": 9007199254740991}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "unavailable_reason"],
+          "properties": {"status": {"const": "UNAVAILABLE"}, "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}}
+        }
+      ]
+    }
+  }
+}
