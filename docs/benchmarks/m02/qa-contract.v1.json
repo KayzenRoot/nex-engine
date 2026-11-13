@@ -1,0 +1,38 @@
+{
+  "schema_version": "nex_m02_qa_contract.v1",
+  "status": "PROPOSED_NOT_PROMOTED",
+  "scenes": ["corridor_static", "arena_combat", "dense_city"],
+  "components": ["camera", "occlusion", "depth", "temporal", "capabilities", "replay", "perf_ab"],
+  "statuses": ["PASS", "FAIL", "INCONCLUSIVE_NOT_RUN", "BLOCKED"],
+  "rules": [
+    "PASS requires a valid evidence path and an exact SHA-256.",
+    "Missing scene or performance measurement is INCONCLUSIVE_NOT_RUN, never PASS.",
+    "No cross-session pacing comparison; no GPU claim from headless CI.",
+    "Any HIGH or CRITICAL defect blocks acceptance.",
+    "Scene comparison is A/B/A, 3 serial repetitions, same hardware/driver/SHA/procedure.",
+    "The QA ledger compares the frozen M01 baseline against each S01-S06 improvement."
+  ],
+  "measurement": {
+    "warmup_seconds": 2.0,
+    "observation_seconds": 30.0,
+    "repetitions": 3,
+    "metrics": ["pacing p95", "pacing p99", "1% low", "GPU render time", "CPU render time", "renderer allocation"],
+    "executor": "WINDOWS_NATIVE_RTX5050_ONLY",
+    "headless_ci_is_not_gpu_benchmark": true
+  },
+  "targets": {
+    "quality_1080p60": "ASPIRATIONAL_NOT_MEASURED",
+    "performance_120": "EXPERIMENTAL_NOT_MEASURED"
+  },
+  "interface": {
+    "M03_lighting": ["camera state", "visibility state", "capability passport"],
+    "M04_materials": ["depth plan", "alpha/overlay conflicts", "capability passport"],
+    "M05_vfx": ["temporal gate metrics", "visibility state", "capability passport"],
+    "M06_optimization": ["capability passport", "fallback chain", "baseline budget"]
+  },
+  "claims": {
+    "scene_pass_without_measurement": false,
+    "measured_gain": false,
+    "performance_attained": false
+  }
+}
