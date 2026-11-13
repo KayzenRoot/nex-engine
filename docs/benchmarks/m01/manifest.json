@@ -1,0 +1,508 @@
+{
+  "schema_version": "nex_m01_baseline_manifest.v1",
+  "status": "FROZEN_PROPOSED",
+  "work_order": "NEX-M01-S07-WO-001",
+  "issue": 27,
+  "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+  "base_sha": "871fd1bc89c272ba04327ddc81e407d35ff5fee0",
+  "head_sha_at_manifest_generation": "e25d5a38414cb6f7989665729706876ee47e77c5",
+  "generated_at_utc": "2026-11-13T18:04:09Z",
+  "godot": {
+    "tag": "4.7.2-stable",
+    "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "binary_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 5050",
+    "driver": "617.14",
+    "os": "Windows 11 build 26300",
+    "host_ram": "not audited"
+  },
+  "settings": {
+    "renderer": "forward_plus",
+    "driver": "vulkan",
+    "viewport": [
+      1280,
+      720
+    ],
+    "vsync": 1,
+    "max_fps": 0
+  },
+  "matrices": {
+    "s02": {
+      "status": "SYNTHETIC_NOT_MEASURED",
+      "fixture": "nex_bench/telemetry/fixtures/synthetic_run.v1.json"
+    },
+    "s03": {
+      "status": "SYNTHETIC_COMPARATOR_TESTED",
+      "implementation": "nex_bench/visual_truth/compare.py"
+    },
+    "s04": {
+      "status": "12_OF_12_COMPLETE",
+      "counts": [
+        25,
+        50,
+        100,
+        200
+      ],
+      "combined_max": 25,
+      "invalid_runs": [
+        "1791933080-760888025"
+      ],
+      "invalid_reason": "invalid_monotonic_tick",
+      "validator": "nex_bench/gpu_profile/validate_gpu_profile.py"
+    },
+    "s05": {
+      "status": "15_OF_15_COMPLETE",
+      "counts": [
+        25,
+        100,
+        200
+      ],
+      "combined_max": 25,
+      "baseline_repetitions": 3,
+      "validator": "nex_bench/scenes/lighting_matrix/validate_lighting_matrix.py"
+    },
+    "s06": {
+      "status": "RESEARCH_ONLY",
+      "candidates": 10
+    }
+  },
+  "artifacts": [
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "kind": "toolchain",
+      "sha256": "fd2cc49471c5a7f79319d9a6864711b3db7f92e0204065d446b0c2a5c15993f2",
+      "bytes": 4754
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "kind": "contract",
+      "sha256": "8e7d46049f439e91b458bf544a9ebfe9798ad7231f3f7e5bb5ce292c89f74078",
+      "bytes": 6234
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "kind": "contract",
+      "sha256": "9375d6c317fde5edfcbcd63e1c62b0d05d30baccacf170532bf6fca7bdefe060",
+      "bytes": 6239
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "kind": "contract",
+      "sha256": "07d48cdf49eb0e49dd05fa56aa7aaaa602763c014841e32c6651de88dd02c9cb",
+      "bytes": 2292
+    },
+    {
+      "path": "contracts/m02/render_core.v1.schema.json",
+      "kind": "contract",
+      "sha256": "7f26269975d17853ddb182d7851b69a1d1124e5c49256ce233e4bdb045359b16",
+      "bytes": 11267
+    },
+    {
+      "path": "contracts/m07/render2d.v1.schema.json",
+      "kind": "contract",
+      "sha256": "ffeb51a863d20671b5e22200844cb69b09f744a0e1cac2c07fa6da2720dbd078",
+      "bytes": 14094
+    },
+    {
+      "path": "nex_bench/telemetry/fixtures/synthetic_run.v1.json",
+      "kind": "s02-fixture",
+      "sha256": "b23ba98710b7eecea154bb0f97b87fd6b40516ee667f046b30bbfb5ecc994e40",
+      "bytes": 12310
+    },
+    {
+      "path": "nex_bench/telemetry/framepulse.py",
+      "kind": "s02-implementation",
+      "sha256": "4336a11a1facddb4af83ad8b469f8a3a43e2d3092e5f239e89e06c24f057e603",
+      "bytes": 13899
+    },
+    {
+      "path": "tests/telemetry/test_framepulse.py",
+      "kind": "s02-test",
+      "sha256": "06b9a6f38e9e19d57e18b49fe17cd3e6ff7fe2fdd9f2bbf17ef8d0df47b36af8",
+      "bytes": 15660
+    },
+    {
+      "path": "nex_bench/visual_truth/compare.py",
+      "kind": "s03-implementation",
+      "sha256": "e35b295c01c570431010e4790b1cf55b97b49d6ff332795c13af935c767ce212",
+      "bytes": 7596
+    },
+    {
+      "path": "tests/ci/test_visual_truth.py",
+      "kind": "s03-test",
+      "sha256": "e959a28227e23bb347c00b2ca9aec5a8747fdb7094dc14f909b2ff6b1a649132",
+      "bytes": 4503
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/R9-PARTIAL-REPORT.md",
+      "kind": "s04-report",
+      "sha256": "c4620c1e41672f141597c2adb8820ab55bb0989e24e1ed79d76f3d5e291704ac",
+      "bytes": 6633
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/HISTORICAL-PRESERVATION-CHECK.txt",
+      "kind": "s04-preservation",
+      "sha256": "5341ad3344d56aa83cd4da8768080fa89cb9d8856509ae97e7c53874b620285d",
+      "bytes": 8127
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/SHA256SUMS.txt",
+      "kind": "s04-sums",
+      "sha256": "c5119af1567a328c049fe8493071d50db1ef58fd8ff96885282bf50251c1f3db",
+      "bytes": 5211
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/GUI-INITIAL.png",
+      "kind": "s04-visual",
+      "sha256": "caeb2ed404cd3e2bb726c019633310842625b35a7b7769e691952a2b0ee7d1ab",
+      "bytes": 80590
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/GPU-F9-DIAGNOSTICS-AFTER-FOCUS.png",
+      "kind": "s04-visual",
+      "sha256": "a7c88f9fe4644b36a2def6f442ae747a8b11cf20b4547a39131729a36619966c",
+      "bytes": 110368
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-10-13-r9-qualification/SCENE-25-GEOMETRY-PRE-RUN.png",
+      "kind": "s04-visual",
+      "sha256": "6cfc79f2ae0d1e0f237216c09817cf758d132e92c1337e9495d0aeb732c386d8",
+      "bytes": 61145
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/RESUMPTION-REPORT.md",
+      "kind": "s04-resumption-report",
+      "sha256": "e129806ef3c16e2ea1698783fb2d3209d53da604fbfd4f444793fdfb06738d0d",
+      "bytes": 5086
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577762-42755782.json",
+      "kind": "s04-run",
+      "sha256": "a52b87f3b82f775919dac3c07ee90c5a4ec8239e53dd9eae46c04f993a928624",
+      "bytes": 176703
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577762-42755782.validation.json",
+      "kind": "s04-validation",
+      "sha256": "29d9f3626a164b7f17e43f7d70b39421598e99eac0a44158776664a61b98fb8e",
+      "bytes": 2012
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577798-78108593.json",
+      "kind": "s04-run",
+      "sha256": "ef6287d1a269d9930075c19d80ce00698f003e1c6fcbbc3b5f3026fb2510835e",
+      "bytes": 158882
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577798-78108593.validation.json",
+      "kind": "s04-validation",
+      "sha256": "870a44f13af133708bef4dddcc1b0008790ea1359bb8f8c1b9c4355dddbf1056",
+      "bytes": 1982
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577830-110647047.json",
+      "kind": "s04-run",
+      "sha256": "6a299819ecd5d615fed91f93088e0ad9597ca5b043d25c343448cf530d4dffb4",
+      "bytes": 158917
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577830-110647047.validation.json",
+      "kind": "s04-validation",
+      "sha256": "9024d055260afe8eb920caff961f794e69382d7717d61de1818b72ff275c8c8d",
+      "bytes": 1992
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577863-143192521.json",
+      "kind": "s04-run",
+      "sha256": "a94fc9937a9dd67fe3876d3664b81bc91a041bcfa8f86c0c1f3f6a64fe61005c",
+      "bytes": 158804
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-r9-resumption/gpu_profile_1794577863-143192521.validation.json",
+      "kind": "s04-validation",
+      "sha256": "8d1fa66371aaf905c5da172e10fbb70b749530551eba24776c50c09276096a5f",
+      "bytes": 1982
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/SESSION-FACTS.txt",
+      "kind": "s05-facts",
+      "sha256": "db7d702ced6e32472d1274876307c598f2d462e4229857292c034cec21fa658f",
+      "bytes": 1043
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/ANALYSIS.md",
+      "kind": "s05-analysis",
+      "sha256": "120811455409a1aab8068a11779991d457f5ec7f001180d1e08f5aee9b773ebf",
+      "bytes": 3436
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/SHA256SUMS.txt",
+      "kind": "s05-sums",
+      "sha256": "32869e10b99f28f2bfe7a97d3c6603975c5454d9c3065731311308e441c9e42a",
+      "bytes": 3578
+    },
+    {
+      "path": "docs/research/nex-m01/RADAR-RD-2026-11-13.md",
+      "kind": "s06-radar",
+      "sha256": "ad33214cf7a06669d2cceb4b45078b775008cff86bf2de83d0319d4298b52ffa",
+      "bytes": 8474
+    },
+    {
+      "path": "docs/research/nex-m01/EXPERIMENT-BACKLOG.md",
+      "kind": "s06-backlog",
+      "sha256": "1ee2326838945fba0091ce280ce893cf1fcd4526400cafb52570ca926392428f",
+      "bytes": 1523
+    },
+    {
+      "path": "tests/ci/test_research_notes.py",
+      "kind": "s06-test",
+      "sha256": "5d2632bb72847223735255d1c47e26f71f638e751e525ba4101da408f4f2f165",
+      "bytes": 2851
+    },
+    {
+      "path": "qa/bug-reports/NEX-QA-AUDIT-WO-001/REPORT.md",
+      "kind": "qa-report",
+      "sha256": "07096a74754ccda63d0632d611b9a8f5a3f9c36d12eaa81bd5d11dacc2c4833f",
+      "bytes": 4483
+    },
+    {
+      "path": "qa/bug-reports/NEX-QA-AUDIT-WO-001/FUZZ-RESULTS.json",
+      "kind": "qa-results",
+      "sha256": "7ad54751964dd0f06efa1b01c587cf24eb1d973d842eb202cc62c9b69b1fc17a",
+      "bytes": 1186
+    },
+    {
+      "path": "tests/ci/test_qa_audit_regressions.py",
+      "kind": "qa-regression-test",
+      "sha256": "67a0da7188b01f90b7b71619cf3bfd1e5184955f8a8e9314270774441c9dec21",
+      "bytes": 5292
+    },
+    {
+      "path": "nex_bench/scenes/lighting_matrix/lighting_matrix.gd",
+      "kind": "s05-implementation",
+      "sha256": "d0008e3df3aad0e5561ceac1e273affab308f08fcf6748c06cab83841164f319",
+      "bytes": 9744
+    },
+    {
+      "path": "nex_bench/scenes/lighting_matrix/lighting_matrix.tscn",
+      "kind": "s05-scene",
+      "sha256": "82d7a21356d2b56ecec55237a3cfc970ad2a4a124a1d0ade31a9d90d60e45870",
+      "bytes": 203
+    },
+    {
+      "path": "nex_bench/presets/lighting_matrix/presets.v1.json",
+      "kind": "s05-presets",
+      "sha256": "af0834d3f3e8dcce1c8b4afda19182ee72f0103fd2be2bffdbaff2826f32cf01",
+      "bytes": 1331
+    },
+    {
+      "path": "nex_bench/scenes/lighting_matrix/validate_lighting_matrix.py",
+      "kind": "s05-validator",
+      "sha256": "b08d55f3559bdf4c43b8b0fea05f236d4f0db1a4f198619d0a83fe7c5476cfbe",
+      "bytes": 3317
+    },
+    {
+      "path": "tests/ci/test_lighting_matrix.py",
+      "kind": "s05-test",
+      "sha256": "9347e1cae175e649bd785c0221aa86828b050c6586db9964a69b027ece38a14e",
+      "bytes": 6076
+    },
+    {
+      "path": "docs/benchmarks/m01/budget.v1.json",
+      "kind": "budget",
+      "sha256": "715fae7673892df90bc1d983d3aca6d57dcec13f17e81f69bd7b9d09e4552eb1",
+      "bytes": 2663
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589928-41466374.json",
+      "kind": "s05-run",
+      "sha256": "fc447106fcadef7c5c52e52e69893ae274a57709546d0a6d6d3b88d9378076b6",
+      "bytes": 176890
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589928-41466374.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "1f058e804cad1affd0b0ccce8d25d73dd516dad7ecfcd31c61df1ff523b22550",
+      "bytes": 1739
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589963-76452097.json",
+      "kind": "s05-run",
+      "sha256": "8f710b43160287f30c872875806b771dc78fdb40ec2805ccfdc60ddabee9e8ff",
+      "bytes": 158803
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589963-76452097.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "677b77bfa9559e019c854a265265d579a20b43728b189805f0ce068e28b508ba",
+      "bytes": 1698
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589998-111361033.json",
+      "kind": "s05-run",
+      "sha256": "5b6c8ab398edb6e0a3677859d7c1eab4fcfa1c6c454a5d6cbf872705ac1716ee",
+      "bytes": 176948
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794589998-111361033.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "3472bbd3472062db4b662c2fc40bbeba9b892a16cc3dae1d4e0407b1397c2f34",
+      "bytes": 1741
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590033-146315067.json",
+      "kind": "s05-run",
+      "sha256": "82e8831d8fe7b12c97fb81c3333a1929d2ebe6556dd41f9736020d6d4d9a2e07",
+      "bytes": 158767
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590033-146315067.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "2eae24fcd5d47b024378d8056332a476404b553bde38f749b1cf462d54eadfbc",
+      "bytes": 1704
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590067-181008316.json",
+      "kind": "s05-run",
+      "sha256": "9efe16ea53a479c6cff203e7d2029b65a869fc665fff135cd47dcc251d31f60f",
+      "bytes": 176800
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590067-181008316.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "f86d213b3a7a2835682475d49dd60c48dadd3533f502da1f7c9ea5c3cba88610",
+      "bytes": 1737
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590102-215966673.json",
+      "kind": "s05-run",
+      "sha256": "3e5cc9f2c1c273112cf784c054c60908ade9a913651718b3f319f91470d01f55",
+      "bytes": 158548
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590102-215966673.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "efe0186a35a15111ece0241e5fb3497b8b3311b0a0ed2f1dd6a7caccaaa4a190",
+      "bytes": 1707
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590137-250647244.json",
+      "kind": "s05-run",
+      "sha256": "f195c35f76d58bc2f6e9b08f3341d721fecdf5cf2b9c464f3ced2e4c98d43c40",
+      "bytes": 178587
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590137-250647244.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "81df4102c58bc13c50844ac1386b96ce70b71438856a7dcfc984f8d5b04bed5c",
+      "bytes": 1747
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590172-285680381.json",
+      "kind": "s05-run",
+      "sha256": "ccc5f5ed69f672ddab3ad8ab4e94b66835defb7063607a1127f140b895ea4688",
+      "bytes": 178597
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590172-285680381.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "9528bc0517cfee504cf8211ea9d92de2331827530fe0d97662392ec79895c611",
+      "bytes": 1740
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590207-320548567.json",
+      "kind": "s05-run",
+      "sha256": "b6782547ae3225604119ff70694775fa504a5060dfe0bf8a48299bf2a96109a6",
+      "bytes": 160501
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590207-320548567.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "9e75a7b1b8b4da26ff15c6383a1366c37e48ab58f7e166497ede8638bb72891e",
+      "bytes": 1694
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590243-357129786.json",
+      "kind": "s05-run",
+      "sha256": "1968fa12df19d8fe3240c4b049a5a43de496e9fb55f0d600f107300ef3243872",
+      "bytes": 160700
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590243-357129786.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "cfd44d0349cac5bb5feff75d1183567120ef4a5bd698b9bdf9f954a3a81bda2e",
+      "bytes": 1698
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590278-392105864.json",
+      "kind": "s05-run",
+      "sha256": "de643f410c8b4f41d0bf283634f39069583ef9eb598024e8c0bbc0754700e2c0",
+      "bytes": 160509
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590278-392105864.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "335c48d31299bbbb2dcd99b6bf12bde6d788a9cdb5bcd9189505b77b7481ae5c",
+      "bytes": 1687
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590313-426899019.json",
+      "kind": "s05-run",
+      "sha256": "afe5a778c265b6f87749085b8c6c6ea5fced8df437e54a692fd101dc053428f7",
+      "bytes": 157458
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590313-426899019.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "cd90c3e28bd495a36de5de8d50b61609b9d4b69d448ae1125bd9b6585d0a606b",
+      "bytes": 1699
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590348-461870426.json",
+      "kind": "s05-run",
+      "sha256": "fe455210978e54cdbb5aa590d8a6dd02295c9f75ec4ea20cb156dd3aaaf926c9",
+      "bytes": 158737
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590348-461870426.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "92a8c0e6194719fa5b880e9a91dfb7ea91622be7c337588d6bcf090ba9a3afc1",
+      "bytes": 1709
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590383-496606065.json",
+      "kind": "s05-run",
+      "sha256": "7fdc9ba02b49cfa1e049cc0c18338e613bfa7020821e7264661507e1d85a1fda",
+      "bytes": 160777
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590383-496606065.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "940a025b938a08a8dcbb6147050f449cad22268aa984f921bf5450a9b87b0651",
+      "bytes": 1716
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590418-531333619.json",
+      "kind": "s05-run",
+      "sha256": "b712ec075341a1d09e5e0a677c356681d7eef31588190da81b02a779bba7bd40",
+      "bytes": 178728
+    },
+    {
+      "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/gpu_profile_1794590418-531333619.json.s05-validation.json",
+      "kind": "s05-validation",
+      "sha256": "31ccff941865829ba66df3660248d11695db884d187b55076756fa319f21a597",
+      "bytes": 1743
+    }
+  ],
+  "claims": {
+    "engine_complete": false,
+    "targets_achieved": false,
+    "gpu_benchmark_claim": false,
+    "cross_session_comparison_allowed": false,
+    "headless_or_ci_as_gpu_benchmark": false
+  },
+  "budget": "docs/benchmarks/m01/budget.v1.json",
+  "checkpoint_delta": ".engineering/checkpoint-deltas/NEX-M01-S07-WO-001-PROPOSED.md"
+}
