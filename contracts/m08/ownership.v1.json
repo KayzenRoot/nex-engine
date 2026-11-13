@@ -1,0 +1,57 @@
+{
+  "schema_version": "m08_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m08/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m08-composition", "m08-parallax", "m08-overlay-safety", "m08-qa"]
+    },
+    {
+      "path": "nex_modules/render2_5d/composition/**",
+      "owner": "m08-composition",
+      "mode": "future-write",
+      "consumers": ["m08-parallax", "m08-overlay-safety", "m08-qa"]
+    },
+    {
+      "path": "nex_modules/render2_5d/parallax/**",
+      "owner": "m08-parallax",
+      "mode": "future-write",
+      "consumers": ["m08-overlay-safety", "m08-qa"]
+    },
+    {
+      "path": "nex_modules/render2_5d/overlay_safety/**",
+      "owner": "m08-overlay-safety",
+      "mode": "future-write",
+      "consumers": ["m08-qa"]
+    },
+    {
+      "path": "tests/render2_5d/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m02/**",
+    "contracts/m03/**",
+    "contracts/m04/**",
+    "contracts/m05/**",
+    "contracts/m06/**",
+    "contracts/m07/**",
+    "contracts/m08/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
