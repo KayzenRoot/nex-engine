@@ -6,6 +6,8 @@
 
 **Resultados derivados:** 15/15 runs `pacing` (vsync 60 Hz); GPU p95 máximo **1.194 ms** em `combined-25`; deltas GPU p95 vs baseline-25: lights +54.1%, shadows +154.1%, vfx +30.4%, combined +559.7%; spread baseline-25 **0.002 ms**. Nenhuma captura ou medição nova; não é benchmark, FPS ou generalização. Parent M06 (#11) continua **NOT_ADMITTED**.
 
+**Reparação PR #161** (`3e336b77`): removeu o `.pyc` rastreado e os 14 code smells introduzidos (S9454 ×6, S6353 ×6, S3776, S7500); `atlas.v1.json`/`ATLAS.md` permanecem byte-idênticos e os 12 testes seguem verdes. Sonar main voltou a **23 code smells**, A/A/A.
+
 
 ## Current verified scope | 2026-11-13 · M06 performance contract v1
 
