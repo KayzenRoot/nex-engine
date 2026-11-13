@@ -1,5 +1,19 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · NEX-WAVE-001 (six fronts integrated)
+
+Onda paralela admitida pelo Owner (PR #114, `3653a1b`) e executada sob `ADMIN_SOLO / NOT_INDEPENDENT` (NEX-ADR-0004 / NEX-D-014). Seis frentes independentes integradas por squash protegido, cada uma com checks verdes e evidência própria:
+
+- **M01-S05** (#25, PR #120) — estação de medição Lighting Matrix (5 presets nativos × 25/100/200 proxies), código medido `0b8388faba69358027780a2cc0ea73d3449eab6d`; capturas COMPLETE validadas pelo validador S05 (proveniência Lighting Matrix + delegação ao canônico S04). **Não é benchmark nem admissão do parent M01.**
+- **M01-S06** (#26, PR #119) — Radar R&D com 10 candidatos, hipóteses e critérios GO/NO_GO; sem medições inventadas.
+- **QA Audit** (#20, PR #117) — 67 casos de robustez, 0 aceitações indevidas; achado `QA-FINDING-001` (LOW, aberto) em `framepulse`.
+- **M12-S01** (#17, PR #118) — brand master provisório (SVG, paleta, ícones); sem integração com engine.
+- **Contrato M02** (#7, PR #115) — `render_core.v1` e ownership prospectivo; contrato apenas.
+- **Contrato M07** (#12, PR #116) — `render2d.v1` e ownership prospectivo; contrato apenas.
+
+Main observada: `9f44b73e7fe9cc71983bb399a30fd01e83807677`. S07 (#27) passa a ter seus pré-requisitos técnicos (S01–S06), mas permanece **NOT_ADMITTED** até admissão explícita do Owner. M01 parent, S07 e M02–M12 continuam sem admissão de implementação.
+
+
 ## Current verified scope | 2026-11-13 · ADMIN_SOLO security correction
 
 Desenvolvimento sob **NEX-ADR-0004 / NEX-D-014** (`ADMIN_SOLO / NOT_INDEPENDENT`; nenhum revisor humano externo exigido). NEX-GOV-SOLO-WO-001 (#108) promovido por PR #109 em `47f95521821f71196ec54c8d74b20fa9c3a2a4a5`.
