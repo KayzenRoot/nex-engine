@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M01 baseline audit pack (S07)
+
+**S07 integrado** por PR #123, squash `ed72f90e341c9e0d1dc136354ea4d8f53ce2f583`. O audit pack em `docs/benchmarks/m01/` congela o baseline M01 como **instrumento verificável**: manifesto de 71 artefatos com SHA-256 de blobs Git (`build_manifest.py --check` → `MANIFEST_OK`), baseline, orçamento **proposto**, riscos, desvios, links de CI e insumos de pesquisa.
+
+O orçamento de performance é `PROPOSED_PENDING_OWNER_APPROVAL`; metas 1080p60/120 permanecem `ASPIRATIONAL_NOT_MEASURED`. O Checkpoint Delta do S07 é **proposto, não promovido**. O parent M01 continua **NOT_ADMITTED**; M02–M12 seguem sem admissão de implementação. A correção `QA-FINDING-001` está integrada (PR #122). Próximo passo legal: admissão explícita do Owner para M02-S01 (câmera isométrica) ou outra Work Order.
+
+
 ## Current verified scope | 2026-11-13 · NEX-WAVE-001 (six fronts integrated)
 
 Onda paralela admitida pelo Owner (PR #114, `3653a1b`) e executada sob `ADMIN_SOLO / NOT_INDEPENDENT` (NEX-ADR-0004 / NEX-D-014). Seis frentes independentes integradas por squash protegido, cada uma com checks verdes e evidência própria:
