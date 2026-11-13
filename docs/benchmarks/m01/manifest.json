@@ -5,8 +5,8 @@
   "issue": 27,
   "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
   "base_sha": "871fd1bc89c272ba04327ddc81e407d35ff5fee0",
-  "head_sha_at_manifest_generation": "e25d5a38414cb6f7989665729706876ee47e77c5",
-  "generated_at_utc": "2026-11-13T18:04:09Z",
+  "head_sha_at_manifest_generation": "871fd1bc89c272ba04327ddc81e407d35ff5fee0",
+  "generated_at_utc": "2026-11-13T18:08:06Z",
   "godot": {
     "tag": "4.7.2-stable",
     "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",

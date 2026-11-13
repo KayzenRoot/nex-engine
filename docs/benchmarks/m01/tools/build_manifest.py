@@ -75,6 +75,13 @@ for json_path in sorted(S05_EVIDENCE.glob("gpu_profile_*.json")):
         ARTIFACTS.append((relative + ".s05-validation.json", "s05-validation"))
 
 
+def git_head() -> str:
+    result = subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True, check=False)
+    if result.returncode != 0 or not result.stdout.strip():
+        raise SystemExit("cannot resolve git HEAD")
+    return result.stdout.strip()
+
+
 def staged_blob(relative: str) -> bytes:
     """Return the index blob bytes so CRLF checkouts cannot change the recorded digest."""
     result = subprocess.run(
@@ -106,7 +113,7 @@ def artifact_entries() -> list[dict]:
     return entries
 
 
-def build(head_sha: str) -> dict:
+def build(head_sha: str | None = None) -> dict:
     return {
         "schema_version": "nex_m01_baseline_manifest.v1",
         "status": "FROZEN_PROPOSED",
@@ -114,7 +121,7 @@ def build(head_sha: str) -> dict:
         "issue": 27,
         "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
         "base_sha": BASE_SHA,
-        "head_sha_at_manifest_generation": head_sha,
+        "head_sha_at_manifest_generation": head_sha or git_head(),
         "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "godot": {
             "tag": "4.7.2-stable",
@@ -156,8 +163,7 @@ def check() -> int:
         print("MISSING manifest.json")
         return 1
     existing = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    head = existing.get("head_sha_at_manifest_generation", BASE_SHA)
-    fresh = build(head)
+    fresh = build(existing.get("head_sha_at_manifest_generation"))
     if fresh["artifacts"] != existing.get("artifacts"):
         print("ARTIFACT DIGESTS DIVERGED")
         return 1
