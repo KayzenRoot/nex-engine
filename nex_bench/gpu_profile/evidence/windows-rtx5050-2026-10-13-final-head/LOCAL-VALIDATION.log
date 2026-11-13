@@ -1,0 +1,58 @@
+Capture UTC: 2026-10-13T03:26:00.4433909Z
+Code HEAD: 3892fbecdff79a17ecd7b76ada993d9e5e34eba5
+Code tree: 41f8904277bd653a6538a7f5cb7afd130debb316
+Godot: 4.7.2.stable.official.ed1daf0bf
+Godot SHA256: AB1824F85BFD8E0E4128182C000C4003A3E042245B2967848D089B2A04B22424
+
+=== python -m pytest -q tests/ci ===
+python.exe: No module named pytest
+EXIT_CODE=1
+=== python -m pytest -q tests/contracts ===
+python.exe: No module named pytest
+EXIT_CODE=1
+=== python -m pytest -q tests/telemetry ===
+python.exe: No module named pytest
+EXIT_CODE=1
+=== pwsh -NoProfile -File nex_bench/Start-NEX.ps1 -SmokeOnly ===
+NEX_LAUNCH_BLOCKED: Godot not found. Supply -GodotPath 'C:\path\Godot.exe' or set NEX_GODOT_BIN.
+EXIT_CODE=1
+
+
+Invocation note: pytest is not a declared dependency; repository instructions use Python standard-library unittest. The preceding pytest attempts and smoke without -GodotPath were invalid invocations, not test failures. No packages were installed.
+Corrected capture UTC: 2026-10-13T03:26:30.4121387Z
+=== python -m unittest discover -s tests/ci -p test_*.py ===
+............................................................................................
+----------------------------------------------------------------------
+Ran 92 tests in 0.215s
+
+OK
+EXIT_CODE=0
+=== python -m unittest discover -s tests/contracts -p test_*.py ===
+............
+----------------------------------------------------------------------
+Ran 12 tests in 0.015s
+
+OK
+EXIT_CODE=0
+=== python -m unittest discover -s tests/telemetry -p test_*.py ===
+...............................
+----------------------------------------------------------------------
+Ran 31 tests in 0.054s
+
+OK
+EXIT_CODE=0
+=== pwsh -NoProfile -File nex_bench/Start-NEX.ps1 -SmokeOnly -GodotPath <pinned executable> ===
+NEX: verified Godot 4.7.2.stable.official.ed1daf0bf
+NEX: checking 4 modules with local headless smoke...
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NEX_NATIVE_DIAGNOSTICS_PASS: F9 toggle, renderer API and headless-safe labels
+NEX_NATIVE_CAMERA_NAVIGATION_PASS: orbit, zoom, reset, stress guard
+NEX_NATIVE_FRAME_OBSERVATION_PASS: synthetic percentile, fail-closed hitches and safe cancel
+NEX_NATIVE_GPU_PROFILE_PASS: F11 control, viewport toggle, zero=>UNAVAILABLE, cancel disables measurement
+NEX_NATIVE_VISUAL_HEATMAP_PASS: red pixels, preview UI, close
+NEX_NATIVE_VISUAL_TRUTH_PASS: identical/difference/dimensions, in-memory
+NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes, headless parser only
+
+NEX_NATIVE_STARTUP_VALIDATED: smoke passed.
+EXIT_CODE=0

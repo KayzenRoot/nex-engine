@@ -1,0 +1,64 @@
+{
+  "device_snapshot": {
+    "sample_count": 2,
+    "status": "MEASURED"
+  },
+  "limitations": "Per-viewport render time is not input-to-photon; renderer allocation is not total VRAM; device-wide WDDM memory is not process-attributed.",
+  "observed_seconds": 30.012582999999,
+  "one_percent_low_fps": 75.0018750468762,
+  "run_id": "1791859868-117550894",
+  "run_status": "COMPLETE",
+  "schema_version": "nex_gpu_render_profile.v1",
+  "series": {
+    "CPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.22059795580165534,
+        "p50": 0.208000004291534,
+        "p95": 0.29899999499321,
+        "p99": 0.358999997377396
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2251
+    },
+    "GPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.12162327828644556,
+        "p50": 0.119999997317791,
+        "p95": 0.122000001370907,
+        "p99": 0.293000012636185
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2251
+    },
+    "MAIN_LOOP_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 13.333,
+        "p50": 13.333,
+        "p95": 13.333,
+        "p99": 13.333
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2251
+    },
+    "RENDERER_ALLOCATION_BYTES": {
+      "aggregates": {
+        "mean": 90781664.0,
+        "p50": 90781664.0,
+        "p95": 90781664.0,
+        "p99": 90781664.0
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 2251
+    }
+  },
+  "source_sha": "a1b1e1df89a52d219d7d5f328f011d2c6f3c657a",
+  "status": "PASS",
+  "workload": {
+    "effect_mode": "geometry",
+    "proxy_count": 25
+  }
+}

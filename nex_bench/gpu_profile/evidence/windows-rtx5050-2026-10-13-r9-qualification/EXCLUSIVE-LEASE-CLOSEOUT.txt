@@ -1,0 +1,6 @@
+lease_holder_pid=9892
+lease_holder_process_stopped_after_Godot_exit=True
+closeout_utc=2026-10-13T23:13:41.5330148Z
+closeout_detail=The exec transport had closed stdin, so the dedicated task-owned holder could not receive its release token. After confirming Godot PID 5964 had exited and no further GPU work would run, the holder process was ended; the OS released/destroyed its mutex objects. Both mutex names were then freshly acquired and released from this thread to verify exclusivity was clear.
+Local\NEX_M01_S04_GPU_PROFILE_WRITER freely acquired and released; createdNew=True
+Local\NEX_M01_S04_GPU_PROFILE_RTX5050 freely acquired and released; createdNew=True

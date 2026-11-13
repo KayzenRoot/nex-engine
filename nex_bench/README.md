@@ -90,3 +90,30 @@ Get-Content -LiteralPath "C:\CAMINHO\frame_observations\density_200_geometry_123
 O validador retorna **PASS / exit 0** e recalcula a média, FPS médio, p50/p95/p99 e tempo total a partir de **todas as amostras originais**; falha com **FAIL / exit 1** se o JSON tiver chaves duplicadas, dados ausentes, NaN/Infinity, workload inválido, mais de 1500 amostras, discrepância na contagem ou divergência de cálculos. O validador lê apenas **stdin com limite de 1 MB**, não abre caminhos fornecidos pelo usuário e não modifica o arquivo; o PowerShell seleciona explicitamente qual JSON transmitir. Preserve o JSON bruto original, saída do validador, log/screenshot e hashes SHA-256 como evidências no mesmo PR.
 
 Os testes sintéticos locais usam `python -m unittest discover -s tests/ci -p 'test_*.py'`. PASS matemático não comprova qualidade visual, GPU frametime real, VRAM total, VSync desligado, repetibilidade entre máquinas ou desempenho máximo.
+
+## GPU Render-Time Profiler | F11
+
+O profiler é separado do F10 e fica desligado até ser iniciado manualmente. Para medir, inicie o app apontando `NEX_GPU_PROFILE_SOURCE_SHA` ao commit de código que será medido:
+
+```powershell
+$env:NEX_GPU_PROFILE_SOURCE_SHA = (git rev-parse HEAD).Trim()
+.\nex_bench\Start-NEX.cmd
+```
+
+No **F4 Density Ladder**, use `1`, `3` ou `4` para selecionar 25, 100 ou 200 proxies e `G` para geometria; o caso combinado usa 25 proxies e `C`. Pressione **F11** para iniciar: o app habilita `RenderingServer.viewport_set_measure_render_time()` somente no viewport ativo, aquece por 2 segundos e coleta por 30 segundos. O botão **CANCEL PROFILE [F11]** cancela manualmente. Trocar cena, contagem ou efeitos também cancela a rodada e não exporta amostras parciais. O próprio profiler se desabilita no cancelamento, troca de viewport, fim ou fechamento do app.
+
+Depois que uma rodada terminar (completa ou inválida), pressione **F12** em F4 para salvar um PNG do HUD/profiler em `user://gpu_profiles/`. F12 fica bloqueado durante a coleta para que a codificação da imagem não afete as amostras.
+
+Cada JSON é salvo sem sobrescrever arquivos em `user://gpu_profiles/`. As capturas antigas `nex_gpu_render_profile.v1` permanecem legíveis pelo validador sem alteração; novas capturas usam `nex_gpu_render_profile.v2`. GPU/CPU do viewport, `MAIN_LOOP_INTERVAL_MS` derivado de `delta` e `FRAME_PACING_INTERVAL_MS` são séries distintas; o último mede diferenças entre chamadas consecutivas usando `Time.get_ticks_usec()`. O 1% low v2 usa somente `FRAME_PACING_INTERVAL_MS`; qualquer valor derivado de `delta` aparece separado e rotulado `DELTA_DERIVED_VSYNC_LIMITED`. Tick ausente, zero, repetido, regressivo ou maior que o limite invalidará a série monotônica, marca-a `UNAVAILABLE` e deixa o 1% low sem valor. Esses intervalos descrevem o pacing dos callbacks de CPU, não apresentação de tela nem latência input-to-photon. `RENDERER_ALLOCATION_BYTES` é somente a alocação reportada pelo renderizador. Valor GPU/CPU zero ou inválido é contado como descartado e não vira uma amostra de 0 ms; sem dados suficientes o campo fica `UNAVAILABLE` com a causa. A captura registra contagens inválidas, duração efetivamente coberta, driver, renderer, viewport, resolução, VSync, limite de FPS, workload, versão Godot, horário UTC e SHA do código. A consulta do renderizador pode se referir a trabalho renderizado anteriormente e não se alinha necessariamente ao mesmo `_process(delta)`.
+
+No Windows, o app tenta registrar snapshots `nvidia-smi` no começo e no fim. Eles são **DEVICE-SNAPSHOT** do dispositivo inteiro; sob WDDM não atribuem memória ao processo Godot. A alocação `RENDERER_ALLOCATION_BYTES` também não é a VRAM total da placa. Headless, driver sem suporte ou coleta abaixo do mínimo produzem `UNAVAILABLE`, nunca uma medição GPU fictícia.
+
+Valide uma captura com o CLI Python de biblioteca padrão:
+
+```powershell
+Get-Content -LiteralPath "C:\CAMINHO\gpu_profile_<run-id>.json" -Raw -Encoding UTF8 | python .\nex_bench\gpu_profile\validate_gpu_profile.py
+```
+
+O validador lê apenas stdin, limita entrada a 8 MB e cada série a 16.000 amostras, rejeita chaves duplicadas, NaN/Infinity, status/proveniência inválidos e agregados divergentes. Recalcula média, p50/p95/p99 por nearest-rank, duração, contagens e 1% low com a fórmula `1000 / média dos ceil(0,01*n) intervalos positivos mais lentos`. **No schema v2**, a fonte exclusiva do 1% low é `FRAME_PACING_INTERVAL_MS`, coletada a partir de `Time.get_ticks_usec()` entre callbacks ativos de `_process(delta)`; o 1% low derivado de `MAIN_LOOP_INTERVAL_MS` é apenas diagnóstico legado, rotulado `DELTA_DERIVED_VSYNC_LIMITED`. **No schema histórico v1**, a fonte do 1% low era `MAIN_LOOP_INTERVAL_MS`, portanto valores v1 e v2 não são intercambiáveis. Pacing de callback não é apresentação do display, latência input-to-photon nem frametime GPU.
+
+O smoke nativo Windows/Linux verifica o carregamento, a ativação/desativação da medição por viewport, o cancelamento, o caminho `UNAVAILABLE` e a rejeição de uma resolução de viewport inconsistente simulada, sem usar GPU real. **Esse smoke não certifica o redimensionamento físico da GUI.** Na revisão R3, a validação de hardware exige três rodadas seriais completas de **200 proxies em geometria** e três de **25 proxies no modo combinado**, com 2 s de aquecimento + 30 s de observação por rodada, além de **uma captura negativa real com redimensionamento da janela**, que deve terminar como `INVALID / viewport_changed_or_unavailable` e desabilitar a medição. Registre o commit efetivamente executado no `source_sha` e preserve as capturas anteriores sem sobrescrever. Pare a carga se o Density Ladder acionar o fallback de segurança, se houver crash, pressão de memória ou problema térmico; preserve o motivo e não substitua uma rodada inválida por uma média inventada. A qualificação completa dos demais cenários (25/100/200 em geometria e combinações de luz/VFX) é um experimento futuro, não evidência R3 já produzida.

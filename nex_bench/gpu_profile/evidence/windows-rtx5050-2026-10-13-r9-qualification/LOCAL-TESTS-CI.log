@@ -1,0 +1,80 @@
+PYTHON=C:\Users\csn19\AppData\Local\Programs\Python\Python313\python.exe
+SUITE=tests\ci
+EXIT_CODE=1
+................FFFFFF.........................................................................................
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791883867-295809379.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '5285d5adcc4c465fd1a01aa5adb5483f6374cc11d0de7dc601bb631765fead0f' != '05449c489cc2133dd6c547a576c1ee9c72ded2c2b788e96c0843e977c0278896'
+- 5285d5adcc4c465fd1a01aa5adb5483f6374cc11d0de7dc601bb631765fead0f
++ 05449c489cc2133dd6c547a576c1ee9c72ded2c2b788e96c0843e977c0278896
+
+
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791883979-407576457.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '2c72a88efeb215985419436856cae809a3984769e09769c526ff0dc52ab14d6c' != '2fd2771f28117a47b4c9accdb556efbf65a9542898c97a53987167f7396e0e0d'
+- 2c72a88efeb215985419436856cae809a3984769e09769c526ff0dc52ab14d6c
++ 2fd2771f28117a47b4c9accdb556efbf65a9542898c97a53987167f7396e0e0d
+
+
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884017-445689369.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'adcb7ef3bbe524e916f51f3845b195927e1e719bb1d131c01eb2ce74725870ff' != '816f54ab093735c559c41a90200ee21e5a65a52a49c557e0fcb17e8deb974776'
+- adcb7ef3bbe524e916f51f3845b195927e1e719bb1d131c01eb2ce74725870ff
++ 816f54ab093735c559c41a90200ee21e5a65a52a49c557e0fcb17e8deb974776
+
+
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884095-523815570.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '4cc9c9243e82ac21ff704bf0ee8378bc1ac7c9f51601aa047185f67f5b2dd8f6' != '2a491a7d47b061e175f6710cf9a14a9bed422772c85676fbdf5332764cfaf3bc'
+- 4cc9c9243e82ac21ff704bf0ee8378bc1ac7c9f51601aa047185f67f5b2dd8f6
++ 2a491a7d47b061e175f6710cf9a14a9bed422772c85676fbdf5332764cfaf3bc
+
+
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884133-561569147.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'b74c13952f6478d28cee040c566028eb3577e9a2444ccf238fba368c0be23ada' != 'e0cd47b18a15fbb82656de1ce4b6641678263490d907cd9f3fc725b6017c28e3'
+- b74c13952f6478d28cee040c566028eb3577e9a2444ccf238fba368c0be23ada
++ e0cd47b18a15fbb82656de1ce4b6641678263490d907cd9f3fc725b6017c28e3
+
+
+======================================================================
+FAIL: test_18_archived_raw_captures_keep_independently_pinned_sha256 (test_gpu_profile_validator.GPUProfileValidatorTests.test_18_archived_raw_captures_keep_independently_pinned_sha256) (archived_raw_capture='windows-rtx5050-2026-10-13-frame-pacing-correction/gpu_profile_1791884170-598874419.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\nex-engine-R9-evidence\tests\ci\test_gpu_profile_validator.py", line 323, in test_18_archived_raw_captures_keep_independently_pinned_sha256
+    self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), expected_hash)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '98fa1f5db6766fc959dc7744f6c68ce154b269a9835e7481161596a4383fabe4' != 'e113c88ab2ba2a689c93460ddfc31522928f1d7de6a2c045ad163639f5bd88a5'
+- 98fa1f5db6766fc959dc7744f6c68ce154b269a9835e7481161596a4383fabe4
++ e113c88ab2ba2a689c93460ddfc31522928f1d7de6a2c045ad163639f5bd88a5
+
+
+----------------------------------------------------------------------
+Ran 106 tests in 1.672s
+
+FAILED (failures=6)
