@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M04/M05 contracts v1
+
+**Contratos M04/M05 integrados** por PR #151, squash `bc404723a77a7941ef0d820a58894021cd3e7c2f` (código `e1d89ade`). `contracts/m04/material.v1.schema.json` define observação PBR (superfície, alpha/cull, variantes, texturas com slot/SHA-256/dimensões, orçamento) e `contracts/m05/spellfx.v1.schema.json` define magias (fases, emissores, gameplay authority, light bridge, decal policy, orçamento FX). Ownership prospectivo, docs e **36 testes novos** (suíte de contratos 93 OK; total 405 em worktree LF limpo).
+
+**Parents M04 (#9) e M05 (#10) continuam NOT_ADMITTED.** Nenhum material, shader, textura, partícula, VFX, cena, engine ou CI alterado; performance/visual `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M03-LIGHTBUDGET arbiter prototype
 
 **M03-LIGHTBUDGET integrado como protótipo isolado** por PR #149, squash `efa7c29766ffa807ee6a793bb790ef7af87e8f9c` (código `26f6ab93`). Em `nex_modules/lighting/budget/`, o árbitro determinístico calibra `nex_light_cost_model.v1` pelas capturas reais S05 (RTX 5050, sessão única, GPU p95 a 25 proxies), projeta custo com breakdown, veredito `FIT`/`TIGHT`/`OVER_BUDGET` e escada de degradação ordenada com `recommended_step`. **57 asserts headless** e 9 testes estruturais.
