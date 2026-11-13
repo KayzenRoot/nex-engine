@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M03-S01 light-rig planner prototype
+
+**M03-S01 integrado como protótipo isolado** por PR #144, squash `a61df5d2cef2ca8780361b52db09b73ea206fed1` (código `9c252e80`). Em `nex_modules/lighting/light_rig/`, o `LightRigPlanner` cobre ambiente (ambient/tonemap/glow/fog/GI), registro `directional`/`omni`/`spot` com coerência por tipo, orçamento de sombras/cascatas, política determinística de slots e exportação `lighting.v1` com performance `UNAVAILABLE`. **70 asserts headless** e 10 testes estruturais.
+
+**Parent M03 (#8) continua NOT_ADMITTED.** Sem rendering, light/shadow/GI reais, shader ou cena; `estimated_shadow_maps` é estimativa aritmética; performance/qualidade `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M03 lighting contract v1
 
 **Contrato M03 v1 integrado** por PR #142, squash `9c75340d4609df939907ecabea535ffa9b6665c4` (código `38e1d4cb`). `contracts/m03/lighting.v1.schema.json` define ambiente (ambient/tonemap/glow/fog/GI), 1–128 luzes (`directional`/`omni`/`spot`) com bias/softness/cull mask e campos condicionais por tipo, orçamento de sombra, performance com disponibilidade explícita e proveniência. `ownership.v1.json` mapeia paths prospectivos sem admissão implícita; `docs/contracts/m03.md` fixa invariantes. **16 testes novos** (suíte de contratos 57 OK; total 341 em worktree LF limpo).
