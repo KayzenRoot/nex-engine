@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S07 QA/integration gate
+
+**M02-S07 integrado** por PR #138, squash `c2bed9581719b0e1b7c930d9bc06f017c4a3f6d2`. O QA pack em `docs/benchmarks/m02/` versiona o contrato de QA, um ledger hasheado de S01–S06 e a interface M03–M06. **Structural PASS** nos 6 componentes; **comparação de cena e performance `INCONCLUSIVE_NOT_RUN`** — as 3 cenas M01 não foram executadas com as melhorias; metas 1080p60/120 permanecem não medidas. Defeitos HIGH/CRITICAL: 0; integração serial sem conflitos; nenhum claim medido.
+
+**Parent M02 (#7) continua NOT_ADMITTED.** Próximas ações: Owner decide as hipóteses do atlas; A/B/A real nas 3 cenas exige WO própria; M03–M06 consomem a interface com evidência própria. Nenhum checkpoint é promovido por este delta.
+
+
 ## Current verified scope | 2026-11-13 · M02-S06 R&D decision atlas
 
 **M02-S06 integrado como pesquisa/planejamento** por PR #135, squash `23deddb50259850dc243c37c7f09b786d6a3a2de`; limpeza de bytecode gerado na PR #136 (`4ce2b7f3`). O atlas em `docs/research/nex-m02/` traz 5 hipóteses refutáveis (IsoDirector, Sightline, DepthWeave, TemporalGuard, RenderPassport) com gap nativo, alternativa simples, contrato de dados, custo/risco, compatibilidade 2.5D, rollback e A/B/A. O motor determinístico recomenda **4× RESEARCH_MORE** (features sem gap medido) e **1× GO** (RenderPassport como ferramenta de processo); **5 redundâncias** são `NO_GO`. Contratos C1–C4 são `DRAFT_NOT_PROMOTED`.
