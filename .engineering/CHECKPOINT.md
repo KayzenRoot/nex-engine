@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M10-FEEDBACK planner prototype
+
+**M10-FEEDBACK integrado como protótipo isolado** por PR #169, squash `0709923347d8bd145046e69c997f6a6fa8ef81ed` (código `e62d9290`). Em `nex_modules/animation/combat_feedback/`, o planejador determinístico consome `feedback.v1`: fases do ataque, hit events, timeline priorizada, budgets de hit-stop/shake/concorrência, conflitos e exportação de observação para planos seguros. **66 asserts headless** e 9 testes estruturais.
+
+**Parent M10 (#15) continua NOT_ADMITTED.** Sem animação, câmera, shader, cena ou rendering; budgets são aritméticos; game feel/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M10 combat feedback contract v1
 
 **Contrato M10 v1 integrado** por PR #167, squash `5ad895d5d51bf0858c4873884a0a314b23218847` (código `97c80641`). `contracts/m10/feedback.v1.schema.json` define fases de ataque, hit events, canais (hit-stop, shake, flash, recoil, damage number), prioridade/intensidade, orçamentos de hit-stop/shake/concorrência/total, performance e proveniência. Ownership prospectivo de `nex_modules/animation/**`, docs e **20 testes novos** (suíte de contratos 150 OK; total 501 em worktree LF limpo).
