@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M03 lighting contract v1
+
+**Contrato M03 v1 integrado** por PR #142, squash `9c75340d4609df939907ecabea535ffa9b6665c4` (código `38e1d4cb`). `contracts/m03/lighting.v1.schema.json` define ambiente (ambient/tonemap/glow/fog/GI), 1–128 luzes (`directional`/`omni`/`spot`) com bias/softness/cull mask e campos condicionais por tipo, orçamento de sombra, performance com disponibilidade explícita e proveniência. `ownership.v1.json` mapeia paths prospectivos sem admissão implícita; `docs/contracts/m03.md` fixa invariantes. **16 testes novos** (suíte de contratos 57 OK; total 341 em worktree LF limpo).
+
+**Parent M03 (#8) continua NOT_ADMITTED.** Sem implementação de luz/sombra/GI, shader, cena, engine ou CI; performance/qualidade `INCONCLUSIVE_NOT_RUN`. Contratos M01/M02/M07 inalterados. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M07-S01 canvas/batching prototype
 
 **M07-S01 integrado como protótipo isolado** por PR #140, squash `02b24c60750da20d657e8c131a025d4755bc5a52` (código `817cfcfd`). Em `nex_modules/render2d/canvas/`, o planejador determinístico cobre camadas/materiais/luzes/partículas, ordenação por z, batching por material+blend, estimativas de draw calls/state changes e avisos de orçamento, alinhado ao contrato `render2d.v1`. **46 asserts headless** e 8 testes estruturais.
