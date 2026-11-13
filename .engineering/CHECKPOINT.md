@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M02-S05 RenderPassport prototype
+
+**M02-S05 integrado como protótipo isolado** por PR #133, squash `043a0124a803753a8521f397d7d3f1d370cba630` (código `2613f51d`). Em `nex_modules/render3d/profiles/`, a matriz de 9 capacidades com fontes oficiais, o RenderPassport (inventário + probe runtime + fallback Vulkan→D3D12→GL) e os perfis Quality/Balanced/Performance reversíveis foram verificados com **87 asserts headless** e 9 testes estruturais. Flags explícitas: sem escrita de `project.godot`, sem coleta remota, GPU não implica capacidade.
+
+**Parent M02 (#7) continua NOT_ADMITTED.** Estados de capacidade são documentação-derivados e `INCONCLUSIVE_NOT_PROBED` sem probe; nenhum claim de FPS/VRAM. M02-S06 (R&D 3D) ou S07 (QA/integração) podem consumir o passport como mock sob WO própria. M03–M12 seguem sem admissão.
+
+
 ## Current verified scope | 2026-11-13 · M02-S04 TemporalGuard prototype
 
 **M02-S04 integrado como protótipo isolado** por PR #131, squash `fae4f9a88e352709ca6ccab7b0d377cd6adacb66` (código `9a1bdde1`). Em `nex_modules/render3d/temporal/`, o analisador determinístico cobre ghosting, flicker, shimmer, render scale e sharpness, emitindo `BASELINE_ACCEPTABLE` / `DEFECT_REPRODUCED` / `INCONCLUSIVE` e ações `KEEP_NATIVE` / `EVALUATE_COMPOSITOR` / `NO_GO`, com toggle de postprocess guardado e rollback. **51 asserts headless** e 8 testes estruturais.
