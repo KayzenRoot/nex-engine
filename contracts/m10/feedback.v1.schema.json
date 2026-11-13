@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nex-engine.local/contracts/m10/feedback.v1.schema.json",
+  "title": "NEX M10 combat feedback contract v1",
+  "description": "Versioned combat-feedback observation. Representation only: does not implement or admit M10.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "observation_id", "captured_at_utc", "attack", "hit_events", "feedback_channels", "budget", "performance", "provenance"],
+  "properties": {
+    "schema_version": {"const": "feedback.v1"},
+    "observation_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{2,63}$"},
+    "captured_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"},
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attack_id", "phases"],
+      "properties": {
+        "attack_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+        "phases": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["phase", "duration_ms"],
+            "properties": {
+              "phase": {"enum": ["anticipation", "active", "recovery"]},
+              "duration_ms": {"type": "integer", "minimum": 0, "maximum": 10000}
+            }
+          }
+        }
+      }
+    },
+    "hit_events": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["event_id", "at_ms", "target_id", "damage", "critical", "element"],
+        "properties": {
+          "event_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+          "at_ms": {"type": "integer", "minimum": 0, "maximum": 10000},
+          "target_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+          "damage": {"type": "integer", "minimum": 0, "maximum": 1000000},
+          "critical": {"type": "boolean"},
+          "element": {"enum": ["fire", "ice", "lightning", "arcane", "nature", "physical"]}
+        }
+      }
+    },
+    "feedback_channels": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["channel_id", "channel", "start_ms", "duration_ms", "intensity", "priority"],
+        "properties": {
+          "channel_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+          "channel": {"enum": ["hit_stop", "camera_shake", "flash", "recoil", "damage_number"]},
+          "start_ms": {"type": "integer", "minimum": 0, "maximum": 10000},
+          "duration_ms": {"type": "integer", "minimum": 0, "maximum": 5000},
+          "intensity": {"type": "number", "minimum": 0, "maximum": 1},
+          "priority": {"type": "integer", "minimum": 0, "maximum": 10},
+          "event_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+          "target_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"}
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_hit_stop_ms", "max_shake_amplitude", "max_concurrent_channels", "max_total_channels"],
+      "properties": {
+        "max_hit_stop_ms": {"type": "integer", "minimum": 0, "maximum": 500},
+        "max_shake_amplitude": {"type": "number", "minimum": 0, "maximum": 2},
+        "max_concurrent_channels": {"type": "integer", "minimum": 1, "maximum": 16},
+        "max_total_channels": {"type": "integer", "minimum": 1, "maximum": 32}
+      }
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["measurement_status", "frame_interval", "gpu_render_time", "cpu_render_time", "draw_calls", "renderer_allocation_bytes"],
+      "properties": {
+        "measurement_status": {"enum": ["MEASURED", "UNAVAILABLE"]},
+        "frame_interval": {"$ref": "#/$defs/frame_interval"},
+        "gpu_render_time": {"$ref": "#/$defs/optional_number"},
+        "cpu_render_time": {"$ref": "#/$defs/optional_number"},
+        "draw_calls": {"$ref": "#/$defs/optional_integer"},
+        "renderer_allocation_bytes": {"$ref": "#/$defs/optional_integer"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base_sha", "head_sha", "godot_version", "hardware", "capture_mode", "measurement_status"],
+      "properties": {
+        "base_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "head_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "godot_version": {"type": "string", "minLength": 1, "maxLength": 80},
+        "hardware": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gpu_model", "driver_version"],
+          "properties": {
+            "gpu_model": {"type": "string", "minLength": 1, "maxLength": 120},
+            "driver_version": {"type": "string", "minLength": 1, "maxLength": 60},
+            "device_memory_mib": {"type": "integer", "minimum": 0, "maximum": 1048576}
+          }
+        },
+        "capture_mode": {"enum": ["windowed", "fullscreen", "headless"]},
+        "measurement_status": {"enum": ["MEASURED", "UNAVAILABLE"]},
+        "evidence_uri": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    }
+  },
+  "$defs": {
+    "frame_interval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "provider", "samples_ms"],
+          "properties": {
+            "status": {"const": "MEASURED"},
+            "provider": {"const": "SceneTree._process(delta)"},
+            "samples_ms": {"type": "array", "minItems": 1, "maxItems": 16000, "items": {"type": "number", "exclusiveMinimum": 0, "maximum": 1000}}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "provider", "unavailable_reason"],
+          "properties": {
+            "status": {"const": "UNAVAILABLE"},
+            "provider": {"const": "SceneTree._process(delta)"},
+            "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}
+          }
+        }
+      ]
+    },
+    "optional_number": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value"],
+          "properties": {"status": {"const": "MEASURED"}, "value": {"type": "number", "minimum": 0, "maximum": 60000}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "unavailable_reason"],
+          "properties": {"status": {"const": "UNAVAILABLE"}, "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}}
+        }
+      ]
+    },
+    "optional_integer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value"],
+          "properties": {"status": {"const": "MEASURED"}, "value": {"type": "integer", "minimum": 0, "maximum": 9007199254740991}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "unavailable_reason"],
+          "properties": {"status": {"const": "UNAVAILABLE"}, "unavailable_reason": {"type": "string", "minLength": 1, "maxLength": 240}}
+        }
+      ]
+    }
+  }
+}
