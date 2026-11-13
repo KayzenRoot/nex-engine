@@ -1,0 +1,52 @@
+{
+  "schema_version": "m11_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m11/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m11-importer", "m11-cooker", "m11-license-audit", "m11-qa"]
+    },
+    {
+      "path": "nex_modules/assets/importer/**",
+      "owner": "m11-importer",
+      "mode": "future-write",
+      "consumers": ["m11-cooker", "m11-license-audit", "m11-qa"]
+    },
+    {
+      "path": "nex_modules/assets/cooker/**",
+      "owner": "m11-cooker",
+      "mode": "future-write",
+      "consumers": ["m11-license-audit", "m11-qa"]
+    },
+    {
+      "path": "nex_modules/assets/license_audit/**",
+      "owner": "m11-license-audit",
+      "mode": "future-write",
+      "consumers": ["m11-qa"]
+    },
+    {
+      "path": "tests/assets/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m04/**",
+    "contracts/m11/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
