@@ -1,0 +1,54 @@
+{
+  "schema_version": "nex_lighting_matrix_presets.v1",
+  "warmup_seconds": 2.0,
+  "observation_seconds": 30.0,
+  "counts": [25, 100, 200],
+  "presets": [
+    {
+      "id": "baseline",
+      "label": "Baseline: directional light, no shadows",
+      "effect_mode": "geometry",
+      "directional_shadow": false,
+      "omni_lights": 0,
+      "omni_shadows": false,
+      "particles": 0
+    },
+    {
+      "id": "lights",
+      "label": "Four omni lights, no shadows",
+      "effect_mode": "lights",
+      "directional_shadow": false,
+      "omni_lights": 4,
+      "omni_shadows": false,
+      "particles": 0
+    },
+    {
+      "id": "shadows",
+      "label": "Directional and omni shadows",
+      "effect_mode": "lights",
+      "directional_shadow": true,
+      "omni_lights": 4,
+      "omni_shadows": true,
+      "particles": 0
+    },
+    {
+      "id": "vfx",
+      "label": "Four particle emitters, baseline light",
+      "effect_mode": "vfx",
+      "directional_shadow": false,
+      "omni_lights": 0,
+      "omni_shadows": false,
+      "particles": 4
+    },
+    {
+      "id": "combined",
+      "label": "Shadows and particles together (25 only)",
+      "effect_mode": "combined",
+      "directional_shadow": true,
+      "omni_lights": 4,
+      "omni_shadows": true,
+      "particles": 4,
+      "max_proxy_count": 25
+    }
+  ]
+}
