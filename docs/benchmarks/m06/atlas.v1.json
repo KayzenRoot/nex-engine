@@ -1,0 +1,1198 @@
+{
+  "baseline_references": {
+    "100": {
+      "cpu_p95_median_ms": 0.344,
+      "gpu_p95_median_ms": 0.206,
+      "pacing_p95_median_ms": 17.014,
+      "runs": 1
+    },
+    "200": {
+      "cpu_p95_median_ms": 0.38,
+      "gpu_p95_median_ms": 0.218,
+      "pacing_p95_median_ms": 17.03,
+      "runs": 1
+    },
+    "25": {
+      "cpu_p95_median_ms": 0.329,
+      "gpu_p95_median_ms": 0.181,
+      "pacing_p95_median_ms": 17.014,
+      "runs": 3
+    }
+  },
+  "bundle_verification": {
+    "measurement_captures_strict": true,
+    "status": "PASS",
+    "text_line_ending_tolerance": "LF/CRLF accepted for documentation and validation JSON",
+    "verified_files": 32
+  },
+  "capture_count": 15,
+  "cells": [
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.1,
+        "render_headroom_ms": 16.872,
+        "render_pressure": "cpu"
+      },
+      "count": 25,
+      "cpu_p95_median_ms": 0.329,
+      "gpu_p95_median_ms": 0.181,
+      "pacing_p95_median_ms": 17.014,
+      "preset": "baseline",
+      "runs": 3
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.2,
+        "render_headroom_ms": 16.808,
+        "render_pressure": "cpu"
+      },
+      "count": 100,
+      "cpu_p95_median_ms": 0.344,
+      "gpu_p95_median_ms": 0.206,
+      "pacing_p95_median_ms": 17.014,
+      "preset": "baseline",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.3,
+        "render_headroom_ms": 16.812,
+        "render_pressure": "cpu"
+      },
+      "count": 200,
+      "cpu_p95_median_ms": 0.38,
+      "gpu_p95_median_ms": 0.218,
+      "pacing_p95_median_ms": 17.03,
+      "preset": "baseline",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.6,
+        "render_headroom_ms": 16.719,
+        "render_pressure": "cpu"
+      },
+      "count": 25,
+      "cpu_p95_median_ms": 0.363,
+      "gpu_p95_median_ms": 0.279,
+      "pacing_p95_median_ms": 16.998,
+      "preset": "lights",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.8,
+        "render_headroom_ms": 16.706,
+        "render_pressure": "cpu"
+      },
+      "count": 100,
+      "cpu_p95_median_ms": 0.373,
+      "gpu_p95_median_ms": 0.301,
+      "pacing_p95_median_ms": 17.007,
+      "preset": "lights",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.9,
+        "render_headroom_ms": 16.699,
+        "render_pressure": "cpu"
+      },
+      "count": 200,
+      "cpu_p95_median_ms": 0.4,
+      "gpu_p95_median_ms": 0.321,
+      "pacing_p95_median_ms": 17.02,
+      "preset": "lights",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 2.7,
+        "render_headroom_ms": 16.707,
+        "render_pressure": "balanced"
+      },
+      "count": 25,
+      "cpu_p95_median_ms": 0.475,
+      "gpu_p95_median_ms": 0.46,
+      "pacing_p95_median_ms": 17.167,
+      "preset": "shadows",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 2.9,
+        "render_headroom_ms": 16.691,
+        "render_pressure": "balanced"
+      },
+      "count": 100,
+      "cpu_p95_median_ms": 0.545,
+      "gpu_p95_median_ms": 0.499,
+      "pacing_p95_median_ms": 17.19,
+      "preset": "shadows",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 3.2,
+        "render_headroom_ms": 16.62,
+        "render_pressure": "balanced"
+      },
+      "count": 200,
+      "cpu_p95_median_ms": 0.586,
+      "gpu_p95_median_ms": 0.547,
+      "pacing_p95_median_ms": 17.167,
+      "preset": "shadows",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.4,
+        "render_headroom_ms": 16.754,
+        "render_pressure": "cpu"
+      },
+      "count": 25,
+      "cpu_p95_median_ms": 0.351,
+      "gpu_p95_median_ms": 0.236,
+      "pacing_p95_median_ms": 16.99,
+      "preset": "vfx",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.4,
+        "render_headroom_ms": 16.801,
+        "render_pressure": "cpu"
+      },
+      "count": 100,
+      "cpu_p95_median_ms": 0.444,
+      "gpu_p95_median_ms": 0.247,
+      "pacing_p95_median_ms": 17.048,
+      "preset": "vfx",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 1.5,
+        "render_headroom_ms": 16.761,
+        "render_pressure": "cpu"
+      },
+      "count": 200,
+      "cpu_p95_median_ms": 0.415,
+      "gpu_p95_median_ms": 0.261,
+      "pacing_p95_median_ms": 17.022,
+      "preset": "vfx",
+      "runs": 1
+    },
+    {
+      "classification": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "gpu_share_of_frame_pct": 6.9,
+        "render_headroom_ms": 16.057,
+        "render_pressure": "gpu"
+      },
+      "count": 25,
+      "cpu_p95_median_ms": 0.969,
+      "gpu_p95_median_ms": 1.194,
+      "pacing_p95_median_ms": 17.251,
+      "preset": "combined",
+      "runs": 1
+    }
+  ],
+  "generated_by": "docs/benchmarks/m06/tools/build_atlas.py",
+  "godot_version": "4.7.2-stable (official)",
+  "hardware": {
+    "adapter": "NVIDIA GeForce RTX 5050",
+    "driver": "vulkan",
+    "renderer": "forward_plus"
+  },
+  "limitations": [
+    "single synthetic session; one repetition per cell except baseline-25 x3",
+    "vsync-limited 60 Hz: pacing classification reflects vsync, not a GPU-bound scene",
+    "GPU render timing can describe earlier work and is not guaranteed to align one-to-one with the current frame",
+    "renderer allocation bytes are session history, not device VRAM, and are not compared across runs",
+    "one_percent_low_fps is callback pacing, not display presentation or input-to-photon latency",
+    "no cross-scene, cross-driver, cross-hardware or cross-session generalization",
+    "no new measurement is performed by this atlas"
+  ],
+  "observations": [
+    "lights-25: +54.1% de GPU p95 vs baseline-25, mantendo o frame limitado por pacing.",
+    "shadows-25: +154.1% de GPU p95 vs baseline-25, mantendo o frame limitado por pacing.",
+    "vfx-25: +30.4% de GPU p95 vs baseline-25, mantendo o frame limitado por pacing.",
+    "combined-25: +559.7% de GPU p95 vs baseline-25; maior custo absoluto da matriz.",
+    "maior GPU p95 absoluto: 1.194 ms em 1794590348-461870426, ainda 16.057 ms abaixo do pacing p95.",
+    "spread de GPU p50 nas 3 repetições baseline-25: 0.002 ms.",
+    "Todas as 15 runs permanecem pacing-bound; nenhuma célula satura o orçamento de GPU no cenário sintético."
+  ],
+  "provenance": {
+    "analysis": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "bundle_hashes": "SHA256SUMS verified by the builder",
+    "measurement": "S05 published captures, 2026-11-13"
+  },
+  "runs": [
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.256333333237304,
+        "p50": 0.246999993920326,
+        "p95": 0.340999990701675,
+        "p99": 0.541000008583069,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": null,
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684066666667,
+        "p50": 16.669,
+        "p95": 17.055,
+        "p99": 17.487,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.18229111433857,
+        "p50": 0.180000007152557,
+        "p95": 0.18299999833107,
+        "p99": 0.326999992132187,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.1,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6670301851856,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 54.418,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "baseline",
+      "render_headroom_ms": 16.872,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794589928-41466374",
+      "run_status": "COMPLETE",
+      "scenario": "baseline-25",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.252941666535205,
+        "p50": 0.247999995946884,
+        "p95": 0.324000000953674,
+        "p99": 0.458000004291534,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": null,
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684244444445,
+        "p50": 16.666,
+        "p95": 16.993,
+        "p99": 17.905,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.178967780926161,
+        "p50": 0.178000003099442,
+        "p95": 0.180999994277954,
+        "p99": 0.181999996304512,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.1,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6613703703707,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.583,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "baseline",
+      "render_headroom_ms": 16.812,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": true,
+      "run_id": "1794590383-496606065",
+      "run_status": "COMPLETE",
+      "scenario": "baseline-25-rep2",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.25153333314591,
+        "p50": 0.245000004768372,
+        "p95": 0.328999996185303,
+        "p99": 0.455000013113022,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": null,
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684183333334,
+        "p50": 16.667,
+        "p95": 17.014,
+        "p99": 17.831,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.179590003109641,
+        "p50": 0.178000003099442,
+        "p95": 0.180999994277954,
+        "p99": 0.18299999833107,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.1,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6666666666671,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.799,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "baseline",
+      "render_headroom_ms": 16.833,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": true,
+      "run_id": "1794590418-531333619",
+      "run_status": "COMPLETE",
+      "scenario": "baseline-25-rep3",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 100,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.260560555474626,
+        "p50": 0.254000008106232,
+        "p95": 0.34400001168251,
+        "p99": 0.474999994039536,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": null,
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684372222222,
+        "p50": 16.666,
+        "p95": 17.014,
+        "p99": 18.303,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.198490556354324,
+        "p50": 0.194000005722046,
+        "p95": 0.206000000238419,
+        "p99": 0.225999996066093,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.2,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6660000000003,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.458,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "baseline",
+      "render_headroom_ms": 16.808,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794589963-76452097",
+      "run_status": "COMPLETE",
+      "scenario": "baseline-100",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 200,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.287235555590855,
+        "p50": 0.275999993085861,
+        "p95": 0.379999995231628,
+        "p99": 0.623000025749207,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": null,
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6681672222222,
+        "p50": 16.667,
+        "p95": 17.03,
+        "p99": 17.803,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.216343336254358,
+        "p50": 0.215000003576279,
+        "p95": 0.217999994754791,
+        "p99": 0.358000010251999,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.3,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6666666666671,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.437,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "baseline",
+      "render_headroom_ms": 16.812,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794589998-111361033",
+      "run_status": "COMPLETE",
+      "scenario": "baseline-200",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.2734561112937,
+        "p50": 0.264999985694885,
+        "p95": 0.363000005483627,
+        "p99": 0.542999982833862,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 10.3,
+        "gpu_p95_pct": 54.1,
+        "pacing_p95_ms": -0.016
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6682333333333,
+        "p50": 16.668,
+        "p95": 16.998,
+        "p99": 17.471,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.276810000969304,
+        "p50": 0.275999993085861,
+        "p95": 0.279000014066696,
+        "p99": 0.30799999833107,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.6,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6613703703707,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 54.97,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "lights",
+      "render_headroom_ms": 16.719,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590033-146315067",
+      "run_status": "COMPLETE",
+      "scenario": "lights-25",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 100,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.28652222217785,
+        "p50": 0.277999997138977,
+        "p95": 0.372999995946884,
+        "p99": 0.546999990940094,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 8.4,
+        "gpu_p95_pct": 46.1,
+        "pacing_p95_ms": -0.007
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684611111111,
+        "p50": 16.671,
+        "p95": 17.007,
+        "p99": 17.663,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.30080777761009,
+        "p50": 0.296000003814697,
+        "p95": 0.300999999046326,
+        "p99": 0.522000014781952,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.8,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6666666666671,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.614,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "lights",
+      "render_headroom_ms": 16.706,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590067-181008316",
+      "run_status": "COMPLETE",
+      "scenario": "lights-100",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 200,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.306893888910611,
+        "p50": 0.298000007867813,
+        "p95": 0.400000005960464,
+        "p99": 0.561999976634979,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 5.3,
+        "gpu_p95_pct": 47.2,
+        "pacing_p95_ms": -0.01
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684755555556,
+        "p50": 16.669,
+        "p95": 17.02,
+        "p99": 17.547,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.319282221860356,
+        "p50": 0.31700000166893,
+        "p95": 0.321000009775162,
+        "p99": 0.535000026226044,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.9,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6613703703707,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.696,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "lights",
+      "render_headroom_ms": 16.699,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 50543344.0,
+        "p50": 50543344.0,
+        "p95": 50543344.0,
+        "p99": 50543344.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590102-215966673",
+      "run_status": "COMPLETE",
+      "scenario": "lights-200",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.361847222430839,
+        "p50": 0.351999998092651,
+        "p95": 0.474999994039536,
+        "p99": 0.680999994277954,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 44.4,
+        "gpu_p95_pct": 154.1,
+        "pacing_p95_ms": 0.153
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684233333333,
+        "p50": 16.668,
+        "p95": 17.167,
+        "p99": 17.843,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.460952775776386,
+        "p50": 0.456000000238419,
+        "p95": 0.46000000834465,
+        "p99": 0.686999976634979,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 2.7,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6666666666671,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.092,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "shadows",
+      "render_headroom_ms": 16.707,
+      "render_pressure": "balanced",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590137-250647244",
+      "run_status": "COMPLETE",
+      "scenario": "shadows-25",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 100,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.397108889139361,
+        "p50": 0.388000011444092,
+        "p95": 0.545000016689301,
+        "p99": 0.734000027179718,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 58.4,
+        "gpu_p95_pct": 142.2,
+        "pacing_p95_ms": 0.176
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684422222222,
+        "p50": 16.672,
+        "p95": 17.19,
+        "p99": 18.458,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.500272224429581,
+        "p50": 0.492000013589859,
+        "p95": 0.499000012874603,
+        "p99": 0.726999998092651,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 2.9,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6666666666671,
+        "p50": 16.6666666666667,
+        "p95": 16.6666666666667,
+        "p99": 16.6666666666667,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 52.661,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "shadows",
+      "render_headroom_ms": 16.691,
+      "render_pressure": "balanced",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590172-285680381",
+      "run_status": "COMPLETE",
+      "scenario": "shadows-100",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 200,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.436992777188619,
+        "p50": 0.426999986171722,
+        "p95": 0.586000025272369,
+        "p99": 0.771000027656555,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 54.2,
+        "gpu_p95_pct": 150.9,
+        "pacing_p95_ms": 0.137
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.668615,
+        "p50": 16.672,
+        "p95": 17.167,
+        "p99": 17.523,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.534601668881045,
+        "p50": 0.524999976158142,
+        "p95": 0.546999990940094,
+        "p99": 0.763000011444092,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 3.2,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6660000000003,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 55.075,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "shadows",
+      "render_headroom_ms": 16.62,
+      "render_pressure": "balanced",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131317488.0,
+        "p50": 131317488.0,
+        "p95": 131317488.0,
+        "p99": 131317488.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590207-320548567",
+      "run_status": "COMPLETE",
+      "scenario": "shadows-200",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.266828888894783,
+        "p50": 0.259999990463257,
+        "p95": 0.351000010967255,
+        "p99": 0.485000014305115,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 6.7,
+        "gpu_p95_pct": 30.4,
+        "pacing_p95_ms": -0.024
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684955555555,
+        "p50": 16.673,
+        "p95": 16.99,
+        "p99": 18.003,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.22862555452519,
+        "p50": 0.225999996066093,
+        "p95": 0.236000001430511,
+        "p99": 0.370000004768372,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.4,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6660000000003,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.139,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "vfx",
+      "render_headroom_ms": 16.754,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131704112.0,
+        "p50": 131704112.0,
+        "p95": 131704112.0,
+        "p99": 131704112.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590243-357129786",
+      "run_status": "COMPLETE",
+      "scenario": "vfx-25",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 100,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.300050555111633,
+        "p50": 0.282999992370605,
+        "p95": 0.444000005722046,
+        "p99": 0.637000024318695,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 29.1,
+        "gpu_p95_pct": 19.9,
+        "pacing_p95_ms": 0.034
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6684116666667,
+        "p50": 16.667,
+        "p95": 17.048,
+        "p99": 17.906,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.238268888865908,
+        "p50": 0.237000003457069,
+        "p95": 0.246999993920326,
+        "p99": 0.25,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.4,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6660000000003,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.744,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "vfx",
+      "render_headroom_ms": 16.801,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131704112.0,
+        "p50": 131704112.0,
+        "p95": 131704112.0,
+        "p99": 131704112.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590278-392105864",
+      "run_status": "COMPLETE",
+      "scenario": "vfx-100",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 200,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.308973332991203,
+        "p50": 0.298000007867813,
+        "p95": 0.41499999165535,
+        "p99": 0.592000007629395,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 9.2,
+        "gpu_p95_pct": 19.7,
+        "pacing_p95_ms": -0.008
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6690383333333,
+        "p50": 16.668,
+        "p95": 17.022,
+        "p99": 18.067,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.253603886448675,
+        "p50": 0.250999987125397,
+        "p95": 0.261000007390976,
+        "p99": 0.386000007390976,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 1.5,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6660000000003,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 53.366,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "vfx",
+      "render_headroom_ms": 16.761,
+      "render_pressure": "cpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131704112.0,
+        "p50": 131704112.0,
+        "p95": 131704112.0,
+        "p99": 131704112.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590313-426899019",
+      "run_status": "COMPLETE",
+      "scenario": "vfx-200",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    },
+    {
+      "classification": "pacing",
+      "confidence": "high",
+      "count": 25,
+      "cpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 0.736390555666553,
+        "p50": 0.708999991416931,
+        "p95": 0.968999981880188,
+        "p99": 1.15199995040894,
+        "valid_sample_count": 1800
+      },
+      "delta_vs_baseline": {
+        "cpu_p95_pct": 194.5,
+        "gpu_p95_pct": 559.7,
+        "pacing_p95_ms": 0.237
+      },
+      "evidence": "measured",
+      "frame_pacing_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6673738888889,
+        "p50": 16.668,
+        "p95": 17.251,
+        "p99": 17.598,
+        "valid_sample_count": 1800
+      },
+      "gpu_ms": {
+        "invalid_sample_count": 0,
+        "mean": 1.08969221731027,
+        "p50": 1.08000004291534,
+        "p95": 1.19400000572205,
+        "p99": 1.32700002193451,
+        "valid_sample_count": 1800
+      },
+      "gpu_share_of_frame_pct": 6.9,
+      "main_loop_ms": {
+        "invalid_sample_count": 0,
+        "mean": 16.6613703703707,
+        "p50": 16.666,
+        "p95": 16.666,
+        "p99": 16.666,
+        "valid_sample_count": 1800
+      },
+      "one_percent_low_fps": 54.414,
+      "one_percent_low_fps_label": "DELTA_DERIVED_VSYNC_LIMITED",
+      "preset": "combined",
+      "render_headroom_ms": 16.057,
+      "render_pressure": "gpu",
+      "renderer_allocation_bytes": {
+        "invalid_sample_count": 0,
+        "mean": 131704112.0,
+        "p50": 131704112.0,
+        "p95": 131704112.0,
+        "p99": 131704112.0,
+        "valid_sample_count": 1800
+      },
+      "repetition": false,
+      "run_id": "1794590348-461870426",
+      "run_status": "COMPLETE",
+      "scenario": "combined-25",
+      "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d"
+    }
+  ],
+  "schema_version": "m06_bottleneck_atlas.v1",
+  "settings": {
+    "max_fps": 0,
+    "vsync_mode": 1
+  },
+  "source_analysis": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05/ANALYSIS.md",
+  "source_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-13-s05",
+  "source_sha": "0b8388faba69358027780a2cc0ea73d3449eab6d",
+  "summary": {
+    "baseline25_gpu_p50_spread_ms": 0.002,
+    "classification_counts": {
+      "pacing": 15
+    },
+    "dominant_classification": "pacing",
+    "max_gpu_p95_ms": 1.194,
+    "max_gpu_p95_run": "1794590348-461870426"
+  }
+}
