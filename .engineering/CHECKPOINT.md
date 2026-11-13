@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M08 2.5D composition contract v1
+
+**Contrato M08 v1 integrado** por PR #163, squash `5814115e19dbd6d9756482f6c0eabf3a9397da11` (código `53c38b35`). `contracts/m08/composition.v1.schema.json` formaliza o rascunho DepthWeave: referência ao plano 3D, stack de camadas 2.5D, política de profundidade, alpha guard, HUD/overlay safety, entidades críticas, performance e proveniência. Ownership prospectivo de `nex_modules/render2_5d/**`, docs e **20 testes novos** (suíte de contratos 130 OK; total 472 em worktree LF limpo).
+
+**Parent M08 (#13) continua NOT_ADMITTED.** Nenhuma camada, viewport, shader, cena, engine ou CI alterado; performance/visual `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M06 Bottleneck Atlas (S05)
 
 **M06-BOTTLENECK-ATLAS integrado** por PR #159, squash `9f0cd8440de26c660e451ee6a3bda89729aa73cc` (código `99c9fcb4`). Em `docs/benchmarks/m06/`, o builder determinístico recomputa as 15 capturas S05, verifica 32 hashes do bundle, confere os JSONs de validação e gera `atlas.v1.json` + `ATLAS.md` com referências baseline, deltas e classificação no vocabulário `performance.v1`. **12 testes** de estrutura/reprodutibilidade; `--check` detecta artefatos defasados.
