@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M07-S01 canvas/batching prototype
+
+**M07-S01 integrado como protótipo isolado** por PR #140, squash `02b24c60750da20d657e8c131a025d4755bc5a52` (código `817cfcfd`). Em `nex_modules/render2d/canvas/`, o planejador determinístico cobre camadas/materiais/luzes/partículas, ordenação por z, batching por material+blend, estimativas de draw calls/state changes e avisos de orçamento, alinhado ao contrato `render2d.v1`. **46 asserts headless** e 8 testes estruturais.
+
+**Parent M07 (#12) continua NOT_ADMITTED.** Sem rendering/shaders/2.5D/engine; draw calls são estimativa determinística; performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta. A autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M02-S07 QA/integration gate
 
 **M02-S07 integrado** por PR #138, squash `c2bed9581719b0e1b7c930d9bc06f017c4a3f6d2`. O QA pack em `docs/benchmarks/m02/` versiona o contrato de QA, um ledger hasheado de S01–S06 e a interface M03–M06. **Structural PASS** nos 6 componentes; **comparação de cena e performance `INCONCLUSIVE_NOT_RUN`** — as 3 cenas M01 não foram executadas com as melhorias; metas 1080p60/120 permanecem não medidas. Defeitos HIGH/CRITICAL: 0; integração serial sem conflitos; nenhum claim medido.
