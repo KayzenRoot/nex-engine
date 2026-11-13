@@ -1,0 +1,55 @@
+{
+  "schema_version": "m10_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m10/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m10-combat-feedback", "m10-animation", "m10-camera-feel", "m10-qa"]
+    },
+    {
+      "path": "nex_modules/animation/combat_feedback/**",
+      "owner": "m10-combat-feedback",
+      "mode": "future-write",
+      "consumers": ["m10-animation", "m10-camera-feel", "m10-qa"]
+    },
+    {
+      "path": "nex_modules/animation/timeline/**",
+      "owner": "m10-animation",
+      "mode": "future-write",
+      "consumers": ["m10-camera-feel", "m10-qa"]
+    },
+    {
+      "path": "nex_modules/animation/camera_feel/**",
+      "owner": "m10-camera-feel",
+      "mode": "future-write",
+      "consumers": ["m10-qa"]
+    },
+    {
+      "path": "tests/animation/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m02/**",
+    "contracts/m03/**",
+    "contracts/m05/**",
+    "contracts/m08/**",
+    "contracts/m10/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
