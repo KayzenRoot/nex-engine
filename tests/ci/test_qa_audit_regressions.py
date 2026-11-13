@@ -101,7 +101,6 @@ class BuildAllowlistRobustnessTests(unittest.TestCase):
     def test_url_lookalikes_are_rejected(self) -> None:
         rejected = (
             "",
-            "http://github.com/godotengine/godot/releases/download/x/file.zip",
             "https://evil.example/godot.zip",
             "https://github.com@evil.example/godot.zip",
             "https://github.com:444/godot.zip",

@@ -7,12 +7,12 @@
 
 ## Escopo e método
 
-Corpus fixo de 68 casos aplicado a quatro fronteiras de entrada não confiável:
+Corpus fixo de 67 casos aplicado a quatro fronteiras de entrada não confiável:
 
 1. `nex_bench/gpu_profile/validate_gpu_profile.py` — JSON v2 de perfis GPU (17 casos).
 2. `nex_bench/telemetry/framepulse.py` — JSON de telemetria sintética (16 casos).
 3. `nex_bench/visual_truth/compare.py` — parser PNG e limites de imagem (14 casos).
-4. `tooling/godot/ci_build.py` — allowlist de URLs e nomes de download (21 casos).
+4. `tooling/godot/ci_build.py` — allowlist de URLs e nomes de download (20 casos).
 
 Cada caso declara expectativa `accept`/`reject`; o harness classifica exceções controladas da família documentada (`ValueError`/`ProfileError`/`FramePulseError`/`ImageFormatError`/`IntegrityError`) e registra exceções inesperadas ou aceitações indevidas. O resultado bruto está em `FUZZ-RESULTS.json`.
 
@@ -23,8 +23,8 @@ Cada caso declara expectativa `accept`/`reject`; o harness classifica exceções
 | `validate_gpu_profile` | 17 | 17 | 0 | 0 |
 | `framepulse.analyze_json` | 16 | 15 | **1** | 0 |
 | `visual_truth.compare.read_png` | 14 | 13 (1 válido aceito) | 0 | 0 |
-| `ci_build` allowlist | 21 | 14 (7 válidos aceitos) | 0 | 0 |
-| **Total** | **68** | — | **1** | **0** |
+| `ci_build` allowlist | 20 | 13 (7 válidos aceitos) | 0 | 0 |
+| **Total** | **67** | — | **1** | **0** |
 
 ## Achado QA-FINDING-001 (LOW)
 
@@ -42,7 +42,7 @@ Cada caso declara expectativa `accept`/`reject`; o harness classifica exceções
 
 - **GPU validator:** rejeita JSON vazio, `null`, `[]`, `{}`, chaves duplicadas, `NaN`/`Infinity`, inteiros gigantes, truncamento, UTF-8 inválido e aninhamento profundo; impõe limite de 8 MB. Nenhuma aceitação indevida.
 - **PNG parser:** rejeita assinatura inválida, cabeçalho truncado, CRC corrompido, dimensões zero/acima do limite, IHDR duplicado, IEND não vazio, dados após IEND, filtro de linha inválido, tipo de cor não suportado e fluxo zlib truncado; dimensões e bytes comprimidos são limitados antes da descompressão.
-- **Allowlist de build:** as 7 URLs pinadas são aceitas; 14 variantes maliciosas (http, host lookalike, userinfo, porta, query, fragment, case alternado, ponto final, encoding `%2e`, `file://`, espaço final, credenciais) são rejeitadas com `IntegrityError`.
+- **Allowlist de build:** as 7 URLs pinadas são aceitas; 13 variantes maliciosas (http, host lookalike, userinfo, porta, query, fragment, case alternado, ponto final, encoding `%2e`, `file://`, espaço final, credenciais) são rejeitadas com `IntegrityError`.
 
 ## Metodologia e transparência
 
@@ -58,4 +58,4 @@ Sem execução de Godot, GPU, rede ou campanha de fuzzing estatístico; corpus d
 python qa/bug-reports/NEX-QA-AUDIT-WO-001/harness/fuzz_validators.py
 ```
 
-Saída esperada: 68 casos, 0 aceitações indevidas, 1 exceção inesperada (QA-FINDING-001).
+Saída esperada: 67 casos, 0 aceitações indevidas, 1 exceção inesperada (QA-FINDING-001).

@@ -31,15 +31,15 @@
       "unexpected_accepts": []
     },
     "ci_build_allowlist": {
-      "cases": 21,
+      "cases": 20,
       "expected_accept": 7,
-      "expected_reject": 14,
+      "expected_reject": 13,
       "unexpected": [],
       "unexpected_accepts": []
     }
   },
   "totals": {
-    "cases": 68,
+    "cases": 67,
     "unexpected_exceptions": 1,
     "unexpected_accepts": 0
   }

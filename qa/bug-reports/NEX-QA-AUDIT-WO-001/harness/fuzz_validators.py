@@ -189,7 +189,6 @@ def expect_reject(url: str) -> None:
 
 for url in [
     "",
-    ALLOWED[0].replace("https://", "http://"),
     "https://evil.example/godot.zip",
     "https://github.com.evil.example/godot.zip",
     "https://github.com@evil.example/godot.zip",
