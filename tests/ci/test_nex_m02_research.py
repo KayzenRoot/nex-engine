@@ -154,7 +154,9 @@ class DecisionEngineRuleTests(unittest.TestCase):
 
     def test_evaluation_is_deterministic(self):
         document = json.loads(HYPOTHESES.read_text(encoding="utf-8"))
-        self.assertEqual(ENGINE.evaluate(document), ENGINE.evaluate(document))
+        first = ENGINE.evaluate(document)
+        second = ENGINE.evaluate(document)
+        self.assertEqual(first, second)
 
 
 if __name__ == "__main__":
