@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M03-SHADOWSTAB analyzer prototype
+
+**M03-SHADOWSTAB integrado como protótipo isolado** por PR #147, squash `fa1acb3a6e0f0c01f6551e49b0266d8d584b5ef9` (código `6db0a5ee`). Em `nex_modules/lighting/shadows/`, o analisador determinístico consome `lighting.plan.v1`/`lighting.v1` e reporta splits de cascata, pressão de atlas, heurísticas de bias/softness, orçamento e coerência de casters, com veredictos `STABLE_CONFIG_HEURISTIC`, `STABLE_CONFIG_HEURISTIC_WITH_NOTES`, `RISK_REPRODUCED` ou `INCONCLUSIVE`. **51 asserts headless** e 9 testes estruturais.
+
+**Parent M03 (#8) continua NOT_ADMITTED.** Sem rendering/shadow map/filtro/shader/cena; acne, peter-panning e shimmer **não medidos**; qualidade/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M03-LIGHTRIG light-rig planner prototype
 
 **M03-LIGHTRIG integrado como protótipo isolado** por PR #144, squash `a61df5d2cef2ca8780361b52db09b73ea206fed1` (código `9c252e80`). Em `nex_modules/lighting/light_rig/`, o `LightRigPlanner` cobre ambiente (ambient/tonemap/glow/fog/GI), registro `directional`/`omni`/`spot` com coerência por tipo, orçamento de sombras/cascatas, política determinística de slots e exportação `lighting.v1` com performance `UNAVAILABLE`. **70 asserts headless** e 10 testes estruturais.
