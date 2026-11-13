@@ -28,9 +28,10 @@ class IntegrityHelperTests(unittest.TestCase):
     def test_download_digest_mismatch_stops_before_output_is_promoted(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             destination = Path(temp) / "payload.zip"
+            trusted_url = ci_build.TRUSTED_DOWNLOAD_URLS[0]
             with mock.patch("ci_build.urllib.request.urlopen", return_value=io.BytesIO(b"untrusted bytes")):
                 with self.assertRaisesRegex(ci_build.IntegrityError, "SHA-256 mismatch"):
-                    ci_build.download_verified("https://example.invalid/payload.zip", destination, "0" * 64)
+                    ci_build.download_verified(trusted_url, destination, "0" * 64)
             self.assertFalse(destination.exists())
             self.assertTrue(destination.with_name(destination.name + ".part").exists())
 
@@ -38,10 +39,11 @@ class IntegrityHelperTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             destination = Path(temp) / "payload.zip"
             partial = destination.with_name(destination.name + ".part")
+            trusted_url = ci_build.TRUSTED_DOWNLOAD_URLS[0]
             with mock.patch("ci_build.urllib.request.urlopen", return_value=io.BytesIO(b"too large")):
                 with self.assertRaisesRegex(ci_build.IntegrityError, "expected at most 3 bytes"):
                     ci_build.download_verified(
-                        "https://example.invalid/payload.zip", destination, "0" * 64, expected_size=3
+                        trusted_url, destination, "0" * 64, expected_size=3
                     )
             self.assertFalse(destination.exists())
             self.assertEqual(partial.stat().st_size, 0)
@@ -239,6 +241,69 @@ class IntegrityHelperTests(unittest.TestCase):
                 commands[1],
                 [binary, "--headless", "--editor", "--path", fixture, "--quit-after", "2"],
             )
+
+
+class ReviewedAllowlistTests(unittest.TestCase):
+    def test_every_lock_download_url_is_allowlisted(self) -> None:
+        lock = json.loads(ci_build.LOCK_PATH.read_text(encoding="utf-8"))
+        urls = [
+            lock["godot"]["source"]["url"],
+            lock["godot"]["windowsReferenceBinary"]["url"],
+            lock["godot"]["linuxSmokeBinary"]["url"],
+            lock["buildTools"]["scons"]["url"],
+        ]
+        for dependency in lock["dependencies"]:
+            urls.append(dependency["url"])
+            if "licenseUrl" in dependency:
+                urls.append(dependency["licenseUrl"])
+        for url in urls:
+            self.assertEqual(ci_build.trusted_download_url(url), url)
+            self.assertEqual(ci_build.download_filename(url), url.rsplit("/", 1)[-1])
+
+    def test_untrusted_download_urls_are_rejected(self) -> None:
+        rejected = (
+            "http://github.com/godotengine/godot/releases/download/x/file.zip",
+            "https://evil.example/godot.zip",
+            "https://github.com.evil.example/godot.zip",
+            "https://github.com:444/godot.zip",
+            "file:///etc/passwd",
+            "https://github.com/godot.zip?redirect=https://evil.example",
+            "https://github.com/godot.zip#fragment",
+            "https://user:secret@github.com/godot.zip",
+            "",
+        )
+        for url in rejected:
+            with self.subTest(url=url):
+                with self.assertRaisesRegex(ci_build.IntegrityError, "reviewed allowlist"):
+                    ci_build.trusted_download_url(url)
+                with self.assertRaisesRegex(ci_build.IntegrityError, "reviewed allowlist"):
+                    ci_build.download_filename(url)
+
+    def test_download_verified_rejects_untrusted_url_before_network(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            destination = Path(temp) / "payload.zip"
+            with mock.patch("ci_build.urllib.request.urlopen") as urlopen:
+                with self.assertRaisesRegex(ci_build.IntegrityError, "reviewed allowlist"):
+                    ci_build.download_verified("https://evil.example/payload.zip", destination, "0" * 64)
+                urlopen.assert_not_called()
+            self.assertFalse(destination.exists())
+
+    def test_lock_windows_build_flags_match_reviewed_constants(self) -> None:
+        lock = json.loads(ci_build.LOCK_PATH.read_text(encoding="utf-8"))
+        command = lock["build"]["command"]
+        self.assertEqual(command[0], "scons")
+        self.assertEqual(tuple(command[1:]), ci_build.PINNED_WINDOWS_BUILD_FLAGS)
+
+    def test_lock_dependency_destinations_match_reviewed_mapping(self) -> None:
+        lock = json.loads(ci_build.LOCK_PATH.read_text(encoding="utf-8"))
+        for name, expected in ci_build.PINNED_DEPENDENCY_DESTINATIONS.items():
+            pin = ci_build.dependency_pin(lock, name)
+            self.assertEqual(ci_build.pinned_dependency_destination(pin), expected)
+
+    def test_unknown_dependency_destination_is_rejected(self) -> None:
+        pin = {"name": "Unreviewed dependency", "requiredFiles": ["payload/file.bin"]}
+        with self.assertRaisesRegex(ci_build.IntegrityError, "no reviewed destination mapping"):
+            ci_build.pinned_dependency_destination(pin)
 
 
 if __name__ == "__main__":

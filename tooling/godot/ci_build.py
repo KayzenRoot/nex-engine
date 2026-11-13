@@ -28,6 +28,35 @@ from urllib.parse import urlsplit
 REPO_ROOT = Path(__file__).resolve().parents[2]
 LOCK_PATH = REPO_ROOT / ".nex" / "toolchain" / "NEX-M00-WO-001-toolchain-lock.json"
 
+# Reviewed allowlist: the only artifact URLs this build script may download.
+# The toolchain lock must match these exact strings; any other value is rejected
+# before a network request or subprocess is created.
+TRUSTED_DOWNLOAD_URLS = (
+    "https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/godot-4.7.2-stable.tar.xz",
+    "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_win64.exe.zip",
+    "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip",
+    "https://github.com/godotengine/godot-accesskit-c-static/releases/download/0.22.3/accesskit-c-0.22.3.zip",
+    "https://github.com/godotengine/godot-nir-static/releases/download/25.3.1-3/godot-nir-static-x86_64-msvc-release.zip",
+    "https://raw.githubusercontent.com/godotengine/godot-nir-static/25.3.1-3/LICENSE.md",
+    "https://files.pythonhosted.org/packages/8e/43/d6285848e893c19682c06e92679dc1a07d37ff7ea148747b1df681ec496c/scons-4.11.1-py3-none-any.whl",
+)
+PINNED_WINDOWS_BUILD_FLAGS = (
+    "platform=windows",
+    "target=editor",
+    "arch=x86_64",
+    "-j1",
+    "lto=none",
+    "debug_symbols=no",
+    "accesskit=yes",
+    "d3d12=yes",
+    "msvc_version=14.3",
+    "mssdk_version=10.0.26100.0",
+)
+PINNED_DEPENDENCY_DESTINATIONS = {
+    "AccessKit C static SDK": "accesskit",
+    "Godot Mesa NIR static library": "mesa",
+}
+
 
 class IntegrityError(RuntimeError):
     """Raised when an input, path, or required tool violates the pinned contract."""
@@ -86,10 +115,36 @@ def dependency_pin(lock: dict[str, Any], name: str) -> dict[str, Any]:
 
 
 def download_filename(url: str) -> str:
-    filename = PurePosixPath(urlsplit(url).path).name
+    trusted_url = trusted_download_url(url)
+    filename = PurePosixPath(urlsplit(trusted_url).path).name
     if filename in ("", ".", ".."):
-        raise IntegrityError(f"Pinned download URL has no file name: {url!r}")
+        raise IntegrityError(f"Pinned download URL has no file name: {trusted_url!r}")
     return filename
+
+
+def trusted_download_url(url: str) -> str:
+    """Return the reviewed constant URL that exactly matches a pinned URL.
+
+    Unknown URLs are rejected. The returned value is the allowlist constant
+    itself, so no lock-file content reaches the network layer.
+    """
+    for trusted in TRUSTED_DOWNLOAD_URLS:
+        if url == trusted:
+            return trusted
+    raise IntegrityError(f"Download URL is not in the reviewed allowlist: {url!r}")
+
+
+def pinned_dependency_destination(pin: dict[str, Any]) -> str:
+    name = pin.get("name")
+    if name not in PINNED_DEPENDENCY_DESTINATIONS:
+        raise IntegrityError(f"Dependency {name!r} has no reviewed destination mapping.")
+    destination = PINNED_DEPENDENCY_DESTINATIONS[name]
+    actual = dependency_destination_name(pin)
+    if actual != destination:
+        raise IntegrityError(
+            f"Dependency {name!r} destination {actual!r} does not match the reviewed mapping {destination!r}."
+        )
+    return destination
 
 
 def dependency_destination_name(pin: dict[str, Any]) -> str:
@@ -120,13 +175,14 @@ def download_verified(
     expected_sha256: str,
     expected_size: int | None = None,
 ) -> dict[str, Any]:
+    trusted_url = trusted_download_url(url)
     if destination.exists():
         raise IntegrityError(f"Refusing to overwrite existing download output: {destination}")
     partial = destination.with_name(destination.name + ".part")
     if partial.exists():
         raise IntegrityError(f"Refusing to overwrite existing partial download: {partial}")
     destination.parent.mkdir(parents=True, exist_ok=True)
-    request = urllib.request.Request(url, headers={"User-Agent": "NEX-M00-WO-001-CI"})
+    request = urllib.request.Request(trusted_url, headers={"User-Agent": "NEX-M00-WO-001-CI"})
     digest = hashlib.sha256()
     byte_count = 0
     with urllib.request.urlopen(request, timeout=60) as response, partial.open("xb") as target:
@@ -585,7 +641,7 @@ def windows_build(args: argparse.Namespace) -> int:
     }
 
     source_pin = lock["godot"]["source"]
-    source_archive = downloads / source_pin["file"]
+    source_archive = downloads / download_filename(source_pin["url"])
     data["source"]["archive"] = download_verified(
         source_pin["url"], source_archive, source_pin["sha256"], source_pin["size"]
     )
@@ -595,7 +651,7 @@ def windows_build(args: argparse.Namespace) -> int:
 
     accesskit_pin = dependency_pin(lock, "AccessKit C static SDK")
     nir_pin = dependency_pin(lock, "Godot Mesa NIR static library")
-    accesskit_name = dependency_destination_name(accesskit_pin)
+    accesskit_name = pinned_dependency_destination(accesskit_pin)
     accesskit_archive = downloads / download_filename(accesskit_pin["url"])
     data["dependencies"].append(
         download_verified(accesskit_pin["url"], accesskit_archive, accesskit_pin["sha256"], accesskit_pin["size"])
@@ -609,7 +665,7 @@ def windows_build(args: argparse.Namespace) -> int:
     accesskit_source.rename(accesskit)
     verify_dependency_files(deps_root, accesskit_pin)
 
-    mesa_name = dependency_destination_name(nir_pin)
+    mesa_name = pinned_dependency_destination(nir_pin)
     nir_archive = downloads / download_filename(nir_pin["url"])
     data["dependencies"].append(
         download_verified(nir_pin["url"], nir_archive, nir_pin["sha256"], nir_pin["size"])
@@ -623,7 +679,7 @@ def windows_build(args: argparse.Namespace) -> int:
     )
 
     scons_pin = lock["buildTools"]["scons"]
-    scons_wheel = downloads / scons_pin["file"]
+    scons_wheel = downloads / download_filename(scons_pin["url"])
     data["buildTools"] = {
         "python": sys.version,
         "sconsWheel": download_verified(scons_pin["url"], scons_wheel, scons_pin["sha256"], scons_pin["size"]),
@@ -635,7 +691,10 @@ def windows_build(args: argparse.Namespace) -> int:
     )
     data["buildTools"]["sconsVersionOutput"] = (scons_version.stdout + scons_version.stderr).strip()
 
-    flags = lock["build"]["command"][1:]
+    lock_flags = tuple(str(part) for part in lock["build"]["command"][1:])
+    if lock_flags != PINNED_WINDOWS_BUILD_FLAGS:
+        raise IntegrityError("Toolchain lock build flags do not match the reviewed pinned flags.")
+    flags = list(PINNED_WINDOWS_BUILD_FLAGS)
     flags += [f"accesskit_sdk_path={accesskit}", f"mesa_libs={mesa}"]
     help_result = subprocess.run(
         [str(scons), "--help", *flags],
@@ -759,7 +818,7 @@ def linux_smoke(args: argparse.Namespace) -> int:
     downloads = output / "downloads"
     downloads.mkdir()
     binary_pin = lock["godot"]["linuxSmokeBinary"]
-    archive = downloads / binary_pin["file"]
+    archive = downloads / download_filename(binary_pin["url"])
     download_verified(binary_pin["url"], archive, binary_pin["sha256"], binary_pin["size"])
     extraction = output / "godot"
     safe_extract_zip(archive, extraction)
