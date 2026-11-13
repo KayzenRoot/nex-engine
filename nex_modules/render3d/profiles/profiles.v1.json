@@ -1,0 +1,51 @@
+{
+  "schema_version": "nex_m02_profiles.v1",
+  "status": "PROVISIONAL_NO_FPS_CLAIM",
+  "defaults": "quality",
+  "notes": [
+    "Three settings profiles only; no 'ultra' tier and no measured FPS claim.",
+    "Values are reversible settings, not benchmark results.",
+    "Visibility features remain enabled unless the renderer does not support them."
+  ],
+  "profiles": {
+    "quality": {
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "render_scale": 1.0,
+      "msaa": "4x",
+      "vsync": 1,
+      "max_fps": 0,
+      "mesh_lod": true,
+      "visibility_ranges": true,
+      "occlusion_culling": true,
+      "camera_distance_m": 18.0,
+      "pixel_snap": true
+    },
+    "balanced": {
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "render_scale": 0.85,
+      "msaa": "2x",
+      "vsync": 1,
+      "max_fps": 60,
+      "mesh_lod": true,
+      "visibility_ranges": true,
+      "occlusion_culling": true,
+      "camera_distance_m": 18.0,
+      "pixel_snap": true
+    },
+    "performance": {
+      "renderer": "forward_plus",
+      "driver": "vulkan",
+      "render_scale": 0.75,
+      "msaa": "disabled",
+      "vsync": 1,
+      "max_fps": 60,
+      "mesh_lod": true,
+      "visibility_ranges": true,
+      "occlusion_culling": true,
+      "camera_distance_m": 18.0,
+      "pixel_snap": false
+    }
+  }
+}
