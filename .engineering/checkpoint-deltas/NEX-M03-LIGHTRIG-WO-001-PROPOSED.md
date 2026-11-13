@@ -1,4 +1,4 @@
-# Checkpoint Delta · NEX-M03-S01-WO-001 (PROPOSED)
+# Checkpoint Delta · NEX-M03-LIGHTRIG-WO-001 (PROPOSED)
 
 **Status:** `PROPOSED / NOT_PROMOTED / REQUIRES_OWNER_DECISION`
 **Base:** `edd3bc3003acae681f46227367d8c11b06cad99f` · **Code SHA:** `9c252e8062141f90f7c30e156b0ff35eee1fb4ab`
@@ -19,6 +19,6 @@
 
 ## Evidência de apoio
 
-- `.engineering/evidence/NEX-M03-S01-WO-001-EVIDENCE.md`
-- `nex_modules/lighting/light_rig/evidence/headless-smoke-2026-11-13.log` (`NEX_M03_S01_SMOKE_PASS: 70 checks`)
+- `.engineering/evidence/NEX-M03-LIGHTRIG-WO-001-EVIDENCE.md`
+- `nex_modules/lighting/light_rig/evidence/headless-smoke-2026-11-13.log` (`NEX_M03_LIGHTRIG_SMOKE_PASS: 70 checks`)
 - `tests/ci/test_light_rig_planner.py` (10 testes)

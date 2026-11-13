@@ -1,6 +1,6 @@
 extends SceneTree
 
-# Headless deterministic smoke for NEX M03-S01 LightRigPlanner.
+# Headless deterministic smoke for NEX M03-LIGHTRIG LightRigPlanner.
 # godot --headless --path nex_modules/lighting/light_rig --rendering-method gl_compatibility --script res://smoke.gd
 
 var failures: Array[String] = []
@@ -181,10 +181,10 @@ func _run() -> void:
 
 func _finish() -> void:
 	if failures.is_empty():
-		print("NEX_M03_S01_SMOKE_PASS: %d checks" % checks)
+		print("NEX_M03_LIGHTRIG_SMOKE_PASS: %d checks" % checks)
 		quit(0)
 	else:
-		print("NEX_M03_S01_SMOKE_FAIL: %d failures of %d checks" % [failures.size(), checks])
+		print("NEX_M03_LIGHTRIG_SMOKE_FAIL: %d failures of %d checks" % [failures.size(), checks])
 		for failure in failures:
 			print("FAIL: " + failure)
 		quit(1)
