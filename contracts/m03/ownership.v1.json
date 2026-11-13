@@ -1,0 +1,52 @@
+{
+  "schema_version": "m03_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m03/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m03-light-rig", "m03-shadow-budget", "m03-environment"]
+    },
+    {
+      "path": "nex_modules/lighting/light_rig/**",
+      "owner": "m03-light-rig",
+      "mode": "future-write",
+      "consumers": ["m03-shadow-budget", "m03-environment"]
+    },
+    {
+      "path": "nex_modules/lighting/shadows/**",
+      "owner": "m03-shadow-budget",
+      "mode": "future-write",
+      "consumers": ["m03-environment"]
+    },
+    {
+      "path": "nex_modules/lighting/environment/**",
+      "owner": "m03-environment",
+      "mode": "future-write",
+      "consumers": []
+    },
+    {
+      "path": "tests/lighting/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m02/**",
+    "contracts/m03/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
