@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M12 visual identity contract v1
+
+**Contrato M12 v1 integrado** por PR #173, squash `caa98a9c330b826a906840006536ffa6241a2ea0` (código `1dcc0605`). `contracts/m12/identity.v1.schema.json` define paleta com papéis e contraste WCAG, tipografia, logo SVG com digests/viewBox, spacing, acessibilidade e proveniência. Ownership prospectivo de `nex_modules/brand/**`, docs e **18 testes novos** (suíte de contratos 187 OK; total 547 em worktree LF limpo).
+
+**Parent M12 (#17) continua NOT_ADMITTED.** Nenhum logo/SVG/tema gerado, marca aprovada, engine ou CI alterado; contraste é calculado dos hex, não medido em tela. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M11 asset pipeline contract v1
 
 **Contrato M11 v1 integrado** por PR #171, squash `92ede8238e91a3e75456a03d9557310f33199527` (código `292c8ac4`). `contracts/m11/asset_pipeline.v1.schema.json` define estágios raw→imported→cooked→validated, licença SPDX/atribuição/verificação, import settings, dependências, política de licenciamento, orçamentos e proveniência. Ownership prospectivo de `nex_modules/assets/**`, docs e **19 testes novos** (suíte de contratos 169 OK; total 529 em worktree LF limpo).
