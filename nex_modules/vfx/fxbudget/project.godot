@@ -1,0 +1,9 @@
+config_version=5
+
+[application]
+config/name="NEX M05 FX Budget Planner Tests"
+config/description="Deterministic spell-FX budget planning; no particle creation or rendering"
+run/main_scene="res://main.tscn"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
