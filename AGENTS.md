@@ -1,5 +1,14 @@
 # NEX Engine · Executor Contract
 
+## Regra vigente: ADMIN SOLO (Owner, 2026-11-13)
+
+**Um único administrador executa, audita e integra este repositório.** Nunca bloquear por ausência de revisor humano independente, CodeRabbit, colaborador externo ou segunda pessoa. O Owner aprovou o fluxo de auditoria técnica solo, documentado no `NEX-ADR-0004` e Issue #108. Auditoria do próprio trabalho deve ser marcada `ADMIN_SOLO / NOT_INDEPENDENT`, nunca falsamente `INDEPENDENT_APPROVED`.
+
+Uma Work Order já admitida de risco LOW/STANDARD pode seguir automaticamente por Codex/ChatGPT → Evidence Bundle → auditoria técnica solo → 6 checks obrigatórios no HEAD imutável → squash protegido → checks na main → checkpoint auditado, **sem pedir nova aprovação de revisor externo**. Não avançar com CI pendente/vermelha, defeito HIGH/CRITICAL, Context Lock STALE, prova GPU ausente ou permissão de escrita incerta. ELEVATED/HIGH_ASSURANCE exige prova adicional e decisão de risco do administrador, sem envolver pessoa externa. O escopo de futuras issues PLANNING_ONLY continua não admitido até a autorização específica do Owner.
+
+A PR #107 foi protegida e squash-merged na main `4d69b7bd264f4814317c6e5fe98eaccdc2b620e0`. Sua fonte medida `d59c94da...` tem 12 capturas válidas, com limitações registradas de resize interno não exercitável e pacing de 60/75 callbacks/s entre coortes. Isto não significa que a NEX Engine inteira ou M01 parent estejam completos.
+
+
 ## Current work status | S02 and contracts verified, Stage B checkpoint proposed
 
 Contracts #19 (PR #93) and **synthetic-only** S02 #22 (PR #95) are protected-integrated; [S02 final attestation](https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436). Stage A lock PR #97 protected-merged to `6192ebb0e77e5e706466ab25e438955efad35f37`. The prior preliminary work-order execution gates retained below are **historical** and must not cause duplicate execution. Stage B proposes a seven-file canonical status reconciliation; it is NOT merged or authoritative before its own Owner-authorized protected squash and postmerge checks. No new modules admitted: M01 parent #6, S01 #21 and future WOs remain NOT_ADMITTED. Before any execution require actual live main SHA, fresh pins, exclusive writer ownership, scoped WO, applicable tests and gates; preserve Codex-local leases. Existing GEF bootstrap worktree has a historical HEAD, not current main.
