@@ -1,0 +1,57 @@
+{
+  "schema_version": "m02_ownership.v1",
+  "status": "CONTRACT_ONLY_PROSPECTIVE_OWNERSHIP_NOT_MODULE_ADMISSION",
+  "writer": "integration-steward",
+  "paths": [
+    {
+      "path": "contracts/m02/**",
+      "owner": "integration-steward",
+      "mode": "contract",
+      "consumers": ["m02-camera", "m02-visibility", "m02-depth", "m02-temporal"]
+    },
+    {
+      "path": "nex_modules/render3d/camera/**",
+      "owner": "m02-camera",
+      "mode": "future-write",
+      "consumers": ["m02-visibility", "m02-depth", "m02-temporal"]
+    },
+    {
+      "path": "nex_modules/render3d/visibility/**",
+      "owner": "m02-visibility",
+      "mode": "future-write",
+      "consumers": ["m02-depth"]
+    },
+    {
+      "path": "nex_modules/render3d/depth/**",
+      "owner": "m02-depth",
+      "mode": "future-write",
+      "consumers": ["m02-temporal"]
+    },
+    {
+      "path": "nex_modules/render3d/temporal/**",
+      "owner": "m02-temporal",
+      "mode": "future-write",
+      "consumers": []
+    },
+    {
+      "path": "tests/render3d/**",
+      "owner": "test-authors",
+      "mode": "future-write",
+      "consumers": []
+    }
+  ],
+  "shared_read_only": [
+    "nex_bench/project.godot",
+    "nex_bench/hub.gd",
+    "contracts/m01/**",
+    "contracts/m02/**"
+  ],
+  "rules": {
+    "single_writer_per_path": true,
+    "no_ancestor_descendant_overlap": true,
+    "no_absolute_or_traversal_paths": true,
+    "shared_files_require_steward": true,
+    "contract_consumers_are_read_only": true,
+    "module_admission_implied": false
+  }
+}
