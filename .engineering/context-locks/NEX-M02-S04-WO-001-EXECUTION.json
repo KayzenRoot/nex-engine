@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M02-S04-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 31,
+  "parentM02Issue": 7,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_IN_SESSION",
+    "date": "2026-11-13",
+    "record": "Owner explicitly authorized continuation ('autorizo pode continuar') after the M02-S03 checkpoint and the executor's recommendation of M02-S04 TemporalGuard.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "bad8b52ea1a408fb9cd06e6dca2d7086d1414b07",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M02_S03_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "85e9eec854156e02ff85f35fd2c86942789ed3fd"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "480b662f3960268c6063b063f25300bfbc81671d"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "contracts/m01/scene_manifest.v1.schema.json",
+      "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"
+    },
+    {
+      "path": "contracts/m01/telemetry_run.v1.schema.json",
+      "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"
+    },
+    {
+      "path": "contracts/m01/ownership.v1.json",
+      "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"
+    },
+    {
+      "path": "contracts/m02/render_core.v1.schema.json",
+      "gitBlobSha1": "3ecd8191daea7c1e43401d16d3aea1cf1dca9cfe"
+    },
+    {
+      "path": "docs/benchmarks/m01/manifest.json",
+      "gitBlobSha1": "452fb7e8cd0f3c89e0281a0a3cc66afeed93f77d"
+    },
+    {
+      "path": "docs/benchmarks/m01/budget.v1.json",
+      "gitBlobSha1": "ecc5bae0764d8aef4b03927bd71d3fffee53e193"
+    },
+    {
+      "path": "nex_modules/render3d/camera/camera_rig.gd",
+      "gitBlobSha1": "39ea73719b845817b2f7af8d076fbd48d2fb8246"
+    },
+    {
+      "path": "nex_modules/render3d/sightline/sightline_controller.gd",
+      "gitBlobSha1": "c5e71572a0f3ba82cb22047c016a8ac5c81e2569"
+    },
+    {
+      "path": "nex_modules/render3d/depth_composition/depth_composition_solver.gd",
+      "gitBlobSha1": "316c6e67c6ee4fe1576279777e0189a14b54c03d"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "ELEVATED",
+  "riskDecision": {
+    "scope": "ANALYSIS_AND_GATE_ONLY",
+    "renderThread": false,
+    "compositorEffect": false,
+    "shaderImplementation": false,
+    "irreversibleOperations": false,
+    "residualRisk": "real temporal quality/ghosting/flicker unmeasured without rendering; verdict for real scenes is INCONCLUSIVE_NOT_RUN",
+    "decision": "Proceed with a deterministic analyzer/gate prototype; any CompositorEffect/render-thread work requires a separate Owner-admitted WO, ABI review and measured failure evidence."
+  },
+  "scope": {
+    "writeAllowedExact": [
+      "nex_modules/render3d/temporal/**",
+      "tests/ci/test_temporal_guard.py",
+      ".engineering/work-orders/NEX-M02-S04-WO-001.md",
+      ".engineering/context-locks/NEX-M02-S04-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M02-S04-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M02-S04-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/render3d/camera/**",
+      "nex_modules/render3d/sightline/**",
+      "nex_modules/render3d/depth_composition/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/**"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "render thread code",
+      "CompositorEffect implementation",
+      "shader implementation",
+      "renderer core changes",
+      "project.godot/CI changes",
+      "fabricated visual/performance claims",
+      "GPU/cloud dependencies"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
