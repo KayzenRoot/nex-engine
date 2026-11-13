@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">NEX Engine mark</title>
+  <desc id="desc">Original isometric N inside a hexagonal frame; not derived from the Godot logo.</desc>
+  <g fill="none">
+    <polygon points="64,4 120,36 120,92 64,124 8,92 8,36" fill="#0B0F14" stroke="#2F6BFF" stroke-width="4" stroke-linejoin="round"/>
+    <polygon points="42,36 54,43 54,92 42,85" fill="#2F6BFF"/>
+    <polygon points="86,43 74,36 74,85 86,92" fill="#2F6BFF"/>
+    <polygon points="47,39 88,63 83,73 42,49" fill="#35D0FF"/>
+    <polygon points="64,108 72,112 64,116 56,112" fill="#FFB020"/>
+  </g>
+</svg>

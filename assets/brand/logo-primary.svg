@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 128" role="img" aria-labelledby="title desc">
+  <title id="title">NEX Engine primary logo</title>
+  <desc id="desc">Original NEX mark with provisional wordmark; wordmark must be converted to outlines before distribution.</desc>
+  <g fill="none">
+    <polygon points="64,4 120,36 120,92 64,124 8,92 8,36" fill="#0B0F14" stroke="#2F6BFF" stroke-width="4" stroke-linejoin="round"/>
+    <polygon points="42,36 54,43 54,92 42,85" fill="#2F6BFF"/>
+    <polygon points="86,43 74,36 74,85 86,92" fill="#2F6BFF"/>
+    <polygon points="47,39 88,63 83,73 42,49" fill="#35D0FF"/>
+    <polygon points="64,108 72,112 64,116 56,112" fill="#FFB020"/>
+  </g>
+  <g fill="#E8EEF7" font-family="Segoe UI, Arial, sans-serif">
+    <text x="152" y="66" font-family="Segoe UI, Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="2">NEX</text>
+    <text x="154" y="98" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="500" fill="#35D0FF" letter-spacing="6">ENGINE</text>
+  </g>
+</svg>

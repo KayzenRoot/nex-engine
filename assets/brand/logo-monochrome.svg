@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc" color="#E8EEF7">
+  <title id="title">NEX Engine monochrome mark</title>
+  <desc id="desc">Single-color mark for one-ink surfaces.</desc>
+  <g fill="none">
+    <polygon points="64,4 120,36 120,92 64,124 8,92 8,36" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+    <polygon points="42,36 54,43 54,92 42,85" fill="currentColor"/>
+    <polygon points="86,43 74,36 74,85 86,92" fill="currentColor"/>
+    <polygon points="47,39 88,63 83,73 42,49" fill="currentColor" opacity="0.72"/>
+    <polygon points="64,108 72,112 64,116 56,112" fill="currentColor" opacity="0.6"/>
+  </g>
+</svg>
