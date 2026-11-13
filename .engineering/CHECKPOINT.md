@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M09 preset pack contract v1
+
+**Contrato M09 v1 integrado** por PR #175, squash `4b3271f2c5f102e18a910658955ca9bffa8dcd5d` (código `80ee24bd`). `contracts/m09/preset_pack.v1.schema.json` define tiers low→ultra/custom, blocos de render/luz/performance/2.5D/feedback/acessibilidade, compatibilidade e proveniência. Ownership prospectivo de `nex_modules/tools/**`, docs e **16 testes novos** (suíte de contratos 203 OK; total 563 em worktree LF limpo). Com M09, todos os módulos M01–M12 têm interface versionada.
+
+**Parent M09 (#14) continua NOT_ADMITTED.** Nenhum preset aplicado, `project.godot` alterado, UI de editor criada ou runtime medido; `target_fps` é alvo, não medição. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M12 visual identity contract v1
 
 **Contrato M12 v1 integrado** por PR #173, squash `caa98a9c330b826a906840006536ffa6241a2ea0` (código `1dcc0605`). `contracts/m12/identity.v1.schema.json` define paleta com papéis e contraste WCAG, tipografia, logo SVG com digests/viewBox, spacing, acessibilidade e proveniência. Ownership prospectivo de `nex_modules/brand/**`, docs e **18 testes novos** (suíte de contratos 187 OK; total 547 em worktree LF limpo).
