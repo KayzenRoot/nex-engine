@@ -3,7 +3,7 @@
 **Status:** `MEASUREMENT_CAMPAIGN_INDEXED / SINGLE_SESSION / NO_GENERALIZATION / ADMIN_SOLO_NOT_INDEPENDENT`
 
 **Hardware:** NVIDIA GeForce RTX 5050 · NVIDIA 617.14 / Vulkan forward_plus · 4.7.2-stable
-**Totais:** 9 bundles · 144 capturas de performance · 36 imagens · 351 arquivos de evidência · 9 source SHAs
+**Totais:** 10 bundles · 144 capturas de performance · 66 imagens · 384 arquivos de evidência · 10 source SHAs
 
 ## Bundles
 
@@ -14,6 +14,7 @@
 | m01-ab | performance | 18 | 39 | `617db53d6752` | MEASURED_COST_OBSERVED |
 | m01-visual | visual | 18 | 21 | `952b5a63bc16` | VISUAL_DIFFERENCE_OBSERVED |
 | m01-visual-1920 | visual | 18 | 21 | `06eb6d92da50` | VISUAL_DIFFERENCE_OBSERVED |
+| m01-temporal | visual | 30 | 33 | `22f428aebf43` | TEMPORAL_STABILITY_OBSERVED |
 | res-scaling | performance | 18 | 39 | `6ebb98e8c7c9` | MEASURED_COST_OBSERVED |
 | interaction | performance | 24 | 51 | `2ef072c70189` | MEASURED_COST_OBSERVED |
 | cross-scene | performance | 48 | 99 | `2a03cbb799bd` | MEASURED_COST_OBSERVED |

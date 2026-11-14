@@ -1,0 +1,23 @@
+NEX M09 M01 TEMPORAL STABILITY SESSION FACTS
+============================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: 22f428aebf43da39750adb6a8c919d0b2721d9a1
+Viewport: 1280 x 720
+Visual warmup: 180 frames after preset application
+Frame interval: 30 frames between captures
+Frames per cell: 5
+Workload: 100 meshes per scene, effect_mode lights
+Scenes: corridor_static, arena_combat, dense_city
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Cells: 3 scenes x 2 presets = 6 sequences; 30 PNGs total
+Determinism: within each scene/preset cell, all five frames are byte-identical
+             (same SHA-256). No temporal variation was observed in this static
+             workload.
+Limitations: static scenes only; no animation, camera motion or dynamic
+             temporal effects; single session, one GPU and driver; PNG
+             comparison is exact RGB bytes; no FPS or quality claim.

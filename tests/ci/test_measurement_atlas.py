@@ -28,13 +28,13 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
         cls.entries = {entry["id"]: entry for entry in cls.report["entries"]}
 
-    def test_totals_cover_nine_bundles(self) -> None:
+    def test_totals_cover_ten_bundles(self) -> None:
         self.assertEqual("m09_measurement_atlas.v1", self.report["schema_version"])
-        self.assertEqual(9, self.report["totals"]["bundles"])
+        self.assertEqual(10, self.report["totals"]["bundles"])
         self.assertEqual(144, self.report["totals"]["performance_captures"])
-        self.assertEqual(36, self.report["totals"]["visual_images"])
-        self.assertEqual(351, self.report["totals"]["evidence_files"])
-        self.assertEqual(9, self.report["totals"]["unique_source_shas"])
+        self.assertEqual(66, self.report["totals"]["visual_images"])
+        self.assertEqual(384, self.report["totals"]["evidence_files"])
+        self.assertEqual(10, self.report["totals"]["unique_source_shas"])
         self.assertEqual(144, self.report["runs"])
 
     def test_entry_counts_and_source_shas(self) -> None:
@@ -44,6 +44,7 @@ class MeasurementAtlasContentTests(unittest.TestCase):
             "m01-ab": (18, 39, "617db53d6752f30584b296f133e6990ca6602549"),
             "m01-visual": (18, 21, "952b5a63bc1696cadf7436a061a7d996c80fa220"),
             "m01-visual-1920": (18, 21, "06eb6d92da50bdb8105bbc8f7b6bed98faebb329"),
+            "m01-temporal": (30, 33, "22f428aebf43da39750adb6a8c919d0b2721d9a1"),
             "res-scaling": (18, 39, "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5"),
             "interaction": (24, 51, "2ef072c70189d5d013a62b7efc821f81078ef6d1"),
             "cross-scene": (48, 99, "2a03cbb799bd91cb56aa7ed1287a09d45bfaf8ce"),
@@ -70,6 +71,10 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         self.assertTrue(visual_1920["aa_identical"])
         self.assertEqual({"corridor_static": 3.367, "arena_combat": 3.354, "dense_city": 1.276},
                          visual_1920["ab_changed_pixels_pct"])
+        temporal = self.entries["m01-temporal"]["key_findings"]
+        self.assertTrue(temporal["all_frames_identical"])
+        self.assertEqual(6, temporal["cells"])
+        self.assertEqual(30, temporal["frames"])
         res = self.entries["res-scaling"]["key_findings"]["gpu_p95_high_vs_low_pct"]
         self.assertEqual({"960x540": 230.2, "1280x720": 334.0, "1920x1080": 429.5}, res)
         interaction = self.entries["interaction"]["key_findings"]["gpu_p95_high_vs_low_pct"]
