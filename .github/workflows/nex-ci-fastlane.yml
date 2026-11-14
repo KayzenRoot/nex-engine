@@ -52,3 +52,26 @@ jobs:
               raise SystemExit(f"BLOCKED_CI_TEST_FAILURE: {name}")
           PYGUARD
           done
+      - name: Verify deterministic builders reproduce committed artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Every deterministic builder must reproduce its committed artifact.
+          # --check never writes; a mismatch fails the required Fast Lane check.
+          python3 docs/benchmarks/m03/tools/build_budget_validation.py --check
+          python3 docs/benchmarks/m06/tools/build_atlas.py --check
+          python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check
+          python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check-full
+          python3 docs/benchmarks/m06/tools/build_advisories.py --check
+          python3 docs/benchmarks/m06/tools/build_m09_atlas.py --check
+          python3 docs/benchmarks/m09/tools/build_ab.py --check
+          python3 docs/benchmarks/m09/tools/build_scaling.py --check
+          python3 docs/benchmarks/m09/tools/build_m01_ab.py --check
+          python3 docs/benchmarks/m09/tools/build_m01_visual.py --check
+          python3 docs/benchmarks/m09/tools/build_m01_visual_1920.py --check
+          python3 docs/benchmarks/m09/tools/build_temporal_stability.py --check
+          python3 docs/benchmarks/m09/tools/build_res_scaling.py --check
+          python3 docs/benchmarks/m09/tools/build_interaction.py --check
+          python3 docs/benchmarks/m09/tools/build_cross_scene.py --check
+          python3 docs/benchmarks/m09/tools/build_interaction_200.py --check
+          python3 docs/benchmarks/m09/tools/build_measurement_atlas.py --check
