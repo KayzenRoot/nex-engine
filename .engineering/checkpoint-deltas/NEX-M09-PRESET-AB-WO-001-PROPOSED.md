@@ -7,9 +7,9 @@
 ## Delta proposto
 
 1. **M09-PRESET-AB integrado como harness de medição isolado:** cena A/B/A aplica presets `preset_pack.v1`, vsync off, 240 fps e captura com o profiler existente.
-2. **Medição real na RTX 5050:** 3 runs COMPLETE/validadas; GPU p95 0.147 → 0.746 ms (+407.5%) no preset alto; pacing e 1% low estáveis no cap de 240 fps.
+2. **Medição real na RTX 5050:** 6 runs COMPLETE/validadas; GPU p95 mediano 0.147 → 0.881 ms (+499.3%) no preset alto; pacing e 1% low estáveis no cap de 240 fps; A/A spread de GPU p95 3.4%.
 3. **Parent M09 (#14) permanece NOT_ADMITTED.** Nenhuma mudança de `project.godot`, hub, renderer, shaders, engine ou CI.
-4. **Sem generalização:** sessão única, cena sintética, 1 run alto/2 baixos; nenhum claim de FPS de jogo ou ganho universal.
+4. **Sem generalização:** sessão única, cena sintética, 3 runs baixos/3 altos; nenhum claim de FPS de jogo ou ganho universal.
 5. **Próximos incrementos:** repetição em cenas M01 e múltiplas amostras exigem WO própria.
 
 ## O que NÃO muda

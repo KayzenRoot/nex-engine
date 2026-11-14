@@ -1,26 +1,35 @@
 {
   "aa_stability": {
-    "cpu_p95_pct": 2.5,
-    "gpu_p95_pct": 0.0,
-    "one_percent_low_pct": 0.5,
-    "pacing_p95_pct": 0.1
+    "cpu_p95_spread_pct": 5.6,
+    "gpu_p95_spread_pct": 3.4,
+    "one_percent_low_spread_pct": 0.5,
+    "pacing_p95_spread_pct": 0.4,
+    "runs": 3
   },
   "baselines": {
+    "ab-high": {
+      "cpu_p95_ms": 0.472,
+      "gpu_p50_ms": 0.74,
+      "gpu_p95_ms": 0.881,
+      "one_percent_low_fps": 226.87,
+      "pacing_p95_ms": 4.222,
+      "runs": 3
+    },
     "ab-low": {
-      "cpu_p95_ms": 0.361,
+      "cpu_p95_ms": 0.357,
       "gpu_p50_ms": 0.145,
       "gpu_p95_ms": 0.147,
-      "one_percent_low_fps": 229.14,
-      "pacing_p95_ms": 4.201,
-      "runs": 2
+      "one_percent_low_fps": 228.73,
+      "pacing_p95_ms": 4.204,
+      "runs": 3
     }
   },
   "deltas_high_vs_low": {
-    "cpu_p95_pct": 29.2,
+    "cpu_p95_pct": 32.2,
     "gpu_p50_pct": 410.3,
-    "gpu_p95_pct": 407.5,
-    "one_percent_low_pct": -0.4,
-    "pacing_p95_pct": 0.5
+    "gpu_p95_pct": 499.3,
+    "one_percent_low_pct": -0.8,
+    "pacing_p95_pct": 0.4
   },
   "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab",
   "godot_version": "4.7.2-stable",
@@ -29,7 +38,7 @@
     "gpu": "NVIDIA GeForce RTX 5050"
   },
   "limitations": [
-    "single session; one ab-high run and two ab-low runs",
+    "single session; three ab-low runs and three ab-high runs",
     "synthetic 200-proxy workload at 1280x720; no cross-scene generalization",
     "max_fps 240 and vsync disabled; frame pacing is capped",
     "renderer allocation bytes are session history, not device VRAM",
@@ -38,10 +47,10 @@
     "no FPS gain, quality or universal recommendation is claimed"
   ],
   "observations": [
-    "ab-high GPU p95: 0.746 ms vs ab-low median 0.147 ms (+407.5%).",
-    "ab-high CPU p95: 0.467 ms vs ab-low median 0.361 ms (+29.2%).",
-    "Pacing p95: 4.222 ms vs 4.201 ms (+0.5%); both runs are capped at 240 fps.",
-    "A/A stability: GPU p95 +0.0%, CPU p95 +2.5%, 1% low +0.5% between the two ab-low runs.",
+    "ab-high median GPU p95: 0.881 ms vs ab-low median 0.147 ms (+499.3%).",
+    "ab-high median CPU p95: 0.472 ms vs ab-low median 0.357 ms (+32.2%).",
+    "Pacing p95: 4.222 ms vs 4.204 ms (+0.4%); all runs are capped at 240 fps.",
+    "A/A stability across 3 ab-low runs: GPU p95 spread 3.4%, CPU p95 5.6%, 1% low 0.5%.",
     "The measured difference is a GPU cost of the high preset on this synthetic workload, not a game FPS or quality claim."
   ],
   "runs": [
@@ -116,6 +125,78 @@
       "renderer_allocation_bytes": 23300080,
       "run_id": "1794650224-33725612",
       "sequence": 3
+    },
+    {
+      "captured_at_utc": "2026-11-14T10:58:01Z",
+      "cpu_ms": {
+        "p50": 0.292,
+        "p95": 0.472,
+        "p99": 0.628
+      },
+      "gpu_ms": {
+        "p50": 0.74,
+        "p95": 0.881,
+        "p99": 0.98
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.87,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.229,
+        "p99": 4.319
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181631216,
+      "run_id": "1794653881-34012975",
+      "sequence": 4
+    },
+    {
+      "captured_at_utc": "2026-11-14T10:58:46Z",
+      "cpu_ms": {
+        "p50": 0.218,
+        "p95": 0.346,
+        "p99": 0.49
+      },
+      "gpu_ms": {
+        "p50": 0.146,
+        "p95": 0.152,
+        "p99": 0.292
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.73,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.216,
+        "p99": 4.278
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23300080,
+      "run_id": "1794653926-33742838",
+      "sequence": 5
+    },
+    {
+      "captured_at_utc": "2026-11-14T10:59:28Z",
+      "cpu_ms": {
+        "p50": 0.296,
+        "p95": 0.529,
+        "p99": 0.73
+      },
+      "gpu_ms": {
+        "p50": 0.74,
+        "p95": 0.887,
+        "p99": 0.975
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.94,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.214,
+        "p99": 4.329
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181631216,
+      "run_id": "1794653968-33563891",
+      "sequence": 6
     }
   ],
   "schema_version": "m09_preset_ab.v1",
