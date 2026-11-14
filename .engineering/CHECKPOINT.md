@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M06 performance.v1 observations
+
+**M06-OBS integrado** por PR #205, squash `6c18c45cf9de938e5138ca188c5b321b23d35bbd`. O conversor determinístico transformou **12 capturas M09** já integradas em observações `performance.v1` com IDs únicos, proveniência e `evidence_uri`: 4 de `preset-ab`, 2 de `m01-ab`, 4 de `res-scaling` e 2 de `interaction-200`.
+
+**Semântica:** GPU/CPU/pacing p95 e alocação p50 medidos; `frame_interval`, draw calls, objetos renderizados e VRAM marcados `UNAVAILABLE` com razão explícita. As 12 observações passam o schema e o consumidor de coerência M06 e classificam `pacing` no cap de 240 fps. Isto é **conversão de evidência**, não nova medição, FPS de jogo ou generalização. Parent M06 (#59) continua **NOT_ADMITTED**; nenhum contrato, engine, cena, `project.godot`, hub ou CI alterado.
+
+
 ## Current verified scope | 2026-11-14 · M09 measurement atlas
 
 **M09-ATLAS integrado** por PR #203, squash `db6efc12834e0e99b4b71103d6a94d3844d562af`. O atlas indexa os oito bundles M09 com verificação de runs, arquivos e source SHA: **144 capturas de performance**, **18 imagens**, **330 arquivos de evidência** e **8 source SHAs**.
