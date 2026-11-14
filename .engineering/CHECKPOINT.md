@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-13 · M09-RESOLVER prototype
+
+**M09-RESOLVER integrado como protótipo isolado** por PR #177, squash `affae5d67e0c75a2b0dd1c85924cc6d981f20d03` (código `bb320b3c`). Em `nex_modules/tools/preset_resolver/`, o resolvedor determinístico carrega `preset_pack.v1`, valida tiers/settings/monotonicidade, checa hardware/Godot/contratos, resolve por tier ou id, faz merge profundo de overrides e valida reduced motion. **50 asserts headless** e 9 testes estruturais.
+
+**Parent M09 (#14) continua NOT_ADMITTED.** Nenhum preset aplicado a engine/`project.godot`; compatibilidade é declarada, não probada; FPS/qualidade `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M09 preset pack contract v1
 
 **Contrato M09 v1 integrado** por PR #175, squash `4b3271f2c5f102e18a910658955ca9bffa8dcd5d` (código `80ee24bd`). `contracts/m09/preset_pack.v1.schema.json` define tiers low→ultra/custom, blocos de render/luz/performance/2.5D/feedback/acessibilidade, compatibilidade e proveniência. Ownership prospectivo de `nex_modules/tools/**`, docs e **16 testes novos** (suíte de contratos 203 OK; total 563 em worktree LF limpo). Com M09, todos os módulos M01–M12 têm interface versionada.
