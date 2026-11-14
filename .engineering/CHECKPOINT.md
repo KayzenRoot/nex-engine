@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 preset scaling 25/100/200
+
+**M09-PRESET-SCALING integrado** por PR #189, squash `109a17af4724b8c5236991551538a62e3fa1f3b1` (source medido `4e4719ac`). O harness foi parametrizado por `NEX_PRESET_AB_PROXY_COUNT` (25/50/100/200) e mediu **18 capturas reais** na RTX 5050: 3 runs por preset em cada contagem. Todas COMPLETE/validadas; `SHA256SUMS` de 39 arquivos; relatório e builder reproduzíveis.
+
+**Medição:** GPU p95 high vs low **+504.7% (25)**, **+499.3% (100)**, **+478.3% (200)**; escala 25→200 +18.7% (low) e +13.6% (high); pacing ~4.267 ms no cap de 240 fps. Uma run 200/low tem 1% low outlier (157.39); medianas reportadas. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança em `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · Autonomia contínua registrada
 
 **NEX-ADR-0005 / NEX-D-015 integrados** por PR #187, squash `6e99caa2049bda2646ae16df0b26bef09e5ce3d5`. O administrador pode escolher e executar o próximo incremento bounded de forma contínua, em ciclos longos, sem confirmação por incremento. A autonomia para somente em bloqueio técnico real, dependência não admitida, risco grave, operação irreversível sem autorização, CI vermelha/pendente, Context Lock STALE, base/HEAD divergente, defeito HIGH/CRITICAL, conflito de escrita ou exigência de plataforma. Não admite parents PLANNING_ONLY, não relaxa CI/testes/locks/ruleset e mantém `ADMIN_SOLO / NOT_INDEPENDENT`.
