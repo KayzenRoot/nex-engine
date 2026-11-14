@@ -189,5 +189,21 @@ def pct(value: float, baseline: float) -> float:
     return round((value - baseline) / baseline * 100.0, 1)
 
 
+def render_cells_table(report: dict[str, Any]) -> list[str]:
+    lines = [
+        "## Células (medianas de 3 runs)",
+        "",
+        "| Proxies | Resolução | Preset | GPU p50 | GPU p95 | GPU p99 | CPU p95 | Pacing p95 | 1% low |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for cell in report["cells"]:
+        lines.append(
+            f"| {cell['proxy_count']} | {cell['width']}×{cell['height']} | {cell['preset_id']} | "
+            f"{cell['gpu_p50_ms']:.3f} | {cell['gpu_p95_ms']:.3f} | {cell['gpu_p99_ms']:.3f} | "
+            f"{cell['cpu_p95_ms']:.3f} | {cell['pacing_p95_ms']:.3f} | {cell['one_percent_low_fps']:.2f} |"
+        )
+    return lines
+
+
 def render_json(report: dict[str, Any]) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"

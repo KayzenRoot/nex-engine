@@ -1,0 +1,486 @@
+{
+  "cells": [
+    {
+      "cpu_p95_ms": 0.357,
+      "gpu_p50_ms": 0.095,
+      "gpu_p95_ms": 0.098,
+      "gpu_p95_spread_pct": 1.0,
+      "gpu_p99_ms": 0.221,
+      "height": 540,
+      "one_percent_low_fps": 224.05,
+      "one_percent_low_spread_pct": 0.6,
+      "pacing_p95_ms": 4.247,
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 960
+    },
+    {
+      "cpu_p95_ms": 0.503,
+      "gpu_p50_ms": 0.315,
+      "gpu_p95_ms": 0.322,
+      "gpu_p95_spread_pct": 0.3,
+      "gpu_p99_ms": 0.468,
+      "height": 540,
+      "one_percent_low_fps": 224.91,
+      "one_percent_low_spread_pct": 1.1,
+      "pacing_p95_ms": 4.264,
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 960
+    },
+    {
+      "cpu_p95_ms": 0.361,
+      "gpu_p50_ms": 0.145,
+      "gpu_p95_ms": 0.157,
+      "gpu_p95_spread_pct": 0.0,
+      "gpu_p99_ms": 0.16,
+      "height": 1080,
+      "one_percent_low_fps": 225.7,
+      "one_percent_low_spread_pct": 0.3,
+      "pacing_p95_ms": 4.289,
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 1920
+    },
+    {
+      "cpu_p95_ms": 0.518,
+      "gpu_p50_ms": 0.838,
+      "gpu_p95_ms": 0.845,
+      "gpu_p95_spread_pct": 0.2,
+      "gpu_p99_ms": 1.052,
+      "height": 1080,
+      "one_percent_low_fps": 225.11,
+      "one_percent_low_spread_pct": 1.0,
+      "pacing_p95_ms": 4.294,
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 1920
+    }
+  ],
+  "context_100_to_200": {
+    "1920x1080": {
+      "ab-high": 2.3,
+      "ab-low": 9.0
+    },
+    "960x540": {
+      "ab-high": 2.5,
+      "ab-low": 2.1
+    }
+  },
+  "context_report": "docs/benchmarks/m09/interaction.v1.json",
+  "context_session": "different session on the same day; not re-measured",
+  "deltas_high_vs_low": {
+    "200/1920x1080": {
+      "cpu_p95_pct": 43.5,
+      "gpu_p95_pct": 438.2,
+      "gpu_p99_pct": 557.5,
+      "one_percent_low_pct": -0.3,
+      "pacing_p95_pct": 0.1
+    },
+    "200/960x540": {
+      "cpu_p95_pct": 40.9,
+      "gpu_p95_pct": 228.6,
+      "gpu_p99_pct": 111.8,
+      "one_percent_low_pct": 0.4,
+      "pacing_p95_pct": 0.4
+    }
+  },
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session on one RTX 5050; no cross-device or cross-session generalization",
+    "one scene and one proxy count (200); 50/100 context is from a different session",
+    "two resolutions only; 2560x1440 is not covered",
+    "native resolution disables the project's canvas_items stretch mode",
+    "max_fps 240 and vsync disabled; frame pacing is capped",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "At 200 proxies, resolution scaling 960x540 to 1920x1080 raises GPU p95 by +60.2% (ab-low) and +162.4% (ab-high).",
+    "Going from 100 to 200 proxies changes GPU p95 by only +2.1%/+2.5% at 960x540 and +9.0%/+2.3% at 1920x1080.",
+    "High vs low GPU p95: +228.6% at 960x540 and +438.2% at 1920x1080.",
+    "The pixel-bound pattern holds at 200 proxies; the 100-proxy context is from a different session and is not a same-session comparison.",
+    "CPU p95 is 0.357/0.503 ms at 960x540 and 0.361/0.518 ms at 1920x1080, higher than the 50/100 cells.",
+    "Pacing remains near 4.25-4.29 ms and 1% low deltas are within -0.3% to +0.4%; no gain is claimed."
+  ],
+  "resolution_scaling": {
+    "200": {
+      "ab-high": 162.4,
+      "ab-low": 60.2
+    }
+  },
+  "runs": [
+    {
+      "captured_at_utc": "2026-11-14T15:08:53Z",
+      "cpu_ms": {
+        "p50": 0.225,
+        "p95": 0.357,
+        "p99": 0.463
+      },
+      "gpu_ms": {
+        "p50": 0.096,
+        "p95": 0.099,
+        "p99": 0.221
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.05,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.261,
+        "p99": 4.332
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794668933-34223527",
+      "sequence": 1,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:09:27Z",
+      "cpu_ms": {
+        "p50": 0.323,
+        "p95": 0.506,
+        "p99": 0.624
+      },
+      "gpu_ms": {
+        "p50": 0.315,
+        "p95": 0.322,
+        "p99": 0.468
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.91,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.264,
+        "p99": 4.354
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794668967-33536606",
+      "sequence": 2,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:10:01Z",
+      "cpu_ms": {
+        "p50": 0.223,
+        "p95": 0.356,
+        "p99": 0.449
+      },
+      "gpu_ms": {
+        "p50": 0.095,
+        "p95": 0.098,
+        "p99": 0.221
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.15,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.247,
+        "p99": 4.329
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794669001-33435820",
+      "sequence": 3,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:10:36Z",
+      "cpu_ms": {
+        "p50": 0.324,
+        "p95": 0.503,
+        "p99": 0.621
+      },
+      "gpu_ms": {
+        "p50": 0.316,
+        "p95": 0.323,
+        "p99": 0.474
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.68,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.265,
+        "p99": 4.358
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794669036-33409416",
+      "sequence": 4,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:11:10Z",
+      "cpu_ms": {
+        "p50": 0.221,
+        "p95": 0.359,
+        "p99": 0.444
+      },
+      "gpu_ms": {
+        "p50": 0.095,
+        "p95": 0.098,
+        "p99": 0.101
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 223.87,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.247,
+        "p99": 4.325
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794669070-33384776",
+      "sequence": 5,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:11:44Z",
+      "cpu_ms": {
+        "p50": 0.321,
+        "p95": 0.496,
+        "p99": 0.624
+      },
+      "gpu_ms": {
+        "p50": 0.315,
+        "p95": 0.322,
+        "p99": 0.463
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.19,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.263,
+        "p99": 4.343
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794669104-33427910",
+      "sequence": 6,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:12:38Z",
+      "cpu_ms": {
+        "p50": 0.224,
+        "p95": 0.361,
+        "p99": 0.445
+      },
+      "gpu_ms": {
+        "p50": 0.143,
+        "p95": 0.157,
+        "p99": 0.161
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.7,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.275,
+        "p99": 4.327
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794669158-33981979",
+      "sequence": 7,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:13:12Z",
+      "cpu_ms": {
+        "p50": 0.318,
+        "p95": 0.518,
+        "p99": 0.622
+      },
+      "gpu_ms": {
+        "p50": 0.84,
+        "p95": 0.846,
+        "p99": 1.053
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.39,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.248,
+        "p99": 4.329
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794669192-33435146",
+      "sequence": 8,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:13:46Z",
+      "cpu_ms": {
+        "p50": 0.223,
+        "p95": 0.369,
+        "p99": 0.479
+      },
+      "gpu_ms": {
+        "p50": 0.147,
+        "p95": 0.157,
+        "p99": 0.16
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.92,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.289,
+        "p99": 4.349
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794669226-33411375",
+      "sequence": 9,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:14:21Z",
+      "cpu_ms": {
+        "p50": 0.32,
+        "p95": 0.52,
+        "p99": 0.633
+      },
+      "gpu_ms": {
+        "p50": 0.838,
+        "p95": 0.845,
+        "p99": 1.052
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.18,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.296,
+        "p99": 4.392
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794669261-33460016",
+      "sequence": 10,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:14:55Z",
+      "cpu_ms": {
+        "p50": 0.222,
+        "p95": 0.353,
+        "p99": 0.446
+      },
+      "gpu_ms": {
+        "p50": 0.145,
+        "p95": 0.157,
+        "p99": 0.16
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.31,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.289,
+        "p99": 4.338
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "run_id": "1794669295-33430636",
+      "sequence": 11,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T15:15:29Z",
+      "cpu_ms": {
+        "p50": 0.318,
+        "p95": 0.506,
+        "p99": 0.618
+      },
+      "gpu_ms": {
+        "p50": 0.838,
+        "p95": 0.844,
+        "p99": 1.051
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.11,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.294,
+        "p99": 4.364
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "run_id": "1794669329-33467996",
+      "sequence": 12,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "schema_version": "m09_preset_interaction_200.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "native_resolution": true,
+    "vsync_mode": 0
+  },
+  "source_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_counts": [
+      200
+    ],
+    "resolutions": [
+      {
+        "height": 540,
+        "width": 960
+      },
+      {
+        "height": 1080,
+        "width": 1920
+      }
+    ],
+    "scene": "M01 Arena A/B/A",
+    "scene_id": "arena_combat"
+  }
+}
