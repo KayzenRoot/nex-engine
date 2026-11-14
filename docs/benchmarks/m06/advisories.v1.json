@@ -1,0 +1,384 @@
+{
+  "advisories": [
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 8.5,
+        "gpu_share_of_frame_pct": 3.5,
+        "max_fps": 240,
+        "render_headroom_ms": 3.842,
+        "render_headroom_vs_target_ms": 3.81,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.357,
+        "frame_pacing_ms": 4.199,
+        "gpu_render_ms": 0.147,
+        "render_ms": 0.357
+      },
+      "observation_id": "m09-preset-ab-low",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "preset-ab"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 11.06,
+        "gpu_share_of_frame_pct": 17.67,
+        "max_fps": 240,
+        "render_headroom_ms": 3.476,
+        "render_headroom_vs_target_ms": 3.421,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.467,
+        "frame_pacing_ms": 4.222,
+        "gpu_render_ms": 0.746,
+        "render_ms": 0.746
+      },
+      "observation_id": "m09-preset-ab-high",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "preset-ab"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 7.79,
+        "gpu_share_of_frame_pct": 2.04,
+        "max_fps": 240,
+        "render_headroom_ms": 3.88,
+        "render_headroom_vs_target_ms": 3.839,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.328,
+        "frame_pacing_ms": 4.208,
+        "gpu_render_ms": 0.086,
+        "render_ms": 0.328
+      },
+      "observation_id": "m09-m01-corridor-low",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "m01-corridor"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 11.28,
+        "gpu_share_of_frame_pct": 12.87,
+        "max_fps": 240,
+        "render_headroom_ms": 3.668,
+        "render_headroom_vs_target_ms": 3.625,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.475,
+        "frame_pacing_ms": 4.21,
+        "gpu_render_ms": 0.542,
+        "render_ms": 0.542
+      },
+      "observation_id": "m09-m01-corridor-high",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "m01-corridor"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 7.53,
+        "gpu_share_of_frame_pct": 2.27,
+        "max_fps": 240,
+        "render_headroom_ms": 3.907,
+        "render_headroom_vs_target_ms": 3.849,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.318,
+        "frame_pacing_ms": 4.225,
+        "gpu_render_ms": 0.096,
+        "render_ms": 0.318
+      },
+      "observation_id": "m09-res-960-low",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 10.56,
+        "gpu_share_of_frame_pct": 7.54,
+        "max_fps": 240,
+        "render_headroom_ms": 3.759,
+        "render_headroom_vs_target_ms": 3.723,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.444,
+        "frame_pacing_ms": 4.203,
+        "gpu_render_ms": 0.317,
+        "render_ms": 0.444
+      },
+      "observation_id": "m09-res-960-high",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 8.11,
+        "gpu_share_of_frame_pct": 3.68,
+        "max_fps": 240,
+        "render_headroom_ms": 3.897,
+        "render_headroom_vs_target_ms": 3.823,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.344,
+        "frame_pacing_ms": 4.241,
+        "gpu_render_ms": 0.156,
+        "render_ms": 0.344
+      },
+      "observation_id": "m09-res-1920-low",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 10.44,
+        "gpu_share_of_frame_pct": 19.33,
+        "max_fps": 240,
+        "render_headroom_ms": 3.447,
+        "render_headroom_vs_target_ms": 3.341,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.446,
+        "frame_pacing_ms": 4.273,
+        "gpu_render_ms": 0.826,
+        "render_ms": 0.826
+      },
+      "observation_id": "m09-res-1920-high",
+      "proxy_count": 100,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 8.38,
+        "gpu_share_of_frame_pct": 2.32,
+        "max_fps": 240,
+        "render_headroom_ms": 3.904,
+        "render_headroom_vs_target_ms": 3.81,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.357,
+        "frame_pacing_ms": 4.261,
+        "gpu_render_ms": 0.099,
+        "render_ms": 0.357
+      },
+      "observation_id": "m09-i200-960-low",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 11.87,
+        "gpu_share_of_frame_pct": 7.55,
+        "max_fps": 240,
+        "render_headroom_ms": 3.758,
+        "render_headroom_vs_target_ms": 3.661,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.506,
+        "frame_pacing_ms": 4.264,
+        "gpu_render_ms": 0.322,
+        "render_ms": 0.506
+      },
+      "observation_id": "m09-i200-960-high",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 8.44,
+        "gpu_share_of_frame_pct": 3.67,
+        "max_fps": 240,
+        "render_headroom_ms": 3.914,
+        "render_headroom_vs_target_ms": 3.806,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.361,
+        "frame_pacing_ms": 4.275,
+        "gpu_render_ms": 0.157,
+        "render_ms": 0.361
+      },
+      "observation_id": "m09-i200-1920-low",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "m01-arena"
+    },
+    {
+      "bottleneck": "pacing",
+      "frame_budget": {
+        "cpu_share_of_frame_pct": 12.19,
+        "gpu_share_of_frame_pct": 19.92,
+        "max_fps": 240,
+        "render_headroom_ms": 3.402,
+        "render_headroom_vs_target_ms": 3.321,
+        "target_frame_ms": 4.167
+      },
+      "measured": {
+        "cpu_render_ms": 0.518,
+        "frame_pacing_ms": 4.248,
+        "gpu_render_ms": 0.846,
+        "render_ms": 0.846
+      },
+      "observation_id": "m09-i200-1920-high",
+      "proxy_count": 200,
+      "recommendation": {
+        "action": "re-measure with a higher cap or a heavier workload before optimizing",
+        "reason": "the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap",
+        "requires_measurement": true,
+        "risk": "LOW"
+      },
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "m01-arena"
+    }
+  ],
+  "limitations": [
+    "advisories are derived from one session on one RTX 5050; no cross-device or cross-session generalization",
+    "renderer allocation bytes are session history, not device VRAM",
+    "GPU render timing can describe earlier work and is not frame-aligned",
+    "headroom is relative to this capped run and does not prove capacity at another cap or workload",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observation_count": 12,
+  "schema_version": "m06_performance_advisories.v1",
+  "source_bundle": "docs/benchmarks/m06/observations/m09-observations.v1.json",
+  "summary": {
+    "bottleneck_counts": {
+      "pacing": 12
+    },
+    "max_gpu_share_of_frame_pct": 19.92,
+    "max_render_headroom_ms": 3.914,
+    "min_render_headroom_ms": 3.402,
+    "target_frame_ms_240_fps": 4.167
+  },
+  "verdict": "ADVISORIES_DERIVED_FROM_MEASURED_OBSERVATIONS"
+}

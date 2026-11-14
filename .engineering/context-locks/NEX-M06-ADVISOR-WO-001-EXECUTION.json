@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M06-ADVISOR-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 59,
+  "parentM06Issue": 59,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Continuous autonomous build directive NEX-ADR-0005; executor selected the M06 advisory synthesis as the next bounded enabler.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "622037479c9aa56171612cffacbd8225f1de2215",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M06_OBS_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "faba3350e59115e40023415d374d8e0516f9b140"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "8ba0de61a279b0f23f1ffec1bc32e4a21c921391"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "e07a4a5c8c02554d9832dc7f70292820f34ad162"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "d5536257ccd518470447e1ae753250a12bd98d94"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md", "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m06/performance.v1.schema.json", "gitBlobSha1": "18a9c7731b05275e283ecfae957b77dc58a37eb3"},
+    {"path": "contracts/m06/ownership.v1.json", "gitBlobSha1": "6490f580a491c136551963c66f05c42392854279"},
+    {"path": "docs/benchmarks/m06/observations/m09-observations.v1.json", "gitBlobSha1": "4ab9e4dbdb2240f6a1f973c1736e61bcc91a55e8"},
+    {"path": "docs/benchmarks/m06/tools/convert_m09_observations.py", "gitBlobSha1": "040dd1be79c4806473f89aaf338accef01363ecc"},
+    {"path": "docs/benchmarks/m06/README.md", "gitBlobSha1": "87315bfb959b0d4638803d4c355aaad5e67d23bd"},
+    {"path": "tests/ci/test_m06_observations.py", "gitBlobSha1": "2b9b2fac416daa71f35f2b4fdc1faddeaf28a758"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "docs/benchmarks/m06/**",
+      "tests/ci/test_m06_advisories.py",
+      ".engineering/work-orders/NEX-M06-ADVISOR-WO-001.md",
+      ".engineering/context-locks/NEX-M06-ADVISOR-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M06-ADVISOR-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M06-ADVISOR-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/** (exceto m06)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "contract changes",
+      "renderer/engine changes",
+      "M06 parent admission",
+      "FPS, quality or universal gain claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
