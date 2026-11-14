@@ -19,6 +19,9 @@ const SCENE_ENV := "NEX_PRESET_AB_SCENE"
 const VISUAL_ENV := "NEX_PRESET_AB_VISUAL"
 const VISUAL_OUTPUT_ENV := "NEX_PRESET_AB_VISUAL_OUTPUT"
 const VISUAL_WARMUP_FRAMES := 180
+const VISUAL_SEQUENCE_ENV := "NEX_PRESET_AB_VISUAL_SEQUENCE"
+const VISUAL_SEQUENCE_FRAMES := 5
+const VISUAL_SEQUENCE_INTERVAL := 30
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
 const M01_SCENES := {
@@ -75,7 +78,9 @@ func _ready() -> void:
 	_build_stage()
 	if stage_valid:
 		_apply_preset()
-	if OS.get_environment(VISUAL_ENV) == "1":
+	if OS.get_environment(VISUAL_SEQUENCE_ENV) == "1":
+		call_deferred("_start_visual_sequence")
+	elif OS.get_environment(VISUAL_ENV) == "1":
 		call_deferred("_start_visual_capture")
 	elif OS.get_environment(AUTORUN_ENV) == "1":
 		call_deferred("_start_capture")
@@ -392,6 +397,44 @@ func _tonemap_mode(value: String) -> int:
 			return Environment.TONE_MAPPER_ACES
 		_:
 			return Environment.TONE_MAPPER_FILMIC
+
+
+func _start_visual_sequence() -> void:
+	if not stage_valid:
+		print("NEX_PRESET_AB_FAIL stage")
+		get_tree().quit(2)
+		return
+	await get_tree().process_frame
+	for index in range(VISUAL_WARMUP_FRAMES):
+		await get_tree().process_frame
+	var requested_dir := OS.get_environment(VISUAL_OUTPUT_ENV).strip_edges()
+	if requested_dir.is_empty():
+		var tag := scene_id if not scene_id.is_empty() else "builtin"
+		requested_dir = "user://gpu_profiles/temporal_%s_%s_%d" % [tag, preset_id, Time.get_ticks_usec()]
+	var output_dir := ProjectSettings.globalize_path(requested_dir)
+	DirAccess.make_dir_recursive_absolute(output_dir)
+	for frame_index in range(VISUAL_SEQUENCE_FRAMES):
+		await RenderingServer.frame_post_draw
+		var image := get_viewport().get_texture().get_image()
+		if image == null or image.is_empty():
+			print("NEX_PRESET_AB_FAIL image")
+			get_tree().quit(2)
+			return
+		image.flip_y()
+		var path := output_dir.path_join("frame_%02d.png" % frame_index)
+		var error := image.save_png(path)
+		if error != OK:
+			print("NEX_PRESET_AB_FAIL save_png: " + str(error))
+			get_tree().quit(2)
+			return
+		print("NEX_PRESET_AB_SEQUENCE_FRAME %s %d %dx%d" % [
+			path, frame_index, image.get_width(), image.get_height(),
+		])
+		if frame_index < VISUAL_SEQUENCE_FRAMES - 1:
+			for interval_index in range(VISUAL_SEQUENCE_INTERVAL):
+				await get_tree().process_frame
+	print("NEX_PRESET_AB_SEQUENCE_DONE")
+	get_tree().quit(0)
 
 
 func _start_visual_capture() -> void:
