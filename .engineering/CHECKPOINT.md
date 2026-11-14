@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 visual truth 1920×1080
+
+**M09-VISUAL-1920 integrado** por PR #209, squash `1eb6b4471402cb0a2b040f2e75a5c24255df9362` (harness `06eb6d92`). As três cenas M01 foram capturadas em 1920×1080 sob `ab-low`/`ab-high`, 3 repetições por célula: **18 PNGs**, A/A byte-idêntico e 21 arquivos com `SHA256SUMS`.
+
+**Medição:** A/B mean abs 0.4168/0.4215/0.1785 e pixels alterados 3.367%/3.354%/1.276% (corridor/arena/city); as diferenças são ligeiramente menores que em 1280×720 (−18.8%/−13.9%/−23.0% em mean abs). O atlas M09 foi atualizado para **9 bundles, 36 imagens e 351 arquivos**. Isto é diferença de pixels, não ranking de qualidade. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M06 performance advisories
 
 **M06-ADVISOR integrado** por PR #207, squash `4def973f3c5170f1d9087ae3ae97d05aaa522592`. O builder deriva **12 advisórios** das observações `performance.v1`: headroom de render **3.402–3.914 ms**, frame alvo **4.167 ms** a 240 fps, maior participação GPU no frame **19.92%** e recomendação de baixo risco que exige nova medição.
