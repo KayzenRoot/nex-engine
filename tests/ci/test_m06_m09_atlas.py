@@ -14,7 +14,8 @@ REPORT_JSON = DOCS / "m09-performance-atlas.v1.json"
 REPORT_MD = DOCS / "M09-PERFORMANCE-ATLAS.md"
 SOURCE = DOCS / "observations" / "m09-observations-full.v1.json"
 EXPECTED_COUNTS = {"preset-ab": 6, "proxy-scaling": 18, "m01-ab": 18, "res-scaling": 18,
-                   "interaction": 24, "cross-scene": 48, "interaction-200": 12}
+                   "interaction": 24, "cross-scene": 48, "interaction-200": 12,
+                   "interaction-200-720": 6, "res-scaling-1440": 6}
 
 
 class M06M09AtlasTests(unittest.TestCase):
@@ -25,11 +26,11 @@ class M06M09AtlasTests(unittest.TestCase):
         cls.source = json.loads(SOURCE.read_text(encoding="utf-8"))
         cls.bundles = {bundle["bundle"]: bundle for bundle in cls.report["bundles"]}
 
-    def test_report_covers_seven_bundles_and_144_observations(self) -> None:
+    def test_report_covers_nine_bundles_and_156_observations(self) -> None:
         self.assertEqual("m06_m09_performance_atlas.v1", self.report["schema_version"])
-        self.assertEqual(144, self.report["observation_count"])
-        self.assertEqual(7, self.report["bundle_count"])
-        self.assertEqual(144, len(self.source["observations"]))
+        self.assertEqual(156, self.report["observation_count"])
+        self.assertEqual(9, self.report["bundle_count"])
+        self.assertEqual(156, len(self.source["observations"]))
         self.assertEqual(EXPECTED_COUNTS, {name: bundle["runs"] for name, bundle in self.bundles.items()})
 
     def test_every_bundle_is_pacing_and_has_cells(self) -> None:
@@ -43,17 +44,17 @@ class M06M09AtlasTests(unittest.TestCase):
 
     def test_summary_and_top_cell_values(self) -> None:
         summary = self.report["summary"]
-        self.assertEqual({"pacing": 144}, summary["bottleneck_counts"])
+        self.assertEqual({"pacing": 156}, summary["bottleneck_counts"])
         self.assertEqual(0.068, summary["gpu_p95_ms"]["min"])
-        self.assertEqual(0.887, summary["gpu_p95_ms"]["max"])
-        self.assertEqual(0.196, summary["gpu_p95_ms"]["median"])
-        self.assertEqual(21.05, summary["max_gpu_share_pct"])
+        self.assertEqual(1.55, summary["gpu_p95_ms"]["max"])
+        self.assertEqual(0.226, summary["gpu_p95_ms"]["median"])
+        self.assertEqual(36.29, summary["max_gpu_share_pct"])
         top = max((cell for bundle in self.report["bundles"] for cell in bundle["cells"]),
                   key=lambda cell: cell["gpu_p95_ms"])
-        self.assertEqual("preset-ab", top["bundle"])
+        self.assertEqual("res-scaling-1440", top["bundle"])
         self.assertEqual("ab-high", top["preset_id"])
-        self.assertEqual(200, top["proxy_count"])
-        self.assertEqual(0.881, top["gpu_p95_ms"])
+        self.assertEqual(100, top["proxy_count"])
+        self.assertEqual(1.547, top["gpu_p95_ms"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
         rebuilt = self.builder.build_report()

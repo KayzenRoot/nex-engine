@@ -2,13 +2,13 @@
 
 **Status:** `ADVISORIES_DERIVED_FROM_MEASURED_OBSERVATIONS / SINGLE_SESSION / NO_FPS_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 144
+**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 156
 
 ## Resumo
 
-- Bottlenecks: {'pacing': 144}.
-- Headroom de render: 3.327–4.009 ms.
-- Maior participação GPU no frame: 21.05%.
+- Bottlenecks: {'pacing': 156}.
+- Headroom de render: 2.716–4.009 ms.
+- Maior participação GPU no frame: 36.29%.
 - Frame alvo a 240 fps: 4.167 ms.
 
 ## Advisórios
@@ -159,6 +159,18 @@
 | m09-interaction-200-010 | m01-arena | 200 | 1920×1080 | 0.845 | 0.520 | 4.296 | 3.451 | 19.67 | 12.10 | pacing |
 | m09-interaction-200-011 | m01-arena | 200 | 1920×1080 | 0.157 | 0.353 | 4.289 | 3.936 | 3.66 | 8.23 | pacing |
 | m09-interaction-200-012 | m01-arena | 200 | 1920×1080 | 0.844 | 0.506 | 4.294 | 3.450 | 19.66 | 11.78 | pacing |
+| m09-interaction-200-720-001 | m01-arena | 200 | 1280×720 | 0.111 | 0.312 | 4.212 | 3.900 | 2.64 | 7.41 | pacing |
+| m09-interaction-200-720-002 | m01-arena | 200 | 1280×720 | 0.468 | 0.647 | 4.234 | 3.587 | 11.05 | 15.28 | pacing |
+| m09-interaction-200-720-003 | m01-arena | 200 | 1280×720 | 0.110 | 0.445 | 4.232 | 3.787 | 2.60 | 10.52 | pacing |
+| m09-interaction-200-720-004 | m01-arena | 200 | 1280×720 | 0.468 | 0.605 | 4.215 | 3.610 | 11.10 | 14.35 | pacing |
+| m09-interaction-200-720-005 | m01-arena | 200 | 1280×720 | 0.111 | 0.518 | 4.278 | 3.760 | 2.59 | 12.11 | pacing |
+| m09-interaction-200-720-006 | m01-arena | 200 | 1280×720 | 0.468 | 0.741 | 4.268 | 3.527 | 10.97 | 17.36 | pacing |
+| m09-res-scaling-1440-001 | m01-arena | 100 | 2560×1440 | 0.217 | 0.389 | 4.311 | 3.922 | 5.03 | 9.02 | pacing |
+| m09-res-scaling-1440-002 | m01-arena | 100 | 2560×1440 | 1.547 | 0.493 | 4.263 | 2.716 | 36.29 | 11.56 | pacing |
+| m09-res-scaling-1440-003 | m01-arena | 100 | 2560×1440 | 0.206 | 0.402 | 4.268 | 3.866 | 4.83 | 9.42 | pacing |
+| m09-res-scaling-1440-004 | m01-arena | 100 | 2560×1440 | 1.550 | 0.546 | 4.281 | 2.731 | 36.21 | 12.75 | pacing |
+| m09-res-scaling-1440-005 | m01-arena | 100 | 2560×1440 | 0.205 | 0.390 | 4.257 | 3.867 | 4.82 | 9.16 | pacing |
+| m09-res-scaling-1440-006 | m01-arena | 100 | 2560×1440 | 1.537 | 0.482 | 4.269 | 2.732 | 36.00 | 11.29 | pacing |
 
 ## Recomendações
 
@@ -306,6 +318,18 @@
 - `m09-interaction-200-010`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
 - `m09-interaction-200-011`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
 - `m09-interaction-200-012`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-001`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-002`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-003`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-004`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-005`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-interaction-200-720-006`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-001`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-002`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-003`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-004`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-005`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
+- `m09-res-scaling-1440-006`: re-measure with a higher cap or a heavier workload before optimizing (the pacing cap dominates; render headroom does not prove GPU capacity at a lower cap; risco LOW; requer nova medição).
 
 ## Limitações
 
