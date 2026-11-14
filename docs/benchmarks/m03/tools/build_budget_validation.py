@@ -21,6 +21,8 @@ OUTPUT_DIR = REPO_ROOT / "docs/benchmarks/m03"
 OUTPUT_JSON = OUTPUT_DIR / "budget-validation.v1.json"
 OUTPUT_MD = OUTPUT_DIR / "BUDGET-VALIDATION.md"
 RES_SCALING_PATH = REPO_ROOT / "docs/benchmarks/m09/res-scaling.v1.json"
+PROXY_200_PATH = REPO_ROOT / "docs/benchmarks/m09/interaction-200-720.v1.json"
+RES_1440_PATH = REPO_ROOT / "docs/benchmarks/m09/res-scaling-1440.v1.json"
 OUTPUT_JSON_DOMAIN = OUTPUT_DIR / "budget-domain-boundary.v1.json"
 OUTPUT_MD_DOMAIN = OUTPUT_DIR / "BUDGET-DOMAIN-BOUNDARY.md"
 
@@ -157,6 +159,16 @@ def build_report() -> dict[str, Any]:
     }
 
 
+def _cell_table_lines(cells: list[dict[str, Any]]) -> list[str]:
+    lines = ["", "| Preset | Previsto ms | Medido p95 ms | Erro | Dentro de 2% |", "|---|---:|---:|---:|---|"]
+    for cell in cells:
+        lines.append(
+            f"| {cell['preset_id']} | {cell['predicted_gpu_ms']:.3f} | {cell['measured_gpu_p95_ms']:.3f} | "
+            f"{cell['error_pct']:+.1f}% | {'sim' if cell['within_2pct'] else 'não'} |"
+        )
+    return lines
+
+
 def _summary_and_footer(report: dict[str, Any], footer: str) -> list[str]:
     lines = [
         "",
@@ -204,6 +216,54 @@ def render_markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _load_model() -> dict[str, float]:
+    snapshot = _load(MODEL_PATH)
+    if snapshot.get("schema_version") != "m03_light_cost_model_snapshot.v1":
+        raise ValueError("model snapshot schema is invalid")
+    model = {key: float(value) for key, value in snapshot["coefficients"].items()}
+    gd_model = _model_from_gdscript()
+    if any(abs(model[key] - gd_model[key]) > 1e-12 for key in MODEL_KEYS):
+        raise ValueError("model snapshot does not match the GDScript DEFAULT_MODEL")
+    return model
+
+
+def _domain_cell(model: dict[str, float], config: dict[str, int], preset: str,
+                 width: int, height: int, measured: float) -> dict[str, Any]:
+    shadowed = config["shadowed_high"] if preset == "ab-high" else config["shadowed_low"]
+    predicted = _prediction(model, config["omni_lights"], shadowed, True, 0)
+    error_ms = predicted - measured
+    error_pct = error_ms / measured * 100.0
+    return {
+        "scene_id": DOMAIN_SCENE,
+        "preset_id": preset,
+        "resolution_px": [width, height],
+        "omni_lights": config["omni_lights"],
+        "shadowed_omni_lights": shadowed,
+        "predicted_gpu_ms": round(predicted, 5),
+        "measured_gpu_p95_ms": round(measured, 3),
+        "error_ms": round(error_ms, 5),
+        "error_pct": round(error_pct, 1),
+        "within_2pct": abs(error_pct) <= 2.0,
+    }
+
+
+def _evidence_cells(path: Path, model: dict[str, float], config: dict[str, int],
+                    width: int, height: int) -> list[dict[str, Any]]:
+    report = _load(path)
+    workload = report.get("workload", {})
+    if workload.get("scene_id") != DOMAIN_SCENE or workload.get("effect_mode") != "lights":
+        raise ValueError(f"{path.name}: workload is not the expected lit arena scene")
+    cells = []
+    for cell in report["cells"]:
+        preset = cell["preset_id"]
+        if preset not in PRESETS:
+            raise ValueError(f"{path.name}: unsupported preset")
+        if int(cell["width"]) != width or int(cell["height"]) != height:
+            raise ValueError(f"{path.name}: unexpected resolution")
+        cells.append(_domain_cell(model, config, preset, width, height, float(cell["gpu_p95_ms"])))
+    return cells
+
+
 def _domain_verdict(cells: list[dict[str, Any]]) -> str:
     matches = [cell for cell in cells if cell["within_2pct"]]
     if len(matches) != 1 or matches[0]["resolution_px"] != [1280, 720]:
@@ -212,42 +272,21 @@ def _domain_verdict(cells: list[dict[str, Any]]) -> str:
 
 
 def build_domain_report() -> dict[str, Any]:
-    snapshot = _load(MODEL_PATH)
-    if snapshot.get("schema_version") != "m03_light_cost_model_snapshot.v1":
-        raise ValueError("model snapshot schema is invalid")
-    model = {key: float(value) for key, value in snapshot["coefficients"].items()}
-    gd_model = _model_from_gdscript()
-    if any(abs(model[key] - gd_model[key]) > 1e-12 for key in MODEL_KEYS):
-        raise ValueError("model snapshot does not match the GDScript DEFAULT_MODEL")
+    model = _load_model()
+    config = SCENES[DOMAIN_SCENE]
     measured = _load(RES_SCALING_PATH)
     workload = measured.get("workload", {})
     if workload.get("scene_id") != DOMAIN_SCENE or workload.get("effect_mode") != "lights":
         raise ValueError("resolution bundle workload is not the expected lit arena scene")
-    config = SCENES[DOMAIN_SCENE]
     cells = []
     for cell in measured["cells"]:
         preset = cell["preset_id"]
         if preset not in PRESETS:
             raise ValueError("resolution bundle contains an unsupported preset")
-        shadowed = config["shadowed_high"] if preset == "ab-high" else config["shadowed_low"]
-        predicted = _prediction(model, config["omni_lights"], shadowed, True, 0)
-        actual = float(cell["gpu_p95_ms"])
-        error_ms = predicted - actual
-        error_pct = error_ms / actual * 100.0
-        cells.append(
-            {
-                "scene_id": DOMAIN_SCENE,
-                "preset_id": preset,
-                "resolution_px": [int(cell["width"]), int(cell["height"])],
-                "omni_lights": config["omni_lights"],
-                "shadowed_omni_lights": shadowed,
-                "predicted_gpu_ms": round(predicted, 5),
-                "measured_gpu_p95_ms": round(actual, 3),
-                "error_ms": round(error_ms, 5),
-                "error_pct": round(error_pct, 1),
-                "within_2pct": abs(error_pct) <= 2.0,
-            }
-        )
+        cells.append(_domain_cell(model, config, preset, int(cell["width"]), int(cell["height"]),
+                                  float(cell["gpu_p95_ms"])))
+    proxy_cells = _evidence_cells(PROXY_200_PATH, model, config, 1280, 720)
+    highres_cells = _evidence_cells(RES_1440_PATH, model, config, 2560, 1440)
     by_preset: dict[str, dict[tuple[int, int], float]] = {}
     for cell in cells:
         by_preset.setdefault(cell["preset_id"], {})[tuple(cell["resolution_px"])] = cell["measured_gpu_p95_ms"]
@@ -261,17 +300,42 @@ def build_domain_report() -> dict[str, Any]:
     matches = [cell for cell in cells if cell["within_2pct"]]
     if len(matches) != 1:
         raise ValueError("domain boundary report expects exactly one calibration-resolution match")
-    high = {(cell["resolution_px"][0]): cell for cell in cells if cell["preset_id"] == "ab-high"}
+    proxy_match = [cell for cell in proxy_cells if cell["within_2pct"]]
+    if len(proxy_match) != 1 or proxy_match[0]["preset_id"] != "ab-high":
+        raise ValueError("proxy robustness expects the ab-high calibration match")
+    highres_matches = [cell for cell in highres_cells if cell["within_2pct"]]
+    high = {cell["resolution_px"][0]: cell for cell in cells if cell["preset_id"] == "ab-high"}
+    proxy_by_preset = {cell["preset_id"]: cell for cell in proxy_cells}
+    highres_by_preset = {cell["preset_id"]: cell for cell in highres_cells}
     verdict = _domain_verdict(cells)
     return {
         "schema_version": DOMAIN_SCHEMA_VERSION,
         "model_snapshot": "docs/benchmarks/m03/light-cost-model.v1.json",
         "model_source": "nex_modules/lighting/budget/light_budget_arbiter.gd DEFAULT_MODEL",
         "measured_source": "docs/benchmarks/m09/res-scaling.v1.json",
+        "evidence_bundles": [
+            "docs/benchmarks/m09/res-scaling.v1.json",
+            "docs/benchmarks/m09/interaction-200-720.v1.json",
+            "docs/benchmarks/m09/res-scaling-1440.v1.json",
+        ],
         "session_date": "2026-11-14",
         "hardware": {"gpu": "NVIDIA GeForce RTX 5050", "driver": "NVIDIA 617.14 / Vulkan forward_plus"},
         "workload": {"scene_id": DOMAIN_SCENE, "proxy_count": workload.get("proxy_count"), "effect_mode": "lights"},
         "cells": cells,
+        "proxy_robustness": {
+            "source": "docs/benchmarks/m09/interaction-200-720.v1.json",
+            "resolution_px": [1280, 720],
+            "proxy_count": 200,
+            "cells": proxy_cells,
+            "high_within_2pct": True,
+        },
+        "high_resolution": {
+            "source": "docs/benchmarks/m09/res-scaling-1440.v1.json",
+            "resolution_px": [2560, 1440],
+            "proxy_count": 100,
+            "cells": highres_cells,
+            "matches_within_2pct": len(highres_matches),
+        },
         "resolution_sensitivity": {
             "predicted_delta_960_to_1920_ms": 0.0,
             "measured": resolution_deltas,
@@ -280,20 +344,25 @@ def build_domain_report() -> dict[str, Any]:
             "cells": len(cells),
             "within_2pct": len(matches),
             "max_abs_error_pct": round(max(abs(cell["error_pct"]) for cell in cells), 1),
+            "proxy_cells": len(proxy_cells),
+            "high_resolution_cells": len(highres_cells),
+            "within_2pct_total": len(matches) + len(proxy_match) + len(highres_matches),
             "verdict": verdict,
         },
         "verdict": verdict,
         "observations": [
-            f"only the ab-high cell at 1280x720 is within 2% ({matches[0]['error_pct']:+.1f}%); the same prediction is off by {high[960]['error_pct']:+.1f}% at 960x540 and {high[1920]['error_pct']:+.1f}% at 1920x1080",
+            f"in the resolution grid, only the ab-high cell at 1280x720 is within 2% ({matches[0]['error_pct']:+.1f}%); the same prediction is off by {high[960]['error_pct']:+.1f}% at 960x540 and {high[1920]['error_pct']:+.1f}% at 1920x1080",
             f"the model is resolution-invariant (predicted delta 960->1920 = 0.000 ms), while measured GPU p95 grows {resolution_deltas['ab-low']['measured_delta_pct']:.1f}% (ab-low) and {resolution_deltas['ab-high']['measured_delta_pct']:.1f}% (ab-high)",
-            "the 2% match is therefore specific to the calibration resolution, not evidence of general validity",
-            "the low preset is overestimated at every resolution, consistent with unmodeled resolution scale, MSAA and glow",
+            f"at 200 proxies and 1280x720 the ab-high prediction remains within 2% ({proxy_by_preset['ab-high']['error_pct']:+.1f}%), while ab-low is {proxy_by_preset['ab-low']['error_pct']:+.1f}% above measured",
+            f"at 2560x1440 the ab-high prediction is {highres_by_preset['ab-high']['error_pct']:+.1f}% and ab-low {highres_by_preset['ab-low']['error_pct']:+.1f}%; neither is within 2%",
+            "the 2% match is confined to 1280x720 and is robust to a 100->200 proxy change, but not to resolution changes",
         ],
         "limitations": [
             "model coefficients are calibrated from one S05 session at 25 proxies and 1280x720",
             "the model represents lights and shadows only; it does not represent resolution scale, MSAA, glow, atlas or scene geometry",
-            "the resolution bundle uses 100 proxies on one arena scene in one session",
-            "the comparison uses medians from a different session and different presets",
+            "the resolution grid uses 100 proxies on one arena scene in one session",
+            "the 200/1280 and 2560/1440 evidence comes from separate sessions and is labeled as such",
+            "the comparison uses medians from different sessions and different presets",
             "no FPS, quality or universal recommendation is claimed",
             "M03 parent remains NOT_ADMITTED",
         ],
@@ -331,6 +400,12 @@ def render_domain_markdown(report: dict[str, Any]) -> str:
             f"({report['resolution_sensitivity']['measured']['ab-low']['measured_delta_pct']:+.1f}%).",
             f"- Delta medido ab-high: {report['resolution_sensitivity']['measured']['ab-high']['measured_delta_ms']:+.3f} ms "
             f"({report['resolution_sensitivity']['measured']['ab-high']['measured_delta_pct']:+.1f}%).",
+            "",
+            "## Robustez a proxies (200/1280)",
+            * _cell_table_lines(report["proxy_robustness"]["cells"]),
+            "",
+            "## Alta resolução (2560×1440)",
+            * _cell_table_lines(report["high_resolution"]["cells"]),
         ]
     )
     lines.extend(_summary_and_footer(

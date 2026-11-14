@@ -91,15 +91,62 @@
       "within_2pct": false
     }
   ],
+  "evidence_bundles": [
+    "docs/benchmarks/m09/res-scaling.v1.json",
+    "docs/benchmarks/m09/interaction-200-720.v1.json",
+    "docs/benchmarks/m09/res-scaling-1440.v1.json"
+  ],
   "hardware": {
     "driver": "NVIDIA 617.14 / Vulkan forward_plus",
     "gpu": "NVIDIA GeForce RTX 5050"
   },
+  "high_resolution": {
+    "cells": [
+      {
+        "error_ms": 0.173,
+        "error_pct": 84.0,
+        "measured_gpu_p95_ms": 0.206,
+        "omni_lights": 4,
+        "predicted_gpu_ms": 0.379,
+        "preset_id": "ab-low",
+        "resolution_px": [
+          2560,
+          1440
+        ],
+        "scene_id": "arena_combat",
+        "shadowed_omni_lights": 0,
+        "within_2pct": false
+      },
+      {
+        "error_ms": -1.087,
+        "error_pct": -70.3,
+        "measured_gpu_p95_ms": 1.547,
+        "omni_lights": 4,
+        "predicted_gpu_ms": 0.46,
+        "preset_id": "ab-high",
+        "resolution_px": [
+          2560,
+          1440
+        ],
+        "scene_id": "arena_combat",
+        "shadowed_omni_lights": 4,
+        "within_2pct": false
+      }
+    ],
+    "matches_within_2pct": 0,
+    "proxy_count": 100,
+    "resolution_px": [
+      2560,
+      1440
+    ],
+    "source": "docs/benchmarks/m09/res-scaling-1440.v1.json"
+  },
   "limitations": [
     "model coefficients are calibrated from one S05 session at 25 proxies and 1280x720",
     "the model represents lights and shadows only; it does not represent resolution scale, MSAA, glow, atlas or scene geometry",
-    "the resolution bundle uses 100 proxies on one arena scene in one session",
-    "the comparison uses medians from a different session and different presets",
+    "the resolution grid uses 100 proxies on one arena scene in one session",
+    "the 200/1280 and 2560/1440 evidence comes from separate sessions and is labeled as such",
+    "the comparison uses medians from different sessions and different presets",
     "no FPS, quality or universal recommendation is claimed",
     "M03 parent remains NOT_ADMITTED"
   ],
@@ -107,11 +154,53 @@
   "model_snapshot": "docs/benchmarks/m03/light-cost-model.v1.json",
   "model_source": "nex_modules/lighting/budget/light_budget_arbiter.gd DEFAULT_MODEL",
   "observations": [
-    "only the ab-high cell at 1280x720 is within 2% (+0.0%); the same prediction is off by +45.1% at 960x540 and -44.3% at 1920x1080",
+    "in the resolution grid, only the ab-high cell at 1280x720 is within 2% (+0.0%); the same prediction is off by +45.1% at 960x540 and -44.3% at 1920x1080",
     "the model is resolution-invariant (predicted delta 960->1920 = 0.000 ms), while measured GPU p95 grows 62.5% (ab-low) and 160.6% (ab-high)",
-    "the 2% match is therefore specific to the calibration resolution, not evidence of general validity",
-    "the low preset is overestimated at every resolution, consistent with unmodeled resolution scale, MSAA and glow"
+    "at 200 proxies and 1280x720 the ab-high prediction remains within 2% (-1.7%), while ab-low is +241.4% above measured",
+    "at 2560x1440 the ab-high prediction is -70.3% and ab-low +84.0%; neither is within 2%",
+    "the 2% match is confined to 1280x720 and is robust to a 100->200 proxy change, but not to resolution changes"
   ],
+  "proxy_robustness": {
+    "cells": [
+      {
+        "error_ms": 0.268,
+        "error_pct": 241.4,
+        "measured_gpu_p95_ms": 0.111,
+        "omni_lights": 4,
+        "predicted_gpu_ms": 0.379,
+        "preset_id": "ab-low",
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "scene_id": "arena_combat",
+        "shadowed_omni_lights": 0,
+        "within_2pct": false
+      },
+      {
+        "error_ms": -0.008,
+        "error_pct": -1.7,
+        "measured_gpu_p95_ms": 0.468,
+        "omni_lights": 4,
+        "predicted_gpu_ms": 0.46,
+        "preset_id": "ab-high",
+        "resolution_px": [
+          1280,
+          720
+        ],
+        "scene_id": "arena_combat",
+        "shadowed_omni_lights": 4,
+        "within_2pct": true
+      }
+    ],
+    "high_within_2pct": true,
+    "proxy_count": 200,
+    "resolution_px": [
+      1280,
+      720
+    ],
+    "source": "docs/benchmarks/m09/interaction-200-720.v1.json"
+  },
   "resolution_sensitivity": {
     "measured": {
       "ab-high": {
@@ -129,9 +218,12 @@
   "session_date": "2026-11-14",
   "summary": {
     "cells": 6,
+    "high_resolution_cells": 2,
     "max_abs_error_pct": 294.8,
+    "proxy_cells": 2,
     "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY",
-    "within_2pct": 1
+    "within_2pct": 1,
+    "within_2pct_total": 2
   },
   "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY",
   "workload": {
