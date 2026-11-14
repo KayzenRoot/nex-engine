@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M03 light-budget validation
+
+**M03-BUDGET-VALIDATION integrado** por PR #213, squash `f1e458e9442ac8d1cb534e606ceb788a1237e449`. O snapshot do `nex_light_cost_model.v1` foi conferido contra o GDScript e comparado a 6 células M01 (3 cenas × 2 presets) medidas em M09.
+
+**Resultado:** 2/6 células dentro de 2% (corridor e arena no `ab-high`); o low preset é superestimado em 247.7–380.4% e city high difere +33.8%. Veredito **`PARTIAL_DOMAIN_MATCH`**: o modelo representa luzes/sombras, não resolução, MSAA, glow, atlas ou geometria; os acertos em 2% são candidatos a coincidência de domínio, não prova de generalização. Parent M03 (#43) continua **NOT_ADMITTED**; nenhuma mudança de modelo, contrato, engine, cenas ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 temporal stability
 
 **M09-TEMPORAL integrado** por PR #211, squash `cf9ae9c0207544aab342545451255520158eadf4` (harness `22f428a`). O harness ganhou modo de sequência visual determinístico: **30 PNGs** (3 cenas × 2 presets × 5 frames) a 1280×720, com intervalo de 30 frames após warmup.
