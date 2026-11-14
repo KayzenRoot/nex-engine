@@ -1,0 +1,103 @@
+#!/usr/bin/env python3
+"""NEX M09 preset A/B/A validator.
+
+Validates the harness provenance, then delegates every structural/aggregate
+check to the canonical GPU profile validator with only the scene label
+substituted. It never suppresses a check and never fabricates metrics.
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "gpu_profile"))
+
+import validate_gpu_profile as canonical  # noqa: E402 - path bootstrap above
+
+EXPECTED_SCENE = "Preset A/B/A"
+EXPECTED_LAYOUT = "built-in deterministic grid"
+EXPECTED_PROXY_COUNT = 200
+EXPECTED_EFFECT_MODE = "lights"
+EXPECTED_MAX_FPS = 240
+EXPECTED_VSYNC = 0
+
+
+class PresetABError(ValueError):
+    """Raised when the document is not a valid preset A/B/A observation."""
+
+
+def _loads(raw: bytes):
+    try:
+        return json.loads(
+            raw.decode("utf-8-sig"),
+            object_pairs_hook=canonical._pairs_no_duplicates,
+            parse_constant=canonical._reject_constant,
+        )
+    except (UnicodeDecodeError, ValueError) as exc:
+        if isinstance(exc, PresetABError):
+            raise
+        raise PresetABError("invalid JSON: " + str(exc)) from None
+
+
+def validate_document(document):
+    """Validate harness provenance, then delegate to the canonical validator."""
+    if not isinstance(document, dict):
+        raise PresetABError("document must be a JSON object")
+    workload = document.get("workload")
+    if not isinstance(workload, dict):
+        raise PresetABError("workload must be an object")
+    if workload.get("scene") != EXPECTED_SCENE:
+        raise PresetABError("workload.scene must be " + EXPECTED_SCENE)
+    if workload.get("layout") != EXPECTED_LAYOUT:
+        raise PresetABError("workload.layout must be " + EXPECTED_LAYOUT)
+    if workload.get("proxy_count") != EXPECTED_PROXY_COUNT:
+        raise PresetABError(f"workload.proxy_count must be {EXPECTED_PROXY_COUNT}")
+    if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:
+        raise PresetABError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
+    settings = document.get("settings")
+    if not isinstance(settings, dict):
+        raise PresetABError("settings must be an object")
+    if settings.get("max_fps") != EXPECTED_MAX_FPS:
+        raise PresetABError(f"settings.max_fps must be {EXPECTED_MAX_FPS}")
+    if settings.get("vsync_mode") != EXPECTED_VSYNC:
+        raise PresetABError(f"settings.vsync_mode must be {EXPECTED_VSYNC}")
+
+    delegated = dict(document)
+    delegated["workload"] = dict(workload, scene="Density Ladder")
+    try:
+        result = canonical.validate_report(delegated)
+    except canonical.ProfileError as exc:
+        raise PresetABError(str(exc)) from exc
+
+    return {
+        "status": "PASS",
+        "run_id": result.get("run_id"),
+        "run_status": result.get("run_status"),
+        "source_sha": document.get("source_sha"),
+        "workload": {
+            "proxy_count": result.get("workload", {}).get("proxy_count"),
+            "effect_mode": result.get("workload", {}).get("effect_mode"),
+        },
+        "observed_seconds": result.get("observed_seconds"),
+        "one_percent_low_fps": result.get("one_percent_low_fps"),
+        "series": result.get("series"),
+    }
+
+
+def main() -> int:
+    payload = sys.stdin.buffer.read(canonical.MAX_BYTES + 1)
+    if len(payload) > canonical.MAX_BYTES:
+        print(json.dumps({"status": "FAIL", "reason": "profile input exceeds 8 MB limit"}))
+        return 1
+    try:
+        result = validate_document(_loads(payload))
+    except (PresetABError, canonical.ProfileError, OSError) as exc:
+        print(json.dumps({"status": "FAIL", "reason": str(exc)}))
+        return 1
+    print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

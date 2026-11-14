@@ -1,0 +1,63 @@
+{
+  "schema_version": "preset_pack.v1",
+  "observation_id": "preset-ab-2026-11-14",
+  "captured_at_utc": "2026-11-14T12:00:00Z",
+  "pack_id": "preset-ab-pack",
+  "presets": [
+    {
+      "preset_id": "ab-low",
+      "label": "A/B low: 0.5 scale, no MSAA, light shadows",
+      "tier": "low",
+      "settings": {
+        "rendering": {
+          "renderer_id": "godot.forward_plus",
+          "driver_id": "vulkan",
+          "resolution_scale": 0.5,
+          "msaa": "off",
+          "shadow_quality": "low"
+        },
+        "lighting": {
+          "tonemap": "filmic",
+          "glow": false,
+          "shadow_atlas_size": 1024,
+          "max_shadowed_lights": 0
+        },
+        "performance": {
+          "target_fps": 240,
+          "max_draw_calls": 10000,
+          "lod_bias": 1.0
+        }
+      }
+    },
+    {
+      "preset_id": "ab-high",
+      "label": "A/B high: 1.0 scale, 4x MSAA, ultra shadows",
+      "tier": "high",
+      "settings": {
+        "rendering": {
+          "renderer_id": "godot.forward_plus",
+          "driver_id": "vulkan",
+          "resolution_scale": 1.0,
+          "msaa": "4x",
+          "shadow_quality": "ultra"
+        },
+        "lighting": {
+          "tonemap": "filmic",
+          "glow": true,
+          "shadow_atlas_size": 4096,
+          "max_shadowed_lights": 4
+        },
+        "performance": {
+          "target_fps": 240,
+          "max_draw_calls": 10000,
+          "lod_bias": 1.0
+        }
+      }
+    }
+  ],
+  "compatibility": {
+    "contract_versions": ["render_core.v1", "lighting.v1", "performance.v1"],
+    "godot_version_range": "4.7.x",
+    "hardware_tier": "desktop"
+  }
+}
