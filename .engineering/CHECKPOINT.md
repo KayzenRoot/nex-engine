@@ -2,9 +2,9 @@
 
 ## Current verified scope | 2026-11-14 · M09-PRESET-AB measured A/B/A
 
-**M09-PRESET-AB integrado** por PR #183, squash `cb0ac796008273d4aa9a6f987a577cb1c478ea2a` (source medido `baf818ef`). A cena isolada `nex_bench/scenes/preset_ab/` aplica presets `preset_pack.v1` em runtime (resolução, MSAA, sombras, atlas, glow, tonemap, target fps), desliga vsync, limita a 240 fps e captura pelo profiler existente. **3 capturas COMPLETE/validadas** na RTX 5050, `SHA256SUMS` de 9 arquivos, relatório e builder reproduzíveis.
+**M09-PRESET-AB integrado** por PRs #183/#185, squashes `cb0ac796008273d4aa9a6f987a577cb1c478ea2a` e `9fd83a27b3acf830d5713429e73035198a7dcf63` (source medido `baf818ef`). A cena isolada `nex_bench/scenes/preset_ab/` aplica presets `preset_pack.v1` em runtime (resolução, MSAA, sombras, atlas, glow, tonemap, target fps), desliga vsync, limita a 240 fps e captura pelo profiler existente. **6 capturas COMPLETE/validadas** na RTX 5050 (3 por preset), `SHA256SUMS` de 15 arquivos, relatório e builder reproduzíveis.
 
-**Medição:** GPU p95 **0.147 → 0.746 ms (+407.5%)** do `ab-low` para o `ab-high` em 200 proxies/1280×720; CPU p95 +29.2%, pacing +0.5%, 1% low −0.4%; A/A GPU p95 +0.0%. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança em `project.godot`, hub, renderer, shaders, engine ou CI.
+**Medição:** GPU p95 mediano **0.147 → 0.881 ms (+499.3%)** do `ab-low` para o `ab-high` em 200 proxies/1280×720; CPU p95 +32.2%, pacing +0.4%, 1% low −0.8%; spread A/A de GPU p95 3.4%. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança em `project.godot`, hub, renderer, shaders, engine ou CI.
 
 
 ## Current verified scope | 2026-11-14 · M12-VALIDATOR prototype
