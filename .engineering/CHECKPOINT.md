@@ -6,6 +6,8 @@
 
 **Escopo:** análise determinística de iluminação e orçamento. **Não admitido:** runtime, renderer, shaders, cenas, hub, `project.godot`, implementação real de luz/sombra/GI, generalização ou claims de FPS. M01–M02, M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. M03/M06/M09 estão bounded admitted; a admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
+**Integração:** PR #219 squash `d8ad6152eec96aa9d303f4987c5742af665b16ec`; árvore idêntica à revisada e checks pós-merge SUCCESS.
+
 
 ## Current verified scope | 2026-11-14 · M06 full dataset + atlas
 
