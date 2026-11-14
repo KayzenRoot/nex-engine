@@ -5,16 +5,17 @@ Host: Windows
 GPU: NVIDIA GeForce RTX 5050
 Driver: Vulkan 1.4.351
 Godot: 4.7.2-stable
-Source SHA: baf818ef934c418d111091af755e0a19ddd6ac9e
+Measured scene code: baf818ef934c418d111091af755e0a19ddd6ac9e
+  (nex_bench/scenes/preset_ab/preset_ab.gd and presets are byte-identical on current main)
 Viewport: 1280 x 720
 VSync: disabled (0)
 Max FPS: 240
 Workload: Preset A/B/A, 200 proxies, effect_mode lights
 Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
          ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
-Sequence: ab-low -> ab-high -> ab-low
+Sequence: ab-low -> ab-high -> ab-low -> ab-high -> ab-low -> ab-high
 Observation: 30 s per run, 2 s warmup
-Validation: all three documents PASS the dedicated validator, which delegates
+Validation: all six documents PASS the dedicated validator, which delegates
 aggregates to the canonical GPU profile validator.
-Limitations: single session; one high run and two low runs; synthetic scene;
+Limitations: single session; three low and three high runs; synthetic scene;
 max_fps cap; renderer allocation is session history, not device VRAM.

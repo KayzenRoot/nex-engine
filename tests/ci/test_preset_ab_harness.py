@@ -16,7 +16,14 @@ DOCS = REPO / "docs" / "benchmarks" / "m09"
 BUILDER = DOCS / "tools" / "build_ab.py"
 REPORT_JSON = DOCS / "ab.v1.json"
 REPORT_MD = DOCS / "AB-REPORT.md"
-RUN_IDS = ("1794650136-34991024", "1794650182-34960454", "1794650224-33725612")
+RUN_IDS = (
+    "1794650136-34991024",
+    "1794650182-34960454",
+    "1794650224-33725612",
+    "1794653881-34012975",
+    "1794653926-33742838",
+    "1794653968-33563891",
+)
 
 
 def _load_builder():
@@ -92,7 +99,7 @@ class PresetABEvidenceTests(unittest.TestCase):
     def test_captures_are_complete_and_consistent(self) -> None:
         manifest = json.loads((EVIDENCE / "runs.v1.json").read_text(encoding="utf-8"))
         self.assertEqual("preset_ab_runs.v1", manifest["schema_version"])
-        self.assertEqual(3, len(manifest["runs"]))
+        self.assertEqual(6, len(manifest["runs"]))
         for entry in manifest["runs"]:
             with self.subTest(run=entry["run_id"]):
                 document = json.loads((EVIDENCE / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
@@ -112,7 +119,7 @@ class PresetABEvidenceTests(unittest.TestCase):
 
     def test_sha256sums_match_every_file(self) -> None:
         lines = [line for line in (EVIDENCE / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines() if line.strip()]
-        self.assertEqual(9, len(lines))
+        self.assertEqual(15, len(lines))
         for line in lines:
             digest, name = line.split(" *", 1)
             path = EVIDENCE / name
@@ -129,10 +136,10 @@ class PresetABReportTests(unittest.TestCase):
 
     def test_report_has_three_runs_and_deltas(self) -> None:
         self.assertEqual("m09_preset_ab.v1", self.report["schema_version"])
-        self.assertEqual(3, len(self.report["runs"]))
+        self.assertEqual(6, len(self.report["runs"]))
         self.assertEqual("MEASURED_COST_OBSERVED", self.report["verdict"])
-        self.assertEqual(407.5, self.report["deltas_high_vs_low"]["gpu_p95_pct"])
-        self.assertEqual(2, self.report["baselines"]["ab-low"]["runs"])
+        self.assertEqual(499.3, self.report["deltas_high_vs_low"]["gpu_p95_pct"])
+        self.assertEqual(3, self.report["baselines"]["ab-low"]["runs"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
         rebuilt = self.builder.build_report()

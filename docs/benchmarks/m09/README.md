@@ -27,7 +27,7 @@ python docs/benchmarks/m09/tools/build_ab.py --check
 
 ## Limitações
 
-- Sessão única; 1 run `ab-high` e 2 runs `ab-low`.
+- Sessão única; 3 runs `ab-low` e 3 runs `ab-high`.
 - Workload sintético de 200 proxies em 1280×720; sem generalização entre cenas/hardware/drivers.
 - `max_fps 240`, vsync desligado; pacing é limitado pelo cap.
 - Alocação do renderer é histórico da sessão, não VRAM.

@@ -49,11 +49,11 @@ def load_manifest() -> dict[str, Any]:
     if manifest.get("schema_version") != RUNS_SCHEMA:
         raise ValueError("runs manifest schema is invalid")
     runs = manifest.get("runs")
-    if not isinstance(runs, list) or len(runs) != 3:
-        raise ValueError("runs manifest must contain 3 runs")
-    if [run.get("sequence") for run in runs] != [1, 2, 3]:
-        raise ValueError("runs manifest sequence must be 1,2,3")
-    if len({run.get("run_id") for run in runs}) != 3:
+    if not isinstance(runs, list) or len(runs) != 6:
+        raise ValueError("runs manifest must contain 6 runs")
+    if [run.get("sequence") for run in runs] != [1, 2, 3, 4, 5, 6]:
+        raise ValueError("runs manifest sequence must be 1..6")
+    if len({run.get("run_id") for run in runs}) != 6:
         raise ValueError("runs manifest run ids must be unique")
     for run in runs:
         if run.get("preset_id") not in PRESETS:
@@ -147,33 +147,41 @@ def build_report() -> dict[str, Any]:
         )
     low_runs = [run for run in runs if run["preset_id"] == "ab-low"]
     high_runs = [run for run in runs if run["preset_id"] == "ab-high"]
-    if len(low_runs) != 2 or len(high_runs) != 1:
-        raise ValueError("expected two ab-low runs and one ab-high run")
+    if len(low_runs) != 3 or len(high_runs) != 3:
+        raise ValueError("expected three ab-low and three ab-high runs")
     low_gpu_p95 = statistics.median(_metric(run, "GPU_RENDER_MS") for run in low_runs)
     low_cpu_p95 = statistics.median(_metric(run, "CPU_RENDER_MS") for run in low_runs)
     low_pacing_p95 = statistics.median(_metric(run, "FRAME_PACING_INTERVAL_MS") for run in low_runs)
     low_gpu_p50 = statistics.median(_metric(run, "GPU_RENDER_MS", "p50") for run in low_runs)
     low_one_percent = statistics.median(run["one_percent_low_fps"] for run in low_runs)
-    high = high_runs[0]
+    high_gpu_p95 = statistics.median(_metric(run, "GPU_RENDER_MS") for run in high_runs)
+    high_cpu_p95 = statistics.median(_metric(run, "CPU_RENDER_MS") for run in high_runs)
+    high_pacing_p95 = statistics.median(_metric(run, "FRAME_PACING_INTERVAL_MS") for run in high_runs)
+    high_gpu_p50 = statistics.median(_metric(run, "GPU_RENDER_MS", "p50") for run in high_runs)
+    high_one_percent = statistics.median(run["one_percent_low_fps"] for run in high_runs)
     deltas = {
-        "gpu_p95_pct": _pct(_metric(high, "GPU_RENDER_MS"), low_gpu_p95),
-        "gpu_p50_pct": _pct(_metric(high, "GPU_RENDER_MS", "p50"), low_gpu_p50),
-        "cpu_p95_pct": _pct(_metric(high, "CPU_RENDER_MS"), low_cpu_p95),
-        "pacing_p95_pct": _pct(_metric(high, "FRAME_PACING_INTERVAL_MS"), low_pacing_p95),
-        "one_percent_low_pct": _pct(high["one_percent_low_fps"], low_one_percent),
+        "gpu_p95_pct": _pct(high_gpu_p95, low_gpu_p95),
+        "gpu_p50_pct": _pct(high_gpu_p50, low_gpu_p50),
+        "cpu_p95_pct": _pct(high_cpu_p95, low_cpu_p95),
+        "pacing_p95_pct": _pct(high_pacing_p95, low_pacing_p95),
+        "one_percent_low_pct": _pct(high_one_percent, low_one_percent),
     }
-    first_low, second_low = low_runs
+
+    def spread(values: list[float]) -> float:
+        return round((max(values) - min(values)) / statistics.median(values) * 100.0, 1)
+
     aa = {
-        "gpu_p95_pct": _pct(_metric(second_low, "GPU_RENDER_MS"), _metric(first_low, "GPU_RENDER_MS")),
-        "cpu_p95_pct": _pct(_metric(second_low, "CPU_RENDER_MS"), _metric(first_low, "CPU_RENDER_MS")),
-        "pacing_p95_pct": _pct(_metric(second_low, "FRAME_PACING_INTERVAL_MS"), _metric(first_low, "FRAME_PACING_INTERVAL_MS")),
-        "one_percent_low_pct": _pct(second_low["one_percent_low_fps"], first_low["one_percent_low_fps"]),
+        "runs": len(low_runs),
+        "gpu_p95_spread_pct": spread([_metric(run, "GPU_RENDER_MS") for run in low_runs]),
+        "cpu_p95_spread_pct": spread([_metric(run, "CPU_RENDER_MS") for run in low_runs]),
+        "pacing_p95_spread_pct": spread([_metric(run, "FRAME_PACING_INTERVAL_MS") for run in low_runs]),
+        "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in low_runs]),
     }
     observations = [
-        f"ab-high GPU p95: {_metric(high, 'GPU_RENDER_MS'):.3f} ms vs ab-low median {low_gpu_p95:.3f} ms ({deltas['gpu_p95_pct']:+.1f}%).",
-        f"ab-high CPU p95: {_metric(high, 'CPU_RENDER_MS'):.3f} ms vs ab-low median {low_cpu_p95:.3f} ms ({deltas['cpu_p95_pct']:+.1f}%).",
-        f"Pacing p95: {_metric(high, 'FRAME_PACING_INTERVAL_MS'):.3f} ms vs {low_pacing_p95:.3f} ms ({deltas['pacing_p95_pct']:+.1f}%); both runs are capped at 240 fps.",
-        f"A/A stability: GPU p95 {aa['gpu_p95_pct']:+.1f}%, CPU p95 {aa['cpu_p95_pct']:+.1f}%, 1% low {aa['one_percent_low_pct']:+.1f}% between the two ab-low runs.",
+        f"ab-high median GPU p95: {high_gpu_p95:.3f} ms vs ab-low median {low_gpu_p95:.3f} ms ({deltas['gpu_p95_pct']:+.1f}%).",
+        f"ab-high median CPU p95: {high_cpu_p95:.3f} ms vs ab-low median {low_cpu_p95:.3f} ms ({deltas['cpu_p95_pct']:+.1f}%).",
+        f"Pacing p95: {high_pacing_p95:.3f} ms vs {low_pacing_p95:.3f} ms ({deltas['pacing_p95_pct']:+.1f}%); all runs are capped at 240 fps.",
+        f"A/A stability across 3 ab-low runs: GPU p95 spread {aa['gpu_p95_spread_pct']:.1f}%, CPU p95 {aa['cpu_p95_spread_pct']:.1f}%, 1% low {aa['one_percent_low_spread_pct']:.1f}%.",
         "The measured difference is a GPU cost of the high preset on this synthetic workload, not a game FPS or quality claim.",
     ]
     report = {
@@ -194,14 +202,22 @@ def build_report() -> dict[str, Any]:
                 "cpu_p95_ms": round(low_cpu_p95, 3),
                 "pacing_p95_ms": round(low_pacing_p95, 3),
                 "one_percent_low_fps": round(low_one_percent, 2),
-            }
+            },
+            "ab-high": {
+                "runs": len(high_runs),
+                "gpu_p50_ms": round(high_gpu_p50, 3),
+                "gpu_p95_ms": round(high_gpu_p95, 3),
+                "cpu_p95_ms": round(high_cpu_p95, 3),
+                "pacing_p95_ms": round(high_pacing_p95, 3),
+                "one_percent_low_fps": round(high_one_percent, 2),
+            },
         },
         "deltas_high_vs_low": deltas,
         "aa_stability": aa,
         "verdict": "MEASURED_COST_OBSERVED",
         "observations": observations,
         "limitations": [
-            "single session; one ab-high run and two ab-low runs",
+            "single session; three ab-low runs and three ab-high runs",
             "synthetic 200-proxy workload at 1280x720; no cross-scene generalization",
             "max_fps 240 and vsync disabled; frame pacing is capped",
             "renderer allocation bytes are session history, not device VRAM",
@@ -246,12 +262,12 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"- Pacing p95: {report['deltas_high_vs_low']['pacing_p95_pct']:+.1f}%",
             f"- 1% low: {report['deltas_high_vs_low']['one_percent_low_pct']:+.1f}%",
             "",
-            "## A/A stability (ab-low run 2 vs run 1)",
+            "## A/A stability (3 ab-low runs)",
             "",
-            f"- GPU p95: {report['aa_stability']['gpu_p95_pct']:+.1f}%",
-            f"- CPU p95: {report['aa_stability']['cpu_p95_pct']:+.1f}%",
-            f"- Pacing p95: {report['aa_stability']['pacing_p95_pct']:+.1f}%",
-            f"- 1% low: {report['aa_stability']['one_percent_low_pct']:+.1f}%",
+            f"- GPU p95 spread: {report['aa_stability']['gpu_p95_spread_pct']:.1f}%",
+            f"- CPU p95 spread: {report['aa_stability']['cpu_p95_spread_pct']:.1f}%",
+            f"- Pacing p95 spread: {report['aa_stability']['pacing_p95_spread_pct']:.1f}%",
+            f"- 1% low spread: {report['aa_stability']['one_percent_low_spread_pct']:.1f}%",
             "",
             "## Observações",
             "",
