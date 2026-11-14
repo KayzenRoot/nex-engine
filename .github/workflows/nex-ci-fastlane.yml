@@ -79,4 +79,5 @@ jobs:
           python3 docs/benchmarks/m09/tools/build_cross_scene.py --check
           python3 docs/benchmarks/m09/tools/build_interaction_200.py --check
           python3 docs/benchmarks/m09/tools/build_interaction_200_720.py --check
+          python3 docs/benchmarks/m09/tools/build_res_scaling_1440.py --check
           python3 docs/benchmarks/m09/tools/build_measurement_atlas.py --check

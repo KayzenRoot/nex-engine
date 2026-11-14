@@ -1,0 +1,155 @@
+{
+  "cells": [
+    {
+      "cpu_p95_ms": 0.39,
+      "gpu_p50_ms": 0.202,
+      "gpu_p95_ms": 0.206,
+      "gpu_p95_spread_pct": 5.8,
+      "gpu_p99_ms": 0.314,
+      "height": 1440,
+      "one_percent_low_fps": 222.75,
+      "one_percent_low_spread_pct": 82.9,
+      "pacing_p95_ms": 4.268,
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "runs": 3,
+      "width": 2560
+    },
+    {
+      "cpu_p95_ms": 0.493,
+      "gpu_p50_ms": 1.315,
+      "gpu_p95_ms": 1.547,
+      "gpu_p95_spread_pct": 0.8,
+      "gpu_p99_ms": 1.698,
+      "height": 1440,
+      "one_percent_low_fps": 223.12,
+      "one_percent_low_spread_pct": 1.1,
+      "pacing_p95_ms": 4.269,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "runs": 3,
+      "width": 2560
+    }
+  ],
+  "context_resolutions": {
+    "1280x720": {
+      "ab-high": {
+        "cpu_p95_ms": 0.438,
+        "gpu_p95_ms": 0.46,
+        "one_percent_low_fps": 226.9,
+        "pacing_p95_ms": 4.255
+      },
+      "ab-low": {
+        "cpu_p95_ms": 0.328,
+        "gpu_p95_ms": 0.106,
+        "one_percent_low_fps": 227.7,
+        "pacing_p95_ms": 4.25
+      }
+    },
+    "1920x1080": {
+      "ab-high": {
+        "cpu_p95_ms": 0.454,
+        "gpu_p95_ms": 0.826,
+        "one_percent_low_fps": 226.35,
+        "pacing_p95_ms": 4.273
+      },
+      "ab-low": {
+        "cpu_p95_ms": 0.329,
+        "gpu_p95_ms": 0.156,
+        "one_percent_low_fps": 226.27,
+        "pacing_p95_ms": 4.242
+      }
+    },
+    "960x540": {
+      "ab-high": {
+        "cpu_p95_ms": 0.443,
+        "gpu_p95_ms": 0.317,
+        "one_percent_low_fps": 228.82,
+        "pacing_p95_ms": 4.203
+      },
+      "ab-low": {
+        "cpu_p95_ms": 0.322,
+        "gpu_p95_ms": 0.096,
+        "one_percent_low_fps": 227.25,
+        "pacing_p95_ms": 4.202
+      }
+    }
+  },
+  "deltas_high_vs_low": {
+    "cpu_p95_pct": 26.4,
+    "gpu_p95_pct": 651.0,
+    "gpu_p99_pct": 440.8,
+    "one_percent_low_pct": 0.2,
+    "pacing_p95_pct": 0.0
+  },
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling-1440",
+  "godot_version": "4.7.2-stable (official ed1daf0bf)",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "one scene, one proxy count (100) and one resolution (2560x1440)",
+    "the 960/1280/1920 context is from a different session and is labeled as such",
+    "the 2560x1440 window is taller than the 2560x1080 desktop; the viewport is captured off-screen",
+    "three runs per preset; the ab-low 1% low has an 82.9% spread due to one outlier",
+    "native resolution disables the canvas_items stretch mode",
+    "max_fps 240 and disabled VSync cap frame pacing",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "model_context": {
+    "cells": [
+      {
+        "error_pct": 84.0,
+        "measured_gpu_p95_ms": 0.206,
+        "predicted_gpu_ms": 0.379,
+        "preset_id": "ab-low",
+        "within_2pct": false
+      },
+      {
+        "error_pct": -70.3,
+        "measured_gpu_p95_ms": 1.547,
+        "predicted_gpu_ms": 0.46,
+        "preset_id": "ab-high",
+        "within_2pct": false
+      }
+    ],
+    "source": "docs/benchmarks/m03/budget-validation.v1.json"
+  },
+  "observations": [
+    "high/low grows from +323.9% at 1280x720 to +651.0% at 2560x1440",
+    "GPU p95 rises +32.1% (ab-low) and +87.3% (ab-high) from 1920x1080 to 2560x1440",
+    "the ab-high M03 prediction (0.460 ms) is -70.3% from the measured 2560x1440 value; the 2% match does not survive this resolution",
+    "the ab-low M03 prediction (0.379 ms) is +84.0% above the measured value, so the low preset remains overestimated",
+    "the first ab-low run has an isolated 1% low outlier (38.9 fps); medians are used and the 1% low is not used for a trend claim"
+  ],
+  "resolution_deltas": {
+    "1920x1080_to_2560x1440": {
+      "ab-high": 87.3,
+      "ab-low": 32.1
+    },
+    "960x540_to_2560x1440": {
+      "ab-high": 388.0,
+      "ab-low": 114.6
+    }
+  },
+  "runs": 6,
+  "schema_version": "m09_resolution_scaling_1440.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "native_resolution": true,
+    "vsync_mode": 0
+  },
+  "source_sha": "39633b347784e66526c60be6c655d007d86f16cd",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "workload": {
+    "effect_mode": "lights",
+    "layout": "M01 arena_combat + deterministic fillers",
+    "proxy_count": 100,
+    "scene": "M01 Arena A/B/A",
+    "scene_id": "arena_combat"
+  }
+}
