@@ -79,20 +79,36 @@ def _series(document: dict[str, Any], key: str, aggregate: str) -> float:
     return float(value)
 
 
-def _driver_version(document: dict[str, Any]) -> str:
+def _first_raw_csv(snapshot: Any) -> str:
+    if not isinstance(snapshot, dict):
+        return ""
+    samples = snapshot.get("samples")
+    if not isinstance(samples, list):
+        return ""
+    for sample in samples:
+        if isinstance(sample, dict) and isinstance(sample.get("raw_csv"), str):
+            return sample["raw_csv"]
+    return ""
+
+
+def _raw_csv(document: dict[str, Any]) -> str:
     snapshots = document.get("device_snapshots")
     if not isinstance(snapshots, list):
         single = document.get("device_snapshot")
         snapshots = [single] if isinstance(single, dict) else []
     for snapshot in snapshots:
-        samples = snapshot.get("samples") if isinstance(snapshot, dict) else None
-        if isinstance(samples, list):
-            for sample in samples:
-                raw = sample.get("raw_csv") if isinstance(sample, dict) else None
-                if isinstance(raw, str) and "," in raw:
-                    fields = [field.strip() for field in raw.split(",")]
-                    if len(fields) > 1 and fields[1]:
-                        return fields[1]
+        raw = _first_raw_csv(snapshot)
+        if raw:
+            return raw
+    return ""
+
+
+def _driver_version(document: dict[str, Any]) -> str:
+    raw = _raw_csv(document)
+    if raw and "," in raw:
+        fields = [field.strip() for field in raw.split(",")]
+        if len(fields) > 1 and fields[1]:
+            return fields[1]
     return str(document.get("driver") or "unknown")
 
 
@@ -230,7 +246,8 @@ def main(argv: list[str]) -> int:
         print("usage: convert_m09_observations.py [--check]")
         return 2
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(rendered, encoding="utf-8", newline="\n")
+    with open(OUTPUT, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(rendered)
     print(f"M06_OBS_WRITE_PASS: {len(bundle['observations'])} observations")
     return 0
 
