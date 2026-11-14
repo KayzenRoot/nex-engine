@@ -63,10 +63,15 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         self.assertIn("--check", args)
         self.assertIn("--check-full", args)
 
+    def test_full_advisory_check_is_enforced(self) -> None:
+        args = self.commands["docs/benchmarks/m06/tools/build_advisories.py"]
+        self.assertIn("--check", args)
+        self.assertIn("--check-full", args)
+
     def test_expected_builder_count(self) -> None:
-        # 2 M01/M02 + 1 M03 + 4 M06 files (5 invocations) + 11 M09 = 18 files / 19 checks.
+        # 2 M01/M02 + 1 M03 + 4 M06 files (6 invocations) + 11 M09 = 18 files / 20 checks.
         self.assertEqual(18, len(self.commands))
-        self.assertEqual(19, sum(len(value) for value in self.commands.values()))
+        self.assertEqual(20, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":

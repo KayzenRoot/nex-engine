@@ -14,9 +14,16 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 SOURCE = REPO_ROOT / "docs/benchmarks/m06/observations/m09-observations.v1.json"
+SOURCE_FULL = REPO_ROOT / "docs/benchmarks/m06/observations/m09-observations-full.v1.json"
 OUTPUT_DIR = REPO_ROOT / "docs/benchmarks/m06"
 OUTPUT_JSON = OUTPUT_DIR / "advisories.v1.json"
 OUTPUT_MD = OUTPUT_DIR / "ADVISORIES.md"
+OUTPUT_JSON_FULL = OUTPUT_DIR / "advisories-full.v1.json"
+OUTPUT_MD_FULL = OUTPUT_DIR / "ADVISORIES-FULL.md"
+EXPECTED_OBSERVATIONS = 12
+EXPECTED_OBSERVATIONS_FULL = 144
+DEFAULT_TITLE = "NEX M06 · Performance advisories — RTX 5050"
+FULL_TITLE = "NEX M06 · Performance advisories (full dataset) — RTX 5050"
 
 SCHEMA_VERSION = "m06_performance_advisories.v1"
 RECOMMENDATIONS = {
@@ -131,13 +138,13 @@ def _advisory(observation: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_report() -> dict[str, Any]:
-    source = _load(SOURCE)
+def build_report(source_path: Path = SOURCE, expected_count: int = EXPECTED_OBSERVATIONS) -> dict[str, Any]:
+    source = _load(source_path)
     observations = source.get("observations")
-    if not isinstance(observations, list) or len(observations) != 12:
-        raise ValueError("source observation bundle must contain 12 observations")
+    if not isinstance(observations, list) or len(observations) != expected_count:
+        raise ValueError(f"source observation bundle must contain {expected_count} observations")
     advisories = [_advisory(observation) for observation in observations]
-    if len({advisory["observation_id"] for advisory in advisories}) != 12:
+    if len({advisory["observation_id"] for advisory in advisories}) != expected_count:
         raise ValueError("advisory ids must be unique")
     counts: dict[str, int] = {}
     for advisory in advisories:
@@ -146,7 +153,7 @@ def build_report() -> dict[str, Any]:
     gpu_shares = [advisory["frame_budget"]["gpu_share_of_frame_pct"] for advisory in advisories]
     return {
         "schema_version": SCHEMA_VERSION,
-        "source_bundle": "docs/benchmarks/m06/observations/m09-observations.v1.json",
+        "source_bundle": source_path.relative_to(REPO_ROOT).as_posix(),
         "observation_count": len(advisories),
         "advisories": advisories,
         "summary": {
@@ -161,9 +168,9 @@ def build_report() -> dict[str, Any]:
     }
 
 
-def render_markdown(report: dict[str, Any]) -> str:
+def render_markdown(report: dict[str, Any], title: str = DEFAULT_TITLE) -> str:
     lines = [
-        "# NEX M06 · Performance advisories — RTX 5050",
+        f"# {title}",
         "",
         "**Status:** `ADVISORIES_DERIVED_FROM_MEASURED_OBSERVATIONS / SINGLE_SESSION / NO_FPS_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`",
         "",
@@ -208,32 +215,50 @@ def render_json(report: dict[str, Any]) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
-def main(argv: list[str]) -> int:
-    report = build_report()
+def _render_and_write(
+    source_path: Path,
+    expected_count: int,
+    output_json: Path,
+    output_md: Path,
+    title: str,
+    check_only: bool,
+) -> int:
+    report = build_report(source_path, expected_count)
     rendered_json = render_json(report)
-    rendered_md = render_markdown(report)
-    if argv == ["--check"]:
-        if not OUTPUT_JSON.is_file() or not OUTPUT_MD.is_file():
+    rendered_md = render_markdown(report, title)
+    if check_only:
+        if not output_json.is_file() or not output_md.is_file():
             print("M06_ADVISORIES_CHECK_FAIL: outputs missing")
             return 1
-        if OUTPUT_JSON.read_text(encoding="utf-8") != rendered_json:
+        if output_json.read_text(encoding="utf-8") != rendered_json:
             print("M06_ADVISORIES_CHECK_FAIL: JSON is stale")
             return 1
-        if OUTPUT_MD.read_text(encoding="utf-8") != rendered_md:
+        if output_md.read_text(encoding="utf-8") != rendered_md:
             print("M06_ADVISORIES_CHECK_FAIL: Markdown is stale")
             return 1
         print(f"M06_ADVISORIES_CHECK_PASS: {len(report['advisories'])} advisories")
         return 0
-    if argv:
-        print("usage: build_advisories.py [--check]")
-        return 2
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_JSON, "w", encoding="utf-8", newline="\n") as handle:
+    output_json.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_json, "w", encoding="utf-8", newline="\n") as handle:
         handle.write(rendered_json)
-    with open(OUTPUT_MD, "w", encoding="utf-8", newline="\n") as handle:
+    with open(output_md, "w", encoding="utf-8", newline="\n") as handle:
         handle.write(rendered_md)
     print(f"M06_ADVISORIES_WRITE_PASS: {len(report['advisories'])} advisories")
     return 0
+
+
+def main(argv: list[str]) -> int:
+    modes = {
+        "--check": (SOURCE, EXPECTED_OBSERVATIONS, OUTPUT_JSON, OUTPUT_MD, DEFAULT_TITLE, True),
+        "--full": (SOURCE_FULL, EXPECTED_OBSERVATIONS_FULL, OUTPUT_JSON_FULL, OUTPUT_MD_FULL, FULL_TITLE, False),
+        "--check-full": (SOURCE_FULL, EXPECTED_OBSERVATIONS_FULL, OUTPUT_JSON_FULL, OUTPUT_MD_FULL, FULL_TITLE, True),
+    }
+    if len(argv) == 1 and argv[0] in modes:
+        return _render_and_write(*modes[argv[0]])
+    if argv:
+        print("usage: build_advisories.py [--check|--full|--check-full]")
+        return 2
+    return _render_and_write(SOURCE, EXPECTED_OBSERVATIONS, OUTPUT_JSON, OUTPUT_MD, DEFAULT_TITLE, False)
 
 
 if __name__ == "__main__":
