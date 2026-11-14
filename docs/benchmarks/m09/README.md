@@ -15,6 +15,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 | `res-scaling.v1.json` / `RES-SCALING-REPORT.md` | Escala de resolução 960×540/1280×720/1920×1080 em `arena_combat`, 3 runs por preset por resolução. |
 | `interaction.v1.json` / `INTERACTION-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `arena_combat`, 3 runs por preset por célula. |
 | `cross-scene.v1.json` / `CROSS-SCENE-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `corridor_static` e `dense_city`, 3 runs por preset por célula. |
+| `interaction-200.v1.json` / `INTERACTION-200-REPORT.md` | 200 proxies × 960×540/1920×1080 em `arena_combat`, com contexto 100→200 de sessão separada. |
 | `tools/build_ab.py` | Builder determinístico do A/B/A. |
 | `tools/build_scaling.py` | Builder determinístico da matriz de escala. |
 | `tools/build_m01_ab.py` | Builder determinístico do A/B/A nas cenas M01. |
@@ -22,6 +23,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 | `tools/build_res_scaling.py` | Builder determinístico da escala de resolução. |
 | `tools/build_interaction.py` | Builder determinístico da interação proxies × resolução. |
 | `tools/build_cross_scene.py` | Builder determinístico da interação em múltiplas cenas. |
+| `tools/build_interaction_200.py` | Builder determinístico do check de 200 proxies. |
 | `tools/png_image.py` | Decoder PNG mínimo e comparador de pixels. |
 | `tools/preset_report.py` | Loaders e estatística compartilhados pelos builders. |
 
@@ -34,6 +36,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/`: 18 capturas + 18 validações + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction/`: 24 capturas + 24 validações + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene/`: 48 capturas + 48 validações + manifesto/fatos/análise/SHA-256.
+- `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/`: 12 capturas + 12 validações + manifesto/fatos/análise/SHA-256.
 
 ## Uso
 
@@ -52,6 +55,8 @@ python docs/benchmarks/m09/tools/build_interaction.py
 python docs/benchmarks/m09/tools/build_interaction.py --check
 python docs/benchmarks/m09/tools/build_cross_scene.py
 python docs/benchmarks/m09/tools/build_cross_scene.py --check
+python docs/benchmarks/m09/tools/build_interaction_200.py
+python docs/benchmarks/m09/tools/build_interaction_200.py --check
 ```
 
 ## Limitações
@@ -62,6 +67,7 @@ python docs/benchmarks/m09/tools/build_cross_scene.py --check
 - A escala de resolução usa viewport nativo (stretch desabilitado) e vai até 1920×1080; 2560×1440 não é coberto.
 - A interação usa 50/100 proxies porque 25 exigiria remover geometria da cena base.
 - A interação cross-scene cobre `corridor_static` e `dense_city`; `arena_combat` tem relatório próprio.
+- O check de 200 proxies usa contexto 100→200 de uma sessão separada, claramente rotulado.
 - Sem generalização entre cenas/hardware/drivers.
 - `max_fps 240`, vsync desligado; pacing é limitado pelo cap.
 - Alocação do renderer é histórico da sessão, não VRAM.
