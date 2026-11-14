@@ -1,4 +1,4 @@
-"""CI enforcement tests for deterministic M03/M06/M09 builders."""
+"""CI enforcement tests for deterministic M01/M02/M03/M06/M09 builders."""
 from __future__ import annotations
 
 import json
@@ -10,12 +10,15 @@ REPO = Path(__file__).resolve().parents[2]
 WORKFLOW = REPO / ".github" / "workflows" / "nex-ci-fastlane.yml"
 RULESET = REPO / "ops" / "github" / "nex-main-ruleset.json"
 BUILDER_DIRS = {
+    "m01": REPO / "docs" / "benchmarks" / "m01" / "tools",
+    "m02": REPO / "docs" / "benchmarks" / "m02" / "tools",
     "m03": REPO / "docs" / "benchmarks" / "m03" / "tools",
     "m06": REPO / "docs" / "benchmarks" / "m06" / "tools",
     "m09": REPO / "docs" / "benchmarks" / "m09" / "tools",
 }
+ALL_PY_MODULES = {"m01", "m02"}
 COMMAND = re.compile(
-    r"^\s*python3 (docs/benchmarks/(m03|m06|m09)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
+    r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m06|m09)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
     re.MULTILINE,
 )
 REQUIRED_JOB = "NEX Fast Lane / Batch Policy Tests"
@@ -43,7 +46,7 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         expected = set()
         for module, directory in BUILDER_DIRS.items():
             for path in sorted(directory.glob("*.py")):
-                if path.name.startswith(("build_", "convert_")):
+                if module in ALL_PY_MODULES or path.name.startswith(("build_", "convert_")):
                     expected.add(f"docs/benchmarks/{module}/tools/{path.name}")
         self.assertEqual(expected, set(self.commands))
 
@@ -61,9 +64,9 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         self.assertIn("--check-full", args)
 
     def test_expected_builder_count(self) -> None:
-        # 1 M03 + 4 M06 files (5 invocations) + 11 M09 = 16 files / 17 checks.
-        self.assertEqual(16, len(self.commands))
-        self.assertEqual(17, sum(len(value) for value in self.commands.values()))
+        # 2 M01/M02 + 1 M03 + 4 M06 files (5 invocations) + 11 M09 = 18 files / 19 checks.
+        self.assertEqual(18, len(self.commands))
+        self.assertEqual(19, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":

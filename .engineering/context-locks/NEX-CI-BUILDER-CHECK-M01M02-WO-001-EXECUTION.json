@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-CI-BUILDER-CHECK-M01M02-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issues": [
+    6,
+    7,
+    8,
+    11,
+    14
+  ],
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Autonomous continuation under NEX-ADR-0005; extends the required builder reproducibility check to admitted M01/M02 builders.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "4cec20142d4c464d10cc18fd28aa2c1121738d92",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_CI_BUILDER_CHECK_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "a6a20ba304c50e469b7d0e24755540bc7c306d72"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "67074beacb4e0c544e0b36857d133ffefe10a130"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "83e4bac2976fc5c2092f99e06eca06b613ceaafb"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "f205fa6ea5b6bcaec3d5bd3c90ffdc19a242002d"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "1bf7a9ba515631a436a8bc40f4303d5bbacaee76"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "caa2a5ee9e8ea019203b36f986542d35bb30d744"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "cecefbfd357223c89eed192ca22aa8d9c68be946"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "373c789b8a0c980e5355d758380ee7a8d128eff3"
+    },
+    {
+      "path": "docs/benchmarks/m01/tools/build_manifest.py",
+      "gitBlobSha1": "ff7f8f203dafc341a35665c40b9f256e3fdab0eb"
+    },
+    {
+      "path": "docs/benchmarks/m02/tools/qa_ledger.py",
+      "gitBlobSha1": "9cc506447af3d5a28a50ff0395970d32755a099a"
+    },
+    {
+      "path": "docs/benchmarks/m03/tools/build_budget_validation.py",
+      "gitBlobSha1": "3f3642eb5a808b7faaed79f585e323f1bc24a6cc"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_advisories.py",
+      "gitBlobSha1": "ee399f5b4ced46b68666dfb571271fec4082e4e7"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_atlas.py",
+      "gitBlobSha1": "f8d1acefb0b81d21015d2b7d61385ee776c5d3ef"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_m09_atlas.py",
+      "gitBlobSha1": "e5bff6dbc509a011c870419ed08c7ae356f8bd36"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/convert_m09_observations.py",
+      "gitBlobSha1": "9c04ef79ff0689838156e0aa3b8188a8f3121962"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_ab.py",
+      "gitBlobSha1": "11c084c2c11aeedae05c0320c68580a41bc55d86"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_scaling.py",
+      "gitBlobSha1": "81112cd3162c85302a0420e2a11af48246314967"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_m01_ab.py",
+      "gitBlobSha1": "a24d507a5d4b0e61f86ef1f0df31349e4f257f3c"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_m01_visual.py",
+      "gitBlobSha1": "37f068c4275dfe44bddd7670f1e1229960780987"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_m01_visual_1920.py",
+      "gitBlobSha1": "fc7b7721a59ef389e384a096e13e1999496840a7"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_temporal_stability.py",
+      "gitBlobSha1": "e817d5a0fc3e9d517907b5448db627e06d2f7112"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_res_scaling.py",
+      "gitBlobSha1": "2011766e56bd0c24fe1bdfefed641c2aba4160b4"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_interaction.py",
+      "gitBlobSha1": "a921f9e10944f0e33b2efffdcd182ec11ef8b772"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_cross_scene.py",
+      "gitBlobSha1": "41dbca22dcf206c4a687e7c907e9cf62b6fd0154"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_interaction_200.py",
+      "gitBlobSha1": "46acccbb3b4b87dd1bc4e24220e855ebaf29f5ba"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_measurement_atlas.py",
+      "gitBlobSha1": "f3bcd920cbc44a79f3c7faa94c3dd19f6d779ac6"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "LOW",
+  "scope": {
+    "writeAllowedExact": [
+      ".github/workflows/nex-ci-fastlane.yml",
+      "tests/ci/test_builder_check_enforcement.py",
+      ".engineering/work-orders/NEX-CI-BUILDER-CHECK-M01M02-WO-001.md",
+      ".engineering/context-locks/NEX-CI-BUILDER-CHECK-M01M02-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-CI-BUILDER-CHECK-M01M02-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-CI-BUILDER-CHECK-M01M02-WO-001-PROPOSED.md",
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md"
+    ],
+    "readOnly": [
+      "docs/benchmarks/m01/**",
+      "docs/benchmarks/m02/**",
+      "docs/benchmarks/m03/**",
+      "docs/benchmarks/m06/**",
+      "docs/benchmarks/m09/**",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "ops/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      ".engineering/** (exceto os paths acima)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset or required-context changes",
+      "builder, artifact, data, contract or measurement changes",
+      "new measurements or new parent admissions",
+      "runtime/renderer/shader/hub/project.godot changes",
+      "FPS, quality or universal gain claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
