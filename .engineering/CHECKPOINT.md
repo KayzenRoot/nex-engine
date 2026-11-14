@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 200 proxies at 1280×720
+
+**M09-200-720 integrado** por PR #231, squash `c9196541e6a854ed186cac27cb9820582e4f64fb`. Nova sessão de **6 capturas** em `arena_combat`, 200 proxies, 1280×720, A/B/A, todas PASS no validador dedicado.
+
+**Resultado:** GPU p95 **0.111 ms** (ab-low) e **0.468 ms** (ab-high), high/low **+321.6%**. Contexto 100→200: GPU p95 **+1.8%/+1.3%** e CPU p95 **+29.0%/+48.7%**. Modelo M03: **ab-high −1.7% (dentro de 2%)**, ab-low +241.4% — o acerto de calibração é robusto à mudança de proxies. Atlas M09 em **11 bundles / 150 capturas / 399 arquivos**. Nenhum harness, cena, preset, contrato, modelo, renderer, shader ou `project.godot` alterado. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M03 domain boundary
 
 **M03-DOMAIN-BOUNDARY integrado** por PR #229, squash `c2b7c96ac154376ab2de997f64f4e2b448eaad36`. O modo `--domain` compara o modelo de luz com 6 células da arena em 960×540/1280×720/1920×1080.
@@ -14,7 +20,7 @@
 
 ## Current verified scope | 2026-11-14 · CI builder reproducibility enforcement
 
-**CI-BUILDER-CHECK integrado** por PR #223, squash `c972864af21a0e416b335c10c936af2ea6be2d44`, e estendido a M01/M02 por PR #225, squash `e9f8f0172a7c183b57fd203dc1053af099c63bec`. O check obrigatório `NEX Fast Lane / Batch Policy Tests` passa a executar **21 comandos `--check`** dos builders determinísticos de M01/M02/M03/M06/M09 (18 arquivos; `convert_m09_observations.py` e `build_advisories.py` cobrem `--check`/`--check-full`; `build_budget_validation.py` cobre `--check`/`--check-domain`).
+**CI-BUILDER-CHECK integrado** por PR #223, squash `c972864af21a0e416b335c10c936af2ea6be2d44`, e estendido a M01/M02 por PR #225, squash `e9f8f0172a7c183b57fd203dc1053af099c63bec`. O check obrigatório `NEX Fast Lane / Batch Policy Tests` passa a executar **22 comandos `--check`** dos builders determinísticos de M01/M02/M03/M06/M09 (19 arquivos; `convert_m09_observations.py` e `build_advisories.py` cobrem `--check`/`--check-full`; `build_budget_validation.py` cobre `--check`/`--check-domain`).
 
 **Guard:** `tests/ci/test_builder_check_enforcement.py` falha se um builder novo não for listado, se algum comando usar modo escrita ou se o job deixar de ser required context. Nenhum builder, artefato, dado, contrato, medição ou ruleset foi alterado; nenhuma nova medição. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
