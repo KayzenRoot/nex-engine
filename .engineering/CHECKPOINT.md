@@ -6,6 +6,8 @@
 
 **Escopo:** referência e análise determinística. **Não admitido:** runtime, hub, engine, renderer, shaders, `project.godot`, gameplay, cenas de produção, renderização real, `nex_modules/render2d`/M07, generalização ou claims de FPS. M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`; M01/M02/M03/M06/M09 estão bounded admitted. A admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
+**Integração:** PR #221 squash `3e8dbc0af90102ceebc1cac3e4901418d07771cf`; árvore idêntica à revisada e checks pós-merge SUCCESS.
+
 
 ## Current verified scope | 2026-11-14 · M03 bounded admission
 
