@@ -65,6 +65,7 @@ jobs:
           python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check
           python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check-full
           python3 docs/benchmarks/m06/tools/build_advisories.py --check
+          python3 docs/benchmarks/m06/tools/build_advisories.py --check-full
           python3 docs/benchmarks/m06/tools/build_m09_atlas.py --check
           python3 docs/benchmarks/m09/tools/build_ab.py --check
           python3 docs/benchmarks/m09/tools/build_scaling.py --check

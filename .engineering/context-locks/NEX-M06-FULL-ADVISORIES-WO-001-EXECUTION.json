@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M06-FULL-ADVISORIES-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 11,
+  "secondaryIssue": 14,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Autonomous continuation under NEX-ADR-0005; full-dataset advisories complete the M06 evidence chain without new measurement.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "8ca0e0f42b92e929bc87628436c893bd341f3ba7",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M01_M02_BUILDER_CHECK_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "a6a20ba304c50e469b7d0e24755540bc7c306d72"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "7f26841914076877ffc4b914d7a72ccb415266de"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "8cf75caf3b6a567f9323401146a4f060fd61bf2f"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "f205fa6ea5b6bcaec3d5bd3c90ffdc19a242002d"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "1bf7a9ba515631a436a8bc40f4303d5bbacaee76"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "caa2a5ee9e8ea019203b36f986542d35bb30d744"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "cecefbfd357223c89eed192ca22aa8d9c68be946"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "bcc53e39dfbba06555a4616c85b64c50c3b0ab9d"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_advisories.py",
+      "gitBlobSha1": "ee399f5b4ced46b68666dfb571271fec4082e4e7"
+    },
+    {
+      "path": "docs/benchmarks/m06/observations/m09-observations.v1.json",
+      "gitBlobSha1": "4ab9e4dbdb2240f6a1f973c1736e61bcc91a55e8"
+    },
+    {
+      "path": "docs/benchmarks/m06/observations/m09-observations-full.v1.json",
+      "gitBlobSha1": "b0af6be951e71f36a8691a9af191ed6e4aa17ff2"
+    },
+    {
+      "path": "docs/benchmarks/m06/README.md",
+      "gitBlobSha1": "26c53b4cbae44dbf69b3d396f2bf332ebd96abe0"
+    },
+    {
+      "path": "tests/ci/test_builder_check_enforcement.py",
+      "gitBlobSha1": "51e3a3415781db2147c1b4c7076698675e61988c"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "docs/benchmarks/m06/tools/build_advisories.py",
+      "docs/benchmarks/m06/advisories-full.v1.json",
+      "docs/benchmarks/m06/ADVISORIES-FULL.md",
+      "docs/benchmarks/m06/README.md",
+      "tests/ci/test_m06_full_advisories.py",
+      "tests/ci/test_builder_check_enforcement.py",
+      ".github/workflows/nex-ci-fastlane.yml",
+      ".engineering/work-orders/NEX-M06-FULL-ADVISORIES-WO-001.md",
+      ".engineering/context-locks/NEX-M06-FULL-ADVISORIES-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M06-FULL-ADVISORIES-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M06-FULL-ADVISORIES-WO-001-PROPOSED.md",
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md"
+    ],
+    "readOnly": [
+      "docs/benchmarks/m06/** (exceto os paths acima)",
+      "docs/benchmarks/m09/**",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "ops/**",
+      "tooling/**",
+      "tests/** (exceto os testes acima)",
+      ".engineering/** (exceto os paths acima)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset or required-context changes",
+      "new measurement, capture or real rendering",
+      "observation, atlas, contract or M09 data changes",
+      "runtime/renderer/shader/hub/project.godot changes",
+      "FPS, quality, universal gain or cross-device claims",
+      "new parent admissions"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}

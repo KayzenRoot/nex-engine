@@ -41,6 +41,8 @@ O modo `--full` gera **144 observações** a partir dos sete bundles de performa
 
 O builder lê as 12 observações, calcula headroom de render (`pacing - max(gpu, cpu)`), participação GPU/CPU no frame e frame alvo (`1000/max_fps`), e emite uma recomendação de baixo risco que exige nova medição. Todos os advisórios são `pacing` no cap de 240 fps; o texto explicita que headroom não prova capacidade em cap menor e que não há claim de FPS ou qualidade.
 
+O modo `--full` deriva **144 advisórios** do dataset completo (`advisories-full.v1.json` e `ADVISORIES-FULL.md`). O resumo é 144/144 `pacing`, headroom **3.327–4.009 ms**, maior GPU share **21.05%** e frame alvo 4.167 ms; a semântica e as limitações são as mesmas da seleção curada.
+
 ## Uso
 
 ```powershell
@@ -52,11 +54,13 @@ python docs/benchmarks/m06/tools/convert_m09_observations.py --full
 python docs/benchmarks/m06/tools/convert_m09_observations.py --check-full
 python docs/benchmarks/m06/tools/build_advisories.py
 python docs/benchmarks/m06/tools/build_advisories.py --check
+python docs/benchmarks/m06/tools/build_advisories.py --full
+python docs/benchmarks/m06/tools/build_advisories.py --check-full
 python docs/benchmarks/m06/tools/build_m09_atlas.py
 python docs/benchmarks/m06/tools/build_m09_atlas.py --check
 ```
 
-`--check` não escreve: confirma que o atlas ou o bundle de observações correspondem ao builder/conversor.
+`--check`/`--check-full` não escrevem: confirmam que atlas, observações ou advisórios correspondem ao builder/conversor.
 
 ## Limitações
 
