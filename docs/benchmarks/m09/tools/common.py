@@ -54,11 +54,15 @@ def run_cli(build: Callable[[], dict[str, Any]],
         if md_path.read_text(encoding="utf-8") != rendered_md:
             print(f"{prefix}_CHECK_FAIL: Markdown is stale")
             return 1
-        print(f"{prefix}_CHECK_PASS: {len(report.get('runs', []))} runs")
+        run_count = report.get("runs", [])
+        count = run_count if isinstance(run_count, int) else len(run_count)
+        print(f"{prefix}_CHECK_PASS: {count} runs")
         return 0
     if argv:
         print("usage: builder [--check]")
         return 2
     write_report(report, base, json_path, md_path, render_json, render_md)
-    print(f"{prefix}_WRITE_PASS: {len(report.get('runs', []))} runs")
+    run_count = report.get("runs", [])
+    count = run_count if isinstance(run_count, int) else len(run_count)
+    print(f"{prefix}_WRITE_PASS: {count} runs")
     return 0

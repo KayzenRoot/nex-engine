@@ -1,0 +1,558 @@
+{
+  "changed_pixel_threshold": 2,
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-visual",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "harness_source_sha": "952b5a63bc1696cadf7436a061a7d996c80fa220",
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "static frame only; animation, temporal effects and camera motion are not covered",
+    "fillers may overlap base-scene props; this is a stress composition, not a beauty shot",
+    "PNG comparison is exact RGB byte comparison; it does not model human perception or color spaces",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "A/A is exact: all three repetitions of each scene/preset pair share one SHA-256, so every A/A pixel difference is zero.",
+    "ab-high changes the image in every scene: corridor 4.077% changed pixels, arena 3.884%, city 1.745% at threshold 2.",
+    "The matched A/B pairs are identical within each scene because the repetitions are byte-identical; medians are reported.",
+    "City has the smallest changed-pixel fraction; corridor has the largest at this fixed camera and 100-mesh composition.",
+    "The difference confirms a rendering-state change, not a visual-quality ranking or a universal recommendation."
+  ],
+  "runs": 18,
+  "scenes": [
+    {
+      "aa_comparisons": [
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        }
+      ],
+      "ab_comparisons": [
+        {
+          "metrics": {
+            "changed_pixels": 37573,
+            "changed_pixels_pct": 4.077,
+            "max_abs_diff": 170,
+            "mean_abs_diff": 0.5135,
+            "psnr_db": 37.406
+          },
+          "repetition": 1
+        },
+        {
+          "metrics": {
+            "changed_pixels": 37573,
+            "changed_pixels_pct": 4.077,
+            "max_abs_diff": 170,
+            "mean_abs_diff": 0.5135,
+            "psnr_db": 37.406
+          },
+          "repetition": 2
+        },
+        {
+          "metrics": {
+            "changed_pixels": 37573,
+            "changed_pixels_pct": 4.077,
+            "max_abs_diff": 170,
+            "mean_abs_diff": 0.5135,
+            "psnr_db": 37.406
+          },
+          "repetition": 3
+        }
+      ],
+      "images": [
+        {
+          "file": "corridor_static_ab-low_1.png",
+          "preset_id": "ab-low",
+          "repetition": 1,
+          "sequence": 1,
+          "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1"
+        },
+        {
+          "file": "corridor_static_ab-high_1.png",
+          "preset_id": "ab-high",
+          "repetition": 1,
+          "sequence": 2,
+          "sha256": "71feddfc29ca0d54328c0c1d266901e49918974ccc4954483c88be3a77e25d4d"
+        },
+        {
+          "file": "corridor_static_ab-low_2.png",
+          "preset_id": "ab-low",
+          "repetition": 2,
+          "sequence": 3,
+          "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1"
+        },
+        {
+          "file": "corridor_static_ab-high_2.png",
+          "preset_id": "ab-high",
+          "repetition": 2,
+          "sequence": 4,
+          "sha256": "71feddfc29ca0d54328c0c1d266901e49918974ccc4954483c88be3a77e25d4d"
+        },
+        {
+          "file": "corridor_static_ab-low_3.png",
+          "preset_id": "ab-low",
+          "repetition": 3,
+          "sequence": 5,
+          "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1"
+        },
+        {
+          "file": "corridor_static_ab-high_3.png",
+          "preset_id": "ab-high",
+          "repetition": 3,
+          "sequence": 6,
+          "sha256": "71feddfc29ca0d54328c0c1d266901e49918974ccc4954483c88be3a77e25d4d"
+        }
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "summary": {
+        "aa_all_identical": true,
+        "aa_max_mean_abs_diff": 0.0,
+        "ab_changed_pixels_pct_median": 4.077,
+        "ab_mean_abs_diff_median": 0.5135,
+        "ab_psnr_db_median": 37.406
+      }
+    },
+    {
+      "aa_comparisons": [
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        }
+      ],
+      "ab_comparisons": [
+        {
+          "metrics": {
+            "changed_pixels": 35796,
+            "changed_pixels_pct": 3.884,
+            "max_abs_diff": 187,
+            "mean_abs_diff": 0.4898,
+            "psnr_db": 36.386
+          },
+          "repetition": 1
+        },
+        {
+          "metrics": {
+            "changed_pixels": 35796,
+            "changed_pixels_pct": 3.884,
+            "max_abs_diff": 187,
+            "mean_abs_diff": 0.4898,
+            "psnr_db": 36.386
+          },
+          "repetition": 2
+        },
+        {
+          "metrics": {
+            "changed_pixels": 35796,
+            "changed_pixels_pct": 3.884,
+            "max_abs_diff": 187,
+            "mean_abs_diff": 0.4898,
+            "psnr_db": 36.386
+          },
+          "repetition": 3
+        }
+      ],
+      "images": [
+        {
+          "file": "arena_combat_ab-low_1.png",
+          "preset_id": "ab-low",
+          "repetition": 1,
+          "sequence": 7,
+          "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e"
+        },
+        {
+          "file": "arena_combat_ab-high_1.png",
+          "preset_id": "ab-high",
+          "repetition": 1,
+          "sequence": 8,
+          "sha256": "b6244e9a2eb6b4d0a9f81bcf7567490ed8baf5e16f43dfb93d5f899cf53072e9"
+        },
+        {
+          "file": "arena_combat_ab-low_2.png",
+          "preset_id": "ab-low",
+          "repetition": 2,
+          "sequence": 9,
+          "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e"
+        },
+        {
+          "file": "arena_combat_ab-high_2.png",
+          "preset_id": "ab-high",
+          "repetition": 2,
+          "sequence": 10,
+          "sha256": "b6244e9a2eb6b4d0a9f81bcf7567490ed8baf5e16f43dfb93d5f899cf53072e9"
+        },
+        {
+          "file": "arena_combat_ab-low_3.png",
+          "preset_id": "ab-low",
+          "repetition": 3,
+          "sequence": 11,
+          "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e"
+        },
+        {
+          "file": "arena_combat_ab-high_3.png",
+          "preset_id": "ab-high",
+          "repetition": 3,
+          "sequence": 12,
+          "sha256": "b6244e9a2eb6b4d0a9f81bcf7567490ed8baf5e16f43dfb93d5f899cf53072e9"
+        }
+      ],
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "summary": {
+        "aa_all_identical": true,
+        "aa_max_mean_abs_diff": 0.0,
+        "ab_changed_pixels_pct_median": 3.884,
+        "ab_mean_abs_diff_median": 0.4898,
+        "ab_psnr_db_median": 36.386
+      }
+    },
+    {
+      "aa_comparisons": [
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-low",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 2
+        },
+        {
+          "first_repetition": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        },
+        {
+          "first_repetition": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "preset_id": "ab-high",
+          "second_repetition": 3
+        }
+      ],
+      "ab_comparisons": [
+        {
+          "metrics": {
+            "changed_pixels": 16086,
+            "changed_pixels_pct": 1.745,
+            "max_abs_diff": 133,
+            "mean_abs_diff": 0.2317,
+            "psnr_db": 39.763
+          },
+          "repetition": 1
+        },
+        {
+          "metrics": {
+            "changed_pixels": 16086,
+            "changed_pixels_pct": 1.745,
+            "max_abs_diff": 133,
+            "mean_abs_diff": 0.2317,
+            "psnr_db": 39.763
+          },
+          "repetition": 2
+        },
+        {
+          "metrics": {
+            "changed_pixels": 16086,
+            "changed_pixels_pct": 1.745,
+            "max_abs_diff": 133,
+            "mean_abs_diff": 0.2317,
+            "psnr_db": 39.763
+          },
+          "repetition": 3
+        }
+      ],
+      "images": [
+        {
+          "file": "dense_city_ab-low_1.png",
+          "preset_id": "ab-low",
+          "repetition": 1,
+          "sequence": 13,
+          "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e"
+        },
+        {
+          "file": "dense_city_ab-high_1.png",
+          "preset_id": "ab-high",
+          "repetition": 1,
+          "sequence": 14,
+          "sha256": "10180ca2b17772117b7a38836b5bb4541d7375916b3967d46179f159a5374d93"
+        },
+        {
+          "file": "dense_city_ab-low_2.png",
+          "preset_id": "ab-low",
+          "repetition": 2,
+          "sequence": 15,
+          "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e"
+        },
+        {
+          "file": "dense_city_ab-high_2.png",
+          "preset_id": "ab-high",
+          "repetition": 2,
+          "sequence": 16,
+          "sha256": "10180ca2b17772117b7a38836b5bb4541d7375916b3967d46179f159a5374d93"
+        },
+        {
+          "file": "dense_city_ab-low_3.png",
+          "preset_id": "ab-low",
+          "repetition": 3,
+          "sequence": 17,
+          "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e"
+        },
+        {
+          "file": "dense_city_ab-high_3.png",
+          "preset_id": "ab-high",
+          "repetition": 3,
+          "sequence": 18,
+          "sha256": "10180ca2b17772117b7a38836b5bb4541d7375916b3967d46179f159a5374d93"
+        }
+      ],
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "summary": {
+        "aa_all_identical": true,
+        "aa_max_mean_abs_diff": 0.0,
+        "ab_changed_pixels_pct_median": 1.745,
+        "ab_mean_abs_diff_median": 0.2317,
+        "ab_psnr_db_median": 39.763
+      }
+    }
+  ],
+  "schema_version": "m09_preset_m01_visual.v1",
+  "session_date": "2026-11-14",
+  "verdict": "VISUAL_DIFFERENCE_OBSERVED",
+  "viewport_px": [
+    1280,
+    720
+  ],
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_count": 100,
+    "scenes": [
+      {
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ],
+    "viewport_px": [
+      1280,
+      720
+    ]
+  }
+}

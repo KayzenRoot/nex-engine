@@ -15,6 +15,9 @@ const HEIGHT_ENV := "NEX_PRESET_AB_HEIGHT"
 const DEFAULT_PROXY_COUNT := 200
 const PROXY_COUNT_ENV := "NEX_PRESET_AB_PROXY_COUNT"
 const SCENE_ENV := "NEX_PRESET_AB_SCENE"
+const VISUAL_ENV := "NEX_PRESET_AB_VISUAL"
+const VISUAL_OUTPUT_ENV := "NEX_PRESET_AB_VISUAL_OUTPUT"
+const VISUAL_WARMUP_FRAMES := 180
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
 const M01_SCENES := {
@@ -69,7 +72,9 @@ func _ready() -> void:
 	_build_stage()
 	if stage_valid:
 		_apply_preset()
-	if OS.get_environment(AUTORUN_ENV) == "1":
+	if OS.get_environment(VISUAL_ENV) == "1":
+		call_deferred("_start_visual_capture")
+	elif OS.get_environment(AUTORUN_ENV) == "1":
 		call_deferred("_start_capture")
 
 
@@ -380,6 +385,38 @@ func _tonemap_mode(value: String) -> int:
 			return Environment.TONE_MAPPER_ACES
 		_:
 			return Environment.TONE_MAPPER_FILMIC
+
+
+func _start_visual_capture() -> void:
+	if not stage_valid:
+		print("NEX_PRESET_AB_FAIL stage")
+		get_tree().quit(2)
+		return
+	await get_tree().process_frame
+	for index in range(VISUAL_WARMUP_FRAMES):
+		await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var image := get_viewport().get_texture().get_image()
+	if image == null or image.is_empty():
+		print("NEX_PRESET_AB_FAIL image")
+		get_tree().quit(2)
+		return
+	image.flip_y()
+	var path := OS.get_environment(VISUAL_OUTPUT_ENV).strip_edges()
+	if path.is_empty():
+		var tag := scene_id if not scene_id.is_empty() else "builtin"
+		path = "user://gpu_profiles/visual_%s_%s_%d.png" % [tag, preset_id, Time.get_ticks_usec()]
+	var output_dir := ProjectSettings.globalize_path("user://gpu_profiles")
+	DirAccess.make_dir_recursive_absolute(output_dir)
+	var error := image.save_png(path)
+	if error != OK:
+		print("NEX_PRESET_AB_FAIL save_png: " + str(error))
+		get_tree().quit(2)
+		return
+	print("NEX_PRESET_AB_IMAGE %s %dx%d" % [
+		ProjectSettings.globalize_path(path), image.get_width(), image.get_height(),
+	])
+	get_tree().quit(0)
 
 
 func _start_capture() -> void:
