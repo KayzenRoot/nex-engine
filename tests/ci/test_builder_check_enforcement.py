@@ -21,6 +21,10 @@ COMMAND = re.compile(
     r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m06|m09)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
     re.MULTILINE,
 )
+CROSS_MODULE_COMMAND = re.compile(
+    r"^\s*python3 (docs/benchmarks/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
+    re.MULTILINE,
+)
 REQUIRED_JOB = "NEX Fast Lane / Batch Policy Tests"
 STEP_NAME = "Verify deterministic builders reproduce committed artifacts"
 
@@ -72,6 +76,13 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         args = self.commands["docs/benchmarks/m03/tools/build_budget_validation.py"]
         self.assertIn("--check", args)
         self.assertIn("--check-domain", args)
+
+    def test_cross_module_provenance_builder_is_enforced(self) -> None:
+        matches = CROSS_MODULE_COMMAND.findall(self.workflow)
+        self.assertEqual(
+            [("docs/benchmarks/tools/build_provenance_index.py", "build_provenance_index.py", "--check")],
+            matches,
+        )
 
     def test_expected_builder_count(self) -> None:
         # 1 M01 + 1 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 14 M09 = 21 files / 24 checks.
