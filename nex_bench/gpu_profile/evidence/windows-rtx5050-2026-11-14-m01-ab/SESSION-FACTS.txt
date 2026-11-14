@@ -1,0 +1,29 @@
+NEX M09 M01 SCENE A/B/A SESSION FACTS
+=====================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Measured scene code: 617db53d6752f30584b296f133e6990ca6602549
+  (nex_bench/scenes/preset_ab/preset_ab.gd, validate_preset_ab.py and
+   nex_bench/gpu_profile/session.gd at the measured commit; the working tree
+   was clean apart from untracked run staging before the first capture)
+Viewport: 1280 x 720
+VSync: disabled (0)
+Max FPS: 240
+Workload: 100 meshes per scene, effect_mode lights
+Scenes:
+  corridor_static  M01 Corridor A/B/A  17 base meshes + 83 deterministic fillers
+  arena_combat     M01 Arena A/B/A     34 base meshes + 66 deterministic fillers
+  dense_city       M01 City A/B/A      23 base meshes + 77 deterministic fillers
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Sequence per scene: ab-low -> ab-high -> ab-low -> ab-high -> ab-low -> ab-high
+Observation: 30 s per run, 2 s warmup
+Validation: all eighteen documents PASS the dedicated validator, which checks
+scene/layout/proxy/effect/max_fps/vsync and delegates aggregates to the
+canonical GPU profile validator.
+Limitations: single session; three low and three high runs per scene; fillers
+may overlap base-scene props; max_fps cap; renderer allocation is session
+history, not device VRAM; no cross-scene or cross-device generalization.

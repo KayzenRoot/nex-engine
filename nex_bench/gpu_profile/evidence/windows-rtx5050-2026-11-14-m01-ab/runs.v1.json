@@ -1,0 +1,207 @@
+{
+  "schema_version": "preset_ab_runs.v1",
+  "source_sha": "617db53d6752f30584b296f133e6990ca6602549",
+  "workload": {
+    "proxy_count": 100,
+    "effect_mode": "lights",
+    "scenes": [
+      {
+        "scene_id": "corridor_static",
+        "scene": "M01 Corridor A/B/A",
+        "layout": "M01 corridor_static + deterministic fillers"
+      },
+      {
+        "scene_id": "arena_combat",
+        "scene": "M01 Arena A/B/A",
+        "layout": "M01 arena_combat + deterministic fillers"
+      },
+      {
+        "scene_id": "dense_city",
+        "scene": "M01 City A/B/A",
+        "layout": "M01 dense_city + deterministic fillers"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "run_id": "1794658343-34202025",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:12:23Z"
+    },
+    {
+      "sequence": 2,
+      "run_id": "1794658395-33784967",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:13:15Z"
+    },
+    {
+      "sequence": 3,
+      "run_id": "1794658430-33447688",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:13:50Z"
+    },
+    {
+      "sequence": 4,
+      "run_id": "1794658464-33451280",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:14:24Z"
+    },
+    {
+      "sequence": 5,
+      "run_id": "1794658498-33449826",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:14:58Z"
+    },
+    {
+      "sequence": 6,
+      "run_id": "1794658532-33502518",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:15:32Z"
+    },
+    {
+      "sequence": 7,
+      "run_id": "1794658571-33451492",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:16:11Z"
+    },
+    {
+      "sequence": 8,
+      "run_id": "1794658605-33469423",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:16:45Z"
+    },
+    {
+      "sequence": 9,
+      "run_id": "1794658640-33438036",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:17:20Z"
+    },
+    {
+      "sequence": 10,
+      "run_id": "1794658674-33452356",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:17:54Z"
+    },
+    {
+      "sequence": 11,
+      "run_id": "1794658708-33464576",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:18:28Z"
+    },
+    {
+      "sequence": 12,
+      "run_id": "1794658742-33534786",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:19:02Z"
+    },
+    {
+      "sequence": 13,
+      "run_id": "1794658784-33959761",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:19:44Z"
+    },
+    {
+      "sequence": 14,
+      "run_id": "1794658818-33518328",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:20:18Z"
+    },
+    {
+      "sequence": 15,
+      "run_id": "1794658852-33477079",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:20:52Z"
+    },
+    {
+      "sequence": 16,
+      "run_id": "1794658887-33509973",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:21:27Z"
+    },
+    {
+      "sequence": 17,
+      "run_id": "1794658921-33447797",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "captured_at_utc": "2026-11-14T12:22:01Z"
+    },
+    {
+      "sequence": 18,
+      "run_id": "1794658955-33497753",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "captured_at_utc": "2026-11-14T12:22:35Z"
+    }
+  ]
+}

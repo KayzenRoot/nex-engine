@@ -8,13 +8,13 @@ is performed and no general performance claim is made.
 from __future__ import annotations
 
 import json
-import statistics
 import sys
 from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import load_json, run_cli  # noqa: E402 - local tool module
+from common import run_cli  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest, median, pct, spread  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling")
@@ -25,81 +25,17 @@ REPORT_JSON = OUTPUT_DIR / "scaling.v1.json"
 REPORT_MD = OUTPUT_DIR / "SCALING-REPORT.md"
 
 REPORT_SCHEMA = "m09_preset_scaling.v1"
-RUNS_SCHEMA = "preset_ab_runs.v1"
 COUNTS = (25, 100, 200)
 PRESETS = ("ab-low", "ab-high")
 
 
-def load_manifest() -> dict[str, Any]:
-    manifest = load_json(MANIFEST)
-    if manifest.get("schema_version") != RUNS_SCHEMA:
-        raise ValueError("runs manifest schema is invalid")
-    runs = manifest.get("runs")
-    if not isinstance(runs, list) or len(runs) != 18:
-        raise ValueError("runs manifest must contain 18 runs")
-    if [run.get("sequence") for run in runs] != list(range(1, 19)):
-        raise ValueError("runs manifest sequence must be 1..18")
-    if len({run.get("run_id") for run in runs}) != 18:
-        raise ValueError("runs manifest run ids must be unique")
-    for run in runs:
-        if run.get("proxy_count") not in COUNTS or run.get("preset_id") not in PRESETS:
-            raise ValueError("runs manifest cell is invalid")
-    return manifest
-
-
-def load_capture(run_id: str, count: int) -> dict[str, Any]:
-    path = EVIDENCE / f"gpu_profile_{run_id}.json"
-    if not path.is_file():
-        raise ValueError(f"capture not found: {run_id}")
-    document = load_json(path)
-    if document.get("run_status") != "COMPLETE":
-        raise ValueError(f"{run_id}: run_status is not COMPLETE")
-    workload = document.get("workload", {})
-    if workload.get("scene") != "Preset A/B/A" or workload.get("proxy_count") != count or workload.get("effect_mode") != "lights":
-        raise ValueError(f"{run_id}: workload provenance is invalid")
-    settings = document.get("settings", {})
-    if settings.get("max_fps") != 240 or settings.get("vsync_mode") != 0:
-        raise ValueError(f"{run_id}: settings provenance is invalid")
-    series = document.get("series", {})
-    metrics = {}
-    for key in ("GPU_RENDER_MS", "CPU_RENDER_MS", "FRAME_PACING_INTERVAL_MS"):
-        entry = series.get(key, {})
-        if entry.get("status") != "MEASURED":
-            raise ValueError(f"{run_id}: {key} is not MEASURED")
-        aggregates = entry.get("aggregates", {})
-        metrics[key] = {name: float(aggregates[name]) for name in ("p50", "p95", "p99")}
-    validation_path = EVIDENCE / f"gpu_profile_{run_id}.json.validation.json"
-    validation = load_json(validation_path)
-    if validation.get("status") != "PASS":
-        raise ValueError(f"{run_id}: validation is not PASS")
-    return {
-        "run_id": run_id,
-        "source_sha": document.get("source_sha"),
-        "captured_at_utc": document.get("captured_at_utc"),
-        "metrics": metrics,
-        "one_percent_low_fps": float(document["measurement"]["one_percent_low_fps"]),
-        "observed_seconds": float(document["measurement"]["observed_seconds"]),
-    }
-
-
-def _median(values: list[float]) -> float:
-    return statistics.median(values)
-
-
-def _spread(values: list[float]) -> float:
-    return round((max(values) - min(values)) / statistics.median(values) * 100.0, 1)
-
-
-def _pct(value: float, baseline: float) -> float:
-    return round((value - baseline) / baseline * 100.0, 1)
-
-
 def build_report() -> dict[str, Any]:
-    manifest = load_manifest()
+    manifest = load_manifest(MANIFEST, 18, COUNTS, PRESETS)
     source_sha = manifest.get("source_sha")
     runs = []
     for entry in manifest["runs"]:
-        capture = load_capture(entry["run_id"], entry["proxy_count"])
+        capture = load_capture(EVIDENCE, entry["run_id"], "Preset A/B/A", "built-in deterministic grid",
+                               entry["proxy_count"])
         if capture["source_sha"] != source_sha:
             raise ValueError(f"{entry['run_id']}: source_sha mismatch")
         runs.append(
@@ -127,12 +63,12 @@ def build_report() -> dict[str, Any]:
                     "proxy_count": count,
                     "preset_id": preset,
                     "runs": len(group),
-                    "gpu_p95_median_ms": round(_median([run["gpu_ms"]["p95"] for run in group]), 3),
-                    "cpu_p95_median_ms": round(_median([run["cpu_ms"]["p95"] for run in group]), 3),
-                    "pacing_p95_median_ms": round(_median([run["pacing_ms"]["p95"] for run in group]), 3),
-                    "one_percent_low_median_fps": round(_median([run["one_percent_low_fps"] for run in group]), 2),
-                    "gpu_p95_spread_pct": _spread([run["gpu_ms"]["p95"] for run in group]),
-                    "one_percent_low_spread_pct": _spread([run["one_percent_low_fps"] for run in group]),
+                    "gpu_p95_median_ms": round(median([run["gpu_ms"]["p95"] for run in group]), 3),
+                    "cpu_p95_median_ms": round(median([run["cpu_ms"]["p95"] for run in group]), 3),
+                    "pacing_p95_median_ms": round(median([run["pacing_ms"]["p95"] for run in group]), 3),
+                    "one_percent_low_median_fps": round(median([run["one_percent_low_fps"] for run in group]), 2),
+                    "gpu_p95_spread_pct": spread([run["gpu_ms"]["p95"] for run in group]),
+                    "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in group]),
                 }
             )
     by_cell = {(cell["proxy_count"], cell["preset_id"]): cell for cell in cells}
@@ -141,14 +77,14 @@ def build_report() -> dict[str, Any]:
         low = by_cell[(count, "ab-low")]
         high = by_cell[(count, "ab-high")]
         deltas[str(count)] = {
-            "gpu_p95_pct": _pct(high["gpu_p95_median_ms"], low["gpu_p95_median_ms"]),
-            "cpu_p95_pct": _pct(high["cpu_p95_median_ms"], low["cpu_p95_median_ms"]),
-            "pacing_p95_pct": _pct(high["pacing_p95_median_ms"], low["pacing_p95_median_ms"]),
-            "one_percent_low_pct": _pct(high["one_percent_low_median_fps"], low["one_percent_low_median_fps"]),
+            "gpu_p95_pct": pct(high["gpu_p95_median_ms"], low["gpu_p95_median_ms"]),
+            "cpu_p95_pct": pct(high["cpu_p95_median_ms"], low["cpu_p95_median_ms"]),
+            "pacing_p95_pct": pct(high["pacing_p95_median_ms"], low["pacing_p95_median_ms"]),
+            "one_percent_low_pct": pct(high["one_percent_low_median_fps"], low["one_percent_low_median_fps"]),
         }
     scaling = {
         preset: {
-            "gpu_p95_25_to_200_pct": _pct(
+            "gpu_p95_25_to_200_pct": pct(
                 by_cell[(200, preset)]["gpu_p95_median_ms"], by_cell[(25, preset)]["gpu_p95_median_ms"]
             )
         }
@@ -157,7 +93,7 @@ def build_report() -> dict[str, Any]:
     observations = [
         f"GPU p95 high vs low: 25 proxies {deltas['25']['gpu_p95_pct']:+.1f}%, 100 proxies {deltas['100']['gpu_p95_pct']:+.1f}%, 200 proxies {deltas['200']['gpu_p95_pct']:+.1f}%.",
         f"GPU p95 scaling 25→200: ab-low {scaling['ab-low']['gpu_p95_25_to_200_pct']:+.1f}%, ab-high {scaling['ab-high']['gpu_p95_25_to_200_pct']:+.1f}%.",
-        f"Pacing remains ~{_median([cell['pacing_p95_median_ms'] for cell in cells]):.3f} ms across all cells (240 fps cap).",
+        f"Pacing remains ~{median([cell['pacing_p95_median_ms'] for cell in cells]):.3f} ms across all cells (240 fps cap).",
         "One 200/low run has an isolated 1% low outlier (157.39); medians are used.",
         "These are measured GPU costs on a synthetic workload, not game FPS, quality or universal recommendations.",
     ]
