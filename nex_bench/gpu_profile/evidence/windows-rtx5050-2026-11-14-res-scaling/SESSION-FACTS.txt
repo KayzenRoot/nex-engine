@@ -1,0 +1,28 @@
+NEX M09 PRESET RESOLUTION SCALING SESSION FACTS
+================================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Measured source: 6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5
+  (preset_ab.gd with NEX_PRESET_AB_NATIVE_RESOLUTION at the measured commit)
+Scene: arena_combat (M01 Arena A/B/A), 34 base meshes + 66 deterministic fillers = 100 meshes
+Resolutions: 960x540, 1280x720, 1920x1080 (16:9; 1920x1080 is the largest
+             16:9 mode that fits the 2560x1080 display)
+Native viewport: NEX_PRESET_AB_NATIVE_RESOLUTION=1 disables the project's
+                 canvas_items stretch mode so the measured viewport matches
+                 the requested window size. The first attempt without this
+                 flag recorded a logical 1280x720 viewport for every window
+                 size and was discarded before evidence assembly.
+VSync: disabled (0)
+Max FPS: 240
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Sequence per resolution: ab-low -> ab-high -> ab-low -> ab-high -> ab-low -> ab-high
+Observation: 30 s per run, 2 s warmup
+Validation: all eighteen documents PASS the dedicated validator; each document
+            records the requested viewport resolution.
+Limitations: single session; one scene; three runs per cell; max 1920x1080;
+             no cross-device or cross-session generalization; no quality or
+             game-FPS claim.

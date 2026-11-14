@@ -15,7 +15,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab")
@@ -50,20 +50,7 @@ def build_report() -> dict[str, Any]:
             raise ValueError(f"{run_id}: source_sha mismatch")
         if capture["viewport"] != [1280, 720]:
             raise ValueError(f"{run_id}: unexpected viewport")
-        runs.append(
-            {
-                "sequence": entry["sequence"],
-                "run_id": run_id,
-                "preset_id": entry["preset_id"],
-                "captured_at_utc": capture["captured_at_utc"],
-                "observed_seconds": round(capture["observed_seconds"], 3),
-                "gpu_ms": {key: round(capture["metrics"]["GPU_RENDER_MS"][key], 3) for key in ("p50", "p95", "p99")},
-                "cpu_ms": {key: round(capture["metrics"]["CPU_RENDER_MS"][key], 3) for key in ("p50", "p95", "p99")},
-                "pacing_ms": {key: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][key], 3) for key in ("p50", "p95", "p99")},
-                "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
-                "renderer_allocation_bytes": capture["renderer_allocation_bytes"],
-            }
-        )
+        runs.append(transform_run(entry, capture, include_allocation=True))
     low_runs = [run for run in runs if run["preset_id"] == "ab-low"]
     high_runs = [run for run in runs if run["preset_id"] == "ab-high"]
     if len(low_runs) != 3 or len(high_runs) != 3:

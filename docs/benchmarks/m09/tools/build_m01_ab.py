@@ -14,7 +14,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, median, pct, spread  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest, pct, summarize, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-ab")
@@ -34,21 +34,6 @@ PRESETS = ("ab-low", "ab-high")
 PROXY_COUNT = 100
 
 
-def _baseline(group: list[dict[str, Any]]) -> dict[str, Any]:
-    return {
-        "runs": len(group),
-        "gpu_p50_ms": round(median([run["gpu_ms"]["p50"] for run in group]), 3),
-        "gpu_p95_ms": round(median([run["gpu_ms"]["p95"] for run in group]), 3),
-        "gpu_p99_ms": round(median([run["gpu_ms"]["p99"] for run in group]), 3),
-        "cpu_p95_ms": round(median([run["cpu_ms"]["p95"] for run in group]), 3),
-        "pacing_p95_ms": round(median([run["pacing_ms"]["p95"] for run in group]), 3),
-        "one_percent_low_fps": round(median([run["one_percent_low_fps"] for run in group]), 2),
-        "gpu_p95_spread_pct": spread([run["gpu_ms"]["p95"] for run in group]),
-        "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in group]),
-        "renderer_allocation_bytes_median": int(median([run["renderer_allocation_bytes"] for run in group])),
-    }
-
-
 def build_report() -> dict[str, Any]:
     manifest = load_manifest(MANIFEST, 18, (PROXY_COUNT,), PRESETS)
     source_sha = manifest.get("source_sha")
@@ -61,22 +46,10 @@ def build_report() -> dict[str, Any]:
             raise ValueError(f"{run_id}: source_sha mismatch")
         if capture["viewport"] != [1280, 720]:
             raise ValueError(f"{run_id}: unexpected viewport")
-        runs.append(
-            {
-                "sequence": entry["sequence"],
-                "run_id": run_id,
-                "scene_id": entry["scene_id"],
-                "scene": entry["scene"],
-                "preset_id": entry["preset_id"],
-                "captured_at_utc": capture["captured_at_utc"],
-                "observed_seconds": round(capture["observed_seconds"], 3),
-                "gpu_ms": {name: round(capture["metrics"]["GPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "cpu_ms": {name: round(capture["metrics"]["CPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "pacing_ms": {name: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
-                "renderer_allocation_bytes": capture["renderer_allocation_bytes"],
-            }
-        )
+        run = transform_run(entry, capture, include_allocation=True)
+        run["scene_id"] = entry["scene_id"]
+        run["scene"] = entry["scene"]
+        runs.append(run)
     scenes = []
     for scene_id, scene, layout in SCENES:
         scene_runs = [run for run in runs if run["scene_id"] == scene_id]
@@ -85,7 +58,7 @@ def build_report() -> dict[str, Any]:
             group = [run for run in scene_runs if run["preset_id"] == preset]
             if len(group) != 3:
                 raise ValueError(f"expected 3 runs for {scene_id}/{preset}")
-            baselines[preset] = _baseline(group)
+            baselines[preset] = summarize(group, include_allocation=True)
         low = baselines["ab-low"]
         high = baselines["ab-high"]
         deltas = {

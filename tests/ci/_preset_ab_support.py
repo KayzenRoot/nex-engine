@@ -37,7 +37,8 @@ def assert_no_fabricated(case: Any, text: str, forbidden: tuple[str, ...]) -> No
 
 
 def assert_captures(case: Any, evidence: Path, manifest: dict[str, Any], default_count: int | None = None,
-                    default_scene: str | None = "Preset A/B/A", default_layout: str | None = None) -> None:
+                    default_scene: str | None = "Preset A/B/A", default_layout: str | None = None,
+                    default_viewport: list[int] | None = None) -> None:
     for entry in manifest["runs"]:
         with case.subTest(run=entry["run_id"]):
             document = json.loads((evidence / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
@@ -52,6 +53,9 @@ def assert_captures(case: Any, evidence: Path, manifest: dict[str, Any], default
             expected_count = entry.get("proxy_count", default_count)
             if expected_count is not None:
                 case.assertEqual(expected_count, document["workload"]["proxy_count"])
+            expected_viewport = entry.get("viewport_px", default_viewport)
+            if expected_viewport is not None:
+                case.assertEqual(expected_viewport, document["viewport"]["resolution_px"])
             case.assertEqual("lights", document["workload"]["effect_mode"])
             case.assertEqual(240, document["settings"]["max_fps"])
             case.assertEqual(0, document["settings"]["vsync_mode"])

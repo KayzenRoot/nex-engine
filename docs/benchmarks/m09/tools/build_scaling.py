@@ -14,7 +14,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, median, pct, spread  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest, median, pct, summarize, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling")
@@ -38,37 +38,27 @@ def build_report() -> dict[str, Any]:
                                entry["proxy_count"])
         if capture["source_sha"] != source_sha:
             raise ValueError(f"{entry['run_id']}: source_sha mismatch")
-        runs.append(
-            {
-                "sequence": entry["sequence"],
-                "run_id": entry["run_id"],
-                "proxy_count": entry["proxy_count"],
-                "preset_id": entry["preset_id"],
-                "captured_at_utc": capture["captured_at_utc"],
-                "observed_seconds": round(capture["observed_seconds"], 3),
-                "gpu_ms": {name: round(capture["metrics"]["GPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "cpu_ms": {name: round(capture["metrics"]["CPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "pacing_ms": {name: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
-            }
-        )
+        run = transform_run(entry, capture)
+        run["proxy_count"] = entry["proxy_count"]
+        runs.append(run)
     cells = []
     for count in COUNTS:
         for preset in PRESETS:
             group = [run for run in runs if run["proxy_count"] == count and run["preset_id"] == preset]
             if len(group) != 3:
                 raise ValueError(f"expected 3 runs for {count}/{preset}")
+            summary = summarize(group)
             cells.append(
                 {
                     "proxy_count": count,
                     "preset_id": preset,
-                    "runs": len(group),
-                    "gpu_p95_median_ms": round(median([run["gpu_ms"]["p95"] for run in group]), 3),
-                    "cpu_p95_median_ms": round(median([run["cpu_ms"]["p95"] for run in group]), 3),
-                    "pacing_p95_median_ms": round(median([run["pacing_ms"]["p95"] for run in group]), 3),
-                    "one_percent_low_median_fps": round(median([run["one_percent_low_fps"] for run in group]), 2),
-                    "gpu_p95_spread_pct": spread([run["gpu_ms"]["p95"] for run in group]),
-                    "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in group]),
+                    "runs": summary["runs"],
+                    "gpu_p95_median_ms": summary["gpu_p95_ms"],
+                    "cpu_p95_median_ms": summary["cpu_p95_ms"],
+                    "pacing_p95_median_ms": summary["pacing_p95_ms"],
+                    "one_percent_low_median_fps": summary["one_percent_low_fps"],
+                    "gpu_p95_spread_pct": summary["gpu_p95_spread_pct"],
+                    "one_percent_low_spread_pct": summary["one_percent_low_spread_pct"],
                 }
             )
     by_cell = {(cell["proxy_count"], cell["preset_id"]): cell for cell in cells}
