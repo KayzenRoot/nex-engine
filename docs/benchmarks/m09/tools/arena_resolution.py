@@ -97,3 +97,24 @@ def build_core(evidence_rel: Path, width: int, height: int, proxy_count: int) ->
             "cells": _model_cells(by_preset, predictions),
         },
     }
+
+
+def render_model_and_footer(report: dict[str, Any], footer: str) -> list[str]:
+    lines = [
+        "",
+        "## Contexto do modelo M03",
+        "",
+        "| Preset | Previsto ms | Medido p95 ms | Erro | Dentro de 2% |",
+        "|---|---:|---:|---:|---|",
+    ]
+    for cell in report["model_context"]["cells"]:
+        lines.append(
+            f"| {cell['preset_id']} | {cell['predicted_gpu_ms']:.3f} | {cell['measured_gpu_p95_ms']:.3f} | "
+            f"{cell['error_pct']:+.1f}% | {'sim' if cell['within_2pct'] else 'não'} |"
+        )
+    lines.extend(["", "## Observações", ""])
+    lines.extend(f"- {observation}" for observation in report["observations"])
+    lines.extend(["", "## Limitações", ""])
+    lines.extend(f"- {limitation}" for limitation in report["limitations"])
+    lines.extend(["", footer, ""])
+    return lines

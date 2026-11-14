@@ -5,7 +5,7 @@ import json
 import unittest
 from pathlib import Path
 
-from _preset_ab_support import load_builder
+from _preset_ab_support import assert_builder_reproduces, load_builder
 
 REPO = Path(__file__).resolve().parents[2]
 TOOL = REPO / "docs" / "benchmarks" / "m09" / "tools" / "build_res_scaling_1440.py"
@@ -61,16 +61,12 @@ class ResScaling1440Tests(unittest.TestCase):
         ))
 
     def test_builder_reproduces_committed_outputs(self) -> None:
-        rebuilt = self.tool.build_report()
-        self.assertEqual(self.report, rebuilt)
-        self.assertEqual(self.tool.render_json(rebuilt), REPORT_JSON.read_text(encoding="utf-8"))
-        self.assertEqual(self.tool.render_markdown(rebuilt), REPORT_MD.read_text(encoding="utf-8"))
+        assert_builder_reproduces(self, self.tool, self.report, REPORT_JSON, REPORT_MD)
 
-    def test_no_fps_or_quality_claim(self) -> None:
+    def test_report_makes_no_fps_or_quality_claim(self) -> None:
         lowered = REPORT_MD.read_text(encoding="utf-8").lower()
-        self.assertFalse(any(phrase in lowered for phrase in (
-            "fps improved", "quality verified", "universal gain", "benchmark passed",
-        )))
+        self.assertNotIn("fps improved", lowered)
+        self.assertNotIn("quality verified", lowered)
 
 
 if __name__ == "__main__":

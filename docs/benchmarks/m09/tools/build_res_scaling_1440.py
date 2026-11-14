@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from arena_resolution import PRESETS, build_core  # noqa: E402 - local tool module
+from arena_resolution import PRESETS, build_core, render_model_and_footer  # noqa: E402 - local tool module
 from common import load_json, run_cli  # noqa: E402 - local tool module
 from preset_report import pct, render_cells_table  # noqa: E402 - local tool module
 
@@ -131,23 +131,10 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"{report['resolution_deltas']['1920x1080_to_2560x1440'][preset]:+.1f}% | "
             f"{report['resolution_deltas']['960x540_to_2560x1440'][preset]:+.1f}% |"
         )
-    lines.extend([
-        "",
-        "## Contexto do modelo M03",
-        "",
-        "| Preset | Previsto ms | Medido p95 ms | Erro | Dentro de 2% |",
-        "|---|---:|---:|---:|---|",
-    ])
-    for cell in report["model_context"]["cells"]:
-        lines.append(
-            f"| {cell['preset_id']} | {cell['predicted_gpu_ms']:.3f} | {cell['measured_gpu_p95_ms']:.3f} | "
-            f"{cell['error_pct']:+.1f}% | {'sim' if cell['within_2pct'] else 'não'} |"
-        )
-    lines.extend(["", "## Observações", ""])
-    lines.extend(f"- {observation}" for observation in report["observations"])
-    lines.extend(["", "## Limitações", ""])
-    lines.extend(f"- {limitation}" for limitation in report["limitations"])
-    lines.extend(["", "Relatório gerado por `docs/benchmarks/m09/tools/build_res_scaling_1440.py`; não é benchmark nem claim de ganho.", ""])
+    lines.extend(render_model_and_footer(
+        report,
+        "Relatório gerado por `docs/benchmarks/m09/tools/build_res_scaling_1440.py`; não é benchmark nem claim de ganho.",
+    ))
     return "\n".join(lines)
 
 
