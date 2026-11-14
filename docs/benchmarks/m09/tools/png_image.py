@@ -143,6 +143,14 @@ def sha256_file(path: Path) -> str:
 def compare(first: PngImage, second: PngImage, threshold: int = 2) -> dict[str, float | int | None]:
     if (first.width, first.height, first.channels) != (second.width, second.height, second.channels):
         raise PngError("images have different dimensions or channel layouts")
+    if first.pixels == second.pixels:
+        return {
+            "mean_abs_diff": 0.0,
+            "max_abs_diff": 0,
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "psnr_db": None,
+        }
     total_abs = 0
     total_squared = 0
     max_abs = 0
