@@ -14,7 +14,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import load_json, run_cli  # noqa: E402 - local tool module
-from preset_report import interaction_summary, load_capture, load_manifest, transform_run  # noqa: E402 - local tool module
+from preset_report import interaction_summary, load_capture, load_manifest, render_cells_table, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction")
@@ -130,17 +130,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"**Hardware:** {report['hardware']['gpu']} · {report['hardware']['driver']} · {report['godot_version']}",
         f"**Workload:** {report['workload']['scene']} · proxies {report['workload']['proxy_counts']} · native resolution",
         "",
-        "## Células (medianas de 3 runs)",
-        "",
-        "| Proxies | Resolução | Preset | GPU p50 | GPU p95 | GPU p99 | CPU p95 | Pacing p95 | 1% low |",
-        "|---:|---|---|---:|---:|---:|---:|---:|---:|",
     ]
-    for cell in report["cells"]:
-        lines.append(
-            f"| {cell['proxy_count']} | {cell['width']}×{cell['height']} | {cell['preset_id']} | "
-            f"{cell['gpu_p50_ms']:.3f} | {cell['gpu_p95_ms']:.3f} | {cell['gpu_p99_ms']:.3f} | "
-            f"{cell['cpu_p95_ms']:.3f} | {cell['pacing_p95_ms']:.3f} | {cell['one_percent_low_fps']:.2f} |"
-        )
+    lines.extend(render_cells_table(report))
     lines.extend(["", "## Deltas ab-high vs ab-low (GPU p95)", ""])
     for count in (50, 100):
         for width, height in ((960, 540), (1920, 1080)):
