@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """NEX M09 measurement atlas builder.
 
-Indexes the eight integrated M09 evidence bundles, verifies their manifests and
+Indexes the integrated M09 evidence bundles, verifies their manifests and
 report counts, extracts key measured values and writes a deterministic JSON/
 Markdown atlas. No new measurement is performed and no general performance or
 quality claim is made.
@@ -101,6 +101,14 @@ def _findings_interaction_200(report: dict[str, Any]) -> dict[str, Any]:
        "context_100_to_200_pct": report["context_100_to_200"]}
 
 
+def _findings_interaction_200_720(report: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "gpu_p95_high_vs_low_pct": {"200/1280x720": report["deltas_high_vs_low"]["gpu_p95_pct"]},
+        "proxy_100_to_200_pct": report["proxy_100_to_200"],
+        "model_context": report["model_context"],
+    }
+
+
 ENTRIES: tuple[dict[str, Any], ...] = (
     {"id": "preset-ab", "kind": "performance", "report": "ab.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-preset-ab", "runs": 6, "files": 15,
@@ -132,6 +140,9 @@ ENTRIES: tuple[dict[str, Any], ...] = (
     {"id": "interaction-200", "kind": "performance", "report": "interaction-200.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-interaction-200", "runs": 12, "files": 27,
      "findings": _findings_interaction_200},
+    {"id": "interaction-200-720", "kind": "performance", "report": "interaction-200-720.v1.json",
+     "evidence": "windows-rtx5050-2026-11-14-arena-200-720", "runs": 6, "files": 15,
+     "findings": _findings_interaction_200_720},
 )
 
 
@@ -187,6 +198,7 @@ def build_report() -> dict[str, Any]:
     cross_findings = [
         "The high preset costs more GPU time than the low preset in every measured scene and cell; the relative cost grows with resolution.",
         "At 50-200 proxies on arena_combat, resolution dominates GPU cost while proxy count has a small GPU effect and a larger CPU effect.",
+        "At 1280x720, 200 proxies change GPU p95 by only +1.3%/+1.8% versus the 100-proxy context while CPU p95 rises +48.7%/+29.0%; the M03 ab-high prediction remains within 2%.",
         "The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.",
         "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720.",
         "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed.",

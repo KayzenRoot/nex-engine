@@ -18,7 +18,8 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 | `interaction.v1.json` / `INTERACTION-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `arena_combat`, 3 runs por preset por célula. |
 | `cross-scene.v1.json` / `CROSS-SCENE-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `corridor_static` e `dense_city`, 3 runs por preset por célula. |
 | `interaction-200.v1.json` / `INTERACTION-200-REPORT.md` | 200 proxies × 960×540/1920×1080 em `arena_combat`, com contexto 100→200 de sessão separada. |
-| `measurement-atlas.v1.json` / `MEASUREMENT-ATLAS.md` | Índice verificado dos oito bundles M09, totais, achados cross-experiment e perguntas abertas. |
+| `interaction-200-720.v1.json` / `INTERACTION-200-720-REPORT.md` | 200 proxies × 1280×720 em `arena_combat`, com contexto 100→200 e previsão M03. |
+| `measurement-atlas.v1.json` / `MEASUREMENT-ATLAS.md` | Índice verificado dos onze bundles M09, totais, achados cross-experiment e perguntas abertas. |
 | `tools/build_ab.py` | Builder determinístico do A/B/A. |
 | `tools/build_scaling.py` | Builder determinístico da matriz de escala. |
 | `tools/build_m01_ab.py` | Builder determinístico do A/B/A nas cenas M01. |
@@ -29,6 +30,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 | `tools/build_interaction.py` | Builder determinístico da interação proxies × resolução. |
 | `tools/build_cross_scene.py` | Builder determinístico da interação em múltiplas cenas. |
 | `tools/build_interaction_200.py` | Builder determinístico do check de 200 proxies. |
+| `tools/build_interaction_200_720.py` | Builder determinístico do check de 200 proxies em 1280×720. |
 | `tools/build_measurement_atlas.py` | Builder determinístico do atlas de medições. |
 | `tools/png_image.py` | Decoder PNG mínimo e comparador de pixels. |
 | `tools/preset_report.py` | Loaders e estatística compartilhados pelos builders. |
@@ -45,6 +47,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction/`: 24 capturas + 24 validações + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene/`: 48 capturas + 48 validações + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/`: 12 capturas + 12 validações + manifesto/fatos/análise/SHA-256.
+- `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-arena-200-720/`: 6 capturas + 6 validações + manifesto/fatos/análise/SHA-256.
 
 ## Uso
 
@@ -69,6 +72,8 @@ python docs/benchmarks/m09/tools/build_cross_scene.py
 python docs/benchmarks/m09/tools/build_cross_scene.py --check
 python docs/benchmarks/m09/tools/build_interaction_200.py
 python docs/benchmarks/m09/tools/build_interaction_200.py --check
+python docs/benchmarks/m09/tools/build_interaction_200_720.py
+python docs/benchmarks/m09/tools/build_interaction_200_720.py --check
 python docs/benchmarks/m09/tools/build_measurement_atlas.py
 python docs/benchmarks/m09/tools/build_measurement_atlas.py --check
 ```
@@ -84,6 +89,7 @@ python docs/benchmarks/m09/tools/build_measurement_atlas.py --check
 - A interação usa 50/100 proxies porque 25 exigiria remover geometria da cena base.
 - A interação cross-scene cobre `corridor_static` e `dense_city`; `arena_combat` tem relatório próprio.
 - O check de 200 proxies usa contexto 100→200 de uma sessão separada, claramente rotulado.
+- O check 200/1280 cobre a resolução de calibração do modelo M03; 2560×1440 continua não coberto.
 - O atlas é uma síntese de evidência já integrada; não adiciona capturas nem generalização.
 - Sem generalização entre cenas/hardware/drivers.
 - `max_fps 240`, vsync desligado; pacing é limitado pelo cap.

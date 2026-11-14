@@ -1,0 +1,128 @@
+{
+  "cells": [
+    {
+      "cpu_p95_ms": 0.445,
+      "gpu_p50_ms": 0.107,
+      "gpu_p95_ms": 0.111,
+      "gpu_p95_spread_pct": 0.9,
+      "gpu_p99_ms": 0.116,
+      "height": 720,
+      "one_percent_low_fps": 207.25,
+      "one_percent_low_spread_pct": 9.3,
+      "pacing_p95_ms": 4.232,
+      "preset_id": "ab-low",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 1280
+    },
+    {
+      "cpu_p95_ms": 0.647,
+      "gpu_p50_ms": 0.463,
+      "gpu_p95_ms": 0.468,
+      "gpu_p95_spread_pct": 0.0,
+      "gpu_p99_ms": 0.656,
+      "height": 720,
+      "one_percent_low_fps": 219.25,
+      "one_percent_low_spread_pct": 7.6,
+      "pacing_p95_ms": 4.234,
+      "preset_id": "ab-high",
+      "proxy_count": 200,
+      "runs": 3,
+      "width": 1280
+    }
+  ],
+  "context_100": {
+    "ab-high": {
+      "cpu_p95_ms": 0.435,
+      "gpu_p95_ms": 0.462,
+      "one_percent_low_fps": 225.66,
+      "pacing_p95_ms": 4.231
+    },
+    "ab-low": {
+      "cpu_p95_ms": 0.345,
+      "gpu_p95_ms": 0.109,
+      "one_percent_low_fps": 228.03,
+      "pacing_p95_ms": 4.218
+    }
+  },
+  "deltas_high_vs_low": {
+    "cpu_p95_pct": 45.4,
+    "gpu_p95_pct": 321.6,
+    "gpu_p99_pct": 465.5,
+    "one_percent_low_pct": 5.8,
+    "pacing_p95_pct": 0.0
+  },
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-arena-200-720",
+  "godot_version": "4.7.2-stable (official ed1daf0bf)",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "one scene, one proxy count (200) and one resolution (1280x720)",
+    "the 100-proxy context is from a different session and is labeled as such",
+    "three runs per preset; 1% low spread is 7.6-9.3%",
+    "native resolution disables the canvas_items stretch mode",
+    "max_fps 240 and disabled VSync cap frame pacing",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "model_context": {
+    "cells": [
+      {
+        "error_pct": 241.4,
+        "measured_gpu_p95_ms": 0.111,
+        "predicted_gpu_ms": 0.379,
+        "preset_id": "ab-low",
+        "within_2pct": false
+      },
+      {
+        "error_pct": -1.7,
+        "measured_gpu_p95_ms": 0.468,
+        "predicted_gpu_ms": 0.46,
+        "preset_id": "ab-high",
+        "within_2pct": true
+      }
+    ],
+    "source": "docs/benchmarks/m03/budget-validation.v1.json"
+  },
+  "observations": [
+    "GPU p95 at 200/1280 is 0.111 ms (ab-low) and 0.468 ms (ab-high); 100->200 changes it by +1.8% and +1.3%",
+    "the ab-high M03 prediction (0.460 ms) is -1.7% from the measured 200-proxy value and remains within 2%",
+    "the ab-low M03 prediction (0.379 ms) is +241.4% above the measured value, consistent with unmodeled resolution scale, MSAA and glow",
+    "CPU p95 rises from 0.345/0.435 ms at 100 proxies to 0.445/0.647 ms at 200 proxies",
+    "pacing remains near 4.23 ms and 1% low spread is 7.6-9.3%, so it is not used for a trend claim"
+  ],
+  "proxy_100_to_200": {
+    "ab-high": {
+      "cpu_p95_pct": 48.7,
+      "gpu_p95_pct": 1.3,
+      "one_percent_low_pct": -2.8,
+      "pacing_p95_pct": 0.1
+    },
+    "ab-low": {
+      "cpu_p95_pct": 29.0,
+      "gpu_p95_pct": 1.8,
+      "one_percent_low_pct": -9.1,
+      "pacing_p95_pct": 0.3
+    }
+  },
+  "runs": 6,
+  "schema_version": "m09_preset_interaction_200_720.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "native_resolution": true,
+    "vsync_mode": 0
+  },
+  "source_sha": "99eaad041b84c373da33ec1bb8a5922c31f4dad4",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "workload": {
+    "effect_mode": "lights",
+    "layout": "M01 arena_combat + deterministic fillers",
+    "proxy_count": 200,
+    "scene": "M01 Arena A/B/A",
+    "scene_id": "arena_combat"
+  }
+}
