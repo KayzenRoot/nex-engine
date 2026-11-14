@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 M01 scene A/B/A
+
+**M09-M01-AB integrado** por PR #191, squash `d657afad0dbabdcfb1d2143fee71e71d448b07c9` (source medido `617db53d`). O harness A/B/A ganhou `NEX_PRESET_AB_SCENE` para `corridor_static`, `arena_combat` e `dense_city`; cada cena reutiliza câmera/luzes e recebe fillers determinísticos até 100 meshes totais. Foram medidas **18 capturas reais** na RTX 5050 (3 runs por preset por cena), todas COMPLETE/validadas, com `SHA256SUMS` de 39 arquivos, manifesto, análise e relatório reproduzível.
+
+**Medição:** GPU p95 high vs low **+380.7% (corridor)**, **+323.9% (arena)**, **+331.0% (city)**; spread A/A de GPU p95 1.2–7.3%; pacing ~4.2 ms no cap de 240 fps. O primeiro run ab-high do corridor é um outlier documentado (0.542 ms vs 0.421/0.423 ms); medianas reportadas. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 preset scaling 25/100/200
 
 **M09-PRESET-SCALING integrado** por PR #189, squash `109a17af4724b8c5236991551538a62e3fa1f3b1` (source medido `4e4719ac`). O harness foi parametrizado por `NEX_PRESET_AB_PROXY_COUNT` (25/50/100/200) e mediu **18 capturas reais** na RTX 5050: 3 runs por preset em cada contagem. Todas COMPLETE/validadas; `SHA256SUMS` de 39 arquivos; relatório e builder reproduzíveis.
