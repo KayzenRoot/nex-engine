@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M06 full dataset + atlas
+
+**M06-FULL-ATLAS integrado** por PR #217, squash `373d6e7a4eb3cceffe86d9eb491f518c1f558228`. O conversor `--full` gerou **144 observações `performance.v1`** dos sete bundles de performance M09; o atlas agrega essas observações por bundle e célula de workload.
+
+**Resultado:** 144/144 observações válidas e classificadas como `pacing` no cap de 240 fps; GPU p95 global **0.068–0.887 ms** (mediana 0.196), pacing p95 **4.199–4.301 ms**, maior GPU share **21.05%**. Sem nova medição, runtime ou mudança de contrato. M06/M09 permanecem `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`; os demais parents seguem `NOT_ADMITTED`.
+
+
 ## Current verified scope | 2026-11-14 · M06/M09 bounded admission
 
 **M06 (#11) e M09 (#14) admitidos como `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** por `NEX-ADR-0006` / `NEX-D-016`, sobre a base `8ed41bafaf19cff52da9250784f78c3d608ac504`. A admissão cobre contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados.
