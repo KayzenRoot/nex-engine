@@ -1,0 +1,425 @@
+{
+  "cells": [
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-low",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "unique_sha_count": 1
+    },
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-high",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "unique_sha_count": 1
+    },
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-low",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "unique_sha_count": 1
+    },
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-high",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "unique_sha_count": 1
+    },
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-low",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "unique_sha_count": 1
+    },
+    {
+      "all_frames_identical": true,
+      "comparisons": [
+        {
+          "from": 0,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 1
+        },
+        {
+          "from": 1,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 2
+        },
+        {
+          "from": 2,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 3
+        },
+        {
+          "from": 3,
+          "identical_sha": true,
+          "metrics": {
+            "changed_pixels": 0,
+            "changed_pixels_pct": 0.0,
+            "max_abs_diff": 0,
+            "mean_abs_diff": 0.0,
+            "psnr_db": null
+          },
+          "to": 4
+        }
+      ],
+      "frames": 5,
+      "max_changed_pixels_pct": 0.0,
+      "max_mean_abs_diff": 0.0,
+      "preset_id": "ab-high",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "unique_sha_count": 1
+    }
+  ],
+  "changed_pixel_threshold": 2,
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-temporal",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "harness_source_sha": "22f428aebf43da39750adb6a8c919d0b2721d9a1",
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "static scenes only; no animation, temporal effects or camera motion",
+    "fillers may overlap base-scene props; this is a stress composition, not a beauty shot",
+    "PNG comparison is exact RGB byte comparison; it does not model human perception or color spaces",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "All five frames of every scene/preset cell are byte-identical (one SHA-256 per cell).",
+    "Every frame-to-frame pixel comparison is exactly zero in this static workload.",
+    "The result covers repeated frames of static compositions only; animation, camera motion and dynamic effects are not covered.",
+    "This is a temporal-stability observation, not a quality ranking or a universal guarantee."
+  ],
+  "runs": 30,
+  "schema_version": "m09_preset_m01_temporal.v1",
+  "session_date": "2026-11-14",
+  "summary": {
+    "all_frames_identical": true,
+    "cells": 6,
+    "frames": 30,
+    "max_changed_pixels_pct": 0.0,
+    "max_mean_abs_diff": 0.0
+  },
+  "verdict": "TEMPORAL_STABILITY_OBSERVED",
+  "viewport_px": [
+    1280,
+    720
+  ],
+  "workload": {
+    "effect_mode": "lights",
+    "frame_interval": 30,
+    "frames_per_cell": 5,
+    "proxy_count": 100,
+    "scenes": [
+      {
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ],
+    "viewport_px": [
+      1280,
+      720
+    ]
+  }
+}
