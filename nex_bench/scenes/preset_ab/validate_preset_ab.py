@@ -23,10 +23,6 @@ EXPECTED_MAX_FPS = 240
 EXPECTED_VSYNC = 0
 
 
-class PresetABError(ValueError):
-    """Raised when the document is not a valid preset A/B/A observation."""
-
-
 def _loads(raw: bytes):
     try:
         return json.loads(
@@ -35,40 +31,38 @@ def _loads(raw: bytes):
             parse_constant=canonical._reject_constant,
         )
     except (UnicodeDecodeError, ValueError) as exc:
-        if isinstance(exc, PresetABError):
-            raise
-        raise PresetABError("invalid JSON: " + str(exc)) from None
+        raise ValueError("invalid JSON: " + str(exc)) from None
 
 
 def validate_document(document):
     """Validate harness provenance, then delegate to the canonical validator."""
     if not isinstance(document, dict):
-        raise PresetABError("document must be a JSON object")
+        raise ValueError("document must be a JSON object")
     workload = document.get("workload")
     if not isinstance(workload, dict):
-        raise PresetABError("workload must be an object")
+        raise ValueError("workload must be an object")
     if workload.get("scene") != EXPECTED_SCENE:
-        raise PresetABError("workload.scene must be " + EXPECTED_SCENE)
+        raise ValueError("workload.scene must be " + EXPECTED_SCENE)
     if workload.get("layout") != EXPECTED_LAYOUT:
-        raise PresetABError("workload.layout must be " + EXPECTED_LAYOUT)
+        raise ValueError("workload.layout must be " + EXPECTED_LAYOUT)
     if workload.get("proxy_count") != EXPECTED_PROXY_COUNT:
-        raise PresetABError(f"workload.proxy_count must be {EXPECTED_PROXY_COUNT}")
+        raise ValueError(f"workload.proxy_count must be {EXPECTED_PROXY_COUNT}")
     if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:
-        raise PresetABError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
+        raise ValueError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
     settings = document.get("settings")
     if not isinstance(settings, dict):
-        raise PresetABError("settings must be an object")
+        raise ValueError("settings must be an object")
     if settings.get("max_fps") != EXPECTED_MAX_FPS:
-        raise PresetABError(f"settings.max_fps must be {EXPECTED_MAX_FPS}")
+        raise ValueError(f"settings.max_fps must be {EXPECTED_MAX_FPS}")
     if settings.get("vsync_mode") != EXPECTED_VSYNC:
-        raise PresetABError(f"settings.vsync_mode must be {EXPECTED_VSYNC}")
+        raise ValueError(f"settings.vsync_mode must be {EXPECTED_VSYNC}")
 
     delegated = dict(document)
     delegated["workload"] = dict(workload, scene="Density Ladder")
     try:
         result = canonical.validate_report(delegated)
     except canonical.ProfileError as exc:
-        raise PresetABError(str(exc)) from exc
+        raise ValueError(str(exc)) from exc
 
     return {
         "status": "PASS",
@@ -92,7 +86,7 @@ def main() -> int:
         return 1
     try:
         result = validate_document(_loads(payload))
-    except (PresetABError, canonical.ProfileError, OSError) as exc:
+    except (ValueError, OSError) as exc:
         print(json.dumps({"status": "FAIL", "reason": str(exc)}))
         return 1
     print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
