@@ -10,6 +10,7 @@ import hashlib
 import math
 import struct
 import zlib
+from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -52,6 +53,45 @@ def _paeth(left: int, up: int, up_left: int) -> int:
     return up_left
 
 
+def _filter_sub(row: bytearray, channels: int) -> None:
+    for index in range(channels, len(row)):
+        row[index] = (row[index] + row[index - channels]) & 0xFF
+
+
+def _filter_up(row: bytearray, previous: bytes) -> None:
+    for index in range(len(row)):
+        row[index] = (row[index] + previous[index]) & 0xFF
+
+
+def _filter_average(row: bytearray, previous: bytes, channels: int) -> None:
+    for index in range(len(row)):
+        left = row[index - channels] if index >= channels else 0
+        row[index] = (row[index] + ((left + previous[index]) >> 1)) & 0xFF
+
+
+def _filter_paeth(row: bytearray, previous: bytes, channels: int) -> None:
+    for index in range(len(row)):
+        left = row[index - channels] if index >= channels else 0
+        up_left = previous[index - channels] if index >= channels else 0
+        row[index] = (row[index] + _paeth(left, previous[index], up_left)) & 0xFF
+
+
+def _apply_filter(filter_type: int, row: bytearray, previous: bytes, channels: int) -> bytearray:
+    if filter_type == 0:
+        return row
+    if filter_type == 1:
+        _filter_sub(row, channels)
+    elif filter_type == 2:
+        _filter_up(row, previous)
+    elif filter_type == 3:
+        _filter_average(row, previous, channels)
+    elif filter_type == 4:
+        _filter_paeth(row, previous, channels)
+    else:
+        raise PngError("unsupported PNG filter type")
+    return row
+
+
 def _unfilter(raw: bytes, width: int, height: int, channels: int) -> bytes:
     stride = width * channels
     if len(raw) != height * (stride + 1):
@@ -64,34 +104,23 @@ def _unfilter(raw: bytes, width: int, height: int, channels: int) -> bytes:
         row = bytearray(raw[position:position + stride])
         position += stride
         previous = output[(row_index - 1) * stride:row_index * stride] if row_index else b"\x00" * stride
-        for index in range(stride):
-            left = row[index - channels] if index >= channels else 0
-            up = previous[index]
-            up_left = previous[index - channels] if index >= channels else 0
-            if filter_type == 0:
-                continue
-            if filter_type == 1:
-                row[index] = (row[index] + left) & 0xFF
-            elif filter_type == 2:
-                row[index] = (row[index] + up) & 0xFF
-            elif filter_type == 3:
-                row[index] = (row[index] + ((left + up) >> 1)) & 0xFF
-            elif filter_type == 4:
-                row[index] = (row[index] + _paeth(left, up, up_left)) & 0xFF
-            else:
-                raise PngError("unsupported PNG filter type")
-        output[row_index * stride:(row_index + 1) * stride] = row
+        output[row_index * stride:(row_index + 1) * stride] = _apply_filter(filter_type, row, previous, channels)
     return bytes(output)
 
 
-def read_png(path: Path) -> PngImage:
-    data = path.read_bytes()
-    if not data.startswith(PNG_SIGNATURE):
-        raise PngError("missing PNG signature")
+def _parse_ihdr(payload: bytes) -> tuple[int, int, int]:
+    if len(payload) != 13:
+        raise PngError("invalid PNG IHDR length")
+    width, height, depth, color_type, compression, filtering, interlace = struct.unpack(">IIBBBBB", payload)
+    if depth != 8 or color_type not in CHANNELS_BY_COLOR_TYPE:
+        raise PngError("unsupported PNG bit depth or color type")
+    if compression != 0 or filtering != 0 or interlace != 0:
+        raise PngError("unsupported PNG compression, filtering or interlace")
+    return width, height, CHANNELS_BY_COLOR_TYPE[color_type]
+
+
+def _iter_chunks(data: bytes) -> Iterator[tuple[bytes, bytes]]:
     offset = len(PNG_SIGNATURE)
-    width = height = channels = None
-    compressed = bytearray()
-    seen_iend = False
     while offset < len(data):
         if offset + 8 > len(data):
             raise PngError("truncated PNG chunk header")
@@ -105,25 +134,30 @@ def read_png(path: Path) -> PngImage:
         offset += 4
         if zlib.crc32(kind + payload) & 0xFFFFFFFF != expected_crc:
             raise PngError("PNG chunk CRC mismatch")
+        yield kind, payload
+        if kind == b"IEND":
+            return
+
+
+def read_png(path: Path) -> PngImage:
+    data = path.read_bytes()
+    if not data.startswith(PNG_SIGNATURE):
+        raise PngError("missing PNG signature")
+    header = None
+    compressed = bytearray()
+    seen_iend = False
+    for kind, payload in _iter_chunks(data):
         if kind == b"IHDR":
-            if width is not None:
+            if header is not None:
                 raise PngError("duplicate PNG IHDR")
-            if length != 13:
-                raise PngError("invalid PNG IHDR length")
-            width, height, depth, color_type, compression, filtering, interlace = struct.unpack(">IIBBBBB", payload)
-            if depth != 8 or color_type not in CHANNELS_BY_COLOR_TYPE:
-                raise PngError("unsupported PNG bit depth or color type")
-            if compression != 0 or filtering != 0 or interlace != 0:
-                raise PngError("unsupported PNG compression, filtering or interlace")
-            channels = CHANNELS_BY_COLOR_TYPE[color_type]
+            header = _parse_ihdr(payload)
         elif kind == b"IDAT":
             compressed.extend(payload)
         elif kind == b"IEND":
             seen_iend = True
-            break
         elif kind not in ALLOWED_AUXILIARY_CHUNKS:
             raise PngError("unsupported PNG chunk: " + kind.decode("latin-1"))
-    if width is None or height is None or channels is None:
+    if header is None:
         raise PngError("PNG is missing IHDR")
     if not seen_iend:
         raise PngError("PNG is missing IEND")
@@ -133,6 +167,7 @@ def read_png(path: Path) -> PngImage:
         raw = zlib.decompress(bytes(compressed))
     except zlib.error as exc:
         raise PngError("invalid PNG zlib stream") from exc
+    width, height, channels = header
     return PngImage(width, height, channels, _unfilter(raw, width, height, channels))
 
 
@@ -170,8 +205,7 @@ def compare(first: PngImage, second: PngImage, threshold: int = 2) -> dict[str, 
             changed_pixels += 1
     pixels = first.width * first.height
     mean_abs = total_abs / (pixels * stride)
-    mse = total_squared / (pixels * stride)
-    psnr = None if mse == 0.0 else round(10.0 * math.log10((255.0 * 255.0) / mse), 3)
+    psnr = None if not total_squared else round(10.0 * math.log10((255.0 * 255.0) / (total_squared / (pixels * stride))), 3)
     return {
         "mean_abs_diff": round(mean_abs, 4),
         "max_abs_diff": max_abs,

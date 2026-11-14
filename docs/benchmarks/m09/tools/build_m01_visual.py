@@ -39,11 +39,18 @@ EXPECTED_VIEWPORT = [1280, 720]
 CHANGED_PIXEL_THRESHOLD = 2
 
 
-def load_manifest() -> dict[str, Any]:
-    manifest = load_json(MANIFEST)
-    if manifest.get("schema_version") != RUNS_SCHEMA:
-        raise ValueError("visual runs manifest schema is invalid")
-    runs = manifest.get("runs")
+def _validate_cell(runs: list[dict[str, Any]], scene_id: str, scene: str, preset_id: str) -> None:
+    group = [run for run in runs if run.get("scene_id") == scene_id and run.get("preset_id") == preset_id]
+    if len(group) != 3 or sorted(run.get("repetition") for run in group) != [1, 2, 3]:
+        raise ValueError(f"visual runs manifest cell is invalid: {scene_id}/{preset_id}")
+    for run in group:
+        if run.get("scene") != scene:
+            raise ValueError("visual runs manifest scene label is invalid")
+        if [run.get("width"), run.get("height")] != EXPECTED_VIEWPORT:
+            raise ValueError("visual runs manifest viewport is invalid")
+
+
+def _validate_runs(runs: list[dict[str, Any]]) -> None:
     if not isinstance(runs, list) or len(runs) != 18:
         raise ValueError("visual runs manifest must contain 18 runs")
     if [run.get("sequence") for run in runs] != list(range(1, 19)):
@@ -52,14 +59,14 @@ def load_manifest() -> dict[str, Any]:
         raise ValueError("visual runs manifest file names must be unique")
     for scene_id, scene in SCENES:
         for preset_id in PRESETS:
-            group = [run for run in runs if run.get("scene_id") == scene_id and run.get("preset_id") == preset_id]
-            if len(group) != 3 or sorted(run.get("repetition") for run in group) != [1, 2, 3]:
-                raise ValueError(f"visual runs manifest cell is invalid: {scene_id}/{preset_id}")
-            for run in group:
-                if run.get("scene") != scene:
-                    raise ValueError("visual runs manifest scene label is invalid")
-                if [run.get("width"), run.get("height")] != EXPECTED_VIEWPORT:
-                    raise ValueError("visual runs manifest viewport is invalid")
+            _validate_cell(runs, scene_id, scene, preset_id)
+
+
+def load_manifest() -> dict[str, Any]:
+    manifest = load_json(MANIFEST)
+    if manifest.get("schema_version") != RUNS_SCHEMA:
+        raise ValueError("visual runs manifest schema is invalid")
+    _validate_runs(manifest.get("runs"))
     return manifest
 
 
