@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M12-VALIDATOR-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 17,
+  "parentM12Issue": 17,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Standing authorization to continue without asking; executor selected the M12 identity validator as the next independent increment after the identity contract.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "25113e7dfcb12091aeb79b77cb82c9e7aed95549",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M11_AUDIT_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "872abc9bbd222dfb19839b81b8b65141ca8b8e50"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "293145ff5d8638af10bc4e79b17dc898912539e9"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "e69fcf20eb5a1d8aceaa0668a0e9a1f38cbd367e"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "4e2514ff2688cc3d7a687ac95e69ab4a1d996aa8"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m01/scene_manifest.v1.schema.json", "gitBlobSha1": "0883119df41a0e2f9019d272883c278c0db887e9"},
+    {"path": "contracts/m01/telemetry_run.v1.schema.json", "gitBlobSha1": "8bfa94dd23197a066bf6ab1e3f0636744b0eb8ba"},
+    {"path": "contracts/m01/ownership.v1.json", "gitBlobSha1": "a453b669069abf53e1ba9a0e34b21b4b4650fa6c"},
+    {"path": "contracts/m02/render_core.v1.schema.json", "gitBlobSha1": "3ecd8191daea7c1e43401d16d3aea1cf1dca9cfe"},
+    {"path": "contracts/m03/lighting.v1.schema.json", "gitBlobSha1": "031c8e221b29dabe77a1e329247536b6c636d0b9"},
+    {"path": "contracts/m04/material.v1.schema.json", "gitBlobSha1": "9c1ad6df798973ca83f1cb4b990c7179cd0401c0"},
+    {"path": "contracts/m05/spellfx.v1.schema.json", "gitBlobSha1": "442cd3f5bfffb91dd6728a7bb4cc48ac537b0908"},
+    {"path": "contracts/m06/performance.v1.schema.json", "gitBlobSha1": "18a9c7731b05275e283ecfae957b77dc58a37eb3"},
+    {"path": "contracts/m07/render2d.v1.schema.json", "gitBlobSha1": "82dd177c9173df7c6d3b05039f7b984332b1b0b5"},
+    {"path": "contracts/m08/composition.v1.schema.json", "gitBlobSha1": "04f05c282b16ea987b60a45408995811f214169c"},
+    {"path": "contracts/m09/preset_pack.v1.schema.json", "gitBlobSha1": "5d298e6578a0791164b03e7ba94123b6b39a2c0c"},
+    {"path": "contracts/m10/feedback.v1.schema.json", "gitBlobSha1": "298bcf814f69e6372119e79038d6bde173d49002"},
+    {"path": "contracts/m11/asset_pipeline.v1.schema.json", "gitBlobSha1": "ec6d7dfe50511a0a6613ab658db9c9f9d8afa3cc"},
+    {"path": "contracts/m12/identity.v1.schema.json", "gitBlobSha1": "174d4fdd2859f9b9867d7660748cfa5535d5f5f4"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_modules/brand/tokens/**",
+      "tests/ci/test_identity_validator.py",
+      ".engineering/work-orders/NEX-M12-VALIDATOR-WO-001.md",
+      ".engineering/context-locks/NEX-M12-VALIDATOR-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M12-VALIDATOR-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M12-VALIDATOR-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/**"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "engine/renderer changes",
+      "brand asset generation",
+      "M12 parent admission",
+      "project.godot/CI changes",
+      "fabricated brand approval or on-screen contrast claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
