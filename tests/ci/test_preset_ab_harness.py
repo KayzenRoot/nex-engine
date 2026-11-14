@@ -90,7 +90,7 @@ class PresetABFilesTests(unittest.TestCase):
 
     def test_validator_expects_harness_provenance(self) -> None:
         code = (SCENE / "validate_preset_ab.py").read_text(encoding="utf-8")
-        for marker in ('EXPECTED_SCENE = "Preset A/B/A"', "EXPECTED_PROXY_COUNT = 200", 'EXPECTED_EFFECT_MODE = "lights"', "EXPECTED_MAX_FPS = 240", "EXPECTED_VSYNC = 0", "canonical.validate_report"):
+        for marker in ('EXPECTED_SCENE = "Preset A/B/A"', "EXPECTED_PROXY_COUNTS = (25, 50, 100, 200)", 'EXPECTED_EFFECT_MODE = "lights"', "EXPECTED_MAX_FPS = 240", "EXPECTED_VSYNC = 0", "canonical.validate_report"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, code)
 

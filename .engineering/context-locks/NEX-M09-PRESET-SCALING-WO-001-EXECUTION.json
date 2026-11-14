@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M09-PRESET-SCALING-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 14,
+  "parentM09Issue": 14,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Continuous autonomous build directive NEX-ADR-0005; executor selected the preset scaling matrix as the next bounded measurement increment.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "9babd8cb4f88c6cb5ac473c5ff77c82852293eb8",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_AUTONOMY_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "faba3350e59115e40023415d374d8e0516f9b140"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "8129984c0a60d616625abf0162353c0f451a292b"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "0c70abe16878cfa97bbc1ab69cc53853f989b1b7"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "d5536257ccd518470447e1ae753250a12bd98d94"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md", "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m09/preset_pack.v1.schema.json", "gitBlobSha1": "5d298e6578a0791164b03e7ba94123b6b39a2c0c"},
+    {"path": "nex_bench/scenes/preset_ab/preset_ab.gd", "gitBlobSha1": "53ddc482cc881fbb66e2745dfbbae5d835533f3b"},
+    {"path": "nex_bench/scenes/preset_ab/validate_preset_ab.py", "gitBlobSha1": "7c8857de895a89e6f66ca19ba8bc20e0770a425b"},
+    {"path": "nex_bench/presets/preset_ab/presets.v1.json", "gitBlobSha1": "dcc0dff0f5d37692e3bb638b35ec37e65f9b97fb"},
+    {"path": "nex_bench/gpu_profile/session.gd", "gitBlobSha1": "4dd3d691042200cde4ad4104128d7fa78283752f"},
+    {"path": "nex_bench/gpu_profile/validate_gpu_profile.py", "gitBlobSha1": "6b32aa1cf6b0c232c52b7a06b87b3118322a2348"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_bench/scenes/preset_ab/**",
+      "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling/**",
+      "docs/benchmarks/m09/**",
+      "tests/ci/test_preset_scaling.py",
+      ".engineering/work-orders/NEX-M09-PRESET-SCALING-WO-001.md",
+      ".engineering/context-locks/NEX-M09-PRESET-SCALING-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M09-PRESET-SCALING-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M09-PRESET-SCALING-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/project.godot",
+      "nex_bench/hub.gd",
+      "nex_bench/gpu_profile/session.gd",
+      "nex_bench/gpu_profile/validate_gpu_profile.py",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/** (exceto m09)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "renderer/engine changes",
+      "project.godot or hub.gd changes",
+      "M09 parent admission",
+      "fabricated captures or generalized FPS claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}

@@ -17,7 +17,7 @@ import validate_gpu_profile as canonical  # noqa: E402 - path bootstrap above
 
 EXPECTED_SCENE = "Preset A/B/A"
 EXPECTED_LAYOUT = "built-in deterministic grid"
-EXPECTED_PROXY_COUNT = 200
+EXPECTED_PROXY_COUNTS = (25, 50, 100, 200)
 EXPECTED_EFFECT_MODE = "lights"
 EXPECTED_MAX_FPS = 240
 EXPECTED_VSYNC = 0
@@ -45,8 +45,8 @@ def validate_document(document):
         raise ValueError("workload.scene must be " + EXPECTED_SCENE)
     if workload.get("layout") != EXPECTED_LAYOUT:
         raise ValueError("workload.layout must be " + EXPECTED_LAYOUT)
-    if workload.get("proxy_count") != EXPECTED_PROXY_COUNT:
-        raise ValueError(f"workload.proxy_count must be {EXPECTED_PROXY_COUNT}")
+    if workload.get("proxy_count") not in EXPECTED_PROXY_COUNTS:
+        raise ValueError("workload.proxy_count must be one of 25/50/100/200")
     if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:
         raise ValueError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
     settings = document.get("settings")

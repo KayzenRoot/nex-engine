@@ -1,0 +1,115 @@
+{
+  "schema_version": "preset_ab_runs.v1",
+  "source_sha": "4e4719ac504ddb0ea7961d5c9d557c745f216990",
+  "pack_id": "preset-ab-pack",
+  "runs": [
+    {
+      "sequence": 1,
+      "run_id": "1794655382-34058866",
+      "proxy_count": 25,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 2,
+      "run_id": "1794655417-33505103",
+      "proxy_count": 25,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 3,
+      "run_id": "1794655451-33515532",
+      "proxy_count": 25,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 4,
+      "run_id": "1794655485-33456818",
+      "proxy_count": 25,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 5,
+      "run_id": "1794655519-33458032",
+      "proxy_count": 25,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 6,
+      "run_id": "1794655553-33443502",
+      "proxy_count": 25,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 7,
+      "run_id": "1794655596-34834637",
+      "proxy_count": 100,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 8,
+      "run_id": "1794655630-33476805",
+      "proxy_count": 100,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 9,
+      "run_id": "1794655664-33485086",
+      "proxy_count": 100,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 10,
+      "run_id": "1794655698-33456323",
+      "proxy_count": 100,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 11,
+      "run_id": "1794655732-33489149",
+      "proxy_count": 100,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 12,
+      "run_id": "1794655766-33471916",
+      "proxy_count": 100,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 13,
+      "run_id": "1794655806-33478877",
+      "proxy_count": 200,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 14,
+      "run_id": "1794655840-33468478",
+      "proxy_count": 200,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 15,
+      "run_id": "1794655874-33478907",
+      "proxy_count": 200,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 16,
+      "run_id": "1794655908-33500780",
+      "proxy_count": 200,
+      "preset_id": "ab-high"
+    },
+    {
+      "sequence": 17,
+      "run_id": "1794655942-33437201",
+      "proxy_count": 200,
+      "preset_id": "ab-low"
+    },
+    {
+      "sequence": 18,
+      "run_id": "1794655976-33464847",
+      "proxy_count": 200,
+      "preset_id": "ab-high"
+    }
+  ]
+}
