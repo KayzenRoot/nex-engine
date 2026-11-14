@@ -31,7 +31,7 @@ def _manifest() -> dict:
 
 class ResScalingFilesTests(unittest.TestCase):
     def test_harness_evidence_and_report_files_exist(self) -> None:
-        for path in (
+        required = [
             SCENE / "preset_ab.gd",
             EVIDENCE / "runs.v1.json",
             EVIDENCE / "SESSION-FACTS.txt",
@@ -40,14 +40,12 @@ class ResScalingFilesTests(unittest.TestCase):
             REPORT_JSON,
             REPORT_MD,
             BUILDER,
-        ):
-            with self.subTest(path=path.name):
-                self.assertTrue(path.is_file())
+        ]
+        self.assertEqual([], [str(path) for path in required if not path.is_file()])
         raw = [p for p in EVIDENCE.glob("gpu_profile_*.json") if not p.name.endswith(".validation.json")]
         self.assertEqual(18, len(raw))
-        for path in raw:
-            with self.subTest(run=path.name):
-                self.assertTrue((EVIDENCE / f"{path.name}.validation.json").is_file())
+        missing = [p.name for p in raw if not (EVIDENCE / f"{p.name}.validation.json").is_file()]
+        self.assertEqual([], missing)
 
     def test_harness_supports_native_resolution(self) -> None:
         code = (SCENE / "preset_ab.gd").read_text(encoding="utf-8")
