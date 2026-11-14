@@ -8,7 +8,7 @@ import sys
 import unittest
 from pathlib import Path
 
-from _preset_ab_support import assert_no_fabricated, assert_sha256sums, load_builder
+from _preset_ab_support import assert_captures, assert_no_fabricated, assert_sha256sums, assert_validations, load_builder
 
 REPO = Path(__file__).resolve().parents[2]
 SCENE = REPO / "nex_bench" / "scenes" / "preset_ab"
@@ -91,24 +91,11 @@ class PresetABFilesTests(unittest.TestCase):
 class PresetABEvidenceTests(unittest.TestCase):
     def test_captures_are_complete_and_consistent(self) -> None:
         manifest = json.loads((EVIDENCE / "runs.v1.json").read_text(encoding="utf-8"))
-        self.assertEqual("preset_ab_runs.v1", manifest["schema_version"])
-        self.assertEqual(6, len(manifest["runs"]))
-        for entry in manifest["runs"]:
-            with self.subTest(run=entry["run_id"]):
-                document = json.loads((EVIDENCE / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
-                self.assertEqual("COMPLETE", document["run_status"])
-                self.assertEqual(manifest["source_sha"], document["source_sha"])
-                self.assertEqual("Preset A/B/A", document["workload"]["scene"])
-                self.assertEqual(200, document["workload"]["proxy_count"])
-                self.assertEqual("lights", document["workload"]["effect_mode"])
-                self.assertEqual(240, document["settings"]["max_fps"])
-                self.assertEqual(0, document["settings"]["vsync_mode"])
+        assert_captures(self, EVIDENCE, manifest, 200)
 
     def test_validations_pass(self) -> None:
-        for run_id in RUN_IDS:
-            with self.subTest(run=run_id):
-                validation = json.loads((EVIDENCE / f"gpu_profile_{run_id}.json.validation.json").read_text(encoding="utf-8"))
-                self.assertEqual("PASS", validation["status"])
+        manifest = json.loads((EVIDENCE / "runs.v1.json").read_text(encoding="utf-8"))
+        assert_validations(self, EVIDENCE, manifest)
 
     def test_sha256sums_match_every_file(self) -> None:
         assert_sha256sums(self, EVIDENCE, 15)

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from typing import Any
@@ -33,3 +34,25 @@ def assert_no_fabricated(case: Any, text: str, forbidden: tuple[str, ...]) -> No
     for phrase in forbidden:
         with case.subTest(phrase=phrase):
             case.assertNotIn(phrase, text)
+
+
+def assert_captures(case: Any, evidence: Path, manifest: dict[str, Any], default_count: int | None = None) -> None:
+    for entry in manifest["runs"]:
+        with case.subTest(run=entry["run_id"]):
+            document = json.loads((evidence / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
+            case.assertEqual("COMPLETE", document["run_status"])
+            case.assertEqual(manifest["source_sha"], document["source_sha"])
+            case.assertEqual("Preset A/B/A", document["workload"]["scene"])
+            expected_count = entry.get("proxy_count", default_count)
+            if expected_count is not None:
+                case.assertEqual(expected_count, document["workload"]["proxy_count"])
+            case.assertEqual("lights", document["workload"]["effect_mode"])
+            case.assertEqual(240, document["settings"]["max_fps"])
+            case.assertEqual(0, document["settings"]["vsync_mode"])
+
+
+def assert_validations(case: Any, evidence: Path, manifest: dict[str, Any]) -> None:
+    for entry in manifest["runs"]:
+        with case.subTest(run=entry["run_id"]):
+            validation = json.loads((evidence / f"gpu_profile_{entry['run_id']}.json.validation.json").read_text(encoding="utf-8"))
+            case.assertEqual("PASS", validation["status"])
