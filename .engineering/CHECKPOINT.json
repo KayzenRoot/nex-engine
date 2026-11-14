@@ -1525,8 +1525,8 @@
     "extendedByPr": 225,
     "extendedMergeSha": "e9f8f0172a7c183b57fd203dc1053af099c63bec",
     "requiredCheck": "NEX Fast Lane / Batch Policy Tests",
-    "builderCommands": 24,
-    "builderFiles": 18,
+    "builderCommands": 25,
+    "builderFiles": 22,
     "modules": [
       "M01",
       "M02",
@@ -1837,9 +1837,9 @@
     "secondaryIssue": 6,
     "pr": 243,
     "protectedMergeSha": "0bdd8736c18a4035605d20123ef30d75d8802bd3",
-    "entries": 57,
+    "entries": 58,
     "minPr": 112,
-    "maxPr": 241,
+    "maxPr": 243,
     "uniqueMergeShas": 57,
     "auditLabels": [
       "ADMIN_SOLO_NOT_INDEPENDENT"
