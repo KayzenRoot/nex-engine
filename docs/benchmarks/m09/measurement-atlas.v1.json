@@ -82,6 +82,24 @@
       "verdict": "VISUAL_DIFFERENCE_OBSERVED"
     },
     {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-visual-1920",
+      "evidence_files": 21,
+      "id": "m01-visual-1920",
+      "key_findings": {
+        "aa_identical": true,
+        "ab_changed_pixels_pct": {
+          "arena_combat": 3.354,
+          "corridor_static": 3.367,
+          "dense_city": 1.276
+        }
+      },
+      "kind": "visual",
+      "report": "m01-visual-1920.v1.json",
+      "runs": 18,
+      "source_sha": "06eb6d92da50bdb8105bbc8f7b6bed98faebb329",
+      "verdict": "VISUAL_DIFFERENCE_OBSERVED"
+    },
+    {
       "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling",
       "evidence_files": 39,
       "id": "res-scaling",
@@ -208,7 +226,7 @@
     "driver": "NVIDIA 617.14 / Vulkan forward_plus",
     "gpu": "NVIDIA GeForce RTX 5050"
   },
-  "images": 18,
+  "images": 36,
   "limitations": [
     "synthesis of already integrated evidence; no new capture",
     "single session and one GPU across all bundles",
@@ -226,11 +244,11 @@
   "schema_version": "m09_measurement_atlas.v1",
   "session_date": "2026-11-14",
   "totals": {
-    "bundles": 8,
-    "evidence_files": 330,
+    "bundles": 9,
+    "evidence_files": 351,
     "performance_captures": 144,
-    "unique_source_shas": 8,
-    "visual_images": 18
+    "unique_source_shas": 9,
+    "visual_images": 36
   },
   "verdict": "MEASUREMENT_CAMPAIGN_INDEXED"
 }
