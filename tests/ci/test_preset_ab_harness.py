@@ -8,7 +8,14 @@ import sys
 import unittest
 from pathlib import Path
 
-from _preset_ab_support import assert_captures, assert_no_fabricated, assert_sha256sums, assert_validations, load_builder
+from _preset_ab_support import (
+    assert_builder_reproduces,
+    assert_captures,
+    assert_limits,
+    assert_sha256sums,
+    assert_validations,
+    load_builder,
+)
 
 REPO = Path(__file__).resolve().parents[2]
 SCENE = REPO / "nex_bench" / "scenes" / "preset_ab"
@@ -115,18 +122,10 @@ class PresetABReportTests(unittest.TestCase):
         self.assertEqual(3, self.report["baselines"]["ab-low"]["runs"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
-        rebuilt = self.builder.build_report()
-        self.assertEqual(self.report, rebuilt)
-        self.assertEqual(self.builder.render_json(rebuilt), REPORT_JSON.read_text(encoding="utf-8"))
-        self.assertEqual(self.builder.render_markdown(rebuilt), REPORT_MD.read_text(encoding="utf-8"))
+        assert_builder_reproduces(self, self.builder, self.report, REPORT_JSON, REPORT_MD)
 
     def test_limits_and_no_fabricated_gain(self) -> None:
-        limitations = " ".join(self.report["limitations"]).lower()
-        for expected in ("single session", "no cross-scene", "vsync disabled", "not device vram"):
-            with self.subTest(expected=expected):
-                self.assertIn(expected, limitations)
-        text = REPORT_MD.read_text(encoding="utf-8").lower()
-        assert_no_fabricated(self, text, ("fps improved", "benchmark passed", "universal gain", "quality verified"))
+        assert_limits(self, self.report, REPORT_MD, ("single session", "no cross-scene", "vsync disabled", "not device vram"))
 
 
 if __name__ == "__main__":

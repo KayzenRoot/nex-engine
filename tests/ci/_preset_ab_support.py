@@ -56,3 +56,19 @@ def assert_validations(case: Any, evidence: Path, manifest: dict[str, Any]) -> N
         with case.subTest(run=entry["run_id"]):
             validation = json.loads((evidence / f"gpu_profile_{entry['run_id']}.json.validation.json").read_text(encoding="utf-8"))
             case.assertEqual("PASS", validation["status"])
+
+
+def assert_builder_reproduces(case: Any, builder: Any, report: dict[str, Any], json_path: Path, md_path: Path) -> None:
+    rebuilt = builder.build_report()
+    case.assertEqual(report, rebuilt)
+    case.assertEqual(builder.render_json(rebuilt), json_path.read_text(encoding="utf-8"))
+    case.assertEqual(builder.render_markdown(rebuilt), md_path.read_text(encoding="utf-8"))
+
+
+def assert_limits(case: Any, report: dict[str, Any], md_path: Path, expected: tuple[str, ...]) -> None:
+    limitations = " ".join(report["limitations"]).lower()
+    for item in expected:
+        with case.subTest(expected=item):
+            case.assertIn(item, limitations)
+    text = md_path.read_text(encoding="utf-8").lower()
+    assert_no_fabricated(case, text, ("fps improved", "benchmark passed", "universal gain", "quality verified"))
