@@ -96,6 +96,7 @@ python docs/benchmarks/m09/tools/build_measurement_atlas.py --check
 - Workload sintético em 1280×720; no modo M01 os fillers podem sobrepor props das cenas.
 - Comparação visual é byte a byte de RGB; não modela percepção humana, color space ou calibração.
 - A verdade visual cobre 1280×720, 1920×1080 e 2560×1440; resoluções acima de 2560×1440 não são cobertas.
+- Uma tentativa de 3840×2160 em 2026-11-14 foi clampada pelo desktop 2560×1080 para 2560×1009 e rejeitada como INVALID; não foi commitada. Resoluções acima de 2560×1440 exigem um display/ambiente com viewport maior.
 - A estabilidade temporal cobre frames estáticos; animação, câmera e efeitos dinâmicos não são cobertos.
 - A escala de resolução principal vai até 1920×1080; o bundle `res-scaling-1440` cobre 2560×1440 em 100 proxies, com janela maior que o desktop.
 - A interação usa 50/100 proxies porque 25 exigiria remover geometria da cena base.
