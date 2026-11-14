@@ -6,9 +6,10 @@ Cena de medição autocontida para comparar dois presets `preset_pack.v1` no mes
 
 ## Workload
 
-- 200 proxies determinísticos, luz direcional e 4 omni lights.
+- Modo `builtin`: 200 proxies determinísticos, luz direcional e 4 omni lights.
+- Modo M01 (`NEX_PRESET_AB_SCENE`): instancia `corridor_static`, `arena_combat` ou `dense_city` de `res://scenes/base/`, reutiliza câmera/luzes da cena e adiciona fillers determinísticos até 100 meshes totais.
 - Câmera isométrica fixa, 1280×720 por padrão.
-- `effect_mode: lights`, `proxy_count` configurável em 25/50/100/200 (contrato v2 do profiler).
+- `effect_mode: lights`; `proxy_count` configurável em 25/50/100/200 no modo builtin e fixo em 100 no modo M01 (soma exata de meshes).
 - VSync desligado e `max_fps = 240` para evitar o cap de 16k amostras.
 
 ## Presets
@@ -24,7 +25,8 @@ Cena de medição autocontida para comparar dois presets `preset_pack.v1` no mes
 $env:NEX_GPU_PROFILE_SOURCE_SHA = "<40-hex commit>"
 $env:NEX_PRESET_AB_AUTORUN = "1"
 $env:NEX_PRESET_AB_PRESET = "ab-low"
-$env:NEX_PRESET_AB_PROXY_COUNT = "200"   # 25, 50, 100 or 200
+$env:NEX_PRESET_AB_PROXY_COUNT = "200"   # builtin: 25, 50, 100 or 200
+$env:NEX_PRESET_AB_SCENE = "corridor_static"  # opcional: corridor_static, arena_combat, dense_city
 & "<pinned Godot 4.7.2>" --path nex_bench --rendering-method forward_plus `
   res://scenes/preset_ab/preset_ab.tscn
 ```
@@ -42,6 +44,7 @@ O validador confere cena/layout/proxy/effect/max_fps/vsync e delega todos os agr
 ## Limitações
 
 - Sessão sintética única; uma repetição por preset (A/B/A dá duas amostras de A).
+- Modo M01: fillers determinísticos podem sobrepor props da cena base; o workload é uma composição de stress, não uma cena de qualidade visual.
 - Sem generalização entre cenas, drivers, hardware ou sessões.
 - `max_fps = 240` limita o pacing; a comparação principal é GPU p95/p99 e 1% low.
 - O harness aplica um subconjunto de `preset_pack.v1` (resolução, MSAA, sombras, atlas, glow, tonemap, target fps); não é o resolvedor completo.

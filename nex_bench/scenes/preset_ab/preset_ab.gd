@@ -14,8 +14,32 @@ const WIDTH_ENV := "NEX_PRESET_AB_WIDTH"
 const HEIGHT_ENV := "NEX_PRESET_AB_HEIGHT"
 const DEFAULT_PROXY_COUNT := 200
 const PROXY_COUNT_ENV := "NEX_PRESET_AB_PROXY_COUNT"
+const SCENE_ENV := "NEX_PRESET_AB_SCENE"
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
+const M01_SCENES := {
+	"corridor_static": {
+		"path": "res://scenes/base/corridor_static.tscn",
+		"scene": "M01 Corridor A/B/A",
+		"layout": "M01 corridor_static + deterministic fillers",
+		"proxy_count": 100,
+		"seed": 4101,
+	},
+	"arena_combat": {
+		"path": "res://scenes/base/arena_combat.tscn",
+		"scene": "M01 Arena A/B/A",
+		"layout": "M01 arena_combat + deterministic fillers",
+		"proxy_count": 100,
+		"seed": 4102,
+	},
+	"dense_city": {
+		"path": "res://scenes/base/dense_city.tscn",
+		"scene": "M01 City A/B/A",
+		"layout": "M01 dense_city + deterministic fillers",
+		"proxy_count": 100,
+		"seed": 4103,
+	},
+}
 
 var session: RefCounted
 var presets: Dictionary = {}
@@ -26,6 +50,12 @@ var omnis: Array[OmniLight3D] = []
 var camera: Camera3D
 var applied := {}
 var proxy_count := DEFAULT_PROXY_COUNT
+var scene_id := ""
+var scene_label := "Preset A/B/A"
+var scene_layout := "built-in deterministic grid"
+var base_mesh_count := 0
+var filler_mesh_count := 0
+var stage_valid := true
 
 
 func _ready() -> void:
@@ -34,18 +64,47 @@ func _ready() -> void:
 	var width := int(OS.get_environment(WIDTH_ENV)) if not OS.get_environment(WIDTH_ENV).is_empty() else 1280
 	var height := int(OS.get_environment(HEIGHT_ENV)) if not OS.get_environment(HEIGHT_ENV).is_empty() else 720
 	DisplayServer.window_set_size(Vector2i(width, height))
-	var requested := OS.get_environment(PROXY_COUNT_ENV).strip_edges()
-	if not requested.is_empty():
-		var parsed := int(requested)
-		if ALLOWED_PROXY_COUNTS.has(parsed):
-			proxy_count = parsed
-		else:
-			push_error("proxy count must be one of 25/50/100/200: " + requested)
+	_resolve_scene()
 	_load_pack()
 	_build_stage()
-	_apply_preset()
+	if stage_valid:
+		_apply_preset()
 	if OS.get_environment(AUTORUN_ENV) == "1":
 		call_deferred("_start_capture")
+
+
+func _resolve_scene() -> void:
+	var requested := OS.get_environment(SCENE_ENV).strip_edges()
+	if requested.is_empty() or requested == "builtin":
+		_read_proxy_count()
+		return
+	if not M01_SCENES.has(requested):
+		_fail_stage("unknown scene: " + requested)
+		return
+	scene_id = requested
+	var spec: Dictionary = M01_SCENES[scene_id]
+	scene_label = String(spec["scene"])
+	scene_layout = String(spec["layout"])
+	proxy_count = int(spec["proxy_count"])
+	var override := OS.get_environment(PROXY_COUNT_ENV).strip_edges()
+	if not override.is_empty() and int(override) != proxy_count:
+		_fail_stage("M01 scene proxy count is fixed at %d" % proxy_count)
+
+
+func _read_proxy_count() -> void:
+	var requested := OS.get_environment(PROXY_COUNT_ENV).strip_edges()
+	if requested.is_empty():
+		return
+	var parsed := int(requested)
+	if ALLOWED_PROXY_COUNTS.has(parsed):
+		proxy_count = parsed
+	else:
+		_fail_stage("proxy count must be one of 25/50/100/200: " + requested)
+
+
+func _fail_stage(message: String) -> void:
+	stage_valid = false
+	push_error("NEX_PRESET_AB: " + message)
 
 
 func _load_pack() -> void:
@@ -70,6 +129,16 @@ func _load_pack() -> void:
 
 
 func _build_stage() -> void:
+	if not stage_valid:
+		return
+	_build_environment()
+	if scene_id.is_empty():
+		_build_builtin_stage()
+	else:
+		_build_m01_stage()
+
+
+func _build_environment() -> void:
 	environment = Environment.new()
 	environment.background_mode = Environment.BG_COLOR
 	environment.background_color = Color("#0B0F14")
@@ -80,6 +149,8 @@ func _build_stage() -> void:
 	world_environment.environment = environment
 	add_child(world_environment)
 
+
+func _build_builtin_stage() -> void:
 	camera = Camera3D.new()
 	camera.name = "IsoCamera"
 	camera.position = Vector3(14.0, 14.0, 14.0)
@@ -116,6 +187,98 @@ func _build_stage() -> void:
 		lamp.shadow_enabled = false
 		omnis.append(lamp)
 		add_child(lamp)
+
+
+func _build_m01_stage() -> void:
+	var spec: Dictionary = M01_SCENES[scene_id]
+	var packed := load(String(spec["path"])) as PackedScene
+	if packed == null:
+		_fail_stage("cannot load " + String(spec["path"]))
+		return
+	var root := packed.instantiate()
+	if not root is Node3D:
+		_fail_stage("base scene is not Node3D")
+		root.free()
+		return
+	add_child(root)
+	var meshes := root.find_children("*", "MeshInstance3D", true, false)
+	base_mesh_count = meshes.size()
+	var target := int(spec["proxy_count"])
+	if base_mesh_count > target:
+		_fail_stage("base scene has more meshes than the target")
+		return
+	filler_mesh_count = target - base_mesh_count
+	_build_fillers(filler_mesh_count, meshes)
+	_use_base_rig(root)
+	var total := find_children("*", "MeshInstance3D", true, false).size()
+	if total != target:
+		_fail_stage("mesh count %d does not match proxy_count %d" % [total, target])
+
+
+func _use_base_rig(root: Node) -> void:
+	var cameras := root.find_children("*", "Camera3D", true, false)
+	if cameras.is_empty():
+		_fail_stage("base scene has no Camera3D")
+		return
+	camera = cameras[0] as Camera3D
+	for index in range(cameras.size()):
+		(cameras[index] as Camera3D).current = index == 0
+	var directionals := root.find_children("*", "DirectionalLight3D", true, false)
+	if directionals.is_empty():
+		_fail_stage("base scene has no DirectionalLight3D")
+		return
+	directional = directionals[0] as DirectionalLight3D
+	for light in root.find_children("*", "OmniLight3D", true, false):
+		omnis.append(light as OmniLight3D)
+
+
+func _build_fillers(count: int, meshes: Array) -> void:
+	if count <= 0:
+		return
+	var bounds := _mesh_bounds(meshes)
+	var side := ceili(sqrt(float(count)))
+	var step_x := maxf(bounds.size.x - 1.0, 1.0) / float(side)
+	var step_z := maxf(bounds.size.z - 1.0, 1.0) / float(side)
+	var start_x := bounds.position.x + 0.5
+	var start_z := bounds.position.z + 0.5
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(M01_SCENES[scene_id]["seed"])
+	var mesh := BoxMesh.new()
+	mesh.size = Vector3(0.7, 1.2, 0.7)
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color("#7E8CA3")
+	material.roughness = 0.65
+	for index in range(count):
+		var item := MeshInstance3D.new()
+		item.name = "M01Filler_%03d" % index
+		item.mesh = mesh
+		item.material_override = material
+		var col := index % side
+		var row := index / side
+		item.position = Vector3(
+			start_x + (float(col) + 0.5) * step_x + rng.randf_range(-0.12, 0.12),
+			0.6,
+			start_z + (float(row) + 0.5) * step_z + rng.randf_range(-0.12, 0.12)
+		)
+		add_child(item)
+
+
+func _mesh_bounds(meshes: Array) -> AABB:
+	var bounds := AABB()
+	var initialized := false
+	for node in meshes:
+		var item := node as MeshInstance3D
+		if item == null or item.mesh == null:
+			continue
+		var box: AABB = item.global_transform * item.mesh.get_aabb()
+		if not initialized:
+			bounds = box
+			initialized = true
+		else:
+			bounds = bounds.merge(box)
+	if not initialized:
+		return AABB(Vector3(-5.0, 0.0, -5.0), Vector3(10.0, 1.0, 10.0))
+	return bounds
 
 
 func _build_proxies(count: int) -> void:
@@ -162,6 +325,8 @@ func _apply_preset() -> void:
 	Engine.max_fps = int(performance.get("target_fps", 240))
 	applied = {
 		"preset_id": preset_id, "proxy_count": proxy_count,
+		"scene": scene_label, "layout": scene_layout,
+		"base_meshes": base_mesh_count, "filler_meshes": filler_mesh_count,
 		"resolution_scale": viewport.scaling_3d_scale,
 		"msaa": String(rendering.get("msaa", "off")),
 		"shadow_quality": String(rendering.get("shadow_quality", "high")),
@@ -218,6 +383,10 @@ func _tonemap_mode(value: String) -> int:
 
 
 func _start_capture() -> void:
+	if not stage_valid:
+		print("NEX_PRESET_AB_FAIL stage")
+		get_tree().quit(2)
+		return
 	var script := load(SESSION_SCRIPT) as Script
 	if script == null:
 		print("NEX_PRESET_AB_FAIL session_script")
@@ -228,7 +397,8 @@ func _start_capture() -> void:
 	await get_tree().process_frame
 	var context := {
 		"source_sha": OS.get_environment(SOURCE_SHA_ENV).strip_edges().to_lower(),
-		"scene": "Preset A/B/A",
+		"scene": scene_label,
+		"layout": scene_layout,
 		"proxy_count": proxy_count,
 		"effect_mode": "lights",
 		"renderer": RenderingServer.get_current_rendering_method(),
@@ -239,8 +409,8 @@ func _start_capture() -> void:
 		print("NEX_PRESET_AB_FAIL begin: " + str(session.last_error))
 		get_tree().quit(2)
 		return
-	print("NEX_PRESET_AB_START preset=%s size=%s vsync=%d max_fps=%d" % [
-		preset_id, str(get_viewport().get_visible_rect().size),
+	print("NEX_PRESET_AB_START preset=%s scene=%s size=%s vsync=%d max_fps=%d" % [
+		preset_id, scene_label, str(get_viewport().get_visible_rect().size),
 		DisplayServer.window_get_vsync_mode(), Engine.max_fps,
 	])
 

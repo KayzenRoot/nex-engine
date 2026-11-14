@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """NEX M09 preset A/B/A validator.
 
-Validates the harness provenance, then delegates every structural/aggregate
-check to the canonical GPU profile validator with only the scene label
-substituted. It never suppresses a check and never fabricates metrics.
+Validates the harness provenance for the built-in grid and the three M01
+scene modes, then delegates every structural/aggregate check to the canonical
+GPU profile validator with only the scene/layout labels substituted. It never
+suppresses a check and never fabricates metrics.
 """
 from __future__ import annotations
 
@@ -18,6 +19,11 @@ import validate_gpu_profile as canonical  # noqa: E402 - path bootstrap above
 EXPECTED_SCENE = "Preset A/B/A"
 EXPECTED_LAYOUT = "built-in deterministic grid"
 EXPECTED_PROXY_COUNTS = (25, 50, 100, 200)
+M01_SCENE_SPECS = {
+    "M01 Corridor A/B/A": ("M01 corridor_static + deterministic fillers", 100),
+    "M01 Arena A/B/A": ("M01 arena_combat + deterministic fillers", 100),
+    "M01 City A/B/A": ("M01 dense_city + deterministic fillers", 100),
+}
 EXPECTED_EFFECT_MODE = "lights"
 EXPECTED_MAX_FPS = 240
 EXPECTED_VSYNC = 0
@@ -41,12 +47,20 @@ def validate_document(document):
     workload = document.get("workload")
     if not isinstance(workload, dict):
         raise ValueError("workload must be an object")
-    if workload.get("scene") != EXPECTED_SCENE:
-        raise ValueError("workload.scene must be " + EXPECTED_SCENE)
-    if workload.get("layout") != EXPECTED_LAYOUT:
-        raise ValueError("workload.layout must be " + EXPECTED_LAYOUT)
-    if workload.get("proxy_count") not in EXPECTED_PROXY_COUNTS:
-        raise ValueError("workload.proxy_count must be one of 25/50/100/200")
+    scene = workload.get("scene")
+    if scene == EXPECTED_SCENE:
+        if workload.get("layout") != EXPECTED_LAYOUT:
+            raise ValueError("workload.layout must be " + EXPECTED_LAYOUT)
+        if workload.get("proxy_count") not in EXPECTED_PROXY_COUNTS:
+            raise ValueError("workload.proxy_count must be one of 25/50/100/200")
+    elif scene in M01_SCENE_SPECS:
+        layout, count = M01_SCENE_SPECS[scene]
+        if workload.get("layout") != layout:
+            raise ValueError("workload.layout must be " + layout)
+        if workload.get("proxy_count") != count:
+            raise ValueError(f"workload.proxy_count must be {count} for {scene}")
+    else:
+        raise ValueError("workload.scene is not a supported harness scene")
     if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:
         raise ValueError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
     settings = document.get("settings")
@@ -58,7 +72,7 @@ def validate_document(document):
         raise ValueError(f"settings.vsync_mode must be {EXPECTED_VSYNC}")
 
     delegated = dict(document)
-    delegated["workload"] = dict(workload, scene="Density Ladder")
+    delegated["workload"] = dict(workload, scene="Density Ladder", layout=EXPECTED_LAYOUT)
     try:
         result = canonical.validate_report(delegated)
     except canonical.ProfileError as exc:
