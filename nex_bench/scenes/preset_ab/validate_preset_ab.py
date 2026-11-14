@@ -30,7 +30,7 @@ def _loads(raw: bytes):
             object_pairs_hook=canonical._pairs_no_duplicates,
             parse_constant=canonical._reject_constant,
         )
-    except (UnicodeDecodeError, ValueError) as exc:
+    except ValueError as exc:
         raise ValueError("invalid JSON: " + str(exc)) from None
 
 

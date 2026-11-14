@@ -272,10 +272,20 @@ def render_json(report: dict[str, Any]) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
+def _safe_output(path: Path) -> Path:
+    base = OUTPUT_DIR.resolve()
+    candidate = path.resolve()
+    if candidate.parent != base:
+        raise ValueError("output path escapes docs/benchmarks/m09")
+    return candidate
+
+
 def write_outputs(report: dict[str, Any]) -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    REPORT_JSON.write_text(render_json(report), encoding="utf-8", newline="\n")
-    REPORT_MD.write_text(render_markdown(report), encoding="utf-8", newline="\n")
+    with open(_safe_output(REPORT_JSON), "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(render_json(report))
+    with open(_safe_output(REPORT_MD), "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(render_markdown(report))
 
 
 def main(argv: list[str]) -> int:
