@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · CI builder reproducibility enforcement
+
+**CI-BUILDER-CHECK integrado** por PR #223, squash `c972864af21a0e416b335c10c936af2ea6be2d44`. O check obrigatório `NEX Fast Lane / Batch Policy Tests` passa a executar **17 comandos `--check`** dos builders determinísticos de M03/M06/M09 (16 arquivos; `convert_m09_observations.py` cobre `--check` e `--check-full`).
+
+**Guard:** `tests/ci/test_builder_check_enforcement.py` falha se um builder novo não for listado, se algum comando usar modo escrita ou se o job deixar de ser required context. Nenhum builder, artefato, dado, contrato, medição ou ruleset foi alterado; nenhuma nova medição. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M01/M02 bounded admission
 
 **M01 (#6) e M02 (#7) admitidos como `BOUNDED_ADMITTED_REFERENCE_PIPELINE`** por `NEX-ADR-0008` / `NEX-D-018`, sobre a base `e729774583eb8ce3b75271aea66589bb9e04a587`. A admissão cobre contratos M01/M02, cenas base de referência, docs/QA, protótipos de câmera/profundidade/perfis/sightline/temporal e testes associados.
