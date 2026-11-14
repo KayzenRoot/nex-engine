@@ -219,7 +219,7 @@ def build_report() -> dict[str, Any]:
         "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed.",
     ]
     open_questions = [
-        "Resolutions above 2560x1440 and ultrawide aspect ratios are not measured.",
+        "Resolutions above 2560x1440 and ultrawide aspect ratios are not measurable on the current 2560x1080 desktop; a 3840x2160 attempt was clamped to 2560x1009 and rejected as INVALID.",
         "Other GPUs, drivers and CPU platforms are not measured.",
         "Animation, temporal effects, camera motion and real game workloads are not covered.",
         "Preset application in the hub/engine and M09 parent admission remain out of scope.",
