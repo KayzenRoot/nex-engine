@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 M01 visual truth
+
+**M09-M01-VISUAL integrado** por PR #193, squash `40528ee06e092739822c420d60b7c81400aca9ff` (harness `952b5a6`). O harness `preset_ab` ganhou um modo visual determinístico que espera 180 frames, lê o viewport após `RenderingServer.frame_post_draw` e salva PNG 1280×720. Foram capturadas **18 imagens** das três cenas M01 sob `ab-low`/`ab-high` (3 repetições por célula), com 21 arquivos cobertos por `SHA256SUMS`, análise e relatório reproduzível.
+
+**Medição:** todas as repetições de cada par cena/preset são byte-idênticas (mesmo SHA-256); todas as comparações A/A são exatamente zero. O `ab-high` altera a imagem em todas as cenas: **4.077% (corridor)**, **3.884% (arena)** e **1.745% (city)** de pixels com diferença > 2; mean abs 0.5135/0.4898/0.2317 e PSNR 37.406/36.386/39.763 dB. Isto confirma mudança de estado de rendering, **não** ranking de qualidade. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 M01 scene A/B/A
 
 **M09-M01-AB integrado** por PR #191, squash `d657afad0dbabdcfb1d2143fee71e71d448b07c9` (source medido `617db53d`). O harness A/B/A ganhou `NEX_PRESET_AB_SCENE` para `corridor_static`, `arena_combat` e `dense_city`; cada cena reutiliza câmera/luzes e recebe fillers determinísticos até 100 meshes totais. Foram medidas **18 capturas reais** na RTX 5050 (3 runs por preset por cena), todas COMPLETE/validadas, com `SHA256SUMS` de 39 arquivos, manifesto, análise e relatório reproduzível.
