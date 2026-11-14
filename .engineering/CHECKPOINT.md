@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · Provenance index
+
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **57 entradas** com PR protegida e merge SHA, PRs **112–241**, 57 merge SHAs únicos.
+
+**Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M09 resolution campaign closure
 
 **M09-CAMPAIGN-CLOSURE registrado** por PR #241, squash `ffbfba8e695beca782a97ccdacff2407efddee9a`. Uma tentativa de **3840×2160** foi clampada pelo desktop **2560×1080** para **2560×1009** e rejeitada como `INVALID`; a captura inválida não foi commitada.
