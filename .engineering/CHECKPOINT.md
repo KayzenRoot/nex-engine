@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M06 full refresh (156 observações)
+
+**M06-FULL-REFRESH integrado** por PR #235, squash `db3df0fa454d03dfdf6d11c0f921d95be95c3c3e`. A cadeia M06 passa a cobrir as duas novas medições M09: **156 observações** de **9 bundles**, todas `pacing`.
+
+**Resultado:** atlas com GPU p95 **0.068–1.55 ms** (mediana 0.226), pacing **4.199–4.311 ms** e maior GPU share **36.29%**; advisories com **156** entradas e headroom **2.716–4.009 ms**. Top cell `res-scaling-1440`/`ab-high`/2560×1440/100 proxies/1.547 ms. Saída curada de 12 observações/advisórios inalterada. Nenhuma nova medição, bundle M09, contrato, modelo, cena, harness ou ruleset alterado. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M09 2560×1440
 
 **M09-RES-1440 integrado** por PR #233, squash `586883e2c4416ea3fd4ce3c8cf66879664e5ff55`. Nova sessão de **6 capturas** em `arena_combat`, 100 proxies, 2560×1440, A/B/A, todas PASS no validador dedicado.
