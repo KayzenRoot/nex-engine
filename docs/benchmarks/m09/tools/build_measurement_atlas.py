@@ -56,6 +56,15 @@ def _findings_visual(report: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _findings_visual_1920(report: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "aa_identical": all(scene["aa"]["identical_sha"] for scene in report["scenes"]),
+        "ab_changed_pixels_pct": {
+            scene["scene_id"]: scene["ab"]["metrics"]["changed_pixels_pct"] for scene in report["scenes"]
+        },
+    }
+
+
 def _findings_res_scaling(report: dict[str, Any]) -> dict[str, Any]:
     return {"gpu_p95_high_vs_low_pct": {
         key: value["gpu_p95_pct"] for key, value in report["deltas_high_vs_low"].items()
@@ -97,6 +106,9 @@ ENTRIES: tuple[dict[str, Any], ...] = (
     {"id": "m01-visual", "kind": "visual", "report": "m01-visual.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-m01-visual", "runs": 18, "files": 21,
      "findings": _findings_visual},
+    {"id": "m01-visual-1920", "kind": "visual", "report": "m01-visual-1920.v1.json",
+     "evidence": "windows-rtx5050-2026-11-14-m01-visual-1920", "runs": 18, "files": 21,
+     "findings": _findings_visual_1920},
     {"id": "res-scaling", "kind": "performance", "report": "res-scaling.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-res-scaling", "runs": 18, "files": 39,
      "findings": _findings_res_scaling},
