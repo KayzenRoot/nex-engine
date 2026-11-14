@@ -27,24 +27,20 @@ PRESETS = ("ab-low", "ab-high")
 METRICS = ("GPU_RENDER_MS", "CPU_RENDER_MS", "FRAME_PACING_INTERVAL_MS", "MAIN_LOOP_INTERVAL_MS", "RENDERER_ALLOCATION_BYTES")
 
 
-def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
-    result: dict[str, Any] = {}
-    for key, value in pairs:
-        if key in result:
-            raise ValueError(f"duplicate JSON key: {key}")
-        result[key] = value
-    return result
-
-
-def _reject_non_finite(token: str) -> None:
-    raise ValueError(f"non-finite JSON: {token}")
-
-
 def load_json(path: Path) -> Any:
+    def pairs(items):
+        keys = [key for key, _ in items]
+        if len(keys) != len(set(keys)):
+            raise ValueError("duplicate JSON key")
+        return dict(items)
+
+    def constant(token):
+        raise ValueError(f"non-finite JSON: {token}")
+
     return json.loads(
         path.read_text(encoding="utf-8-sig"),
-        object_pairs_hook=_reject_duplicate_keys,
-        parse_constant=_reject_non_finite,
+        object_pairs_hook=pairs,
+        parse_constant=constant,
     )
 
 
