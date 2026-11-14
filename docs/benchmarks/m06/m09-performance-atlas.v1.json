@@ -1,5 +1,5 @@
 {
-  "bundle_count": 7,
+  "bundle_count": 9,
   "bundles": [
     {
       "bottleneck_counts": {
@@ -986,6 +986,144 @@
       "scenes": [
         "m01-arena"
       ]
+    },
+    {
+      "bottleneck_counts": {
+        "pacing": 6
+      },
+      "bundle": "interaction-200-720",
+      "cells": [
+        {
+          "bottleneck": "pacing",
+          "bundle": "interaction-200-720",
+          "cpu_p95_ms": 0.647,
+          "gpu_p95_ms": 0.468,
+          "height_px": 720,
+          "max_gpu_share_pct": 11.1,
+          "pacing_p95_ms": 4.234,
+          "preset_id": "ab-high",
+          "proxy_count": 200,
+          "runs": 3,
+          "scene_id": "m01-arena",
+          "width_px": 1280
+        },
+        {
+          "bottleneck": "pacing",
+          "bundle": "interaction-200-720",
+          "cpu_p95_ms": 0.445,
+          "gpu_p95_ms": 0.111,
+          "height_px": 720,
+          "max_gpu_share_pct": 2.64,
+          "pacing_p95_ms": 4.232,
+          "preset_id": "ab-low",
+          "proxy_count": 200,
+          "runs": 3,
+          "scene_id": "m01-arena",
+          "width_px": 1280
+        }
+      ],
+      "cpu_p95_ms": {
+        "max": 0.741,
+        "median": 0.561,
+        "min": 0.312
+      },
+      "gpu_p95_ms": {
+        "max": 0.468,
+        "median": 0.29,
+        "min": 0.11
+      },
+      "max_gpu_share_pct": 11.1,
+      "pacing_p95_ms": {
+        "max": 4.278,
+        "median": 4.233,
+        "min": 4.212
+      },
+      "presets": [
+        "ab-high",
+        "ab-low"
+      ],
+      "proxy_counts": [
+        200
+      ],
+      "resolutions": [
+        [
+          1280,
+          720
+        ]
+      ],
+      "runs": 6,
+      "scenes": [
+        "m01-arena"
+      ]
+    },
+    {
+      "bottleneck_counts": {
+        "pacing": 6
+      },
+      "bundle": "res-scaling-1440",
+      "cells": [
+        {
+          "bottleneck": "pacing",
+          "bundle": "res-scaling-1440",
+          "cpu_p95_ms": 0.493,
+          "gpu_p95_ms": 1.547,
+          "height_px": 1440,
+          "max_gpu_share_pct": 36.29,
+          "pacing_p95_ms": 4.269,
+          "preset_id": "ab-high",
+          "proxy_count": 100,
+          "runs": 3,
+          "scene_id": "m01-arena",
+          "width_px": 2560
+        },
+        {
+          "bottleneck": "pacing",
+          "bundle": "res-scaling-1440",
+          "cpu_p95_ms": 0.39,
+          "gpu_p95_ms": 0.206,
+          "height_px": 1440,
+          "max_gpu_share_pct": 5.03,
+          "pacing_p95_ms": 4.268,
+          "preset_id": "ab-low",
+          "proxy_count": 100,
+          "runs": 3,
+          "scene_id": "m01-arena",
+          "width_px": 2560
+        }
+      ],
+      "cpu_p95_ms": {
+        "max": 0.546,
+        "median": 0.442,
+        "min": 0.389
+      },
+      "gpu_p95_ms": {
+        "max": 1.55,
+        "median": 0.877,
+        "min": 0.205
+      },
+      "max_gpu_share_pct": 36.29,
+      "pacing_p95_ms": {
+        "max": 4.311,
+        "median": 4.268,
+        "min": 4.257
+      },
+      "presets": [
+        "ab-high",
+        "ab-low"
+      ],
+      "proxy_counts": [
+        100
+      ],
+      "resolutions": [
+        [
+          2560,
+          1440
+        ]
+      ],
+      "runs": 6,
+      "scenes": [
+        "m01-arena"
+      ]
     }
   ],
   "limitations": [
@@ -996,9 +1134,9 @@
     "no FPS gain, quality or universal recommendation is claimed",
     "M06 bounded admission covers evidence/analysis only"
   ],
-  "observation_count": 144,
+  "observation_count": 156,
   "observations": [
-    "All 144 observations classify as pacing at the 240 fps cap.",
+    "All 156 observations classify as pacing at the 240 fps cap.",
     "The atlas aggregates seven M09 performance bundles by bundle and workload cell.",
     "GPU p95 varies with scene, preset, resolution and proxy count; the per-bundle cells retain that detail.",
     "The atlas is a derived index of measured observations, not a new benchmark or a quality claim."
@@ -1007,17 +1145,17 @@
   "source_bundle": "docs/benchmarks/m06/observations/m09-observations-full.v1.json",
   "summary": {
     "bottleneck_counts": {
-      "pacing": 144
+      "pacing": 156
     },
     "gpu_p95_ms": {
-      "max": 0.887,
-      "median": 0.196,
+      "max": 1.55,
+      "median": 0.226,
       "min": 0.068
     },
-    "max_gpu_share_pct": 21.05,
+    "max_gpu_share_pct": 36.29,
     "pacing_p95_ms": {
-      "max": 4.301,
-      "median": 4.248,
+      "max": 4.311,
+      "median": 4.249,
       "min": 4.199
     }
   },

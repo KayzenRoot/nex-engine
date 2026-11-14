@@ -2,7 +2,7 @@
 
 **Status:** `M09_PERFORMANCE_ATLAS_DERIVED / SINGLE_SESSION / NO_FPS_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 144 · **Bundles:** 7
+**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 156 · **Bundles:** 9
 
 ## Bundles
 
@@ -15,11 +15,14 @@
 | interaction | 24 | 1 | 2 | 0.224 | 0.276 | 4.242 | 19.47% | {'pacing': 24} |
 | cross-scene | 48 | 2 | 2 | 0.188 | 0.401 | 4.263 | 18.59% | {'pacing': 48} |
 | interaction-200 | 12 | 1 | 2 | 0.239 | 0.432 | 4.264 | 19.92% | {'pacing': 12} |
+| interaction-200-720 | 6 | 1 | 2 | 0.290 | 0.561 | 4.233 | 11.10% | {'pacing': 6} |
+| res-scaling-1440 | 6 | 1 | 2 | 0.877 | 0.442 | 4.268 | 36.29% | {'pacing': 6} |
 
 ## Top 10 células por GPU p95
 
 | Bundle | Cena | Preset | Resolução | Proxies | Runs | GPU p95 | CPU p95 | Pacing p95 | GPU share |
 |---|---|---|---|---:|---:|---:|---:|---:|---:|
+| res-scaling-1440 | m01-arena | ab-high | 2560×1440 | 100 | 3 | 1.547 | 0.493 | 4.269 | 36.29% |
 | preset-ab | preset-ab | ab-high | 1280×720 | 200 | 3 | 0.881 | 0.472 | 4.222 | 21.05% |
 | proxy-scaling | preset-ab | ab-high | 1280×720 | 200 | 3 | 0.879 | 0.457 | 4.256 | 20.68% |
 | interaction-200 | m01-arena | ab-high | 1920×1080 | 200 | 3 | 0.845 | 0.518 | 4.294 | 19.92% |
@@ -29,18 +32,17 @@
 | interaction | m01-arena | ab-high | 1920×1080 | 50 | 3 | 0.820 | 0.306 | 4.240 | 19.34% |
 | cross-scene | m01-corridor | ab-high | 1920×1080 | 100 | 3 | 0.790 | 0.451 | 4.259 | 18.59% |
 | cross-scene | m01-corridor | ab-high | 1920×1080 | 50 | 3 | 0.784 | 0.425 | 4.242 | 18.48% |
-| proxy-scaling | preset-ab | ab-high | 1280×720 | 25 | 3 | 0.774 | 0.382 | 4.269 | 18.24% |
 
 ## Resumo
 
-- Bottlenecks: {'pacing': 144}.
-- GPU p95 global: 0.068–0.887 ms (mediana 0.196).
-- Pacing p95: 4.199–4.301 ms.
-- Maior GPU share: 21.05%.
+- Bottlenecks: {'pacing': 156}.
+- GPU p95 global: 0.068–1.550 ms (mediana 0.226).
+- Pacing p95: 4.199–4.311 ms.
+- Maior GPU share: 36.29%.
 
 ## Observações
 
-- All 144 observations classify as pacing at the 240 fps cap.
+- All 156 observations classify as pacing at the 240 fps cap.
 - The atlas aggregates seven M09 performance bundles by bundle and workload cell.
 - GPU p95 varies with scene, preset, resolution and proxy count; the per-bundle cells retain that detail.
 - The atlas is a derived index of measured observations, not a new benchmark or a quality claim.
