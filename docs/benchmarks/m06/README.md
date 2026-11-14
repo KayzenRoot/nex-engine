@@ -11,6 +11,8 @@ Este diretório transforma as 15 capturas S05 já publicadas do Lighting Matrix 
 | `atlas.v1.json` | Atlas legível por máquina: 15 runs, células, referências baseline, deltas, classificação, limitações. |
 | `ATLAS.md` | Relatório humano com tabelas e observações. |
 | `tools/build_atlas.py` | Builder stdlib determinístico; verifica hashes, recomputa agregados e reescreve os dois artefatos. |
+| `observations/m09-observations.v1.json` | 12 observações `performance.v1` convertidas de capturas M09, com campos indisponíveis explícitos e classificação de bottleneck. |
+| `tools/convert_m09_observations.py` | Conversor determinístico das capturas M09 selecionadas para `performance.v1`. |
 
 ## Metodologia
 
@@ -22,14 +24,20 @@ Este diretório transforma as 15 capturas S05 já publicadas do Lighting Matrix 
 6. Calcula deltas vs a mediana baseline da mesma contagem (3 runs em 25; 1 run em 100/200).
 7. Falha em qualquer hash, run ausente, status não-COMPLETE ou divergência de validação.
 
+## Observações M09
+
+O conversor seleciona 12 capturas já integradas (preset-ab, m01-ab, res-scaling e interaction-200), mapeia GPU/CPU/pacing p95 para `timings`, usa `renderer_allocation_bytes` p50, marca draw calls/VRAM/objetos como `UNAVAILABLE` com razão e classifica o bottleneck. Cada observação é validada contra `performance.v1` e pelo consumidor de coerência do contrato.
+
 ## Uso
 
 ```powershell
 python docs/benchmarks/m06/tools/build_atlas.py
 python docs/benchmarks/m06/tools/build_atlas.py --check
+python docs/benchmarks/m06/tools/convert_m09_observations.py
+python docs/benchmarks/m06/tools/convert_m09_observations.py --check
 ```
 
-`--check` não escreve: confirma que `atlas.v1.json` e `ATLAS.md` correspondem ao builder.
+`--check` não escreve: confirma que o atlas ou o bundle de observações correspondem ao builder/conversor.
 
 ## Limitações
 
@@ -38,4 +46,5 @@ python docs/benchmarks/m06/tools/build_atlas.py --check
 - Timings de GPU podem descrever trabalho anterior ao frame atual.
 - `RENDERER_ALLOCATION_BYTES` é histórico da sessão, não VRAM do dispositivo; não é comparado entre runs.
 - `one_percent_low_fps` é pacing de callbacks, não apresentação/input-to-photon.
+- As 12 observações M09 são uma seleção de runs já integrados; não são uma nova medição nem uma amostra estatística completa.
 - Nenhuma captura nova, nenhum benchmark, nenhuma generalização entre cena/driver/hardware/sessão.

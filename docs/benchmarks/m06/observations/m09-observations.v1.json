@@ -1,0 +1,870 @@
+{
+  "observations": [
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.199 ms exceeds max(gpu 0.147, cpu 0.357) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T09:55:36Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-preset-ab-low",
+      "provenance": {
+        "base_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab/gpu_profile_1794650136-34991024.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 23300080
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.357
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.199
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.147
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 720,
+          "unit": "px",
+          "width_px": 1280
+        },
+        "scene_id": "preset-ab",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.222 ms exceeds max(gpu 0.746, cpu 0.467) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T09:56:22Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-preset-ab-high",
+      "provenance": {
+        "base_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab/gpu_profile_1794650182-34960454.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 181631216
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.467
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.222
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.746
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 720,
+          "unit": "px",
+          "width_px": 1280
+        },
+        "scene_id": "preset-ab",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.208 ms exceeds max(gpu 0.086, cpu 0.328) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T12:12:23Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-m01-corridor-low",
+      "provenance": {
+        "base_sha": "617db53d6752f30584b296f133e6990ca6602549",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-ab/gpu_profile_1794658343-34202025.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "617db53d6752f30584b296f133e6990ca6602549",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 23390448
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.328
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.208
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.086
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 720,
+          "unit": "px",
+          "width_px": 1280
+        },
+        "scene_id": "m01-corridor",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.210 ms exceeds max(gpu 0.542, cpu 0.475) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T12:13:15Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-m01-corridor-high",
+      "provenance": {
+        "base_sha": "617db53d6752f30584b296f133e6990ca6602549",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-ab/gpu_profile_1794658395-33784967.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "617db53d6752f30584b296f133e6990ca6602549",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 180244464
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.475
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.21
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.542
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 720,
+          "unit": "px",
+          "width_px": 1280
+        },
+        "scene_id": "m01-corridor",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.225 ms exceeds max(gpu 0.096, cpu 0.318) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T13:17:07Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-res-960-low",
+      "provenance": {
+        "base_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/gpu_profile_1794662227-33712542.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 19993824
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.318
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.225
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.096
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 540,
+          "unit": "px",
+          "width_px": 960
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.203 ms exceeds max(gpu 0.317, cpu 0.444) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T13:17:41Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-res-960-high",
+      "provenance": {
+        "base_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/gpu_profile_1794662261-33401944.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 144433376
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.444
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.203
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.317
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 540,
+          "unit": "px",
+          "width_px": 960
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.241 ms exceeds max(gpu 0.156, cpu 0.344) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T13:24:25Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-res-1920-low",
+      "provenance": {
+        "base_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/gpu_profile_1794662665-35435891.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 36282336
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.344
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.241
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.156
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 1080,
+          "unit": "px",
+          "width_px": 1920
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.273 ms exceeds max(gpu 0.826, cpu 0.446) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T13:24:59Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-res-1920-high",
+      "provenance": {
+        "base_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/gpu_profile_1794662699-33390119.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 290099936
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.446
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.273
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.826
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 100,
+        "resolution": {
+          "height_px": 1080,
+          "unit": "px",
+          "width_px": 1920
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.261 ms exceeds max(gpu 0.099, cpu 0.357) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T15:08:53Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-i200-960-low",
+      "provenance": {
+        "base_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/gpu_profile_1794668933-34223527.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 19993824
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.357
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.261
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.099
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 540,
+          "unit": "px",
+          "width_px": 960
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.264 ms exceeds max(gpu 0.322, cpu 0.506) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T15:09:27Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-i200-960-high",
+      "provenance": {
+        "base_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/gpu_profile_1794668967-33536606.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 144433376
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.506
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.264
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.322
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 540,
+          "unit": "px",
+          "width_px": 960
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.275 ms exceeds max(gpu 0.157, cpu 0.361) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T15:12:38Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-i200-1920-low",
+      "provenance": {
+        "base_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/gpu_profile_1794669158-33981979.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 36282336
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.361
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.275
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.157
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 1080,
+          "unit": "px",
+          "width_px": 1920
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    },
+    {
+      "bottleneck": {
+        "classification": "pacing",
+        "confidence": "high",
+        "evidence": "measured",
+        "rationale": "frame pacing p95 4.248 ms exceeds max(gpu 0.846, cpu 0.518) by more than 1 ms; the 240 fps cap dominates."
+      },
+      "captured_at_utc": "2026-11-14T15:13:12Z",
+      "frame_interval": {
+        "provider": "SceneTree._process(delta)",
+        "status": "UNAVAILABLE",
+        "unavailable_reason": "raw interval samples are retained in the source capture"
+      },
+      "observation_id": "m09-i200-1920-high",
+      "provenance": {
+        "base_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "capture_mode": "windowed",
+        "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200/gpu_profile_1794669192-33435146.json",
+        "godot_version": "4.7.2-stable (official)",
+        "hardware": {
+          "driver_version": "617.14",
+          "gpu_model": "NVIDIA GeForce RTX 5050"
+        },
+        "head_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+        "measurement_status": "MEASURED"
+      },
+      "resources": {
+        "draw_calls": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "the profiler does not expose draw calls"
+        },
+        "objects_rendered": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "object count is declared by the workload, not queried from the renderer"
+        },
+        "renderer_allocation_bytes": {
+          "status": "MEASURED",
+          "value": 290099936
+        },
+        "vram_used_bytes": {
+          "status": "UNAVAILABLE",
+          "unavailable_reason": "device VRAM is not process-attributed"
+        }
+      },
+      "schema_version": "performance.v1",
+      "timings": {
+        "cpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.518
+        },
+        "frame_pacing_ms": {
+          "status": "MEASURED",
+          "value": 4.248
+        },
+        "gpu_render_ms": {
+          "status": "MEASURED",
+          "value": 0.846
+        }
+      },
+      "workload": {
+        "effect_mode": "lights",
+        "max_fps": 240,
+        "proxy_count": 200,
+        "resolution": {
+          "height_px": 1080,
+          "unit": "px",
+          "width_px": 1920
+        },
+        "scene_id": "m01-arena",
+        "vsync": false
+      }
+    }
+  ],
+  "schema_version": "m06_observation_bundle.v1",
+  "source": "M09 integrated evidence bundles"
+}
