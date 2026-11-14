@@ -68,10 +68,15 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         self.assertIn("--check", args)
         self.assertIn("--check-full", args)
 
+    def test_domain_check_is_enforced(self) -> None:
+        args = self.commands["docs/benchmarks/m03/tools/build_budget_validation.py"]
+        self.assertIn("--check", args)
+        self.assertIn("--check-domain", args)
+
     def test_expected_builder_count(self) -> None:
-        # 2 M01/M02 + 1 M03 + 4 M06 files (6 invocations) + 11 M09 = 18 files / 20 checks.
+        # 1 M01 + 1 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 11 M09 = 18 files / 21 checks.
         self.assertEqual(18, len(self.commands))
-        self.assertEqual(20, sum(len(value) for value in self.commands.values()))
+        self.assertEqual(21, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":

@@ -20,8 +20,13 @@ MEASURED_PATH = REPO_ROOT / "docs/benchmarks/m09/m01-ab.v1.json"
 OUTPUT_DIR = REPO_ROOT / "docs/benchmarks/m03"
 OUTPUT_JSON = OUTPUT_DIR / "budget-validation.v1.json"
 OUTPUT_MD = OUTPUT_DIR / "BUDGET-VALIDATION.md"
+RES_SCALING_PATH = REPO_ROOT / "docs/benchmarks/m09/res-scaling.v1.json"
+OUTPUT_JSON_DOMAIN = OUTPUT_DIR / "budget-domain-boundary.v1.json"
+OUTPUT_MD_DOMAIN = OUTPUT_DIR / "BUDGET-DOMAIN-BOUNDARY.md"
 
 SCHEMA_VERSION = "m03_budget_validation.v1"
+DOMAIN_SCHEMA_VERSION = "m03_budget_domain_boundary.v1"
+DOMAIN_SCENE = "arena_combat"
 SCENES = {
     "corridor_static": {"omni_lights": 3, "shadowed_low": 0, "shadowed_high": 3},
     "arena_combat": {"omni_lights": 4, "shadowed_low": 0, "shadowed_high": 4},
@@ -152,6 +157,25 @@ def build_report() -> dict[str, Any]:
     }
 
 
+def _summary_and_footer(report: dict[str, Any], footer: str) -> list[str]:
+    lines = [
+        "",
+        "## Resumo",
+        "",
+        f"- Células: {report['summary']['cells']} · dentro de 2%: {report['summary']['within_2pct']}.",
+        f"- Maior erro absoluto: {report['summary']['max_abs_error_pct']:.1f}%.",
+        f"- Veredito: `{report['verdict']}`.",
+        "",
+        "## Observações",
+        "",
+    ]
+    lines.extend(f"- {observation}" for observation in report["observations"])
+    lines.extend(["", "## Limitações", ""])
+    lines.extend(f"- {limitation}" for limitation in report["limitations"])
+    lines.extend(["", footer, ""])
+    return lines
+
+
 def render_markdown(report: dict[str, Any]) -> str:
     lines = [
         "# NEX M03 · Light budget validation — RTX 5050",
@@ -173,23 +197,146 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"{cell['error_ms']:+.5f} | {cell['error_pct']:+.1f}% | "
             f"{'sim' if cell['within_2pct'] else 'não'} |"
         )
+    lines.extend(_summary_and_footer(
+        report,
+        "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py`; não é benchmark nem claim de ganho.",
+    ))
+    return "\n".join(lines)
+
+
+def _domain_verdict(cells: list[dict[str, Any]]) -> str:
+    matches = [cell for cell in cells if cell["within_2pct"]]
+    if len(matches) != 1 or matches[0]["resolution_px"] != [1280, 720]:
+        return "NO_DOMAIN_MATCH" if not matches else "PARTIAL_DOMAIN_MATCH"
+    return "CALIBRATION_RESOLUTION_MATCH_ONLY"
+
+
+def build_domain_report() -> dict[str, Any]:
+    snapshot = _load(MODEL_PATH)
+    if snapshot.get("schema_version") != "m03_light_cost_model_snapshot.v1":
+        raise ValueError("model snapshot schema is invalid")
+    model = {key: float(value) for key, value in snapshot["coefficients"].items()}
+    gd_model = _model_from_gdscript()
+    if any(abs(model[key] - gd_model[key]) > 1e-12 for key in MODEL_KEYS):
+        raise ValueError("model snapshot does not match the GDScript DEFAULT_MODEL")
+    measured = _load(RES_SCALING_PATH)
+    workload = measured.get("workload", {})
+    if workload.get("scene_id") != DOMAIN_SCENE or workload.get("effect_mode") != "lights":
+        raise ValueError("resolution bundle workload is not the expected lit arena scene")
+    config = SCENES[DOMAIN_SCENE]
+    cells = []
+    for cell in measured["cells"]:
+        preset = cell["preset_id"]
+        if preset not in PRESETS:
+            raise ValueError("resolution bundle contains an unsupported preset")
+        shadowed = config["shadowed_high"] if preset == "ab-high" else config["shadowed_low"]
+        predicted = _prediction(model, config["omni_lights"], shadowed, True, 0)
+        actual = float(cell["gpu_p95_ms"])
+        error_ms = predicted - actual
+        error_pct = error_ms / actual * 100.0
+        cells.append(
+            {
+                "scene_id": DOMAIN_SCENE,
+                "preset_id": preset,
+                "resolution_px": [int(cell["width"]), int(cell["height"])],
+                "omni_lights": config["omni_lights"],
+                "shadowed_omni_lights": shadowed,
+                "predicted_gpu_ms": round(predicted, 5),
+                "measured_gpu_p95_ms": round(actual, 3),
+                "error_ms": round(error_ms, 5),
+                "error_pct": round(error_pct, 1),
+                "within_2pct": abs(error_pct) <= 2.0,
+            }
+        )
+    by_preset: dict[str, dict[tuple[int, int], float]] = {}
+    for cell in cells:
+        by_preset.setdefault(cell["preset_id"], {})[tuple(cell["resolution_px"])] = cell["measured_gpu_p95_ms"]
+    resolution_deltas = {}
+    for preset, values in by_preset.items():
+        delta = values[(1920, 1080)] - values[(960, 540)]
+        resolution_deltas[preset] = {
+            "measured_delta_ms": round(delta, 3),
+            "measured_delta_pct": round(delta / values[(960, 540)] * 100.0, 1),
+        }
+    matches = [cell for cell in cells if cell["within_2pct"]]
+    if len(matches) != 1:
+        raise ValueError("domain boundary report expects exactly one calibration-resolution match")
+    high = {(cell["resolution_px"][0]): cell for cell in cells if cell["preset_id"] == "ab-high"}
+    verdict = _domain_verdict(cells)
+    return {
+        "schema_version": DOMAIN_SCHEMA_VERSION,
+        "model_snapshot": "docs/benchmarks/m03/light-cost-model.v1.json",
+        "model_source": "nex_modules/lighting/budget/light_budget_arbiter.gd DEFAULT_MODEL",
+        "measured_source": "docs/benchmarks/m09/res-scaling.v1.json",
+        "session_date": "2026-11-14",
+        "hardware": {"gpu": "NVIDIA GeForce RTX 5050", "driver": "NVIDIA 617.14 / Vulkan forward_plus"},
+        "workload": {"scene_id": DOMAIN_SCENE, "proxy_count": workload.get("proxy_count"), "effect_mode": "lights"},
+        "cells": cells,
+        "resolution_sensitivity": {
+            "predicted_delta_960_to_1920_ms": 0.0,
+            "measured": resolution_deltas,
+        },
+        "summary": {
+            "cells": len(cells),
+            "within_2pct": len(matches),
+            "max_abs_error_pct": round(max(abs(cell["error_pct"]) for cell in cells), 1),
+            "verdict": verdict,
+        },
+        "verdict": verdict,
+        "observations": [
+            f"only the ab-high cell at 1280x720 is within 2% ({matches[0]['error_pct']:+.1f}%); the same prediction is off by {high[960]['error_pct']:+.1f}% at 960x540 and {high[1920]['error_pct']:+.1f}% at 1920x1080",
+            f"the model is resolution-invariant (predicted delta 960->1920 = 0.000 ms), while measured GPU p95 grows {resolution_deltas['ab-low']['measured_delta_pct']:.1f}% (ab-low) and {resolution_deltas['ab-high']['measured_delta_pct']:.1f}% (ab-high)",
+            "the 2% match is therefore specific to the calibration resolution, not evidence of general validity",
+            "the low preset is overestimated at every resolution, consistent with unmodeled resolution scale, MSAA and glow",
+        ],
+        "limitations": [
+            "model coefficients are calibrated from one S05 session at 25 proxies and 1280x720",
+            "the model represents lights and shadows only; it does not represent resolution scale, MSAA, glow, atlas or scene geometry",
+            "the resolution bundle uses 100 proxies on one arena scene in one session",
+            "the comparison uses medians from a different session and different presets",
+            "no FPS, quality or universal recommendation is claimed",
+            "M03 parent remains NOT_ADMITTED",
+        ],
+    }
+
+
+def render_domain_markdown(report: dict[str, Any]) -> str:
+    lines = [
+        "# NEX M03 · Light budget domain boundary — RTX 5050",
+        "",
+        "**Status:** `CALIBRATION_RESOLUTION_MATCH_ONLY / SINGLE_SESSION / NO_MODEL_CHANGE / ADMIN_SOLO_NOT_INDEPENDENT`",
+        "",
+        f"**Modelo:** `{report['model_snapshot']}` · **Fonte medida:** `{report['measured_source']}`",
+        f"**Workload:** {report['workload']['scene_id']} · {report['workload']['proxy_count']} proxies · {report['workload']['effect_mode']}",
+        "",
+        "## Projeções vs medido por resolução",
+        "",
+        "| Preset | Resolução | Omni | Shadowed | Previsto ms | Medido p95 ms | Erro ms | Erro % | Dentro de 2% |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for cell in report["cells"]:
+        lines.append(
+            f"| {cell['preset_id']} | {cell['resolution_px'][0]}×{cell['resolution_px'][1]} | "
+            f"{cell['omni_lights']} | {cell['shadowed_omni_lights']} | {cell['predicted_gpu_ms']:.5f} | "
+            f"{cell['measured_gpu_p95_ms']:.3f} | {cell['error_ms']:+.5f} | {cell['error_pct']:+.1f}% | "
+            f"{'sim' if cell['within_2pct'] else 'não'} |"
+        )
     lines.extend(
         [
             "",
-            "## Resumo",
+            "## Sensibilidade à resolução",
             "",
-            f"- Células: {report['summary']['cells']} · dentro de 2%: {report['summary']['within_2pct']}.",
-            f"- Maior erro absoluto: {report['summary']['max_abs_error_pct']:.1f}%.",
-            f"- Veredito: `{report['verdict']}`.",
-            "",
-            "## Observações",
-            "",
+            f"- Delta previsto 960→1920: {report['resolution_sensitivity']['predicted_delta_960_to_1920_ms']:.3f} ms.",
+            f"- Delta medido ab-low: {report['resolution_sensitivity']['measured']['ab-low']['measured_delta_ms']:+.3f} ms "
+            f"({report['resolution_sensitivity']['measured']['ab-low']['measured_delta_pct']:+.1f}%).",
+            f"- Delta medido ab-high: {report['resolution_sensitivity']['measured']['ab-high']['measured_delta_ms']:+.3f} ms "
+            f"({report['resolution_sensitivity']['measured']['ab-high']['measured_delta_pct']:+.1f}%).",
         ]
     )
-    lines.extend(f"- {observation}" for observation in report["observations"])
-    lines.extend(["", "## Limitações", ""])
-    lines.extend(f"- {limitation}" for limitation in report["limitations"])
-    lines.extend(["", "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py`; não é benchmark nem claim de ganho.", ""])
+    lines.extend(_summary_and_footer(
+        report,
+        "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py --domain`; não é benchmark nem claim de ganho.",
+    ))
     return "\n".join(lines)
 
 
@@ -197,32 +344,49 @@ def render_json(report: dict[str, Any]) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
-def main(argv: list[str]) -> int:
-    report = build_report()
+def _render_and_write(
+    report: dict[str, Any],
+    rendered_md: str,
+    output_json: Path,
+    output_md: Path,
+    label: str,
+    check_only: bool,
+) -> int:
     rendered_json = render_json(report)
-    rendered_md = render_markdown(report)
-    if argv == ["--check"]:
-        if not OUTPUT_JSON.is_file() or not OUTPUT_MD.is_file():
-            print("M03_BUDGET_CHECK_FAIL: outputs missing")
+    outputs = ((output_json, rendered_json, "JSON"), (output_md, rendered_md, "Markdown"))
+    if check_only:
+        if not all(path.is_file() for path, _, _ in outputs):
+            print(f"{label}_CHECK_FAIL: outputs missing")
             return 1
-        if OUTPUT_JSON.read_text(encoding="utf-8") != rendered_json:
-            print("M03_BUDGET_CHECK_FAIL: JSON is stale")
-            return 1
-        if OUTPUT_MD.read_text(encoding="utf-8") != rendered_md:
-            print("M03_BUDGET_CHECK_FAIL: Markdown is stale")
-            return 1
-        print(f"M03_BUDGET_CHECK_PASS: {len(report['cells'])} cells")
+        for path, rendered, kind in outputs:
+            if path.read_text(encoding="utf-8") != rendered:
+                print(f"{label}_CHECK_FAIL: {kind} is stale")
+                return 1
+        print(f"{label}_CHECK_PASS: {len(report['cells'])} cells")
         return 0
-    if argv:
-        print("usage: build_budget_validation.py [--check]")
-        return 2
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_JSON, "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(rendered_json)
-    with open(OUTPUT_MD, "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(rendered_md)
-    print(f"M03_BUDGET_WRITE_PASS: {len(report['cells'])} cells")
+    output_json.parent.mkdir(parents=True, exist_ok=True)
+    for path, rendered, _ in outputs:
+        with open(path, "w", encoding="utf-8", newline="\n") as handle:
+            handle.write(rendered)
+    print(f"{label}_WRITE_PASS: {len(report['cells'])} cells")
     return 0
+
+
+def main(argv: list[str]) -> int:
+    if argv == ["--check"]:
+        report = build_report()
+        return _render_and_write(report, render_markdown(report), OUTPUT_JSON, OUTPUT_MD, "M03_BUDGET", True)
+    if argv == ["--domain"]:
+        report = build_domain_report()
+        return _render_and_write(report, render_domain_markdown(report), OUTPUT_JSON_DOMAIN, OUTPUT_MD_DOMAIN, "M03_DOMAIN", False)
+    if argv == ["--check-domain"]:
+        report = build_domain_report()
+        return _render_and_write(report, render_domain_markdown(report), OUTPUT_JSON_DOMAIN, OUTPUT_MD_DOMAIN, "M03_DOMAIN", True)
+    if argv:
+        print("usage: build_budget_validation.py [--check|--domain|--check-domain]")
+        return 2
+    report = build_report()
+    return _render_and_write(report, render_markdown(report), OUTPUT_JSON, OUTPUT_MD, "M03_BUDGET", False)
 
 
 if __name__ == "__main__":
