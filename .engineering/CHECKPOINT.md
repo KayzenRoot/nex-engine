@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 temporal stability
+
+**M09-TEMPORAL integrado** por PR #211, squash `cf9ae9c0207544aab342545451255520158eadf4` (harness `22f428a`). O harness ganhou modo de sequência visual determinístico: **30 PNGs** (3 cenas × 2 presets × 5 frames) a 1280×720, com intervalo de 30 frames após warmup.
+
+**Medição:** todas as cinco frames de cada célula são byte-idênticas; todas as comparações frame-a-frame são exatamente zero no workload estático. O atlas M09 foi atualizado para **10 bundles, 66 imagens e 384 arquivos**. Isto é estabilidade temporal de frames estáticos, não qualidade visual ou generalização para animação/efeitos dinâmicos. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 visual truth 1920×1080
 
 **M09-VISUAL-1920 integrado** por PR #209, squash `1eb6b4471402cb0a2b040f2e75a5c24255df9362` (harness `06eb6d92`). As três cenas M01 foram capturadas em 1920×1080 sob `ab-low`/`ab-high`, 3 repetições por célula: **18 PNGs**, A/A byte-idêntico e 21 arquivos com `SHA256SUMS`.
