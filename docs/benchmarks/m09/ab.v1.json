@@ -1,0 +1,133 @@
+{
+  "aa_stability": {
+    "cpu_p95_pct": 2.5,
+    "gpu_p95_pct": 0.0,
+    "one_percent_low_pct": 0.5,
+    "pacing_p95_pct": 0.1
+  },
+  "baselines": {
+    "ab-low": {
+      "cpu_p95_ms": 0.361,
+      "gpu_p50_ms": 0.145,
+      "gpu_p95_ms": 0.147,
+      "one_percent_low_fps": 229.14,
+      "pacing_p95_ms": 4.201,
+      "runs": 2
+    }
+  },
+  "deltas_high_vs_low": {
+    "cpu_p95_pct": 29.2,
+    "gpu_p50_pct": 410.3,
+    "gpu_p95_pct": 407.5,
+    "one_percent_low_pct": -0.4,
+    "pacing_p95_pct": 0.5
+  },
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "Vulkan 1.4.351",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session; one ab-high run and two ab-low runs",
+    "synthetic 200-proxy workload at 1280x720; no cross-scene generalization",
+    "max_fps 240 and vsync disabled; frame pacing is capped",
+    "renderer allocation bytes are session history, not device VRAM",
+    "GPU render timing can describe earlier work and is not frame-aligned",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "ab-high GPU p95: 0.746 ms vs ab-low median 0.147 ms (+407.5%).",
+    "ab-high CPU p95: 0.467 ms vs ab-low median 0.361 ms (+29.2%).",
+    "Pacing p95: 4.222 ms vs 4.201 ms (+0.5%); both runs are capped at 240 fps.",
+    "A/A stability: GPU p95 +0.0%, CPU p95 +2.5%, 1% low +0.5% between the two ab-low runs.",
+    "The measured difference is a GPU cost of the high preset on this synthetic workload, not a game FPS or quality claim."
+  ],
+  "runs": [
+    {
+      "captured_at_utc": "2026-11-14T09:55:36Z",
+      "cpu_ms": {
+        "p50": 0.223,
+        "p95": 0.357,
+        "p99": 0.469
+      },
+      "gpu_ms": {
+        "p50": 0.145,
+        "p95": 0.147,
+        "p99": 0.179
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.54,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.199,
+        "p99": 4.275
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23300080,
+      "run_id": "1794650136-34991024",
+      "sequence": 1
+    },
+    {
+      "captured_at_utc": "2026-11-14T09:56:22Z",
+      "cpu_ms": {
+        "p50": 0.295,
+        "p95": 0.467,
+        "p99": 0.574
+      },
+      "gpu_ms": {
+        "p50": 0.74,
+        "p95": 0.746,
+        "p99": 0.909
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.34,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.222,
+        "p99": 4.285
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181631216,
+      "run_id": "1794650182-34960454",
+      "sequence": 2
+    },
+    {
+      "captured_at_utc": "2026-11-14T09:57:04Z",
+      "cpu_ms": {
+        "p50": 0.224,
+        "p95": 0.366,
+        "p99": 0.48
+      },
+      "gpu_ms": {
+        "p50": 0.145,
+        "p95": 0.147,
+        "p99": 0.177
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 229.75,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.204,
+        "p99": 4.264
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23300080,
+      "run_id": "1794650224-33725612",
+      "sequence": 3
+    }
+  ],
+  "schema_version": "m09_preset_ab.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "vsync_mode": 0
+  },
+  "source_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "viewport_px": [
+    1280,
+    720
+  ]
+}
