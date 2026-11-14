@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M09_RES_SCALING_MEASURED_M09_PARENT_NOT_ADMITTED",
-  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING",
-  "mainObservedSha": "ebe006d58a5b28bdcdfa34d7a116e68aa535aa8a",
+  "status": "M09_INTERACTION_MEASURED_M09_PARENT_NOT_ADMITTED",
+  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING_M09_INTERACTION",
+  "mainObservedSha": "369afd850bbd2fc70a3b8951225aa52c27279786",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
   "workOrderAdmission": "ADMITTED_ON_LOCK_PROMOTION",
@@ -76,7 +76,7 @@
     "postMergeChecks": "SIX_OF_SIX_SUCCESS",
     "sourcePackCoherence": "M00_HISTORICAL_STATUS_RECONCILIATION_IN_PROPOSED_DOC_PR_SUBJECT_TO_PROTECTED_MERGE_AUDIT"
   },
-  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M09_RES_SCALING_2026_11_14",
+  "mainObservedShaMeaning": "RUNTIME_OBSERVED_AFTER_M09_INTERACTION_2026_11_14",
   "ciFastLaneIntegration": {
     "pr": 83,
     "mergeSha": "a14de0c2f2c94e2c4a7a444e7a7fd777ca2a5a56",
@@ -1061,6 +1061,61 @@
     "scaling960To1920Pct": {
       "ab-low": 62.5,
       "ab-high": 160.6
+    },
+    "verdict": "MEASURED_COST_OBSERVED",
+    "generalizationClaim": false,
+    "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "parentM09": "NOT_ADMITTED"
+  },
+  "m09Interaction": {
+    "id": "NEX-M09-INTERACTION-WO-001",
+    "issue": 14,
+    "pr": 197,
+    "protectedMergeSha": "369afd850bbd2fc70a3b8951225aa52c27279786",
+    "measuredSourceSha": "2ef072c70189d5d013a62b7efc821f81078ef6d1",
+    "scene": "arena_combat",
+    "proxyCounts": [
+      50,
+      100
+    ],
+    "resolutions": [
+      [
+        960,
+        540
+      ],
+      [
+        1920,
+        1080
+      ]
+    ],
+    "captures": 24,
+    "validations": 24,
+    "gpuP95HighVsLowPct": {
+      "50/960x540": 219.8,
+      "50/1920x1080": 469.4,
+      "100/960x540": 227.1,
+      "100/1920x1080": 473.6
+    },
+    "resolutionScalingPct": {
+      "50": {
+        "ab-low": 50.0,
+        "ab-high": 167.1
+      },
+      "100": {
+        "ab-low": 50.0,
+        "ab-high": 163.1
+      }
+    },
+    "proxyScalingPct": {
+      "960x540": {
+        "ab-low": 0.0,
+        "ab-high": 2.3
+      },
+      "1920x1080": {
+        "ab-low": 0.0,
+        "ab-high": 0.7
+      }
     },
     "verdict": "MEASURED_COST_OBSERVED",
     "generalizationClaim": false,
