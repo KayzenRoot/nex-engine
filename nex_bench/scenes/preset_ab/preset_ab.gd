@@ -12,6 +12,7 @@ const PRESET_ENV := "NEX_PRESET_AB_PRESET"
 const SOURCE_SHA_ENV := "NEX_GPU_PROFILE_SOURCE_SHA"
 const WIDTH_ENV := "NEX_PRESET_AB_WIDTH"
 const HEIGHT_ENV := "NEX_PRESET_AB_HEIGHT"
+const NATIVE_RESOLUTION_ENV := "NEX_PRESET_AB_NATIVE_RESOLUTION"
 const DEFAULT_PROXY_COUNT := 200
 const PROXY_COUNT_ENV := "NEX_PRESET_AB_PROXY_COUNT"
 const SCENE_ENV := "NEX_PRESET_AB_SCENE"
@@ -64,6 +65,8 @@ var stage_valid := true
 func _ready() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	Engine.max_fps = 240
+	if OS.get_environment(NATIVE_RESOLUTION_ENV) == "1":
+		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	var width := int(OS.get_environment(WIDTH_ENV)) if not OS.get_environment(WIDTH_ENV).is_empty() else 1280
 	var height := int(OS.get_environment(HEIGHT_ENV)) if not OS.get_environment(HEIGHT_ENV).is_empty() else 720
 	DisplayServer.window_set_size(Vector2i(width, height))
