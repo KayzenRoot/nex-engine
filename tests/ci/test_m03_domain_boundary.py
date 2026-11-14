@@ -28,6 +28,7 @@ class M03DomainBoundaryTests(unittest.TestCase):
         ))
         self.assertEqual(6, len(self.cells))
         self.assertEqual({960, 1280, 1920}, {resolution[0] for _, resolution in self.cells})
+        self.assertEqual(3, len(self.report["evidence_bundles"]))
 
     def test_predictions_are_resolution_invariant(self) -> None:
         self.assertEqual({0.379}, {self.cells[("ab-low", (w, h))]["predicted_gpu_ms"]
@@ -60,6 +61,35 @@ class M03DomainBoundaryTests(unittest.TestCase):
         ])
         self.assertEqual("CALIBRATION_RESOLUTION_MATCH_ONLY", self.report["verdict"])
         self.assertEqual(294.8, self.report["summary"]["max_abs_error_pct"])
+
+    def test_proxy_and_high_resolution_evidence(self) -> None:
+        proxy = self.report["proxy_robustness"]
+        self.assertEqual(([1280, 720], 200, True), (
+            proxy["resolution_px"], proxy["proxy_count"], proxy["high_within_2pct"],
+        ))
+        proxy_by_preset = {cell["preset_id"]: cell for cell in proxy["cells"]}
+        self.assertEqual((0.46, 0.468, -1.7, True), (
+            proxy_by_preset["ab-high"]["predicted_gpu_ms"], proxy_by_preset["ab-high"]["measured_gpu_p95_ms"],
+            proxy_by_preset["ab-high"]["error_pct"], proxy_by_preset["ab-high"]["within_2pct"],
+        ))
+        self.assertEqual((0.379, 0.111, 241.4, False), (
+            proxy_by_preset["ab-low"]["predicted_gpu_ms"], proxy_by_preset["ab-low"]["measured_gpu_p95_ms"],
+            proxy_by_preset["ab-low"]["error_pct"], proxy_by_preset["ab-low"]["within_2pct"],
+        ))
+        highres = self.report["high_resolution"]
+        self.assertEqual(([2560, 1440], 100, 0), (
+            highres["resolution_px"], highres["proxy_count"], highres["matches_within_2pct"],
+        ))
+        highres_by_preset = {cell["preset_id"]: cell for cell in highres["cells"]}
+        self.assertEqual((0.46, 1.547, -70.3, False), (
+            highres_by_preset["ab-high"]["predicted_gpu_ms"], highres_by_preset["ab-high"]["measured_gpu_p95_ms"],
+            highres_by_preset["ab-high"]["error_pct"], highres_by_preset["ab-high"]["within_2pct"],
+        ))
+        self.assertEqual((0.379, 0.206, 84.0, False), (
+            highres_by_preset["ab-low"]["predicted_gpu_ms"], highres_by_preset["ab-low"]["measured_gpu_p95_ms"],
+            highres_by_preset["ab-low"]["error_pct"], highres_by_preset["ab-low"]["within_2pct"],
+        ))
+        self.assertEqual(2, self.report["summary"]["within_2pct_total"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
         rebuilt = self.tool.build_domain_report()

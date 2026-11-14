@@ -22,6 +22,20 @@
 - Delta medido ab-low: +0.060 ms (+62.5%).
 - Delta medido ab-high: +0.509 ms (+160.6%).
 
+## Robustez a proxies (200/1280)
+
+| Preset | Previsto ms | Medido p95 ms | Erro | Dentro de 2% |
+|---|---:|---:|---:|---|
+| ab-low | 0.379 | 0.111 | +241.4% | não |
+| ab-high | 0.460 | 0.468 | -1.7% | sim |
+
+## Alta resolução (2560×1440)
+
+| Preset | Previsto ms | Medido p95 ms | Erro | Dentro de 2% |
+|---|---:|---:|---:|---|
+| ab-low | 0.379 | 0.206 | +84.0% | não |
+| ab-high | 0.460 | 1.547 | -70.3% | não |
+
 ## Resumo
 
 - Células: 6 · dentro de 2%: 1.
@@ -30,17 +44,19 @@
 
 ## Observações
 
-- only the ab-high cell at 1280x720 is within 2% (+0.0%); the same prediction is off by +45.1% at 960x540 and -44.3% at 1920x1080
+- in the resolution grid, only the ab-high cell at 1280x720 is within 2% (+0.0%); the same prediction is off by +45.1% at 960x540 and -44.3% at 1920x1080
 - the model is resolution-invariant (predicted delta 960->1920 = 0.000 ms), while measured GPU p95 grows 62.5% (ab-low) and 160.6% (ab-high)
-- the 2% match is therefore specific to the calibration resolution, not evidence of general validity
-- the low preset is overestimated at every resolution, consistent with unmodeled resolution scale, MSAA and glow
+- at 200 proxies and 1280x720 the ab-high prediction remains within 2% (-1.7%), while ab-low is +241.4% above measured
+- at 2560x1440 the ab-high prediction is -70.3% and ab-low +84.0%; neither is within 2%
+- the 2% match is confined to 1280x720 and is robust to a 100->200 proxy change, but not to resolution changes
 
 ## Limitações
 
 - model coefficients are calibrated from one S05 session at 25 proxies and 1280x720
 - the model represents lights and shadows only; it does not represent resolution scale, MSAA, glow, atlas or scene geometry
-- the resolution bundle uses 100 proxies on one arena scene in one session
-- the comparison uses medians from a different session and different presets
+- the resolution grid uses 100 proxies on one arena scene in one session
+- the 200/1280 and 2560/1440 evidence comes from separate sessions and is labeled as such
+- the comparison uses medians from different sessions and different presets
 - no FPS, quality or universal recommendation is claimed
 - M03 parent remains NOT_ADMITTED
 
