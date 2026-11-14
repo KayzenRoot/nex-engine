@@ -36,13 +36,19 @@ def assert_no_fabricated(case: Any, text: str, forbidden: tuple[str, ...]) -> No
             case.assertNotIn(phrase, text)
 
 
-def assert_captures(case: Any, evidence: Path, manifest: dict[str, Any], default_count: int | None = None) -> None:
+def assert_captures(case: Any, evidence: Path, manifest: dict[str, Any], default_count: int | None = None,
+                    default_scene: str | None = "Preset A/B/A", default_layout: str | None = None) -> None:
     for entry in manifest["runs"]:
         with case.subTest(run=entry["run_id"]):
             document = json.loads((evidence / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
             case.assertEqual("COMPLETE", document["run_status"])
             case.assertEqual(manifest["source_sha"], document["source_sha"])
-            case.assertEqual("Preset A/B/A", document["workload"]["scene"])
+            expected_scene = entry.get("scene", default_scene)
+            if expected_scene is not None:
+                case.assertEqual(expected_scene, document["workload"]["scene"])
+            expected_layout = entry.get("layout", default_layout)
+            if expected_layout is not None:
+                case.assertEqual(expected_layout, document["workload"]["layout"])
             expected_count = entry.get("proxy_count", default_count)
             if expected_count is not None:
                 case.assertEqual(expected_count, document["workload"]["proxy_count"])

@@ -14,7 +14,8 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import load_json, run_cli  # noqa: E402 - local tool module
+from common import run_cli  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab")
@@ -25,75 +26,7 @@ REPORT_JSON = OUTPUT_DIR / "ab.v1.json"
 REPORT_MD = OUTPUT_DIR / "AB-REPORT.md"
 
 REPORT_SCHEMA = "m09_preset_ab.v1"
-RUNS_SCHEMA = "preset_ab_runs.v1"
 PRESETS = ("ab-low", "ab-high")
-METRICS = ("GPU_RENDER_MS", "CPU_RENDER_MS", "FRAME_PACING_INTERVAL_MS", "MAIN_LOOP_INTERVAL_MS", "RENDERER_ALLOCATION_BYTES")
-
-
-def load_manifest() -> dict[str, Any]:
-    manifest = load_json(MANIFEST)
-    if manifest.get("schema_version") != RUNS_SCHEMA:
-        raise ValueError("runs manifest schema is invalid")
-    runs = manifest.get("runs")
-    if not isinstance(runs, list) or len(runs) != 6:
-        raise ValueError("runs manifest must contain 6 runs")
-    if [run.get("sequence") for run in runs] != [1, 2, 3, 4, 5, 6]:
-        raise ValueError("runs manifest sequence must be 1..6")
-    if len({run.get("run_id") for run in runs}) != 6:
-        raise ValueError("runs manifest run ids must be unique")
-    for run in runs:
-        if run.get("preset_id") not in PRESETS:
-            raise ValueError("runs manifest preset is invalid")
-    return manifest
-
-
-def load_capture(run_id: str) -> dict[str, Any]:
-    path = EVIDENCE / f"gpu_profile_{run_id}.json"
-    if not path.is_file():
-        raise ValueError(f"capture not found: {run_id}")
-    document = load_json(path)
-    if document.get("run_status") != "COMPLETE":
-        raise ValueError(f"{run_id}: run_status is not COMPLETE")
-    workload = document.get("workload", {})
-    if workload.get("scene") != "Preset A/B/A" or workload.get("proxy_count") != 200 or workload.get("effect_mode") != "lights":
-        raise ValueError(f"{run_id}: workload provenance is invalid")
-    settings = document.get("settings", {})
-    if settings.get("max_fps") != 240 or settings.get("vsync_mode") != 0:
-        raise ValueError(f"{run_id}: settings provenance is invalid")
-    series = document.get("series", {})
-    metrics: dict[str, Any] = {}
-    for key in METRICS:
-        entry = series.get(key, {})
-        if entry.get("status") != "MEASURED":
-            raise ValueError(f"{run_id}: {key} is not MEASURED")
-        aggregates = entry.get("aggregates", {})
-        metrics[key] = {
-            "mean": float(aggregates["mean"]),
-            "p50": float(aggregates["p50"]),
-            "p95": float(aggregates["p95"]),
-            "p99": float(aggregates["p99"]),
-        }
-    return {
-        "run_id": run_id,
-        "source_sha": document.get("source_sha"),
-        "captured_at_utc": document.get("captured_at_utc"),
-        "metrics": metrics,
-        "one_percent_low_fps": float(document["measurement"]["one_percent_low_fps"]),
-        "observed_seconds": float(document["measurement"]["observed_seconds"]),
-        "viewport": document.get("viewport", {}).get("resolution_px"),
-    }
-
-
-def load_validation(run_id: str) -> dict[str, Any]:
-    path = EVIDENCE / f"gpu_profile_{run_id}.json.validation.json"
-    if not path.is_file():
-        raise ValueError(f"validation not found: {run_id}")
-    document = load_json(path)
-    if document.get("status") != "PASS":
-        raise ValueError(f"{run_id}: validation is not PASS")
-    return document
-
-
 METRIC_KEYS = {"GPU_RENDER_MS": "gpu_ms", "CPU_RENDER_MS": "cpu_ms", "FRAME_PACING_INTERVAL_MS": "pacing_ms"}
 
 
@@ -106,14 +39,14 @@ def _pct(value: float, baseline: float) -> float:
 
 
 def build_report() -> dict[str, Any]:
-    manifest = load_manifest()
+    manifest = load_manifest(MANIFEST, 6, None, PRESETS)
     source_sha = manifest.get("source_sha")
     runs: list[dict[str, Any]] = []
     for entry in manifest["runs"]:
         run_id = entry["run_id"]
-        capture = load_capture(run_id)
-        validation = load_validation(run_id)
-        if capture["source_sha"] != source_sha or validation.get("source_sha") != source_sha:
+        capture = load_capture(EVIDENCE, run_id, "Preset A/B/A", "built-in deterministic grid", 200,
+                               include_allocation=True)
+        if capture["source_sha"] != source_sha:
             raise ValueError(f"{run_id}: source_sha mismatch")
         if capture["viewport"] != [1280, 720]:
             raise ValueError(f"{run_id}: unexpected viewport")
@@ -128,7 +61,7 @@ def build_report() -> dict[str, Any]:
                 "cpu_ms": {key: round(capture["metrics"]["CPU_RENDER_MS"][key], 3) for key in ("p50", "p95", "p99")},
                 "pacing_ms": {key: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][key], 3) for key in ("p50", "p95", "p99")},
                 "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
-                "renderer_allocation_bytes": int(capture["metrics"]["RENDERER_ALLOCATION_BYTES"]["p50"]),
+                "renderer_allocation_bytes": capture["renderer_allocation_bytes"],
             }
         )
     low_runs = [run for run in runs if run["preset_id"] == "ab-low"]

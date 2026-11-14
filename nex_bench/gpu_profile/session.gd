@@ -9,6 +9,13 @@ const MAX_SAMPLES_PER_SERIES := 16000
 const MAX_EXPORT_BYTES := 8_000_000
 const OUTPUT_DIR := "user://gpu_profiles"
 const SCHEMA_VERSION := "nex_gpu_render_profile.v2"
+const DEFAULT_WORKLOAD_LAYOUT := "built-in deterministic grid"
+const ALLOWED_WORKLOAD_LAYOUTS := [
+	DEFAULT_WORKLOAD_LAYOUT,
+	"M01 corridor_static + deterministic fillers",
+	"M01 arena_combat + deterministic fillers",
+	"M01 dense_city + deterministic fillers",
+]
 const FORMULA_VERSION := "nex-percentile-and-one-percent-low-monotonic-v2"
 const FRAME_PACING_PROVIDER := "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback"
 const FRAME_PACING_FORMULA := "1000 / mean(slowest ceil(0.01*n) positive FRAME_PACING_INTERVAL_MS samples)"
@@ -84,6 +91,10 @@ func begin(viewport: Viewport, context: Dictionary, include_device_snapshot := t
 		return false
 	if effect_mode == "combined" and proxy_count != 25:
 		last_error = "Combined GPU profiling is limited to 25 proxies by the v2 contract."
+		return false
+	var layout := str(context.get("layout", DEFAULT_WORKLOAD_LAYOUT))
+	if not ALLOWED_WORKLOAD_LAYOUTS.has(layout):
+		last_error = "The requested workload layout is invalid."
 		return false
 	var rid := viewport.get_viewport_rid()
 	if not rid.is_valid():
@@ -310,7 +321,7 @@ func _build_document(run_status: String, reason: String) -> Dictionary:
 			"scene": str(run_context.get("scene", "Density Ladder")),
 			"proxy_count": int(run_context.get("proxy_count", 0)),
 			"effect_mode": str(run_context.get("effect_mode", "")),
-			"layout": "built-in deterministic grid"
+			"layout": str(run_context.get("layout", DEFAULT_WORKLOAD_LAYOUT))
 		},
 		"settings": {
 			"vsync_mode": DisplayServer.window_get_vsync_mode(),

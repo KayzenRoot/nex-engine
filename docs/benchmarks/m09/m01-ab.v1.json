@@ -1,0 +1,650 @@
+{
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-ab",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session; 3 runs per preset per scene",
+    "three specific M01 compositions at 100 meshes; fillers may overlap base-scene props",
+    "max_fps 240 and vsync disabled; frame pacing is capped",
+    "corridor ab-high first-run p95 outlier is documented and retained",
+    "renderer allocation bytes are session history, not device VRAM",
+    "GPU render timing can describe earlier work and is not input-to-photon",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "ab-high GPU p95 is higher in every scene: corridor +380.7%, arena +323.9%, city +331.0%.",
+    "Absolute GPU p95 medians stay below 0.5 ms because 100 meshes are a light workload for this GPU.",
+    "Pacing stays near 4.2 ms (240 fps cap); 1% low deltas range from -1.0% to +0.4% and are not a gain claim.",
+    "Corridor ab-high has a first-run p95 outlier (0.542 ms vs 0.421/0.423 ms); the median is reported.",
+    "These are measured GPU costs for three specific M01 compositions, not game FPS, quality or universal recommendations."
+  ],
+  "runs": [
+    {
+      "captured_at_utc": "2026-11-14T12:12:23Z",
+      "cpu_ms": {
+        "p50": 0.206,
+        "p95": 0.328,
+        "p99": 0.453
+      },
+      "gpu_ms": {
+        "p50": 0.083,
+        "p95": 0.086,
+        "p99": 0.213
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 230.37,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.208,
+        "p99": 4.266
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390448,
+      "run_id": "1794658343-34202025",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 1
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:13:15Z",
+      "cpu_ms": {
+        "p50": 0.283,
+        "p95": 0.475,
+        "p99": 0.632
+      },
+      "gpu_ms": {
+        "p50": 0.417,
+        "p95": 0.542,
+        "p99": 0.578
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.0,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.21,
+        "p99": 4.308
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 180244464,
+      "run_id": "1794658395-33784967",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 2
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:13:50Z",
+      "cpu_ms": {
+        "p50": 0.212,
+        "p95": 0.37,
+        "p99": 0.557
+      },
+      "gpu_ms": {
+        "p50": 0.083,
+        "p95": 0.088,
+        "p99": 0.223
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 226.47,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.208,
+        "p99": 4.324
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390448,
+      "run_id": "1794658430-33447688",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 3
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:14:24Z",
+      "cpu_ms": {
+        "p50": 0.279,
+        "p95": 0.452,
+        "p99": 0.588
+      },
+      "gpu_ms": {
+        "p50": 0.416,
+        "p95": 0.421,
+        "p99": 0.566
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.99,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.227,
+        "p99": 4.324
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 180244464,
+      "run_id": "1794658464-33451280",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 4
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:14:58Z",
+      "cpu_ms": {
+        "p50": 0.209,
+        "p95": 0.347,
+        "p99": 0.504
+      },
+      "gpu_ms": {
+        "p50": 0.084,
+        "p95": 0.089,
+        "p99": 0.215
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 229.24,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.209,
+        "p99": 4.291
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390448,
+      "run_id": "1794658498-33449826",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 5
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:15:32Z",
+      "cpu_ms": {
+        "p50": 0.278,
+        "p95": 0.429,
+        "p99": 0.556
+      },
+      "gpu_ms": {
+        "p50": 0.416,
+        "p95": 0.423,
+        "p99": 0.571
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 227.06,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.218,
+        "p99": 4.313
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 180244464,
+      "run_id": "1794658532-33502518",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 6
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:16:11Z",
+      "cpu_ms": {
+        "p50": 0.2,
+        "p95": 0.32,
+        "p99": 0.43
+      },
+      "gpu_ms": {
+        "p50": 0.103,
+        "p95": 0.109,
+        "p99": 0.25
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.03,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.217,
+        "p99": 4.304
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23464416,
+      "run_id": "1794658571-33451492",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 7
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:16:45Z",
+      "cpu_ms": {
+        "p50": 0.276,
+        "p95": 0.416,
+        "p99": 0.54
+      },
+      "gpu_ms": {
+        "p50": 0.455,
+        "p95": 0.462,
+        "p99": 0.614
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 229.23,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.2,
+        "p99": 4.278
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181795552,
+      "run_id": "1794658605-33469423",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 8
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:17:20Z",
+      "cpu_ms": {
+        "p50": 0.204,
+        "p95": 0.345,
+        "p99": 0.463
+      },
+      "gpu_ms": {
+        "p50": 0.104,
+        "p95": 0.109,
+        "p99": 0.246
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.49,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.218,
+        "p99": 4.291
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23464416,
+      "run_id": "1794658640-33438036",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 9
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:17:54Z",
+      "cpu_ms": {
+        "p50": 0.281,
+        "p95": 0.446,
+        "p99": 0.582
+      },
+      "gpu_ms": {
+        "p50": 0.455,
+        "p95": 0.462,
+        "p99": 0.614
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 219.78,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.231,
+        "p99": 4.371
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181795552,
+      "run_id": "1794658674-33452356",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 10
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:18:28Z",
+      "cpu_ms": {
+        "p50": 0.21,
+        "p95": 0.369,
+        "p99": 0.507
+      },
+      "gpu_ms": {
+        "p50": 0.103,
+        "p95": 0.117,
+        "p99": 0.235
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 222.31,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.231,
+        "p99": 4.362
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23464416,
+      "run_id": "1794658708-33464576",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 11
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:19:02Z",
+      "cpu_ms": {
+        "p50": 0.278,
+        "p95": 0.435,
+        "p99": 0.558
+      },
+      "gpu_ms": {
+        "p50": 0.456,
+        "p95": 0.462,
+        "p99": 0.608
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.66,
+      "pacing_ms": {
+        "p50": 4.163,
+        "p95": 4.242,
+        "p99": 4.35
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 181795552,
+      "run_id": "1794658742-33534786",
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sequence": 12
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:19:44Z",
+      "cpu_ms": {
+        "p50": 0.194,
+        "p95": 0.321,
+        "p99": 0.423
+      },
+      "gpu_ms": {
+        "p50": 0.08,
+        "p95": 0.084,
+        "p99": 0.219
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.81,
+      "pacing_ms": {
+        "p50": 4.163,
+        "p95": 4.239,
+        "p99": 4.335
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390576,
+      "run_id": "1794658784-33959761",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 13
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:20:18Z",
+      "cpu_ms": {
+        "p50": 0.267,
+        "p95": 0.431,
+        "p99": 0.59
+      },
+      "gpu_ms": {
+        "p50": 0.357,
+        "p95": 0.362,
+        "p99": 0.5
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 222.68,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.277,
+        "p99": 4.394
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 175823472,
+      "run_id": "1794658818-33518328",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 14
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:20:52Z",
+      "cpu_ms": {
+        "p50": 0.197,
+        "p95": 0.325,
+        "p99": 0.442
+      },
+      "gpu_ms": {
+        "p50": 0.079,
+        "p95": 0.084,
+        "p99": 0.213
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 220.82,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.285,
+        "p99": 4.416
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390576,
+      "run_id": "1794658852-33477079",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 15
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:21:27Z",
+      "cpu_ms": {
+        "p50": 0.266,
+        "p95": 0.438,
+        "p99": 0.576
+      },
+      "gpu_ms": {
+        "p50": 0.358,
+        "p95": 0.363,
+        "p99": 0.507
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.32,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.24,
+        "p99": 4.342
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 175823472,
+      "run_id": "1794658887-33509973",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 16
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:22:01Z",
+      "cpu_ms": {
+        "p50": 0.198,
+        "p95": 0.325,
+        "p99": 0.48
+      },
+      "gpu_ms": {
+        "p50": 0.079,
+        "p95": 0.083,
+        "p99": 0.207
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 222.32,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.284,
+        "p99": 4.401
+      },
+      "preset_id": "ab-low",
+      "renderer_allocation_bytes": 23390576,
+      "run_id": "1794658921-33447797",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 17
+    },
+    {
+      "captured_at_utc": "2026-11-14T12:22:35Z",
+      "cpu_ms": {
+        "p50": 0.269,
+        "p95": 0.432,
+        "p99": 0.559
+      },
+      "gpu_ms": {
+        "p50": 0.358,
+        "p95": 0.362,
+        "p99": 0.505
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.25,
+      "pacing_ms": {
+        "p50": 4.162,
+        "p95": 4.27,
+        "p99": 4.387
+      },
+      "preset_id": "ab-high",
+      "renderer_allocation_bytes": 175823472,
+      "run_id": "1794658955-33497753",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 18
+    }
+  ],
+  "scenes": [
+    {
+      "baselines": {
+        "ab-high": {
+          "cpu_p95_ms": 0.452,
+          "gpu_p50_ms": 0.416,
+          "gpu_p95_ms": 0.423,
+          "gpu_p95_spread_pct": 28.6,
+          "gpu_p99_ms": 0.571,
+          "one_percent_low_fps": 226.99,
+          "one_percent_low_spread_pct": 0.9,
+          "pacing_p95_ms": 4.218,
+          "renderer_allocation_bytes_median": 180244464,
+          "runs": 3
+        },
+        "ab-low": {
+          "cpu_p95_ms": 0.347,
+          "gpu_p50_ms": 0.083,
+          "gpu_p95_ms": 0.088,
+          "gpu_p95_spread_pct": 3.4,
+          "gpu_p99_ms": 0.215,
+          "one_percent_low_fps": 229.24,
+          "one_percent_low_spread_pct": 1.7,
+          "pacing_p95_ms": 4.208,
+          "renderer_allocation_bytes_median": 23390448,
+          "runs": 3
+        }
+      },
+      "deltas_high_vs_low": {
+        "cpu_p95_pct": 30.3,
+        "gpu_p50_pct": 401.2,
+        "gpu_p95_pct": 380.7,
+        "gpu_p99_pct": 165.6,
+        "one_percent_low_pct": -1.0,
+        "pacing_p95_pct": 0.2
+      },
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_count": 100,
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static"
+    },
+    {
+      "baselines": {
+        "ab-high": {
+          "cpu_p95_ms": 0.435,
+          "gpu_p50_ms": 0.455,
+          "gpu_p95_ms": 0.462,
+          "gpu_p95_spread_pct": 0.0,
+          "gpu_p99_ms": 0.614,
+          "one_percent_low_fps": 225.66,
+          "one_percent_low_spread_pct": 4.2,
+          "pacing_p95_ms": 4.231,
+          "renderer_allocation_bytes_median": 181795552,
+          "runs": 3
+        },
+        "ab-low": {
+          "cpu_p95_ms": 0.345,
+          "gpu_p50_ms": 0.103,
+          "gpu_p95_ms": 0.109,
+          "gpu_p95_spread_pct": 7.3,
+          "gpu_p99_ms": 0.246,
+          "one_percent_low_fps": 228.03,
+          "one_percent_low_spread_pct": 2.7,
+          "pacing_p95_ms": 4.218,
+          "renderer_allocation_bytes_median": 23464416,
+          "runs": 3
+        }
+      },
+      "deltas_high_vs_low": {
+        "cpu_p95_pct": 26.1,
+        "gpu_p50_pct": 341.7,
+        "gpu_p95_pct": 323.9,
+        "gpu_p99_pct": 149.6,
+        "one_percent_low_pct": -1.0,
+        "pacing_p95_pct": 0.3
+      },
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat"
+    },
+    {
+      "baselines": {
+        "ab-high": {
+          "cpu_p95_ms": 0.432,
+          "gpu_p50_ms": 0.358,
+          "gpu_p95_ms": 0.362,
+          "gpu_p95_spread_pct": 0.3,
+          "gpu_p99_ms": 0.505,
+          "one_percent_low_fps": 223.25,
+          "one_percent_low_spread_pct": 1.6,
+          "pacing_p95_ms": 4.27,
+          "renderer_allocation_bytes_median": 175823472,
+          "runs": 3
+        },
+        "ab-low": {
+          "cpu_p95_ms": 0.325,
+          "gpu_p50_ms": 0.079,
+          "gpu_p95_ms": 0.084,
+          "gpu_p95_spread_pct": 1.2,
+          "gpu_p99_ms": 0.213,
+          "one_percent_low_fps": 222.32,
+          "one_percent_low_spread_pct": 2.2,
+          "pacing_p95_ms": 4.284,
+          "renderer_allocation_bytes_median": 23390576,
+          "runs": 3
+        }
+      },
+      "deltas_high_vs_low": {
+        "cpu_p95_pct": 32.9,
+        "gpu_p50_pct": 353.2,
+        "gpu_p95_pct": 331.0,
+        "gpu_p99_pct": 137.1,
+        "one_percent_low_pct": 0.4,
+        "pacing_p95_pct": -0.3
+      },
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_count": 100,
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city"
+    }
+  ],
+  "schema_version": "m09_preset_m01_ab.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "vsync_mode": 0
+  },
+  "source_sha": "617db53d6752f30584b296f133e6990ca6602549",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "viewport_px": [
+    1280,
+    720
+  ],
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_count": 100,
+    "scenes": [
+      {
+        "layout": "M01 corridor_static + deterministic fillers",
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "layout": "M01 arena_combat + deterministic fillers",
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "layout": "M01 dense_city + deterministic fillers",
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ]
+  }
+}
