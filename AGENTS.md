@@ -9,9 +9,9 @@ Uma Work Order já admitida de risco LOW/STANDARD pode seguir automaticamente po
 A PR #107 foi protegida e squash-merged na main `4d69b7bd264f4814317c6e5fe98eaccdc2b620e0`. Sua fonte medida `d59c94da...` tem 12 capturas válidas, com limitações registradas de resize interno não exercitável e pacing de 60/75 callbacks/s entre coortes. Isto não significa que a NEX Engine inteira ou M01 parent estejam completos.
 
 
-## Current work status | M06/M09 bounded admission (Owner, 2026-11-14)
+## Current work status | M03/M06/M09 bounded admission (Owner, 2026-11-14)
 
-O Owner autorizou a admissão bounded dos pipelines de evidência M06 (#11) e M09 (#14) como `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`, registrada em `NEX-ADR-0006` e `NEX-D-016`. A admissão cobre contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados. Ela **não** autoriza runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets ou claims de FPS/qualidade. M01–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. Trabalho futuro sob M06/M09 continua exigindo Work Order, Context Lock, evidência, testes e todos os checks; a auditoria permanece `ADMIN_SOLO / NOT_INDEPENDENT`. A main de admissão é `8ed41bafaf19cff52da9250784f78c3d608ac504`; o checkpoint é a autoridade corrente.
+O Owner autorizou a admissão bounded dos pipelines de evidência/análise M06 (#11), M09 (#14) e M03 (#8), registrada em `NEX-ADR-0006`, `NEX-ADR-0007`, `NEX-D-016` e `NEX-D-017`. M06/M09 são `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`; M03 é `BOUNDED_ADMITTED_ANALYSIS_PIPELINE`. A admissão cobre contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados. Ela **não** autoriza runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, implementação real de luz/sombra/GI ou claims de FPS/qualidade. M01–M02, M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. Trabalho futuro sob M03/M06/M09 continua exigindo Work Order, Context Lock, evidência, testes e todos os checks; a auditoria permanece `ADMIN_SOLO / NOT_INDEPENDENT`. A main de admissão é `51110ff02eb2c542832b6290a98fdc5f979b58a9`; o checkpoint é a autoridade corrente.
 
 
 ## Historical work status | S02 and contracts verified, Stage B checkpoint proposed

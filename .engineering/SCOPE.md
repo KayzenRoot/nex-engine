@@ -1,8 +1,8 @@
 # Scope · NEX Bootstrap
 
-## Current bounded admission | M06/M09 evidence pipelines (2026-11-14)
+## Current bounded admission | M03/M06/M09 pipelines (2026-11-14)
 
-**`BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** para M06 (#11) e M09 (#14), conforme `NEX-ADR-0006` e `NEX-D-016`. Admitidos: contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes M06/M09 já verificados até a base `8ed41bafaf19cff52da9250784f78c3d608ac504`. Não admitidos: runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, generalização de performance/qualidade ou claims de FPS. M01–M05/M07–M08/M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M06/M09 exige WO/Context Lock e checks.
+**`BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** para M06 (#11) e M09 (#14), e **`BOUNDED_ADMITTED_ANALYSIS_PIPELINE`** para M03 (#8), conforme `NEX-ADR-0006`, `NEX-ADR-0007`, `NEX-D-016` e `NEX-D-017`. Admitidos: contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes M03/M06/M09 já verificados até a base `51110ff02eb2c542832b6290a98fdc5f979b58a9`. Não admitidos: runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, implementação real de luz/sombra/GI, generalização de performance/qualidade ou claims de FPS. M01–M02/M04–M05/M07–M08/M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M03/M06/M09 exige WO/Context Lock e checks.
 
 ## Historical bounded scope clarification | Stage B checkpoint only
 

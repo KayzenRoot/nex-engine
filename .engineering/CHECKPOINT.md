@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M03 bounded admission
+
+**M03 (#8) admitido como `BOUNDED_ADMITTED_ANALYSIS_PIPELINE`** por `NEX-ADR-0007` / `NEX-D-017`, sobre a base `51110ff02eb2c542832b6290a98fdc5f979b58a9`. A admissão cobre o contrato `lighting.v1`, light rig, shadow stability, light budget e a validação do modelo contra M09, com docs, builders e testes.
+
+**Escopo:** análise determinística de iluminação e orçamento. **Não admitido:** runtime, renderer, shaders, cenas, hub, `project.godot`, implementação real de luz/sombra/GI, generalização ou claims de FPS. M01–M02, M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. M03/M06/M09 estão bounded admitted; a admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+
 ## Current verified scope | 2026-11-14 · M06 full dataset + atlas
 
 **M06-FULL-ATLAS integrado** por PR #217, squash `373d6e7a4eb3cceffe86d9eb491f518c1f558228`. O conversor `--full` gerou **144 observações `performance.v1`** dos sete bundles de performance M09; o atlas agrega essas observações por bundle e célula de workload.
