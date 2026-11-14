@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M11-AUDIT prototype
+
+**M11-AUDIT integrado como protótipo isolado** por PR #179, squash `46b7f4ff0480b8cffb9f931e340d785bcd34ce2d` (código `30b3f211`). Em `nex_modules/assets/license_audit/`, o auditor determinístico consome `asset_pipeline.v1`: valida estágios raw→imported→cooked→validated, licenças SPDX/atribuição/verificação, dependências/ciclos, orçamentos e heurísticas de qualidade; emite `READY_FOR_INTEGRATION`, `REVIEW_REQUIRED`, `BLOCKED` ou `INVALID_INPUT` com recomendações. **43 asserts headless** e 9 testes estruturais.
+
+**Parent M11 (#16) continua NOT_ADMITTED.** Nenhum asset importado/cookado/carregado; verificação de licença é declarada, não executada; qualidade/performance `INCONCLUSIVE_NOT_RUN`. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-13 · M09-RESOLVER prototype
 
 **M09-RESOLVER integrado como protótipo isolado** por PR #177, squash `affae5d67e0c75a2b0dd1c85924cc6d981f20d03` (código `bb320b3c`). Em `nex_modules/tools/preset_resolver/`, o resolvedor determinístico carrega `preset_pack.v1`, valida tiers/settings/monotonicidade, checa hardware/Godot/contratos, resolve por tier ou id, faz merge profundo de overrides e valida reduced motion. **50 asserts headless** e 9 testes estruturais.
