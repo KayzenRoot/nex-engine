@@ -15,8 +15,18 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_ROOT = REPO_ROOT / "nex_bench/gpu_profile/evidence"
 OUTPUT = REPO_ROOT / "docs/benchmarks/m06/observations/m09-observations.v1.json"
+FULL_OUTPUT = REPO_ROOT / "docs/benchmarks/m06/observations/m09-observations-full.v1.json"
 SCHEMA_VERSION = "performance.v1"
 BUNDLE_VERSION = "m06_observation_bundle.v1"
+FULL_BUNDLES = (
+    ("windows-rtx5050-2026-11-14-preset-ab", "preset-ab"),
+    ("windows-rtx5050-2026-11-14-preset-scaling", "proxy-scaling"),
+    ("windows-rtx5050-2026-11-14-m01-ab", "m01-ab"),
+    ("windows-rtx5050-2026-11-14-res-scaling", "res-scaling"),
+    ("windows-rtx5050-2026-11-14-interaction", "interaction"),
+    ("windows-rtx5050-2026-11-14-cross-scene", "cross-scene"),
+    ("windows-rtx5050-2026-11-14-interaction-200", "interaction-200"),
+)
 
 SELECTORS = (
     {"bundle": "windows-rtx5050-2026-11-14-preset-ab", "sequence": 1, "id": "m09-preset-ab-low"},
@@ -229,27 +239,71 @@ def build_bundle() -> dict[str, Any]:
     }
 
 
+def build_bundle_full() -> dict[str, Any]:
+    selectors = []
+    for bundle, short in FULL_BUNDLES:
+        manifest = load_json(EVIDENCE_ROOT / bundle / "runs.v1.json")
+        for entry in manifest["runs"]:
+            selectors.append(
+                {
+                    "bundle": bundle,
+                    "sequence": entry["sequence"],
+                    "id": f"m09-{short}-{entry['sequence']:03d}",
+                    "preset_id": entry["preset_id"],
+                }
+            )
+    observations = [_observation(selector) for selector in selectors]
+    if len(observations) != 144:
+        raise ValueError("full observation bundle must contain 144 observations")
+    if len({observation["observation_id"] for observation in observations}) != 144:
+        raise ValueError("full observation ids must be unique")
+    return {
+        "schema_version": BUNDLE_VERSION,
+        "source": "M09 integrated evidence bundles",
+        "mode": "full",
+        "sources": [
+            {
+                "observation_id": selector["id"],
+                "bundle": selector["bundle"],
+                "sequence": selector["sequence"],
+                "preset_id": selector["preset_id"],
+            }
+            for selector in selectors
+        ],
+        "observations": observations,
+    }
+
+
 def render_json(bundle: dict[str, Any]) -> str:
     return json.dumps(bundle, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
-def main(argv: list[str]) -> int:
-    bundle = build_bundle()
+def _emit(bundle: dict[str, Any], output: Path, check: bool, prefix: str) -> int:
     rendered = render_json(bundle)
-    if argv == ["--check"]:
-        if not OUTPUT.is_file() or OUTPUT.read_text(encoding="utf-8") != rendered:
-            print("M06_OBS_CHECK_FAIL: output is stale")
+    if check:
+        if not output.is_file() or output.read_text(encoding="utf-8") != rendered:
+            print(f"{prefix}_CHECK_FAIL: output is stale")
             return 1
-        print(f"M06_OBS_CHECK_PASS: {len(bundle['observations'])} observations")
+        print(f"{prefix}_CHECK_PASS: {len(bundle['observations'])} observations")
         return 0
-    if argv:
-        print("usage: convert_m09_observations.py [--check]")
-        return 2
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT, "w", encoding="utf-8", newline="\n") as handle:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with open(output, "w", encoding="utf-8", newline="\n") as handle:
         handle.write(rendered)
-    print(f"M06_OBS_WRITE_PASS: {len(bundle['observations'])} observations")
+    print(f"{prefix}_WRITE_PASS: {len(bundle['observations'])} observations")
     return 0
+
+
+def main(argv: list[str]) -> int:
+    if argv == ["--full"]:
+        return _emit(build_bundle_full(), FULL_OUTPUT, False, "M06_OBS_FULL")
+    if argv == ["--check-full"]:
+        return _emit(build_bundle_full(), FULL_OUTPUT, True, "M06_OBS_FULL")
+    if argv == ["--check"]:
+        return _emit(build_bundle(), OUTPUT, True, "M06_OBS")
+    if argv:
+        print("usage: convert_m09_observations.py [--check|--full|--check-full]")
+        return 2
+    return _emit(build_bundle(), OUTPUT, False, "M06_OBS")
 
 
 if __name__ == "__main__":
