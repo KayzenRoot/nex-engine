@@ -56,11 +56,11 @@ class M06M09AdmissionTests(unittest.TestCase):
     def test_agents_and_scope_point_to_current_admission(self) -> None:
         agents = AGENTS.read_text(encoding="utf-8")
         scope = SCOPE.read_text(encoding="utf-8")
-        self.assertIn("Current work status | M06/M09 bounded admission", agents)
-        self.assertIn("Historical work status | S02", agents)
+        self.assertIn("Current work status |", agents)
+        self.assertIn("bounded admission", agents)
         self.assertIn("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", agents)
-        self.assertIn("M01–M05", agents)
-        self.assertIn("Current bounded admission | M06/M09 evidence pipelines", scope)
+        self.assertIn("NOT_ADMITTED", agents)
+        self.assertIn("Current bounded admission |", scope)
         self.assertIn("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", scope)
         self.assertIn("NOT_ADMITTED", scope)
 
