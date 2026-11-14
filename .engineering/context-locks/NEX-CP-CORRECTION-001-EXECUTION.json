@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-CP-CORRECTION-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 14,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Owner authorized continuous autonomous construction; this correction aligns checkpoint counters with the committed artifacts.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "599746391bad6d4acf6fc689f01f0d5cc7e309a5",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_PROVENANCE_INDEX_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "a6a20ba304c50e469b7d0e24755540bc7c306d72"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "a1bc7f0cbfe67f83f461a51326a574c589cbcb12"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "c16e7af4284cb91567d3ae2e7bdf724134fb8b05"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "f205fa6ea5b6bcaec3d5bd3c90ffdc19a242002d"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "1bf7a9ba515631a436a8bc40f4303d5bbacaee76"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "caa2a5ee9e8ea019203b36f986542d35bb30d744"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "cecefbfd357223c89eed192ca22aa8d9c68be946"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "docs/benchmarks/provenance-index.v1.json",
+      "gitBlobSha1": "a61a1de4a652c0cf599cb17a033d5a1684b8a1bb"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "LOW",
+  "scope": {
+    "writeAllowedExact": [
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md",
+      ".engineering/work-orders/NEX-CP-CORRECTION-001.md",
+      ".engineering/context-locks/NEX-CP-CORRECTION-001-EXECUTION.json",
+      ".engineering/evidence/NEX-CP-CORRECTION-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-CP-CORRECTION-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "docs/benchmarks/**",
+      "nex_bench/**",
+      "contracts/**",
+      "nex_modules/**",
+      "ops/**",
+      "tooling/**",
+      "tests/**",
+      ".engineering/** (exceto os paths acima)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset or required-context changes",
+      "provenance index content changes",
+      "admission state changes",
+      "new measurement, capture or rendering",
+      "false independent approval"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
