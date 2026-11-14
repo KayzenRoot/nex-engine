@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M03 domain consolidation
+
+**M03-DOMAIN-CONSOLIDATION integrado** por PR #237, squash `b0320147c6a9836631dbb5a167efd2aab73b88da`. O relatório `--domain` passa a incluir o grid de resolução (6 células), **200 proxies em 1280×720** (2 células) e **2560×1440** (2 células).
+
+**Resultado:** `ab-high`/1280×720 dentro de 2% em 100 e 200 proxies; 2560×1440 sem acertos; `within_2pct_total = 2`. Veredito **`CALIBRATION_RESOLUTION_MATCH_ONLY`** reforçado — o acerto é específico de 1280×720, robusto a proxies e não sobrevive a 2560×1440. Nenhum modelo, coeficiente, GDScript, bundle M09, contrato, cena, harness ou ruleset alterado. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M06 full refresh (156 observações)
 
 **M06-FULL-REFRESH integrado** por PR #235, squash `db3df0fa454d03dfdf6d11c0f921d95be95c3c3e`. A cadeia M06 passa a cobrir as duas novas medições M09: **156 observações** de **9 bundles**, todas `pacing`.
