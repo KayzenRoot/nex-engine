@@ -56,7 +56,7 @@ def _findings_visual(report: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _findings_visual_1920(report: dict[str, Any]) -> dict[str, Any]:
+def _findings_visual_highres(report: dict[str, Any]) -> dict[str, Any]:
     return {
         "aa_identical": all(scene["aa"]["identical_sha"] for scene in report["scenes"]),
         "ab_changed_pixels_pct": {
@@ -132,7 +132,10 @@ ENTRIES: tuple[dict[str, Any], ...] = (
      "findings": _findings_visual},
     {"id": "m01-visual-1920", "kind": "visual", "report": "m01-visual-1920.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-m01-visual-1920", "runs": 18, "files": 21,
-     "findings": _findings_visual_1920},
+     "findings": _findings_visual_highres},
+    {"id": "m01-visual-2560", "kind": "visual", "report": "m01-visual-2560.v1.json",
+     "evidence": "windows-rtx5050-2026-11-14-m01-visual-2560", "runs": 18, "files": 21,
+     "findings": _findings_visual_highres},
     {"id": "m01-temporal", "kind": "visual", "report": "temporal-stability.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-m01-temporal", "runs": 30, "files": 33,
      "findings": _findings_temporal},
@@ -212,11 +215,11 @@ def build_report() -> dict[str, Any]:
         "At 1280x720, 200 proxies change GPU p95 by only +1.3%/+1.8% versus the 100-proxy context while CPU p95 rises +48.7%/+29.0%; the M03 ab-high prediction remains within 2%.",
         "At 2560x1440 the high/low ratio is +651.0% and the M03 ab-high prediction is 70.3% below measured; the 2% match is confined to 1280x720.",
         "The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.",
-        "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720.",
+        "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720, 1.276-3.367% at 1920x1080 and 1.031-3.074% at 2560x1440.",
         "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed.",
     ]
     open_questions = [
-        "2560x1440 and ultrawide resolutions above 1920x1080 are not measured.",
+        "Resolutions above 2560x1440 and ultrawide aspect ratios are not measured.",
         "Other GPUs, drivers and CPU platforms are not measured.",
         "Animation, temporal effects, camera motion and real game workloads are not covered.",
         "Preset application in the hub/engine and M09 parent admission remain out of scope.",

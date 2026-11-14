@@ -73,6 +73,7 @@ jobs:
           python3 docs/benchmarks/m09/tools/build_m01_ab.py --check
           python3 docs/benchmarks/m09/tools/build_m01_visual.py --check
           python3 docs/benchmarks/m09/tools/build_m01_visual_1920.py --check
+          python3 docs/benchmarks/m09/tools/build_m01_visual_2560.py --check
           python3 docs/benchmarks/m09/tools/build_temporal_stability.py --check
           python3 docs/benchmarks/m09/tools/build_res_scaling.py --check
           python3 docs/benchmarks/m09/tools/build_interaction.py --check

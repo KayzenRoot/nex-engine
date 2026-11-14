@@ -28,13 +28,13 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
         cls.entries = {entry["id"]: entry for entry in cls.report["entries"]}
 
-    def test_totals_cover_twelve_bundles(self) -> None:
+    def test_totals_cover_thirteen_bundles(self) -> None:
         self.assertEqual("m09_measurement_atlas.v1", self.report["schema_version"])
-        self.assertEqual(12, self.report["totals"]["bundles"])
+        self.assertEqual(13, self.report["totals"]["bundles"])
         self.assertEqual(156, self.report["totals"]["performance_captures"])
-        self.assertEqual(66, self.report["totals"]["visual_images"])
-        self.assertEqual(414, self.report["totals"]["evidence_files"])
-        self.assertEqual(12, self.report["totals"]["unique_source_shas"])
+        self.assertEqual(84, self.report["totals"]["visual_images"])
+        self.assertEqual(435, self.report["totals"]["evidence_files"])
+        self.assertEqual(13, self.report["totals"]["unique_source_shas"])
         self.assertEqual(156, self.report["runs"])
 
     def test_entry_counts_and_source_shas(self) -> None:
@@ -44,6 +44,7 @@ class MeasurementAtlasContentTests(unittest.TestCase):
             "m01-ab": (18, 39, "617db53d6752f30584b296f133e6990ca6602549"),
             "m01-visual": (18, 21, "952b5a63bc1696cadf7436a061a7d996c80fa220"),
             "m01-visual-1920": (18, 21, "06eb6d92da50bdb8105bbc8f7b6bed98faebb329"),
+            "m01-visual-2560": (18, 21, "4f739cd6808677cd7e3780a8bedb295da55e046d"),
             "m01-temporal": (30, 33, "22f428aebf43da39750adb6a8c919d0b2721d9a1"),
             "res-scaling": (18, 39, "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5"),
             "interaction": (24, 51, "2ef072c70189d5d013a62b7efc821f81078ef6d1"),
@@ -73,6 +74,10 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         self.assertTrue(visual_1920["aa_identical"])
         self.assertEqual({"corridor_static": 3.367, "arena_combat": 3.354, "dense_city": 1.276},
                          visual_1920["ab_changed_pixels_pct"])
+        visual_2560 = self.entries["m01-visual-2560"]["key_findings"]
+        self.assertTrue(visual_2560["aa_identical"])
+        self.assertEqual({"corridor_static": 2.996, "arena_combat": 3.074, "dense_city": 1.031},
+                         visual_2560["ab_changed_pixels_pct"])
         temporal = self.entries["m01-temporal"]["key_findings"]
         self.assertTrue(temporal["all_frames_identical"])
         self.assertEqual(6, temporal["cells"])

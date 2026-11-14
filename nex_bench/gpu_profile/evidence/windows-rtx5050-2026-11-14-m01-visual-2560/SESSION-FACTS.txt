@@ -1,0 +1,28 @@
+NEX M09 M01 VISUAL-TRUTH 2560x1440 SESSION FACTS
+================================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: 4f739cd6808677cd7e3780a8bedb295da55e046d
+Scenes: corridor_static, arena_combat, dense_city (M01 base scenes)
+Proxy count: 100 deterministic fillers per scene
+Resolution: 2560x1440 with NEX_PRESET_AB_NATIVE_RESOLUTION=1
+Display note: the desktop is 2560x1080; the 2560x1440 window is taller than the
+              display and the viewport is captured off-screen.
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Sequence per scene: ab-low -> ab-high -> ab-low -> ab-high -> ab-low -> ab-high
+Capture: visual mode waits 180 frames after applying the preset, reads the
+         2560x1440 viewport, corrects orientation and saves a PNG.
+Captures: 18 (3 scenes x 2 presets x 3 repetitions)
+Validation: every PNG is 2560x1440 with 3 channels; all three repetitions of
+            each scene/preset pair share one SHA-256 (A/A exact).
+Re-capture: one initial corridor_static/ab-high capture was clipped to
+            2560x1009 by the window manager and was re-captured at 2560x1440;
+            the committed image and manifest are the 2560x1440 capture.
+Comparison: the 1920x1080 context comes from the already integrated
+            m01-visual-1920 report measured earlier in the same session day.
+Limitations: single session; three scenes; one resolution; static frames;
+             no animation, temporal effects or camera motion; no quality claim.
