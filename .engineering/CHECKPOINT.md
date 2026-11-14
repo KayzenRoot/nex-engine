@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 proxies × resolução
+
+**M09-INTERACTION integrado** por PR #197, squash `369afd850bbd2fc70a3b8951225aa52c27279786` (source medido `2ef072c`). A cena M01 `arena_combat` foi medida em 50/100 proxies × 960×540/1920×1080, viewport nativo, 3 runs por preset por célula: **24 capturas COMPLETE/validadas**, 51 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
+
+**Medição:** GPU p95 high vs low **+219.8% (50/960×540)**, **+469.4% (50/1920×1080)**, **+227.1% (100/960×540)**, **+473.6% (100/1920×1080)**. Resolução 960→1920: `ab-low` +50.0%; `ab-high` +167.1% (50) e +163.1% (100). Proxies 50→100: 0.0–2.3% no GPU e +4.2–7.8% no CPU. Leitura: no range de 50–100 meshes, o custo GPU é dominado por resolução e a contagem de proxies afeta principalmente CPU. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 preset resolution scaling
 
 **M09-RES-SCALING integrado** por PR #195, squash `ebe006d58a5b28bdcdfa34d7a116e68aa535aa8a` (source medido `6ebb98e`). A cena M01 `arena_combat` foi medida em 960×540, 1280×720 e 1920×1080 com viewport nativo (`NEX_PRESET_AB_NATIVE_RESOLUTION=1`), 3 runs por preset por resolução: **18 capturas COMPLETE/validadas**, 39 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
