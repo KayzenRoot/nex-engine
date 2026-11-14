@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 measurement atlas
+
+**M09-ATLAS integrado** por PR #203, squash `db6efc12834e0e99b4b71103d6a94d3844d562af`. O atlas indexa os oito bundles M09 com verificação de runs, arquivos e source SHA: **144 capturas de performance**, **18 imagens**, **330 arquivos de evidência** e **8 source SHAs**.
+
+**Síntese:** o preset high custa mais GPU que o low em todas as cenas/células; a resolução domina o custo GPU em 50–200 proxies e o delta do preset cresce com a resolução; proxies afetam mais o CPU; capturas visuais A/A são byte-idênticas e A/B difere em 1.745–4.077% dos pixels a 1280×720. Tudo é sessão única em uma RTX 5050, sem generalização cross-device ou cross-session. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança de engine, cenas, `project.godot`, hub ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 200-proxy interaction
 
 **M09-INTERACTION-200 integrado** por PR #201, squash `48ce7e16ca0b74107143eeefcf1f8dc414fa5801` (source medido `c1b73743`). A cena `arena_combat` foi medida com 200 proxies em 960×540/1920×1080, viewport nativo, 3 runs por preset por resolução: **12 capturas COMPLETE/validadas**, 27 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
