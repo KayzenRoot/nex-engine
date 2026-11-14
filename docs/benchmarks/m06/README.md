@@ -12,7 +12,11 @@ Este diretório transforma as 15 capturas S05 já publicadas do Lighting Matrix 
 | `ATLAS.md` | Relatório humano com tabelas e observações. |
 | `tools/build_atlas.py` | Builder stdlib determinístico; verifica hashes, recomputa agregados e reescreve os dois artefatos. |
 | `observations/m09-observations.v1.json` | 12 observações `performance.v1` convertidas de capturas M09, com campos indisponíveis explícitos e classificação de bottleneck. |
-| `tools/convert_m09_observations.py` | Conversor determinístico das capturas M09 selecionadas para `performance.v1`. |
+| `observations/m09-observations-full.v1.json` | 144 observações `performance.v1`, cobrindo os sete bundles de performance M09. |
+| `tools/convert_m09_observations.py` | Conversor determinístico das capturas M09 selecionadas para `performance.v1`; `--full` gera o dataset completo. |
+| `m09-performance-atlas.v1.json` | Atlas agregado dos 144 observações por bundle, cena, preset, resolução e proxy. |
+| `M09-PERFORMANCE-ATLAS.md` | Relatório humano do atlas M09. |
+| `tools/build_m09_atlas.py` | Builder determinístico do atlas M09. |
 | `advisories.v1.json` | 12 advisórios derivados das observações: headroom, shares GPU/CPU, recomendação e limitações. |
 | `ADVISORIES.md` | Relatório humano dos advisórios. |
 | `tools/build_advisories.py` | Builder determinístico dos advisórios. |
@@ -31,6 +35,8 @@ Este diretório transforma as 15 capturas S05 já publicadas do Lighting Matrix 
 
 O conversor seleciona 12 capturas já integradas (preset-ab, m01-ab, res-scaling e interaction-200), mapeia GPU/CPU/pacing p95 para `timings`, usa `renderer_allocation_bytes` p50, marca draw calls/VRAM/objetos como `UNAVAILABLE` com razão e classifica o bottleneck. Cada observação é validada contra `performance.v1` e pelo consumidor de coerência do contrato.
 
+O modo `--full` gera **144 observações** a partir dos sete bundles de performance M09. O atlas `m09-performance-atlas.v1.json` agrega essas observações por bundle e célula de workload, mantendo a classificação `pacing` e as limitações.
+
 ## Advisórios M09
 
 O builder lê as 12 observações, calcula headroom de render (`pacing - max(gpu, cpu)`), participação GPU/CPU no frame e frame alvo (`1000/max_fps`), e emite uma recomendação de baixo risco que exige nova medição. Todos os advisórios são `pacing` no cap de 240 fps; o texto explicita que headroom não prova capacidade em cap menor e que não há claim de FPS ou qualidade.
@@ -42,8 +48,12 @@ python docs/benchmarks/m06/tools/build_atlas.py
 python docs/benchmarks/m06/tools/build_atlas.py --check
 python docs/benchmarks/m06/tools/convert_m09_observations.py
 python docs/benchmarks/m06/tools/convert_m09_observations.py --check
+python docs/benchmarks/m06/tools/convert_m09_observations.py --full
+python docs/benchmarks/m06/tools/convert_m09_observations.py --check-full
 python docs/benchmarks/m06/tools/build_advisories.py
 python docs/benchmarks/m06/tools/build_advisories.py --check
+python docs/benchmarks/m06/tools/build_m09_atlas.py
+python docs/benchmarks/m06/tools/build_m09_atlas.py --check
 ```
 
 `--check` não escreve: confirma que o atlas ou o bundle de observações correspondem ao builder/conversor.
@@ -56,5 +66,6 @@ python docs/benchmarks/m06/tools/build_advisories.py --check
 - `RENDERER_ALLOCATION_BYTES` é histórico da sessão, não VRAM do dispositivo; não é comparado entre runs.
 - `one_percent_low_fps` é pacing de callbacks, não apresentação/input-to-photon.
 - As 12 observações M09 são uma seleção de runs já integrados; não são uma nova medição nem uma amostra estatística completa.
+- As 144 observações do dataset completo são a conversão de todos os runs de performance M09; continuam sendo uma sessão única em uma RTX 5050.
 - Os advisórios são derivados dessas observações e não provam capacidade em outro cap, cena, GPU ou sessão.
 - Nenhuma captura nova, nenhum benchmark, nenhuma generalização entre cena/driver/hardware/sessão.
