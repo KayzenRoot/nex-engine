@@ -1,0 +1,142 @@
+{
+  "cells": [
+    {
+      "error_ms": 0.283,
+      "error_pct": 294.8,
+      "measured_gpu_p95_ms": 0.096,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.379,
+      "preset_id": "ab-low",
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 0,
+      "within_2pct": false
+    },
+    {
+      "error_ms": 0.143,
+      "error_pct": 45.1,
+      "measured_gpu_p95_ms": 0.317,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.46,
+      "preset_id": "ab-high",
+      "resolution_px": [
+        960,
+        540
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 4,
+      "within_2pct": false
+    },
+    {
+      "error_ms": 0.273,
+      "error_pct": 257.5,
+      "measured_gpu_p95_ms": 0.106,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.379,
+      "preset_id": "ab-low",
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 0,
+      "within_2pct": false
+    },
+    {
+      "error_ms": 0.0,
+      "error_pct": 0.0,
+      "measured_gpu_p95_ms": 0.46,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.46,
+      "preset_id": "ab-high",
+      "resolution_px": [
+        1280,
+        720
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 4,
+      "within_2pct": true
+    },
+    {
+      "error_ms": 0.223,
+      "error_pct": 142.9,
+      "measured_gpu_p95_ms": 0.156,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.379,
+      "preset_id": "ab-low",
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 0,
+      "within_2pct": false
+    },
+    {
+      "error_ms": -0.366,
+      "error_pct": -44.3,
+      "measured_gpu_p95_ms": 0.826,
+      "omni_lights": 4,
+      "predicted_gpu_ms": 0.46,
+      "preset_id": "ab-high",
+      "resolution_px": [
+        1920,
+        1080
+      ],
+      "scene_id": "arena_combat",
+      "shadowed_omni_lights": 4,
+      "within_2pct": false
+    }
+  ],
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "model coefficients are calibrated from one S05 session at 25 proxies and 1280x720",
+    "the model represents lights and shadows only; it does not represent resolution scale, MSAA, glow, atlas or scene geometry",
+    "the resolution bundle uses 100 proxies on one arena scene in one session",
+    "the comparison uses medians from a different session and different presets",
+    "no FPS, quality or universal recommendation is claimed",
+    "M03 parent remains NOT_ADMITTED"
+  ],
+  "measured_source": "docs/benchmarks/m09/res-scaling.v1.json",
+  "model_snapshot": "docs/benchmarks/m03/light-cost-model.v1.json",
+  "model_source": "nex_modules/lighting/budget/light_budget_arbiter.gd DEFAULT_MODEL",
+  "observations": [
+    "only the ab-high cell at 1280x720 is within 2% (+0.0%); the same prediction is off by +45.1% at 960x540 and -44.3% at 1920x1080",
+    "the model is resolution-invariant (predicted delta 960->1920 = 0.000 ms), while measured GPU p95 grows 62.5% (ab-low) and 160.6% (ab-high)",
+    "the 2% match is therefore specific to the calibration resolution, not evidence of general validity",
+    "the low preset is overestimated at every resolution, consistent with unmodeled resolution scale, MSAA and glow"
+  ],
+  "resolution_sensitivity": {
+    "measured": {
+      "ab-high": {
+        "measured_delta_ms": 0.509,
+        "measured_delta_pct": 160.6
+      },
+      "ab-low": {
+        "measured_delta_ms": 0.06,
+        "measured_delta_pct": 62.5
+      }
+    },
+    "predicted_delta_960_to_1920_ms": 0.0
+  },
+  "schema_version": "m03_budget_domain_boundary.v1",
+  "session_date": "2026-11-14",
+  "summary": {
+    "cells": 6,
+    "max_abs_error_pct": 294.8,
+    "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY",
+    "within_2pct": 1
+  },
+  "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY",
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_count": 100,
+    "scene_id": "arena_combat"
+  }
+}
