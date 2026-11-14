@@ -6,6 +6,8 @@
 
 **Escopo:** M06 (performance.v1, atlas S05, observações M09, advisórios) e M09 (preset_pack.v1, resolver, harness A/B, todos os bundles de medição, atlas). **Não admitido:** runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, generalização de performance/qualidade ou claims de FPS. M01–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M06/M09 exige WO/Context Lock e checks. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
+**Integração:** PR #215 squash `8a59aa8a4f6b52becad3503922b9a1e4cdf6127c`; árvore idêntica à revisada e checks pós-merge SUCCESS.
+
 
 ## Current verified scope | 2026-11-14 · M03 light-budget validation
 
