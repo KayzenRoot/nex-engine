@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M12-VALIDATOR prototype
+
+**M12-VALIDATOR integrado como protótipo isolado** por PR #181, squash `e1bd1aa2228386d6c9557e32c1dd073a048a28aa` (código `0df75884`). Em `nex_modules/brand/tokens/`, o validador determinístico consome `identity.v1`: paleta/papéis, contraste WCAG calculado dos hex, tipografia, logo viewBox/digests, spacing, acessibilidade e proveniência; emite `READY_FOR_UI`, `REVIEW_REQUIRED`, `BLOCKED` ou `INVALID_INPUT` com recomendações. **36 asserts headless** e 9 testes estruturais.
+
+**Parent M12 (#17) continua NOT_ADMITTED.** Nenhum logo/tema/SVG gerado ou aprovado; contraste não é medido em tela; marca/trademark fora de escopo. Nenhum checkpoint é promovido por este delta; a autorização permanente do Owner permite seguir para o próximo incremento independente.
+
+
 ## Current verified scope | 2026-11-14 · M11-AUDIT prototype
 
 **M11-AUDIT integrado como protótipo isolado** por PR #179, squash `46b7f4ff0480b8cffb9f931e340d785bcd34ce2d` (código `30b3f211`). Em `nex_modules/assets/license_audit/`, o auditor determinístico consome `asset_pipeline.v1`: valida estágios raw→imported→cooked→validated, licenças SPDX/atribuição/verificação, dependências/ciclos, orçamentos e heurísticas de qualidade; emite `READY_FOR_INTEGRATION`, `REVIEW_REQUIRED`, `BLOCKED` ou `INVALID_INPUT` com recomendações. **43 asserts headless** e 9 testes estruturais.
