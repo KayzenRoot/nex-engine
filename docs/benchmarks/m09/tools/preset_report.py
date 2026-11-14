@@ -82,6 +82,40 @@ def metric_value(run: dict[str, Any], key: str, percentile: str = "p95") -> floa
     return float(run["metrics"][key][percentile])
 
 
+def transform_run(entry: dict[str, Any], capture: dict[str, Any], include_allocation: bool = False) -> dict[str, Any]:
+    run = {
+        "sequence": entry["sequence"],
+        "run_id": entry["run_id"],
+        "preset_id": entry["preset_id"],
+        "captured_at_utc": capture["captured_at_utc"],
+        "observed_seconds": round(capture["observed_seconds"], 3),
+        "gpu_ms": {name: round(capture["metrics"]["GPU_RENDER_MS"][name], 3) for name in PERCENTILES},
+        "cpu_ms": {name: round(capture["metrics"]["CPU_RENDER_MS"][name], 3) for name in PERCENTILES},
+        "pacing_ms": {name: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][name], 3) for name in PERCENTILES},
+        "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
+    }
+    if include_allocation:
+        run["renderer_allocation_bytes"] = capture["renderer_allocation_bytes"]
+    return run
+
+
+def summarize(group: list[dict[str, Any]], include_allocation: bool = False) -> dict[str, Any]:
+    result = {
+        "runs": len(group),
+        "gpu_p50_ms": round(median([run["gpu_ms"]["p50"] for run in group]), 3),
+        "gpu_p95_ms": round(median([run["gpu_ms"]["p95"] for run in group]), 3),
+        "gpu_p99_ms": round(median([run["gpu_ms"]["p99"] for run in group]), 3),
+        "cpu_p95_ms": round(median([run["cpu_ms"]["p95"] for run in group]), 3),
+        "pacing_p95_ms": round(median([run["pacing_ms"]["p95"] for run in group]), 3),
+        "one_percent_low_fps": round(median([run["one_percent_low_fps"] for run in group]), 2),
+        "gpu_p95_spread_pct": spread([run["gpu_ms"]["p95"] for run in group]),
+        "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in group]),
+    }
+    if include_allocation:
+        result["renderer_allocation_bytes_median"] = int(median([run["renderer_allocation_bytes"] for run in group]))
+    return result
+
+
 def median(values: list[float]) -> float:
     return statistics.median(values)
 

@@ -15,7 +15,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import load_json, run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, median, pct, spread  # noqa: E402 - local tool module
+from preset_report import load_capture, load_manifest, pct, summarize, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling")
@@ -54,23 +54,6 @@ def _validate_manifest(manifest: dict[str, Any]) -> None:
                 raise ValueError(f"runs manifest cell is invalid: {width}x{height}/{preset}")
 
 
-def _cell(group: list[dict[str, Any]], width: int, height: int, preset: str) -> dict[str, Any]:
-    return {
-        "width": width,
-        "height": height,
-        "preset_id": preset,
-        "runs": len(group),
-        "gpu_p50_median_ms": round(median([run["gpu_ms"]["p50"] for run in group]), 3),
-        "gpu_p95_median_ms": round(median([run["gpu_ms"]["p95"] for run in group]), 3),
-        "gpu_p99_median_ms": round(median([run["gpu_ms"]["p99"] for run in group]), 3),
-        "cpu_p95_median_ms": round(median([run["cpu_ms"]["p95"] for run in group]), 3),
-        "pacing_p95_median_ms": round(median([run["pacing_ms"]["p95"] for run in group]), 3),
-        "one_percent_low_median_fps": round(median([run["one_percent_low_fps"] for run in group]), 2),
-        "gpu_p95_spread_pct": spread([run["gpu_ms"]["p95"] for run in group]),
-        "one_percent_low_spread_pct": spread([run["one_percent_low_fps"] for run in group]),
-    }
-
-
 def build_report() -> dict[str, Any]:
     manifest = load_json(MANIFEST)
     if manifest.get("schema_version") != "preset_ab_runs.v1":
@@ -84,44 +67,34 @@ def build_report() -> dict[str, Any]:
             raise ValueError(f"{entry['run_id']}: source_sha mismatch")
         if capture["viewport"] != entry["viewport_px"]:
             raise ValueError(f"{entry['run_id']}: viewport mismatch")
-        runs.append(
-            {
-                "sequence": entry["sequence"],
-                "run_id": entry["run_id"],
-                "viewport_px": entry["viewport_px"],
-                "preset_id": entry["preset_id"],
-                "captured_at_utc": capture["captured_at_utc"],
-                "observed_seconds": round(capture["observed_seconds"], 3),
-                "gpu_ms": {name: round(capture["metrics"]["GPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "cpu_ms": {name: round(capture["metrics"]["CPU_RENDER_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "pacing_ms": {name: round(capture["metrics"]["FRAME_PACING_INTERVAL_MS"][name], 3) for name in ("p50", "p95", "p99")},
-                "one_percent_low_fps": round(capture["one_percent_low_fps"], 2),
-            }
-        )
+        run = transform_run(entry, capture)
+        run["viewport_px"] = entry["viewport_px"]
+        runs.append(run)
     cells = []
     for width, height in RESOLUTIONS:
         for preset in PRESETS:
             group = [run for run in runs if run["viewport_px"] == [width, height] and run["preset_id"] == preset]
             if len(group) != 3:
                 raise ValueError(f"expected 3 runs for {width}x{height}/{preset}")
-            cells.append(_cell(group, width, height, preset))
+            cell = {"width": width, "height": height, "preset_id": preset, **summarize(group)}
+            cells.append(cell)
     by_cell = {(cell["width"], cell["height"], cell["preset_id"]): cell for cell in cells}
     deltas = {}
     for width, height in RESOLUTIONS:
         low = by_cell[(width, height, "ab-low")]
         high = by_cell[(width, height, "ab-high")]
         deltas[_cell_key(width, height)] = {
-            "gpu_p95_pct": pct(high["gpu_p95_median_ms"], low["gpu_p95_median_ms"]),
-            "gpu_p99_pct": pct(high["gpu_p99_median_ms"], low["gpu_p99_median_ms"]),
-            "cpu_p95_pct": pct(high["cpu_p95_median_ms"], low["cpu_p95_median_ms"]),
-            "pacing_p95_pct": pct(high["pacing_p95_median_ms"], low["pacing_p95_median_ms"]),
-            "one_percent_low_pct": pct(high["one_percent_low_median_fps"], low["one_percent_low_median_fps"]),
+            "gpu_p95_pct": pct(high["gpu_p95_ms"], low["gpu_p95_ms"]),
+            "gpu_p99_pct": pct(high["gpu_p99_ms"], low["gpu_p99_ms"]),
+            "cpu_p95_pct": pct(high["cpu_p95_ms"], low["cpu_p95_ms"]),
+            "pacing_p95_pct": pct(high["pacing_p95_ms"], low["pacing_p95_ms"]),
+            "one_percent_low_pct": pct(high["one_percent_low_fps"], low["one_percent_low_fps"]),
         }
     scaling = {
         preset: {
             "gpu_p95_960_to_1920_pct": pct(
-                by_cell[(1920, 1080, preset)]["gpu_p95_median_ms"],
-                by_cell[(960, 540, preset)]["gpu_p95_median_ms"],
+                by_cell[(1920, 1080, preset)]["gpu_p95_ms"],
+                by_cell[(960, 540, preset)]["gpu_p95_ms"],
             )
         }
         for preset in PRESETS
@@ -181,10 +154,10 @@ def render_markdown(report: dict[str, Any]) -> str:
     ]
     for cell in report["cells"]:
         lines.append(
-            f"| {cell['width']}×{cell['height']} | {cell['preset_id']} | {cell['gpu_p50_median_ms']:.3f} | "
-            f"{cell['gpu_p95_median_ms']:.3f} | {cell['gpu_p99_median_ms']:.3f} | "
-            f"{cell['cpu_p95_median_ms']:.3f} | {cell['pacing_p95_median_ms']:.3f} | "
-            f"{cell['one_percent_low_median_fps']:.2f} | {cell['gpu_p95_spread_pct']:.1f}% |"
+            f"| {cell['width']}×{cell['height']} | {cell['preset_id']} | {cell['gpu_p50_ms']:.3f} | "
+            f"{cell['gpu_p95_ms']:.3f} | {cell['gpu_p99_ms']:.3f} | "
+            f"{cell['cpu_p95_ms']:.3f} | {cell['pacing_p95_ms']:.3f} | "
+            f"{cell['one_percent_low_fps']:.2f} | {cell['gpu_p95_spread_pct']:.1f}% |"
         )
     lines.extend(["", "## Deltas ab-high vs ab-low (GPU p95)", ""])
     for key in ("960x540", "1280x720", "1920x1080"):
