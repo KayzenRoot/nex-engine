@@ -14,12 +14,14 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 | `m01-visual.v1.json` / `M01-VISUAL-REPORT.md` | Verdade visual das três cenas M01: 18 PNGs, A/A exato por SHA e diferenças A/B de pixels. |
 | `res-scaling.v1.json` / `RES-SCALING-REPORT.md` | Escala de resolução 960×540/1280×720/1920×1080 em `arena_combat`, 3 runs por preset por resolução. |
 | `interaction.v1.json` / `INTERACTION-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `arena_combat`, 3 runs por preset por célula. |
+| `cross-scene.v1.json` / `CROSS-SCENE-REPORT.md` | Interação 50/100 proxies × 960×540/1920×1080 em `corridor_static` e `dense_city`, 3 runs por preset por célula. |
 | `tools/build_ab.py` | Builder determinístico do A/B/A. |
 | `tools/build_scaling.py` | Builder determinístico da matriz de escala. |
 | `tools/build_m01_ab.py` | Builder determinístico do A/B/A nas cenas M01. |
 | `tools/build_m01_visual.py` | Builder determinístico do relatório visual M01. |
 | `tools/build_res_scaling.py` | Builder determinístico da escala de resolução. |
 | `tools/build_interaction.py` | Builder determinístico da interação proxies × resolução. |
+| `tools/build_cross_scene.py` | Builder determinístico da interação em múltiplas cenas. |
 | `tools/png_image.py` | Decoder PNG mínimo e comparador de pixels. |
 | `tools/preset_report.py` | Loaders e estatística compartilhados pelos builders. |
 
@@ -31,6 +33,7 @@ Este diretório versiona os relatórios A/B/A e de escala dos presets `ab-low` e
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-visual/`: 18 PNGs + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling/`: 18 capturas + 18 validações + manifesto/fatos/análise/SHA-256.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction/`: 24 capturas + 24 validações + manifesto/fatos/análise/SHA-256.
+- `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene/`: 48 capturas + 48 validações + manifesto/fatos/análise/SHA-256.
 
 ## Uso
 
@@ -47,6 +50,8 @@ python docs/benchmarks/m09/tools/build_res_scaling.py
 python docs/benchmarks/m09/tools/build_res_scaling.py --check
 python docs/benchmarks/m09/tools/build_interaction.py
 python docs/benchmarks/m09/tools/build_interaction.py --check
+python docs/benchmarks/m09/tools/build_cross_scene.py
+python docs/benchmarks/m09/tools/build_cross_scene.py --check
 ```
 
 ## Limitações
@@ -56,6 +61,7 @@ python docs/benchmarks/m09/tools/build_interaction.py --check
 - Comparação visual é byte a byte de RGB; não modela percepção humana, color space ou calibração.
 - A escala de resolução usa viewport nativo (stretch desabilitado) e vai até 1920×1080; 2560×1440 não é coberto.
 - A interação usa 50/100 proxies porque 25 exigiria remover geometria da cena base.
+- A interação cross-scene cobre `corridor_static` e `dense_city`; `arena_combat` tem relatório próprio.
 - Sem generalização entre cenas/hardware/drivers.
 - `max_fps 240`, vsync desligado; pacing é limitado pelo cap.
 - Alocação do renderer é histórico da sessão, não VRAM.
