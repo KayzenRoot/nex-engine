@@ -157,6 +157,25 @@ def build_report() -> dict[str, Any]:
     }
 
 
+def _summary_and_footer(report: dict[str, Any], footer: str) -> list[str]:
+    lines = [
+        "",
+        "## Resumo",
+        "",
+        f"- Células: {report['summary']['cells']} · dentro de 2%: {report['summary']['within_2pct']}.",
+        f"- Maior erro absoluto: {report['summary']['max_abs_error_pct']:.1f}%.",
+        f"- Veredito: `{report['verdict']}`.",
+        "",
+        "## Observações",
+        "",
+    ]
+    lines.extend(f"- {observation}" for observation in report["observations"])
+    lines.extend(["", "## Limitações", ""])
+    lines.extend(f"- {limitation}" for limitation in report["limitations"])
+    lines.extend(["", footer, ""])
+    return lines
+
+
 def render_markdown(report: dict[str, Any]) -> str:
     lines = [
         "# NEX M03 · Light budget validation — RTX 5050",
@@ -178,23 +197,10 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"{cell['error_ms']:+.5f} | {cell['error_pct']:+.1f}% | "
             f"{'sim' if cell['within_2pct'] else 'não'} |"
         )
-    lines.extend(
-        [
-            "",
-            "## Resumo",
-            "",
-            f"- Células: {report['summary']['cells']} · dentro de 2%: {report['summary']['within_2pct']}.",
-            f"- Maior erro absoluto: {report['summary']['max_abs_error_pct']:.1f}%.",
-            f"- Veredito: `{report['verdict']}`.",
-            "",
-            "## Observações",
-            "",
-        ]
-    )
-    lines.extend(f"- {observation}" for observation in report["observations"])
-    lines.extend(["", "## Limitações", ""])
-    lines.extend(f"- {limitation}" for limitation in report["limitations"])
-    lines.extend(["", "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py`; não é benchmark nem claim de ganho.", ""])
+    lines.extend(_summary_and_footer(
+        report,
+        "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py`; não é benchmark nem claim de ganho.",
+    ))
     return "\n".join(lines)
 
 
@@ -325,21 +331,12 @@ def render_domain_markdown(report: dict[str, Any]) -> str:
             f"({report['resolution_sensitivity']['measured']['ab-low']['measured_delta_pct']:+.1f}%).",
             f"- Delta medido ab-high: {report['resolution_sensitivity']['measured']['ab-high']['measured_delta_ms']:+.3f} ms "
             f"({report['resolution_sensitivity']['measured']['ab-high']['measured_delta_pct']:+.1f}%).",
-            "",
-            "## Resumo",
-            "",
-            f"- Células: {report['summary']['cells']} · dentro de 2%: {report['summary']['within_2pct']}.",
-            f"- Maior erro absoluto: {report['summary']['max_abs_error_pct']:.1f}%.",
-            f"- Veredito: `{report['verdict']}`.",
-            "",
-            "## Observações",
-            "",
         ]
     )
-    lines.extend(f"- {observation}" for observation in report["observations"])
-    lines.extend(["", "## Limitações", ""])
-    lines.extend(f"- {limitation}" for limitation in report["limitations"])
-    lines.extend(["", "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py --domain`; não é benchmark nem claim de ganho.", ""])
+    lines.extend(_summary_and_footer(
+        report,
+        "Relatório gerado por `docs/benchmarks/m03/tools/build_budget_validation.py --domain`; não é benchmark nem claim de ganho.",
+    ))
     return "\n".join(lines)
 
 
