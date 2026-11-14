@@ -8,6 +8,8 @@ import sys
 import unittest
 from pathlib import Path
 
+from _preset_ab_support import assert_no_fabricated, assert_sha256sums, load_builder
+
 REPO = Path(__file__).resolve().parents[2]
 SCENE = REPO / "nex_bench" / "scenes" / "preset_ab"
 PACK = REPO / "nex_bench" / "presets" / "preset_ab" / "presets.v1.json"
@@ -24,16 +26,6 @@ RUN_IDS = (
     "1794653926-33742838",
     "1794653968-33563891",
 )
-
-
-def _load_builder():
-    spec = importlib.util.spec_from_file_location("nex_m09_build_ab", BUILDER)
-    if spec is None or spec.loader is None:
-        raise ImportError("cannot load build_ab.py")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
 
 
 class PresetABFilesTests(unittest.TestCase):
@@ -119,20 +111,13 @@ class PresetABEvidenceTests(unittest.TestCase):
                 self.assertEqual("PASS", validation["status"])
 
     def test_sha256sums_match_every_file(self) -> None:
-        lines = [line for line in (EVIDENCE / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines() if line.strip()]
-        self.assertEqual(15, len(lines))
-        for line in lines:
-            digest, name = line.split(" *", 1)
-            path = EVIDENCE / name
-            with self.subTest(name=name):
-                self.assertTrue(path.is_file())
-                self.assertEqual(digest, hashlib.sha256(path.read_bytes()).hexdigest())
+        assert_sha256sums(self, EVIDENCE, 15)
 
 
 class PresetABReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.builder = _load_builder()
+        cls.builder = load_builder("nex_m09_build_ab", BUILDER)
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
 
     def test_report_has_three_runs_and_deltas(self) -> None:
@@ -154,9 +139,7 @@ class PresetABReportTests(unittest.TestCase):
             with self.subTest(expected=expected):
                 self.assertIn(expected, limitations)
         text = REPORT_MD.read_text(encoding="utf-8").lower()
-        for forbidden in ("fps improved", "benchmark passed", "universal gain", "quality verified"):
-            with self.subTest(phrase=forbidden):
-                self.assertNotIn(forbidden, text)
+        assert_no_fabricated(self, text, ("fps improved", "benchmark passed", "universal gain", "quality verified"))
 
 
 if __name__ == "__main__":

@@ -13,6 +13,9 @@ import sys
 from pathlib import Path
 from typing import Any
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from common import load_json, run_cli  # noqa: E402 - local tool module
+
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling")
 EVIDENCE = REPO_ROOT / EVIDENCE_REL
@@ -25,19 +28,6 @@ REPORT_SCHEMA = "m09_preset_scaling.v1"
 RUNS_SCHEMA = "preset_ab_runs.v1"
 COUNTS = (25, 100, 200)
 PRESETS = ("ab-low", "ab-high")
-
-
-def load_json(path: Path) -> Any:
-    def pairs(items):
-        keys = [key for key, _ in items]
-        if len(keys) != len(set(keys)):
-            raise ValueError("duplicate JSON key")
-        return dict(items)
-
-    def constant(token):
-        raise ValueError(f"non-finite JSON: {token}")
-
-    return json.loads(path.read_text(encoding="utf-8-sig"), object_pairs_hook=pairs, parse_constant=constant)
 
 
 def load_manifest() -> dict[str, Any]:
@@ -249,44 +239,8 @@ def render_json(report: dict[str, Any]) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
-def _safe_output(path: Path) -> Path:
-    base = OUTPUT_DIR.resolve()
-    candidate = path.resolve()
-    if candidate.parent != base:
-        raise ValueError("output path escapes docs/benchmarks/m09")
-    return candidate
-
-
-def write_outputs(report: dict[str, Any]) -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    with open(_safe_output(REPORT_JSON), "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(render_json(report))
-    with open(_safe_output(REPORT_MD), "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(render_markdown(report))
-
-
 def main(argv: list[str]) -> int:
-    report = build_report()
-    rendered_json = render_json(report)
-    rendered_md = render_markdown(report)
-    if argv == ["--check"]:
-        if not REPORT_JSON.is_file() or not REPORT_MD.is_file():
-            print("SCALING_CHECK_FAIL: outputs missing")
-            return 1
-        if REPORT_JSON.read_text(encoding="utf-8") != rendered_json:
-            print("SCALING_CHECK_FAIL: scaling.v1.json is stale")
-            return 1
-        if REPORT_MD.read_text(encoding="utf-8") != rendered_md:
-            print("SCALING_CHECK_FAIL: SCALING-REPORT.md is stale")
-            return 1
-        print(f"SCALING_CHECK_PASS: {len(report['runs'])} runs")
-        return 0
-    if argv:
-        print("usage: build_scaling.py [--check]")
-        return 2
-    write_outputs(report)
-    print(f"SCALING_WRITE_PASS: {len(report['runs'])} runs")
-    return 0
+    return run_cli(build_report, render_json, render_markdown, OUTPUT_DIR, REPORT_JSON, REPORT_MD, argv, "SCALING")
 
 
 if __name__ == "__main__":

@@ -15,7 +15,8 @@ Parametrizar o harness A/B/A por contagem de proxies (25/100/200) e medir 3 repe
 - `nex_bench/scenes/preset_ab/preset_ab.gd`, `validate_preset_ab.py`, `README.md`: proxy count 25/50/100/200.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling/**`: 18 capturas, 18 validações, manifesto, fatos, análise e SHA-256.
 - `docs/benchmarks/m09/**`: `scaling.v1.json`, `SCALING-REPORT.md`, builder e README.
-- `tests/ci/test_preset_scaling.py`.
+- `tests/ci/test_preset_scaling.py`, `tests/ci/_preset_ab_support.py`, `tests/ci/test_preset_ab_harness.py`.
+- `docs/benchmarks/m09/tools/common.py` (helpers compartilhados).
 - Evidência, delta e este WO/lock.
 
 ## Fora de escopo

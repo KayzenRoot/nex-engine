@@ -8,6 +8,8 @@ import sys
 import unittest
 from pathlib import Path
 
+from _preset_ab_support import assert_no_fabricated, assert_sha256sums, load_builder
+
 REPO = Path(__file__).resolve().parents[2]
 EVIDENCE = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-14-preset-scaling"
 DOCS = REPO / "docs" / "benchmarks" / "m09"
@@ -16,16 +18,6 @@ REPORT_JSON = DOCS / "scaling.v1.json"
 REPORT_MD = DOCS / "SCALING-REPORT.md"
 COUNTS = (25, 100, 200)
 PRESETS = ("ab-low", "ab-high")
-
-
-def _load_builder():
-    spec = importlib.util.spec_from_file_location("nex_m09_build_scaling", BUILDER)
-    if spec is None or spec.loader is None:
-        raise ImportError("cannot load build_scaling.py")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
 
 
 class ScalingFilesTests(unittest.TestCase):
@@ -80,20 +72,13 @@ class ScalingEvidenceTests(unittest.TestCase):
                 self.assertEqual("PASS", validation["status"])
 
     def test_sha256sums_match_every_file(self) -> None:
-        lines = [line for line in (EVIDENCE / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines() if line.strip()]
-        self.assertEqual(39, len(lines))
-        for line in lines:
-            digest, name = line.split(" *", 1)
-            path = EVIDENCE / name
-            with self.subTest(name=name):
-                self.assertTrue(path.is_file())
-                self.assertEqual(digest, hashlib.sha256(path.read_bytes()).hexdigest())
+        assert_sha256sums(self, EVIDENCE, 39)
 
 
 class ScalingReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.builder = _load_builder()
+        cls.builder = load_builder("nex_m09_build_scaling", BUILDER)
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
 
     def test_report_has_six_cells_and_expected_deltas(self) -> None:
@@ -119,9 +104,7 @@ class ScalingReportTests(unittest.TestCase):
             with self.subTest(expected=expected):
                 self.assertIn(expected, limitations)
         text = REPORT_MD.read_text(encoding="utf-8").lower()
-        for forbidden in ("fps improved", "benchmark passed", "universal gain", "quality verified"):
-            with self.subTest(phrase=forbidden):
-                self.assertNotIn(forbidden, text)
+        assert_no_fabricated(self, text, ("fps improved", "benchmark passed", "universal gain", "quality verified"))
 
 
 if __name__ == "__main__":
