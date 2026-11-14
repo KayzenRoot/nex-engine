@@ -20,9 +20,9 @@ EXPECTED_SCENE = "Preset A/B/A"
 EXPECTED_LAYOUT = "built-in deterministic grid"
 EXPECTED_PROXY_COUNTS = (25, 50, 100, 200)
 M01_SCENE_SPECS = {
-    "M01 Corridor A/B/A": ("M01 corridor_static + deterministic fillers", 100),
-    "M01 Arena A/B/A": ("M01 arena_combat + deterministic fillers", 100),
-    "M01 City A/B/A": ("M01 dense_city + deterministic fillers", 100),
+    "M01 Corridor A/B/A": ("M01 corridor_static + deterministic fillers", (50, 100, 200)),
+    "M01 Arena A/B/A": ("M01 arena_combat + deterministic fillers", (50, 100, 200)),
+    "M01 City A/B/A": ("M01 dense_city + deterministic fillers", (50, 100, 200)),
 }
 EXPECTED_EFFECT_MODE = "lights"
 EXPECTED_MAX_FPS = 240
@@ -54,11 +54,11 @@ def validate_document(document):
         if workload.get("proxy_count") not in EXPECTED_PROXY_COUNTS:
             raise ValueError("workload.proxy_count must be one of 25/50/100/200")
     elif scene in M01_SCENE_SPECS:
-        layout, count = M01_SCENE_SPECS[scene]
+        layout, counts = M01_SCENE_SPECS[scene]
         if workload.get("layout") != layout:
             raise ValueError("workload.layout must be " + layout)
-        if workload.get("proxy_count") != count:
-            raise ValueError(f"workload.proxy_count must be {count} for {scene}")
+        if workload.get("proxy_count") not in counts:
+            raise ValueError(f"workload.proxy_count must be one of {counts} for {scene}")
     else:
         raise ValueError("workload.scene is not a supported harness scene")
     if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:

@@ -95,8 +95,12 @@ func _resolve_scene() -> void:
 	scene_layout = String(spec["layout"])
 	proxy_count = int(spec["proxy_count"])
 	var override := OS.get_environment(PROXY_COUNT_ENV).strip_edges()
-	if not override.is_empty() and int(override) != proxy_count:
-		_fail_stage("M01 scene proxy count is fixed at %d" % proxy_count)
+	if not override.is_empty():
+		var parsed := int(override)
+		if not ALLOWED_PROXY_COUNTS.has(parsed):
+			_fail_stage("proxy count must be one of 25/50/100/200: " + override)
+			return
+		proxy_count = parsed
 
 
 func _read_proxy_count() -> void:
@@ -211,7 +215,7 @@ func _build_m01_stage() -> void:
 	add_child(root)
 	var meshes := root.find_children("*", "MeshInstance3D", true, false)
 	base_mesh_count = meshes.size()
-	var target := int(spec["proxy_count"])
+	var target := proxy_count
 	if base_mesh_count > target:
 		_fail_stage("base scene has more meshes than the target")
 		return

@@ -1,0 +1,24 @@
+NEX M09 PROXY X RESOLUTION INTERACTION SESSION FACTS
+====================================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Measured source: 2ef072c70189d5d013a62b7efc821f81078ef6d1
+  (preset_ab.gd with M01 proxy-count override at the measured commit)
+Scene: arena_combat (M01 Arena A/B/A), 34 base meshes + deterministic fillers
+Proxy counts: 50 (16 fillers) and 100 (66 fillers); 25 is not possible without
+              removing base geometry, which is out of scope
+Resolutions: 960x540 and 1920x1080 with NEX_PRESET_AB_NATIVE_RESOLUTION=1
+VSync: disabled (0)
+Max FPS: 240
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Sequence per cell: ab-low -> ab-high -> ab-low -> ab-high -> ab-low -> ab-high
+Observation: 30 s per run, 2 s warmup
+Validation: all twenty-four documents PASS the dedicated validator; every
+            document records its proxy count and viewport resolution.
+Limitations: single session; one scene; three runs per cell; 50/100 proxies
+             and two resolutions only; no cross-device generalization; no
+             quality or game-FPS claim.
