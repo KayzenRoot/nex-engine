@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M06/M09 bounded admission
+
+**M06 (#11) e M09 (#14) admitidos como `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** por `NEX-ADR-0006` / `NEX-D-016`, sobre a base `8ed41bafaf19cff52da9250784f78c3d608ac504`. A admissão cobre contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados.
+
+**Escopo:** M06 (performance.v1, atlas S05, observações M09, advisórios) e M09 (preset_pack.v1, resolver, harness A/B, todos os bundles de medição, atlas). **Não admitido:** runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, generalização de performance/qualidade ou claims de FPS. M01–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M06/M09 exige WO/Context Lock e checks. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+
 ## Current verified scope | 2026-11-14 · M03 light-budget validation
 
 **M03-BUDGET-VALIDATION integrado** por PR #213, squash `f1e458e9442ac8d1cb534e606ceb788a1237e449`. O snapshot do `nex_light_cost_model.v1` foi conferido contra o GDScript e comparado a 6 células M01 (3 cenas × 2 presets) medidas em M09.
