@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 cross-scene interaction
+
+**M09-CROSS-SCENE integrado** por PR #199, squash `ddf9996c29652f7d2b85931ed4682718b5d646c5` (source medido `2a03cbb7`). `corridor_static` e `dense_city` foram medidas em 50/100 proxies × 960×540/1920×1080, viewport nativo, 3 runs por preset por célula: **48 capturas COMPLETE/validadas**, 99 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
+
+**Medição:** GPU p95 high vs low **+294.4%/+464.3–476.5% (corridor)** e **+245.6–249.3%/+457.3–461.5% (city)**; resolução 960→1920 **+79.4–97.2% (low)** e **+180.0–191.5% (high)**; proxies 50→100 **0.0–2.9% no GPU**. O padrão pixel-bound de `arena_combat` se repete nas duas cenas; resolução domina o GPU e proxies afetam mais o CPU. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 proxies × resolução
 
 **M09-INTERACTION integrado** por PR #197, squash `369afd850bbd2fc70a3b8951225aa52c27279786` (source medido `2ef072c`). A cena M01 `arena_combat` foi medida em 50/100 proxies × 960×540/1920×1080, viewport nativo, 3 runs por preset por célula: **24 capturas COMPLETE/validadas**, 51 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
