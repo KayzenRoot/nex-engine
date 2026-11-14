@@ -14,7 +14,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import load_json, run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, pct, summarize, transform_run  # noqa: E402 - local tool module
+from preset_report import interaction_summary, load_capture, load_manifest, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction")
@@ -73,51 +73,11 @@ def build_report() -> dict[str, Any]:
         run["proxy_count"] = entry["proxy_count"]
         run["viewport_px"] = entry["viewport_px"]
         runs.append(run)
-    cells = []
-    for count in PROXY_COUNTS:
-        for width, height in RESOLUTIONS:
-            for preset in PRESETS:
-                group = [run for run in runs
-                         if run["proxy_count"] == count
-                         and run["viewport_px"] == [width, height]
-                         and run["preset_id"] == preset]
-                if len(group) != 3:
-                    raise ValueError(f"expected 3 runs for {_key(count, width, height)}/{preset}")
-                cells.append({"proxy_count": count, "width": width, "height": height,
-                              "preset_id": preset, **summarize(group)})
-    by_cell = {(cell["proxy_count"], cell["width"], cell["height"], cell["preset_id"]): cell for cell in cells}
-    deltas = {}
-    for count in PROXY_COUNTS:
-        for width, height in RESOLUTIONS:
-            low = by_cell[(count, width, height, "ab-low")]
-            high = by_cell[(count, width, height, "ab-high")]
-            deltas[_key(count, width, height)] = {
-                "gpu_p95_pct": pct(high["gpu_p95_ms"], low["gpu_p95_ms"]),
-                "gpu_p99_pct": pct(high["gpu_p99_ms"], low["gpu_p99_ms"]),
-                "cpu_p95_pct": pct(high["cpu_p95_ms"], low["cpu_p95_ms"]),
-                "pacing_p95_pct": pct(high["pacing_p95_ms"], low["pacing_p95_ms"]),
-                "one_percent_low_pct": pct(high["one_percent_low_fps"], low["one_percent_low_fps"]),
-            }
-    resolution_scaling = {
-        str(count): {
-            preset: pct(
-                by_cell[(count, 1920, 1080, preset)]["gpu_p95_ms"],
-                by_cell[(count, 960, 540, preset)]["gpu_p95_ms"],
-            )
-            for preset in PRESETS
-        }
-        for count in PROXY_COUNTS
-    }
-    proxy_scaling = {
-        f"{width}x{height}": {
-            preset: pct(
-                by_cell[(100, width, height, preset)]["gpu_p95_ms"],
-                by_cell[(50, width, height, preset)]["gpu_p95_ms"],
-            )
-            for preset in PRESETS
-        }
-        for width, height in RESOLUTIONS
-    }
+    summary = interaction_summary(runs)
+    cells = summary["cells"]
+    deltas = summary["deltas_high_vs_low"]
+    resolution_scaling = summary["resolution_scaling"]
+    proxy_scaling = summary["proxy_scaling"]
     observations = [
         "Resolution dominates GPU cost in this range: GPU p95 high vs low is "
         f"{deltas['50/960x540']['gpu_p95_pct']:+.1f}%/{deltas['100/960x540']['gpu_p95_pct']:+.1f}% at 960x540 "

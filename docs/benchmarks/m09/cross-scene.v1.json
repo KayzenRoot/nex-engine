@@ -1,0 +1,1860 @@
+{
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session on one RTX 5050; no cross-device or cross-session generalization",
+    "two scenes only; arena_combat is covered by a separate report",
+    "two proxy counts and two resolutions; 200 proxies and 2560x1440 are not covered",
+    "native resolution disables the project's canvas_items stretch mode",
+    "max_fps 240 and vsync disabled; frame pacing is capped",
+    "the harness applies a subset of preset_pack.v1 settings",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "The arena pattern repeats in both scenes: resolution dominates GPU cost and the high preset's relative cost grows with resolution.",
+    "Corridor GPU p95 high vs low: +294.4% at 50/960x540 and +476.5% at 50/1920x1080.",
+    "City GPU p95 high vs low: +245.6% at 50/960x540 and +461.5% at 50/1920x1080.",
+    "Proxy scaling 50 to 100 changes GPU p95 by 0.0-2.9%; resolution scaling 960 to 1920 changes it by 79.4-97.2% (ab-low) and 180.0-191.5% (ab-high).",
+    "Pacing remains near 4.25 ms and 1% low deltas are within -0.4% to +1.5%; no gain is claimed."
+  ],
+  "runs": [
+    {
+      "captured_at_utc": "2026-11-14T14:20:39Z",
+      "cpu_ms": {
+        "p50": 0.194,
+        "p95": 0.31,
+        "p99": 0.4
+      },
+      "gpu_ms": {
+        "p50": 0.07,
+        "p95": 0.072,
+        "p99": 0.075
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.56,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.282,
+        "p99": 4.369
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666039-33725772",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 1,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:21:13Z",
+      "cpu_ms": {
+        "p50": 0.254,
+        "p95": 0.427,
+        "p99": 0.531
+      },
+      "gpu_ms": {
+        "p50": 0.271,
+        "p95": 0.28,
+        "p99": 0.421
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.8,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.252,
+        "p99": 4.377
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666073-33486931",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 2,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:21:47Z",
+      "cpu_ms": {
+        "p50": 0.197,
+        "p95": 0.334,
+        "p99": 0.457
+      },
+      "gpu_ms": {
+        "p50": 0.07,
+        "p95": 0.071,
+        "p99": 0.19
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.35,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.275,
+        "p99": 4.38
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666107-33468770",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 3,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:22:22Z",
+      "cpu_ms": {
+        "p50": 0.265,
+        "p95": 0.438,
+        "p99": 0.563
+      },
+      "gpu_ms": {
+        "p50": 0.27,
+        "p95": 0.28,
+        "p99": 0.416
+      },
+      "observed_seconds": 30.002,
+      "one_percent_low_fps": 135.91,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.252,
+        "p99": 4.37
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666142-33492039",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 4,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:22:56Z",
+      "cpu_ms": {
+        "p50": 0.198,
+        "p95": 0.311,
+        "p99": 0.398
+      },
+      "gpu_ms": {
+        "p50": 0.07,
+        "p95": 0.071,
+        "p99": 0.072
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.63,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.245,
+        "p99": 4.312
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666176-33428525",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 5,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:23:30Z",
+      "cpu_ms": {
+        "p50": 0.266,
+        "p95": 0.414,
+        "p99": 0.511
+      },
+      "gpu_ms": {
+        "p50": 0.267,
+        "p95": 0.276,
+        "p99": 0.411
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 227.61,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.265,
+        "p99": 4.325
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666210-33479692",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 6,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:24:12Z",
+      "cpu_ms": {
+        "p50": 0.197,
+        "p95": 0.33,
+        "p99": 0.411
+      },
+      "gpu_ms": {
+        "p50": 0.125,
+        "p95": 0.137,
+        "p99": 0.14
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.83,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.284,
+        "p99": 4.35
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666252-34006550",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 7,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:24:46Z",
+      "cpu_ms": {
+        "p50": 0.261,
+        "p95": 0.426,
+        "p99": 0.525
+      },
+      "gpu_ms": {
+        "p50": 0.779,
+        "p95": 0.784,
+        "p99": 0.991
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.88,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.242,
+        "p99": 4.308
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666286-33417483",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 8,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:25:20Z",
+      "cpu_ms": {
+        "p50": 0.2,
+        "p95": 0.327,
+        "p99": 0.415
+      },
+      "gpu_ms": {
+        "p50": 0.125,
+        "p95": 0.136,
+        "p99": 0.139
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 227.17,
+      "pacing_ms": {
+        "p50": 4.169,
+        "p95": 4.242,
+        "p99": 4.312
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666320-33432445",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 9,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:25:55Z",
+      "cpu_ms": {
+        "p50": 0.261,
+        "p95": 0.425,
+        "p99": 0.524
+      },
+      "gpu_ms": {
+        "p50": 0.777,
+        "p95": 0.783,
+        "p99": 0.991
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 226.2,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.297,
+        "p99": 4.345
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666355-33452893",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 10,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:26:29Z",
+      "cpu_ms": {
+        "p50": 0.199,
+        "p95": 0.328,
+        "p99": 0.444
+      },
+      "gpu_ms": {
+        "p50": 0.122,
+        "p95": 0.136,
+        "p99": 0.139
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.21,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.295,
+        "p99": 4.356
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666389-33386280",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 11,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:27:03Z",
+      "cpu_ms": {
+        "p50": 0.261,
+        "p95": 0.42,
+        "p99": 0.523
+      },
+      "gpu_ms": {
+        "p50": 0.778,
+        "p95": 0.784,
+        "p99": 0.991
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.99,
+      "pacing_ms": {
+        "p50": 4.169,
+        "p95": 4.242,
+        "p99": 4.328
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666423-33441687",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 12,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:27:53Z",
+      "cpu_ms": {
+        "p50": 0.21,
+        "p95": 0.332,
+        "p99": 0.416
+      },
+      "gpu_ms": {
+        "p50": 0.069,
+        "p95": 0.071,
+        "p99": 0.073
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 222.81,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.265,
+        "p99": 4.336
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666473-34704359",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 13,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:28:27Z",
+      "cpu_ms": {
+        "p50": 0.281,
+        "p95": 0.442,
+        "p99": 0.556
+      },
+      "gpu_ms": {
+        "p50": 0.269,
+        "p95": 0.28,
+        "p99": 0.413
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.15,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.252,
+        "p99": 4.335
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666507-33463361",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 14,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:29:01Z",
+      "cpu_ms": {
+        "p50": 0.209,
+        "p95": 0.337,
+        "p99": 0.423
+      },
+      "gpu_ms": {
+        "p50": 0.07,
+        "p95": 0.071,
+        "p99": 0.073
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.3,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.276,
+        "p99": 4.348
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666541-33405734",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 15,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:29:35Z",
+      "cpu_ms": {
+        "p50": 0.283,
+        "p95": 0.441,
+        "p99": 0.538
+      },
+      "gpu_ms": {
+        "p50": 0.27,
+        "p95": 0.279,
+        "p99": 0.416
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 220.89,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.293,
+        "p99": 4.383
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666575-33407840",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 16,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:30:09Z",
+      "cpu_ms": {
+        "p50": 0.211,
+        "p95": 0.339,
+        "p99": 0.444
+      },
+      "gpu_ms": {
+        "p50": 0.07,
+        "p95": 0.072,
+        "p99": 0.079
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.86,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.289,
+        "p99": 4.354
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666609-33425763",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 17,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:30:43Z",
+      "cpu_ms": {
+        "p50": 0.284,
+        "p95": 0.448,
+        "p99": 0.559
+      },
+      "gpu_ms": {
+        "p50": 0.271,
+        "p95": 0.282,
+        "p99": 0.417
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.86,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.294,
+        "p99": 4.363
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666643-33398187",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 18,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:31:27Z",
+      "cpu_ms": {
+        "p50": 0.213,
+        "p95": 0.396,
+        "p99": 0.512
+      },
+      "gpu_ms": {
+        "p50": 0.125,
+        "p95": 0.138,
+        "p99": 0.141
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 219.96,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.295,
+        "p99": 4.403
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666687-33746341",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 19,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:32:01Z",
+      "cpu_ms": {
+        "p50": 0.282,
+        "p95": 0.451,
+        "p99": 0.536
+      },
+      "gpu_ms": {
+        "p50": 0.784,
+        "p95": 0.79,
+        "p99": 0.99
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.86,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.259,
+        "p99": 4.333
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666721-33426254",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 20,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:32:35Z",
+      "cpu_ms": {
+        "p50": 0.205,
+        "p95": 0.338,
+        "p99": 0.427
+      },
+      "gpu_ms": {
+        "p50": 0.13,
+        "p95": 0.14,
+        "p99": 0.143
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.33,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.252,
+        "p99": 4.341
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666755-33386586",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 21,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:33:09Z",
+      "cpu_ms": {
+        "p50": 0.279,
+        "p95": 0.449,
+        "p99": 0.545
+      },
+      "gpu_ms": {
+        "p50": 0.787,
+        "p95": 0.794,
+        "p99": 0.999
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.36,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.292,
+        "p99": 4.353
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666789-33447180",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 22,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:33:43Z",
+      "cpu_ms": {
+        "p50": 0.21,
+        "p95": 0.329,
+        "p99": 0.407
+      },
+      "gpu_ms": {
+        "p50": 0.128,
+        "p95": 0.14,
+        "p99": 0.143
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.47,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.288,
+        "p99": 4.336
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794666823-33419010",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 23,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:34:17Z",
+      "cpu_ms": {
+        "p50": 0.28,
+        "p95": 0.451,
+        "p99": 0.554
+      },
+      "gpu_ms": {
+        "p50": 0.785,
+        "p95": 0.79,
+        "p99": 0.998
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.23,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.249,
+        "p99": 4.306
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794666857-33419968",
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sequence": 24,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:35:01Z",
+      "cpu_ms": {
+        "p50": 0.193,
+        "p95": 0.317,
+        "p99": 0.392
+      },
+      "gpu_ms": {
+        "p50": 0.067,
+        "p95": 0.068,
+        "p99": 0.069
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 222.76,
+      "pacing_ms": {
+        "p50": 4.169,
+        "p95": 4.243,
+        "p99": 4.334
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666901-33797342",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 25,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:35:35Z",
+      "cpu_ms": {
+        "p50": 0.259,
+        "p95": 0.405,
+        "p99": 0.52
+      },
+      "gpu_ms": {
+        "p50": 0.228,
+        "p95": 0.237,
+        "p99": 0.363
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.93,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.263,
+        "p99": 4.345
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794666935-33409060",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 26,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:36:10Z",
+      "cpu_ms": {
+        "p50": 0.193,
+        "p95": 0.306,
+        "p99": 0.393
+      },
+      "gpu_ms": {
+        "p50": 0.067,
+        "p95": 0.068,
+        "p99": 0.07
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.93,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.269,
+        "p99": 4.33
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794666970-33412452",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 27,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:36:44Z",
+      "cpu_ms": {
+        "p50": 0.258,
+        "p95": 0.407,
+        "p99": 0.504
+      },
+      "gpu_ms": {
+        "p50": 0.229,
+        "p95": 0.235,
+        "p99": 0.24
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.12,
+      "pacing_ms": {
+        "p50": 4.169,
+        "p95": 4.241,
+        "p99": 4.311
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794667004-33428551",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 28,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:37:18Z",
+      "cpu_ms": {
+        "p50": 0.192,
+        "p95": 0.306,
+        "p99": 0.386
+      },
+      "gpu_ms": {
+        "p50": 0.067,
+        "p95": 0.068,
+        "p99": 0.069
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.73,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.261,
+        "p99": 4.334
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794667038-33413181",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 29,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:37:52Z",
+      "cpu_ms": {
+        "p50": 0.261,
+        "p95": 0.411,
+        "p99": 0.516
+      },
+      "gpu_ms": {
+        "p50": 0.228,
+        "p95": 0.235,
+        "p99": 0.352
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.56,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.25,
+        "p99": 4.327
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794667072-33463242",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 30,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:38:38Z",
+      "cpu_ms": {
+        "p50": 0.191,
+        "p95": 0.321,
+        "p99": 0.417
+      },
+      "gpu_ms": {
+        "p50": 0.112,
+        "p95": 0.122,
+        "p99": 0.124
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.94,
+      "pacing_ms": {
+        "p50": 4.167,
+        "p95": 4.241,
+        "p99": 4.321
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794667118-34567099",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 31,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:39:13Z",
+      "cpu_ms": {
+        "p50": 0.258,
+        "p95": 0.413,
+        "p99": 0.503
+      },
+      "gpu_ms": {
+        "p50": 0.678,
+        "p95": 0.684,
+        "p99": 0.882
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.5,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.294,
+        "p99": 4.361
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794667153-33417956",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 32,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:39:47Z",
+      "cpu_ms": {
+        "p50": 0.193,
+        "p95": 0.314,
+        "p99": 0.389
+      },
+      "gpu_ms": {
+        "p50": 0.109,
+        "p95": 0.122,
+        "p99": 0.125
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.54,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.276,
+        "p99": 4.334
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794667187-33414846",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 33,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:40:21Z",
+      "cpu_ms": {
+        "p50": 0.26,
+        "p95": 0.422,
+        "p99": 0.521
+      },
+      "gpu_ms": {
+        "p50": 0.679,
+        "p95": 0.685,
+        "p99": 0.883
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 224.71,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.294,
+        "p99": 4.367
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794667221-33444730",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 34,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:40:55Z",
+      "cpu_ms": {
+        "p50": 0.192,
+        "p95": 0.32,
+        "p99": 0.406
+      },
+      "gpu_ms": {
+        "p50": 0.108,
+        "p95": 0.122,
+        "p99": 0.126
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 228.09,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.243,
+        "p99": 4.306
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 50,
+      "run_id": "1794667255-33388901",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 35,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:41:29Z",
+      "cpu_ms": {
+        "p50": 0.257,
+        "p95": 0.418,
+        "p99": 0.518
+      },
+      "gpu_ms": {
+        "p50": 0.679,
+        "p95": 0.686,
+        "p99": 0.885
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.38,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.298,
+        "p99": 4.373
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 50,
+      "run_id": "1794667289-33421372",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 36,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:42:13Z",
+      "cpu_ms": {
+        "p50": 0.199,
+        "p95": 0.323,
+        "p99": 0.41
+      },
+      "gpu_ms": {
+        "p50": 0.068,
+        "p95": 0.069,
+        "p99": 0.071
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.23,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.247,
+        "p99": 4.317
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667333-33569660",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 37,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:42:47Z",
+      "cpu_ms": {
+        "p50": 0.273,
+        "p95": 0.429,
+        "p99": 0.533
+      },
+      "gpu_ms": {
+        "p50": 0.233,
+        "p95": 0.241,
+        "p99": 0.369
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.41,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.291,
+        "p99": 4.344
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667367-33470985",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 38,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:43:21Z",
+      "cpu_ms": {
+        "p50": 0.199,
+        "p95": 0.334,
+        "p99": 0.43
+      },
+      "gpu_ms": {
+        "p50": 0.067,
+        "p95": 0.069,
+        "p99": 0.07
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 227.08,
+      "pacing_ms": {
+        "p50": 4.169,
+        "p95": 4.245,
+        "p99": 4.318
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667401-33479297",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 39,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:43:56Z",
+      "cpu_ms": {
+        "p50": 0.274,
+        "p95": 0.423,
+        "p99": 0.525
+      },
+      "gpu_ms": {
+        "p50": 0.233,
+        "p95": 0.242,
+        "p99": 0.364
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 227.07,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.251,
+        "p99": 4.297
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667436-33416697",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 40,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:44:30Z",
+      "cpu_ms": {
+        "p50": 0.199,
+        "p95": 0.326,
+        "p99": 0.431
+      },
+      "gpu_ms": {
+        "p50": 0.068,
+        "p95": 0.069,
+        "p99": 0.071
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.84,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.251,
+        "p99": 4.332
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667470-33441338",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 41,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:45:04Z",
+      "cpu_ms": {
+        "p50": 0.274,
+        "p95": 0.438,
+        "p99": 0.555
+      },
+      "gpu_ms": {
+        "p50": 0.232,
+        "p95": 0.241,
+        "p99": 0.366
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 224.04,
+      "pacing_ms": {
+        "p50": 4.164,
+        "p95": 4.248,
+        "p99": 4.32
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667504-33405602",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 42,
+      "viewport_px": [
+        960,
+        540
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:45:48Z",
+      "cpu_ms": {
+        "p50": 0.201,
+        "p95": 0.324,
+        "p99": 0.396
+      },
+      "gpu_ms": {
+        "p50": 0.109,
+        "p95": 0.117,
+        "p99": 0.119
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 225.63,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.281,
+        "p99": 4.332
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667548-34120271",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 43,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:46:22Z",
+      "cpu_ms": {
+        "p50": 0.271,
+        "p95": 0.441,
+        "p99": 0.535
+      },
+      "gpu_ms": {
+        "p50": 0.687,
+        "p95": 0.693,
+        "p99": 0.891
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 228.27,
+      "pacing_ms": {
+        "p50": 4.168,
+        "p95": 4.247,
+        "p99": 4.317
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667582-33426117",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 44,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:46:56Z",
+      "cpu_ms": {
+        "p50": 0.201,
+        "p95": 0.33,
+        "p99": 0.438
+      },
+      "gpu_ms": {
+        "p50": 0.11,
+        "p95": 0.124,
+        "p99": 0.127
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 223.48,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.301,
+        "p99": 4.355
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667616-33440872",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 45,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:47:30Z",
+      "cpu_ms": {
+        "p50": 0.276,
+        "p95": 0.444,
+        "p99": 0.545
+      },
+      "gpu_ms": {
+        "p50": 0.685,
+        "p95": 0.691,
+        "p99": 0.889
+      },
+      "observed_seconds": 30.004,
+      "one_percent_low_fps": 226.89,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.242,
+        "p99": 4.327
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667650-33457832",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 46,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:48:04Z",
+      "cpu_ms": {
+        "p50": 0.2,
+        "p95": 0.33,
+        "p99": 0.42
+      },
+      "gpu_ms": {
+        "p50": 0.111,
+        "p95": 0.124,
+        "p99": 0.126
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 223.05,
+      "pacing_ms": {
+        "p50": 4.166,
+        "p95": 4.274,
+        "p99": 4.366
+      },
+      "preset_id": "ab-low",
+      "proxy_count": 100,
+      "run_id": "1794667684-33458429",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 47,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "captured_at_utc": "2026-11-14T14:48:39Z",
+      "cpu_ms": {
+        "p50": 0.276,
+        "p95": 0.445,
+        "p99": 0.542
+      },
+      "gpu_ms": {
+        "p50": 0.685,
+        "p95": 0.691,
+        "p99": 0.89
+      },
+      "observed_seconds": 30.003,
+      "one_percent_low_fps": 225.37,
+      "pacing_ms": {
+        "p50": 4.165,
+        "p95": 4.263,
+        "p99": 4.335
+      },
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "run_id": "1794667719-33408157",
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sequence": 48,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "cells": [
+        {
+          "cpu_p95_ms": 0.311,
+          "gpu_p50_ms": 0.07,
+          "gpu_p95_ms": 0.071,
+          "gpu_p95_spread_pct": 1.4,
+          "gpu_p99_ms": 0.075,
+          "height": 540,
+          "one_percent_low_fps": 223.56,
+          "one_percent_low_spread_pct": 1.0,
+          "pacing_p95_ms": 4.275,
+          "preset_id": "ab-low",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.427,
+          "gpu_p50_ms": 0.27,
+          "gpu_p95_ms": 0.28,
+          "gpu_p95_spread_pct": 1.4,
+          "gpu_p99_ms": 0.416,
+          "height": 540,
+          "one_percent_low_fps": 224.8,
+          "one_percent_low_spread_pct": 40.8,
+          "pacing_p95_ms": 4.252,
+          "preset_id": "ab-high",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.328,
+          "gpu_p50_ms": 0.125,
+          "gpu_p95_ms": 0.136,
+          "gpu_p95_spread_pct": 0.7,
+          "gpu_p99_ms": 0.139,
+          "height": 1080,
+          "one_percent_low_fps": 225.83,
+          "one_percent_low_spread_pct": 1.3,
+          "pacing_p95_ms": 4.284,
+          "preset_id": "ab-low",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.425,
+          "gpu_p50_ms": 0.778,
+          "gpu_p95_ms": 0.784,
+          "gpu_p95_spread_pct": 0.1,
+          "gpu_p99_ms": 0.991,
+          "height": 1080,
+          "one_percent_low_fps": 226.2,
+          "one_percent_low_spread_pct": 0.4,
+          "pacing_p95_ms": 4.242,
+          "preset_id": "ab-high",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.337,
+          "gpu_p50_ms": 0.07,
+          "gpu_p95_ms": 0.071,
+          "gpu_p95_spread_pct": 1.4,
+          "gpu_p99_ms": 0.073,
+          "height": 540,
+          "one_percent_low_fps": 223.86,
+          "one_percent_low_spread_pct": 0.7,
+          "pacing_p95_ms": 4.276,
+          "preset_id": "ab-low",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.442,
+          "gpu_p50_ms": 0.27,
+          "gpu_p95_ms": 0.28,
+          "gpu_p95_spread_pct": 1.1,
+          "gpu_p99_ms": 0.416,
+          "height": 540,
+          "one_percent_low_fps": 224.15,
+          "one_percent_low_spread_pct": 1.8,
+          "pacing_p95_ms": 4.293,
+          "preset_id": "ab-high",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.338,
+          "gpu_p50_ms": 0.128,
+          "gpu_p95_ms": 0.14,
+          "gpu_p95_spread_pct": 1.4,
+          "gpu_p99_ms": 0.143,
+          "height": 1080,
+          "one_percent_low_fps": 224.33,
+          "one_percent_low_spread_pct": 2.5,
+          "pacing_p95_ms": 4.288,
+          "preset_id": "ab-low",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.451,
+          "gpu_p50_ms": 0.785,
+          "gpu_p95_ms": 0.79,
+          "gpu_p95_spread_pct": 0.5,
+          "gpu_p99_ms": 0.998,
+          "height": 1080,
+          "one_percent_low_fps": 225.86,
+          "one_percent_low_spread_pct": 0.8,
+          "pacing_p95_ms": 4.259,
+          "preset_id": "ab-high",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 1920
+        }
+      ],
+      "deltas_high_vs_low": {
+        "100/1920x1080": {
+          "cpu_p95_pct": 33.4,
+          "gpu_p95_pct": 464.3,
+          "gpu_p99_pct": 597.9,
+          "one_percent_low_pct": 0.7,
+          "pacing_p95_pct": -0.7
+        },
+        "100/960x540": {
+          "cpu_p95_pct": 31.2,
+          "gpu_p95_pct": 294.4,
+          "gpu_p99_pct": 469.9,
+          "one_percent_low_pct": 0.1,
+          "pacing_p95_pct": 0.4
+        },
+        "50/1920x1080": {
+          "cpu_p95_pct": 29.6,
+          "gpu_p95_pct": 476.5,
+          "gpu_p99_pct": 612.9,
+          "one_percent_low_pct": 0.2,
+          "pacing_p95_pct": -1.0
+        },
+        "50/960x540": {
+          "cpu_p95_pct": 37.3,
+          "gpu_p95_pct": 294.4,
+          "gpu_p99_pct": 454.7,
+          "one_percent_low_pct": 0.6,
+          "pacing_p95_pct": -0.5
+        }
+      },
+      "layout": "M01 corridor_static + deterministic fillers",
+      "proxy_scaling": {
+        "1920x1080": {
+          "ab-high": 0.8,
+          "ab-low": 2.9
+        },
+        "960x540": {
+          "ab-high": 0.0,
+          "ab-low": 0.0
+        }
+      },
+      "resolution_scaling": {
+        "100": {
+          "ab-high": 182.1,
+          "ab-low": 97.2
+        },
+        "50": {
+          "ab-high": 180.0,
+          "ab-low": 91.5
+        }
+      },
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static"
+    },
+    {
+      "cells": [
+        {
+          "cpu_p95_ms": 0.306,
+          "gpu_p50_ms": 0.067,
+          "gpu_p95_ms": 0.068,
+          "gpu_p95_spread_pct": 0.0,
+          "gpu_p99_ms": 0.069,
+          "height": 540,
+          "one_percent_low_fps": 223.73,
+          "one_percent_low_spread_pct": 1.0,
+          "pacing_p95_ms": 4.261,
+          "preset_id": "ab-low",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.407,
+          "gpu_p50_ms": 0.228,
+          "gpu_p95_ms": 0.235,
+          "gpu_p95_spread_pct": 0.9,
+          "gpu_p99_ms": 0.352,
+          "height": 540,
+          "one_percent_low_fps": 225.93,
+          "one_percent_low_spread_pct": 1.6,
+          "pacing_p95_ms": 4.25,
+          "preset_id": "ab-high",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.32,
+          "gpu_p50_ms": 0.109,
+          "gpu_p95_ms": 0.122,
+          "gpu_p95_spread_pct": 0.0,
+          "gpu_p99_ms": 0.125,
+          "height": 1080,
+          "one_percent_low_fps": 225.54,
+          "one_percent_low_spread_pct": 1.4,
+          "pacing_p95_ms": 4.243,
+          "preset_id": "ab-low",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.418,
+          "gpu_p50_ms": 0.679,
+          "gpu_p95_ms": 0.685,
+          "gpu_p95_spread_pct": 0.3,
+          "gpu_p99_ms": 0.883,
+          "height": 1080,
+          "one_percent_low_fps": 224.71,
+          "one_percent_low_spread_pct": 0.5,
+          "pacing_p95_ms": 4.294,
+          "preset_id": "ab-high",
+          "proxy_count": 50,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.326,
+          "gpu_p50_ms": 0.068,
+          "gpu_p95_ms": 0.069,
+          "gpu_p95_spread_pct": 0.0,
+          "gpu_p99_ms": 0.071,
+          "height": 540,
+          "one_percent_low_fps": 225.84,
+          "one_percent_low_spread_pct": 0.8,
+          "pacing_p95_ms": 4.247,
+          "preset_id": "ab-low",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.429,
+          "gpu_p50_ms": 0.233,
+          "gpu_p95_ms": 0.241,
+          "gpu_p95_spread_pct": 0.4,
+          "gpu_p99_ms": 0.366,
+          "height": 540,
+          "one_percent_low_fps": 225.41,
+          "one_percent_low_spread_pct": 1.3,
+          "pacing_p95_ms": 4.251,
+          "preset_id": "ab-high",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 960
+        },
+        {
+          "cpu_p95_ms": 0.33,
+          "gpu_p50_ms": 0.11,
+          "gpu_p95_ms": 0.124,
+          "gpu_p95_spread_pct": 5.6,
+          "gpu_p99_ms": 0.126,
+          "height": 1080,
+          "one_percent_low_fps": 223.48,
+          "one_percent_low_spread_pct": 1.2,
+          "pacing_p95_ms": 4.281,
+          "preset_id": "ab-low",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 1920
+        },
+        {
+          "cpu_p95_ms": 0.444,
+          "gpu_p50_ms": 0.685,
+          "gpu_p95_ms": 0.691,
+          "gpu_p95_spread_pct": 0.3,
+          "gpu_p99_ms": 0.89,
+          "height": 1080,
+          "one_percent_low_fps": 226.89,
+          "one_percent_low_spread_pct": 1.3,
+          "pacing_p95_ms": 4.247,
+          "preset_id": "ab-high",
+          "proxy_count": 100,
+          "runs": 3,
+          "width": 1920
+        }
+      ],
+      "deltas_high_vs_low": {
+        "100/1920x1080": {
+          "cpu_p95_pct": 34.5,
+          "gpu_p95_pct": 457.3,
+          "gpu_p99_pct": 606.3,
+          "one_percent_low_pct": 1.5,
+          "pacing_p95_pct": -0.8
+        },
+        "100/960x540": {
+          "cpu_p95_pct": 31.6,
+          "gpu_p95_pct": 249.3,
+          "gpu_p99_pct": 415.5,
+          "one_percent_low_pct": -0.2,
+          "pacing_p95_pct": 0.1
+        },
+        "50/1920x1080": {
+          "cpu_p95_pct": 30.6,
+          "gpu_p95_pct": 461.5,
+          "gpu_p99_pct": 606.4,
+          "one_percent_low_pct": -0.4,
+          "pacing_p95_pct": 1.2
+        },
+        "50/960x540": {
+          "cpu_p95_pct": 33.0,
+          "gpu_p95_pct": 245.6,
+          "gpu_p99_pct": 410.1,
+          "one_percent_low_pct": 1.0,
+          "pacing_p95_pct": -0.3
+        }
+      },
+      "layout": "M01 dense_city + deterministic fillers",
+      "proxy_scaling": {
+        "1920x1080": {
+          "ab-high": 0.9,
+          "ab-low": 1.6
+        },
+        "960x540": {
+          "ab-high": 2.6,
+          "ab-low": 1.5
+        }
+      },
+      "resolution_scaling": {
+        "100": {
+          "ab-high": 186.7,
+          "ab-low": 79.7
+        },
+        "50": {
+          "ab-high": 191.5,
+          "ab-low": 79.4
+        }
+      },
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city"
+    }
+  ],
+  "schema_version": "m09_preset_cross_scene.v1",
+  "session_date": "2026-11-14",
+  "settings": {
+    "max_fps": 240,
+    "native_resolution": true,
+    "vsync_mode": 0
+  },
+  "source_sha": "2a03cbb799bd91cb56aa7ed1287a09d45bfaf8ce",
+  "verdict": "MEASURED_COST_OBSERVED",
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_counts": [
+      50,
+      100
+    ],
+    "resolutions": [
+      {
+        "height": 540,
+        "width": 960
+      },
+      {
+        "height": 1080,
+        "width": 1920
+      }
+    ],
+    "scenes": [
+      {
+        "layout": "M01 corridor_static + deterministic fillers",
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "layout": "M01 dense_city + deterministic fillers",
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ]
+  }
+}
