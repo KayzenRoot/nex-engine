@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/preset_ab/preset_ab.gd" id="1_preset_ab"]
+
+[node name="PresetAB" type="Node3D"]
+script = ExtResource("1_preset_ab")
