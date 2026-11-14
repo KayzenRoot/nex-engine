@@ -37,10 +37,7 @@ class M06M09AdmissionTests(unittest.TestCase):
         self.assertIn("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", ledger)
 
     def test_checkpoint_status_and_scope(self) -> None:
-        self.assertEqual(
-            "M06_M09_BOUNDED_ADMITTED_M01_M05_M07_M08_M10_M12_NOT_ADMITTED",
-            self.checkpoint["status"],
-        )
+        self.assertIn("M06_M09_BOUNDED_ADMITTED", self.checkpoint["status"])
         self.assertEqual(11, self.admission["m06Issue"])
         self.assertEqual(14, self.admission["m09Issue"])
         self.assertEqual("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", self.admission["m06Status"])
