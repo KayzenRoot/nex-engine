@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 resolution campaign closure
+
+**M09-CAMPAIGN-CLOSURE registrado** por PR #241, squash `ffbfba8e695beca782a97ccdacff2407efddee9a`. Uma tentativa de **3840×2160** foi clampada pelo desktop **2560×1080** para **2560×1009** e rejeitada como `INVALID`; a captura inválida não foi commitada.
+
+**Resultado:** a campanha de resolução está formalmente encerrada em **2560×1440** neste ambiente; acima disso exige display/ambiente com viewport maior. O atlas permanece com 13 bundles / 84 imagens / 435 arquivos. Nenhum harness, cena, preset, contrato, modelo, bundle M09 ou ruleset alterado. O `NEX Native Batch` teve um 502 transitório da API e passou no re-run. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M09 visual truth at 2560×1440
 
 **M09-VISUAL-2560 integrado** por PR #239, squash `9ab06ca44c4648dd0dc7c1df922feba772ba369c`. Nova sessão visual de **18 PNGs** em `corridor_static`, `arena_combat` e `dense_city`, 2560×1440, 2 presets × 3 repetições.
