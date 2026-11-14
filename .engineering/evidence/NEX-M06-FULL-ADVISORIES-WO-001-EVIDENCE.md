@@ -8,7 +8,7 @@
 
 - `build_advisories.py` com `--full` e `--check-full`; `build_report`/`render_markdown` parametrizados sem alterar a saída curada.
 - `advisories-full.v1.json` e `ADVISORIES-FULL.md`: **144 advisórios** derivados de `m09-observations-full.v1.json`.
-- `tests/ci/test_m06_full_advisories.py`: 6 testes (cobertura, resumo, segurança, reprodutibilidade, curadoria intacta).
+- `tests/ci/test_m06_full_advisories.py`: 4 testes (cobertura, resumo, segurança, reprodutibilidade, curadoria intacta).
 - `tests/ci/test_builder_check_enforcement.py` + workflow: `--check-full` no job requerido; **20 comandos / 18 arquivos**.
 - WO/lock/evidência/delta correspondentes.
 
@@ -22,7 +22,7 @@
 ## Verificação
 
 - `--check-full` e `--check` PASS em worktree LF limpo sobre `8ca0e0f4`.
-- Suítes: CI **497**, contratos **203**, telemetria **31** — OK.
+- Suítes: CI **495**, contratos **203**, telemetria **31** — OK.
 - Nenhuma observação, atlas, contrato, cena, harness, ruleset ou medição alterada.
 
 ## O que não foi feito / não é alegado

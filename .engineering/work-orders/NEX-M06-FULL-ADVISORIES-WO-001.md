@@ -15,7 +15,7 @@ Derivar advisórios determinísticos das **144 observações `performance.v1`** 
 - `docs/benchmarks/m06/tools/build_advisories.py`: modos `--full` e `--check-full`; `build_report`/`render_markdown` parametrizados sem alterar a saída curada.
 - `docs/benchmarks/m06/advisories-full.v1.json` e `ADVISORIES-FULL.md`: 144 advisórios.
 - `docs/benchmarks/m06/README.md`: uso, resumo e limitações.
-- `tests/ci/test_m06_full_advisories.py`: 6 testes de cobertura, resumo, segurança e reprodutibilidade.
+- `tests/ci/test_m06_full_advisories.py`: 4 testes de cobertura, resumo, segurança e reprodutibilidade.
 - `tests/ci/test_builder_check_enforcement.py` e `.github/workflows/nex-ci-fastlane.yml`: enforcement de `--check-full` (20 comandos / 18 arquivos).
 - Evidência, delta e este WO/lock.
 - Promoção de checkpoint em PR documental separado.

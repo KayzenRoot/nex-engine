@@ -22,4 +22,4 @@
 - `.engineering/evidence/NEX-M06-FULL-ADVISORIES-WO-001-EVIDENCE.md`
 - `docs/benchmarks/m06/advisories-full.v1.json`
 - `docs/benchmarks/m06/ADVISORIES-FULL.md`
-- `tests/ci/test_m06_full_advisories.py` (6 testes)
+- `tests/ci/test_m06_full_advisories.py` (4 testes)
