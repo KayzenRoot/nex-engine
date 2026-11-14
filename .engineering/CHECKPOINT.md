@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M06 performance advisories
+
+**M06-ADVISOR integrado** por PR #207, squash `4def973f3c5170f1d9087ae3ae97d05aaa522592`. O builder deriva **12 advisórios** das observações `performance.v1`: headroom de render **3.402–3.914 ms**, frame alvo **4.167 ms** a 240 fps, maior participação GPU no frame **19.92%** e recomendação de baixo risco que exige nova medição.
+
+**Semântica:** todos os 12 advisórios são `pacing` no cap de 240 fps; o texto explicita que headroom não prova capacidade em cap menor e que não há claim de FPS, qualidade ou ganho. Isto é **síntese de evidência**, não nova medição. Parent M06 (#59) continua **NOT_ADMITTED**; nenhum contrato, engine, cena, `project.godot`, hub ou CI alterado.
+
+
 ## Current verified scope | 2026-11-14 · M06 performance.v1 observations
 
 **M06-OBS integrado** por PR #205, squash `6c18c45cf9de938e5138ca188c5b321b23d35bbd`. O conversor determinístico transformou **12 capturas M09** já integradas em observações `performance.v1` com IDs únicos, proveniência e `evidence_uri`: 4 de `preset-ab`, 2 de `m01-ab`, 4 de `res-scaling` e 2 de `interaction-200`.
