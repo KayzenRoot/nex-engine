@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M03-BUDGET-VALIDATION-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 43,
+  "parentM03Issue": 43,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Owner instruction to execute the three next paths; executor selected M03 light-budget validation as the second bounded increment.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "71375d6621bb179abe88fde398fb62a7fe16da80",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M09_TEMPORAL_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {"path": "AGENTS.md", "gitBlobSha1": "faba3350e59115e40023415d374d8e0516f9b140"},
+    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "40cff1b87580c006a83d27e1edb3e3bad03be2cb"},
+    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "00ef849de65cdacf1b84263a3fc3af527cf902d4"},
+    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
+    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "cf37d9262d8d1a60e66d3f3f4fe2c0ebda460c69"},
+    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
+    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
+    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
+    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
+    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
+    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "d5536257ccd518470447e1ae753250a12bd98d94"},
+    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
+    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
+    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
+    {"path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md", "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"},
+    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
+    {"path": "contracts/m03/lighting.v1.schema.json", "gitBlobSha1": "031c8e221b29dabe77a1e329247536b6c636d0b9"},
+    {"path": "nex_modules/lighting/budget/light_budget_arbiter.gd", "gitBlobSha1": "faf6d3ccbb1f06fead6d7ff480ebe3b98711f0ee"},
+    {"path": "docs/benchmarks/m09/m01-ab.v1.json", "gitBlobSha1": "d5358086737b886a0c167ce7a5298275cc2b7551"},
+    {"path": "docs/benchmarks/m09/measurement-atlas.v1.json", "gitBlobSha1": "e55c97ff83f923b3a81e6a8077ec6b562db6a157"},
+    {"path": "docs/benchmarks/m09/README.md", "gitBlobSha1": "e133ac10e43179efc39ee9720eb8683f0fff0948"},
+    {"path": "tests/ci/test_measurement_atlas.py", "gitBlobSha1": "fc1894df74d2e01313f5ad3e957bb4021f97671a"}
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "docs/benchmarks/m03/**",
+      "tests/ci/test_m03_budget_validation.py",
+      ".engineering/work-orders/NEX-M03-BUDGET-VALIDATION-WO-001.md",
+      ".engineering/context-locks/NEX-M03-BUDGET-VALIDATION-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M03-BUDGET-VALIDATION-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M03-BUDGET-VALIDATION-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "AGENTS.md",
+      ".engineering/** (exceto os paths acima)",
+      "contracts/**",
+      "nex_bench/**",
+      "nex_modules/**",
+      "tooling/**",
+      "tests/** (exceto o teste acima)",
+      "docs/** (exceto m03)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "model or contract changes",
+      "renderer/engine changes",
+      "M03 parent admission",
+      "FPS, quality or universal gain claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}
