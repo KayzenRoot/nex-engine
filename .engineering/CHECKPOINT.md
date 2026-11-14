@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 preset resolution scaling
+
+**M09-RES-SCALING integrado** por PR #195, squash `ebe006d58a5b28bdcdfa34d7a116e68aa535aa8a` (source medido `6ebb98e`). A cena M01 `arena_combat` foi medida em 960×540, 1280×720 e 1920×1080 com viewport nativo (`NEX_PRESET_AB_NATIVE_RESOLUTION=1`), 3 runs por preset por resolução: **18 capturas COMPLETE/validadas**, 39 arquivos com `SHA256SUMS`, análise e relatório reproduzível.
+
+**Medição:** GPU p95 high vs low **+230.2% (960×540)**, **+334.0% (1280×720)**, **+429.5% (1920×1080)**; escala 960→1920 **+62.5% (low)** e **+160.6% (high)**; pacing ~4.2 ms no cap de 240 fps. A primeira tentativa sem viewport nativo registrou 1280×720 lógico e foi descartada antes da evidência. Isto é **custo medido**, não FPS de jogo ou ganho universal. Parent M09 (#14) continua **NOT_ADMITTED**; nenhuma mudança nas cenas base, `project.godot`, hub, renderer, shaders, engine ou CI.
+
+
 ## Current verified scope | 2026-11-14 · M09 M01 visual truth
 
 **M09-M01-VISUAL integrado** por PR #193, squash `40528ee06e092739822c420d60b7c81400aca9ff` (harness `952b5a6`). O harness `preset_ab` ganhou um modo visual determinístico que espera 180 frames, lê o viewport após `RenderingServer.frame_post_draw` e salva PNG 1280×720. Foram capturadas **18 imagens** das três cenas M01 sob `ab-low`/`ab-high` (3 repetições por célula), com 21 arquivos cobertos por `SHA256SUMS`, análise e relatório reproduzível.
