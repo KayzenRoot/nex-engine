@@ -15,7 +15,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import load_json, run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, pct, summarize, transform_run  # noqa: E402 - local tool module
+from preset_report import interaction_summary, load_capture, load_manifest, transform_run  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene")
@@ -39,6 +39,17 @@ def _key(count: int, width: int, height: int) -> str:
     return f"{count}/{width}x{height}"
 
 
+def _validate_cell(runs: list[dict[str, Any]], scene_id: str, count: int,
+                   width: int, height: int, preset: str) -> None:
+    group = [run for run in runs
+             if run.get("scene_id") == scene_id
+             and run.get("proxy_count") == count
+             and run.get("viewport_px") == [width, height]
+             and run.get("preset_id") == preset]
+    if len(group) != 3 or sorted(run.get("repetition") for run in group) != [1, 2, 3]:
+        raise ValueError(f"runs manifest cell is invalid: {scene_id}/{_key(count, width, height)}/{preset}")
+
+
 def _validate_manifest(manifest: dict[str, Any]) -> None:
     runs = manifest.get("runs")
     if not isinstance(runs, list) or len(runs) != 48:
@@ -51,70 +62,15 @@ def _validate_manifest(manifest: dict[str, Any]) -> None:
         for count in PROXY_COUNTS:
             for width, height in RESOLUTIONS:
                 for preset in PRESETS:
-                    group = [run for run in runs
-                             if run.get("scene_id") == scene_id
-                             and run.get("proxy_count") == count
-                             and run.get("viewport_px") == [width, height]
-                             and run.get("preset_id") == preset]
-                    if len(group) != 3 or sorted(run.get("repetition") for run in group) != [1, 2, 3]:
-                        raise ValueError(f"runs manifest cell is invalid: {scene_id}/{_key(count, width, height)}/{preset}")
+                    _validate_cell(runs, scene_id, count, width, height, preset)
 
 
 def _scene_report(scene_id: str, scene: str, layout: str, runs: list[dict[str, Any]]) -> dict[str, Any]:
-    cells = []
-    for count in PROXY_COUNTS:
-        for width, height in RESOLUTIONS:
-            for preset in PRESETS:
-                group = [run for run in runs
-                         if run["scene_id"] == scene_id
-                         and run["proxy_count"] == count
-                         and run["viewport_px"] == [width, height]
-                         and run["preset_id"] == preset]
-                if len(group) != 3:
-                    raise ValueError(f"expected 3 runs for {scene_id}/{_key(count, width, height)}/{preset}")
-                cells.append({"proxy_count": count, "width": width, "height": height,
-                              "preset_id": preset, **summarize(group)})
-    by_cell = {(cell["proxy_count"], cell["width"], cell["height"], cell["preset_id"]): cell for cell in cells}
-    deltas = {}
-    for count in PROXY_COUNTS:
-        for width, height in RESOLUTIONS:
-            low = by_cell[(count, width, height, "ab-low")]
-            high = by_cell[(count, width, height, "ab-high")]
-            deltas[_key(count, width, height)] = {
-                "gpu_p95_pct": pct(high["gpu_p95_ms"], low["gpu_p95_ms"]),
-                "gpu_p99_pct": pct(high["gpu_p99_ms"], low["gpu_p99_ms"]),
-                "cpu_p95_pct": pct(high["cpu_p95_ms"], low["cpu_p95_ms"]),
-                "pacing_p95_pct": pct(high["pacing_p95_ms"], low["pacing_p95_ms"]),
-                "one_percent_low_pct": pct(high["one_percent_low_fps"], low["one_percent_low_fps"]),
-            }
-    resolution_scaling = {
-        str(count): {
-            preset: pct(
-                by_cell[(count, 1920, 1080, preset)]["gpu_p95_ms"],
-                by_cell[(count, 960, 540, preset)]["gpu_p95_ms"],
-            )
-            for preset in PRESETS
-        }
-        for count in PROXY_COUNTS
-    }
-    proxy_scaling = {
-        f"{width}x{height}": {
-            preset: pct(
-                by_cell[(100, width, height, preset)]["gpu_p95_ms"],
-                by_cell[(50, width, height, preset)]["gpu_p95_ms"],
-            )
-            for preset in PRESETS
-        }
-        for width, height in RESOLUTIONS
-    }
     return {
         "scene_id": scene_id,
         "scene": scene,
         "layout": layout,
-        "cells": cells,
-        "deltas_high_vs_low": deltas,
-        "resolution_scaling": resolution_scaling,
-        "proxy_scaling": proxy_scaling,
+        **interaction_summary(runs, scene_id),
     }
 
 

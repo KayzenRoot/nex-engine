@@ -116,6 +116,67 @@ def summarize(group: list[dict[str, Any]], include_allocation: bool = False) -> 
     return result
 
 
+def interaction_summary(runs: list[dict[str, Any]], scene_id: str | None = None,
+                        proxy_counts: tuple[int, ...] = (50, 100),
+                        resolutions: tuple[tuple[int, int], ...] = ((960, 540), (1920, 1080)),
+                        presets: tuple[str, ...] = ("ab-low", "ab-high")) -> dict[str, Any]:
+    def key(count: int, width: int, height: int) -> str:
+        return f"{count}/{width}x{height}"
+
+    cells = []
+    for count in proxy_counts:
+        for width, height in resolutions:
+            for preset in presets:
+                group = [run for run in runs
+                         if (scene_id is None or run.get("scene_id") == scene_id)
+                         and run["proxy_count"] == count
+                         and run["viewport_px"] == [width, height]
+                         and run["preset_id"] == preset]
+                if len(group) != 3:
+                    raise ValueError(f"expected 3 runs for {scene_id or 'all'}/{key(count, width, height)}/{preset}")
+                cells.append({"proxy_count": count, "width": width, "height": height,
+                              "preset_id": preset, **summarize(group)})
+    by_cell = {(cell["proxy_count"], cell["width"], cell["height"], cell["preset_id"]): cell for cell in cells}
+    deltas = {}
+    for count in proxy_counts:
+        for width, height in resolutions:
+            low = by_cell[(count, width, height, "ab-low")]
+            high = by_cell[(count, width, height, "ab-high")]
+            deltas[key(count, width, height)] = {
+                "gpu_p95_pct": pct(high["gpu_p95_ms"], low["gpu_p95_ms"]),
+                "gpu_p99_pct": pct(high["gpu_p99_ms"], low["gpu_p99_ms"]),
+                "cpu_p95_pct": pct(high["cpu_p95_ms"], low["cpu_p95_ms"]),
+                "pacing_p95_pct": pct(high["pacing_p95_ms"], low["pacing_p95_ms"]),
+                "one_percent_low_pct": pct(high["one_percent_low_fps"], low["one_percent_low_fps"]),
+            }
+    resolution_scaling = {
+        str(count): {
+            preset: pct(
+                by_cell[(count, 1920, 1080, preset)]["gpu_p95_ms"],
+                by_cell[(count, 960, 540, preset)]["gpu_p95_ms"],
+            )
+            for preset in presets
+        }
+        for count in proxy_counts
+    }
+    proxy_scaling = {
+        f"{width}x{height}": {
+            preset: pct(
+                by_cell[(100, width, height, preset)]["gpu_p95_ms"],
+                by_cell[(50, width, height, preset)]["gpu_p95_ms"],
+            )
+            for preset in presets
+        }
+        for width, height in resolutions
+    }
+    return {
+        "cells": cells,
+        "deltas_high_vs_low": deltas,
+        "resolution_scaling": resolution_scaling,
+        "proxy_scaling": proxy_scaling,
+    }
+
+
 def median(values: list[float]) -> float:
     return statistics.median(values)
 
