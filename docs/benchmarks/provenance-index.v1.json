@@ -1,0 +1,661 @@
+{
+  "entries": [
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "securityCorrection",
+      "id": "NEX-SEC-MAIN-SONAR-C-001",
+      "issues": [
+        111
+      ],
+      "pr": 112,
+      "protectedMergeSha": "0d8e562fa63d291b910f4f9756eb04ac52ffebd1",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "s07AuditPack",
+      "id": "NEX-M01-S07-WO-001",
+      "issues": [
+        27
+      ],
+      "pr": 123,
+      "protectedMergeSha": "ed72f90e341c9e0d1dc136354ea4d8f53ce2f583",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s01Prototype",
+      "id": "NEX-M02-S01-WO-001",
+      "issues": [
+        28
+      ],
+      "pr": 125,
+      "protectedMergeSha": "9fea0f384f933b7619f0bd68b3b1f28747a1b9f7",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s02Prototype",
+      "id": "NEX-M02-S02-WO-001",
+      "issues": [
+        29
+      ],
+      "pr": 127,
+      "protectedMergeSha": "6b4ba4d5ccdc50bdcb0b825c4571058bbb81a0d6",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s03Prototype",
+      "id": "NEX-M02-S03-WO-001",
+      "issues": [
+        30
+      ],
+      "pr": 129,
+      "protectedMergeSha": "9adc0e68b3f2b3f3c5508ac2557a134455d3f0b8",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s04Prototype",
+      "id": "NEX-M02-S04-WO-001",
+      "issues": [
+        31
+      ],
+      "pr": 131,
+      "protectedMergeSha": "fae4f9a88e352709ca6ccab7b0d377cd6adacb66",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s05Prototype",
+      "id": "NEX-M02-S05-WO-001",
+      "issues": [
+        32
+      ],
+      "pr": 133,
+      "protectedMergeSha": "043a0124a803753a8521f397d7d3f1d370cba630",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s06Research",
+      "id": "NEX-M02-S06-WO-001",
+      "issues": [
+        33
+      ],
+      "pr": 135,
+      "protectedMergeSha": "23deddb50259850dc243c37c7f09b786d6a3a2de",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02s07Qa",
+      "id": "NEX-M02-S07-WO-001",
+      "issues": [
+        34
+      ],
+      "pr": 138,
+      "protectedMergeSha": "c2bed9581719b0e1b7c930d9bc06f017c4a3f6d2",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m07s01Prototype",
+      "id": "NEX-M07-S01-WO-001",
+      "issues": [
+        12
+      ],
+      "pr": 140,
+      "protectedMergeSha": "02b24c60750da20d657e8c131a025d4755bc5a52",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03Contract",
+      "id": "NEX-M03-CONTRACT-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 142,
+      "protectedMergeSha": "9c75340d4609df939907ecabea535ffa9b6665c4",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03LightrigPrototype",
+      "id": "NEX-M03-LIGHTRIG-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 144,
+      "protectedMergeSha": "a61df5d2cef2ca8780361b52db09b73ea206fed1",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03ShadowstabPrototype",
+      "id": "NEX-M03-SHADOWSTAB-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 147,
+      "protectedMergeSha": "fa1acb3a6e0f0c01f6551e49b0266d8d584b5ef9",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03LightbudgetPrototype",
+      "id": "NEX-M03-LIGHTBUDGET-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 149,
+      "protectedMergeSha": "efa7c29766ffa807ee6a793bb790ef7af87e8f9c",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m04M05Contracts",
+      "id": "NEX-M04-M05-CONTRACTS-WO-001",
+      "issues": [
+        9,
+        10
+      ],
+      "pr": 151,
+      "protectedMergeSha": "bc404723a77a7941ef0d820a58894021cd3e7c2f",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m04TexturebudgetPrototype",
+      "id": "NEX-M04-TEXTUREBUDGET-WO-001",
+      "issues": [
+        9
+      ],
+      "pr": 153,
+      "protectedMergeSha": "253afe6c8dc8efad5060b739425ca45612df8023",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m05FxbudgetPrototype",
+      "id": "NEX-M05-FXBUDGET-WO-001",
+      "issues": [
+        10
+      ],
+      "pr": 155,
+      "protectedMergeSha": "ae134a408b8777a9970acb6f165429bd0d439c38",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06Contract",
+      "id": "NEX-M06-CONTRACT-WO-001",
+      "issues": [
+        11
+      ],
+      "pr": 157,
+      "protectedMergeSha": "7e21d7087097de4bcceca6d328d4edfe341e977e",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06BottleneckAtlas",
+      "id": "NEX-M06-BOTTLENECK-ATLAS-WO-001",
+      "issues": [
+        11
+      ],
+      "pr": 159,
+      "protectedMergeSha": "9f0cd8440de26c660e451ee6a3bda89729aa73cc",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06AtlasRepair",
+      "id": "NEX-M06-ATLAS-REPAIR-WO-001",
+      "issues": [
+        11
+      ],
+      "pr": 161,
+      "protectedMergeSha": "3e336b77b08e1642963afee33e4f7f01022f3dd6",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m08Contract",
+      "id": "NEX-M08-CONTRACT-WO-001",
+      "issues": [
+        13
+      ],
+      "pr": 163,
+      "protectedMergeSha": "5814115e19dbd6d9756482f6c0eabf3a9397da11",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m08CompositionPrototype",
+      "id": "NEX-M08-COMPOSITION-WO-001",
+      "issues": [
+        13
+      ],
+      "pr": 165,
+      "protectedMergeSha": "8dada408436766009e66fa57830f08b06e99f1bb",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m10Contract",
+      "id": "NEX-M10-CONTRACT-WO-001",
+      "issues": [
+        15
+      ],
+      "pr": 167,
+      "protectedMergeSha": "5ad895d5d51bf0858c4873884a0a314b23218847",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m10FeedbackPrototype",
+      "id": "NEX-M10-FEEDBACK-WO-001",
+      "issues": [
+        15
+      ],
+      "pr": 169,
+      "protectedMergeSha": "0709923347d8bd145046e69c997f6a6fa8ef81ed",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m11Contract",
+      "id": "NEX-M11-CONTRACT-WO-001",
+      "issues": [
+        16
+      ],
+      "pr": 171,
+      "protectedMergeSha": "92ede8238e91a3e75456a03d9557310f33199527",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m12Contract",
+      "id": "NEX-M12-CONTRACT-WO-001",
+      "issues": [
+        17
+      ],
+      "pr": 173,
+      "protectedMergeSha": "caa98a9c330b826a906840006536ffa6241a2ea0",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Contract",
+      "id": "NEX-M09-CONTRACT-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 175,
+      "protectedMergeSha": "4b3271f2c5f102e18a910658955ca9bffa8dcd5d",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09ResolverPrototype",
+      "id": "NEX-M09-RESOLVER-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 177,
+      "protectedMergeSha": "affae5d67e0c75a2b0dd1c85924cc6d981f20d03",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m11AuditPrototype",
+      "id": "NEX-M11-AUDIT-WO-001",
+      "issues": [
+        16
+      ],
+      "pr": 179,
+      "protectedMergeSha": "46b7f4ff0480b8cffb9f931e340d785bcd34ce2d",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m12ValidatorPrototype",
+      "id": "NEX-M12-VALIDATOR-WO-001",
+      "issues": [
+        17
+      ],
+      "pr": 181,
+      "protectedMergeSha": "e1bd1aa2228386d6c9557e32c1dd073a048a28aa",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "governanceAutonomy",
+      "id": "NEX-GOV-AUTONOMY-WO-001",
+      "issues": [
+        108
+      ],
+      "pr": 187,
+      "protectedMergeSha": "6e99caa2049bda2646ae16df0b26bef09e5ce3d5",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09PresetScaling",
+      "id": "NEX-M09-PRESET-SCALING-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 189,
+      "protectedMergeSha": "109a17af4724b8c5236991551538a62e3fa1f3b1",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09M01AB",
+      "id": "NEX-M09-M01-AB-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 191,
+      "protectedMergeSha": "d657afad0dbabdcfb1d2143fee71e71d448b07c9",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09M01Visual",
+      "id": "NEX-M09-M01-VISUAL-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 193,
+      "protectedMergeSha": "40528ee06e092739822c420d60b7c81400aca9ff",
+      "verdict": "VISUAL_DIFFERENCE_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09ResScaling",
+      "id": "NEX-M09-RES-SCALING-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 195,
+      "protectedMergeSha": "ebe006d58a5b28bdcdfa34d7a116e68aa535aa8a",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Interaction",
+      "id": "NEX-M09-INTERACTION-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 197,
+      "protectedMergeSha": "369afd850bbd2fc70a3b8951225aa52c27279786",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09CrossScene",
+      "id": "NEX-M09-CROSS-SCENE-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 199,
+      "protectedMergeSha": "ddf9996c29652f7d2b85931ed4682718b5d646c5",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Interaction200",
+      "id": "NEX-M09-INTERACTION-200-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 201,
+      "protectedMergeSha": "48ce7e16ca0b74107143eeefcf1f8dc414fa5801",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09MeasurementAtlas",
+      "id": "NEX-M09-ATLAS-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 203,
+      "protectedMergeSha": "db6efc12834e0e99b4b71103d6a94d3844d562af",
+      "verdict": "MEASUREMENT_CAMPAIGN_INDEXED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06Observations",
+      "id": "NEX-M06-OBS-WO-001",
+      "issues": [
+        59
+      ],
+      "pr": 205,
+      "protectedMergeSha": "6c18c45cf9de938e5138ca188c5b321b23d35bbd",
+      "verdict": "EVIDENCE_CONVERSION"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06Advisories",
+      "id": "NEX-M06-ADVISOR-WO-001",
+      "issues": [
+        59
+      ],
+      "pr": 207,
+      "protectedMergeSha": "4def973f3c5170f1d9087ae3ae97d05aaa522592",
+      "verdict": "ADVISORIES_DERIVED_FROM_MEASURED_OBSERVATIONS"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Visual1920",
+      "id": "NEX-M09-VISUAL-1920-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 209,
+      "protectedMergeSha": "1eb6b4471402cb0a2b040f2e75a5c24255df9362",
+      "verdict": "VISUAL_DIFFERENCE_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Temporal",
+      "id": "NEX-M09-TEMPORAL-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 211,
+      "protectedMergeSha": "cf9ae9c0207544aab342545451255520158eadf4",
+      "verdict": "TEMPORAL_STABILITY_OBSERVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03BudgetValidation",
+      "id": "NEX-M03-BUDGET-VALIDATION-WO-001",
+      "issues": [
+        43
+      ],
+      "pr": 213,
+      "protectedMergeSha": "f1e458e9442ac8d1cb534e606ceb788a1237e449",
+      "verdict": "PARTIAL_DOMAIN_MATCH"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06M09BoundedAdmission",
+      "id": "NEX-ADMISSION-M06-M09-WO-001",
+      "issues": [],
+      "pr": 215,
+      "protectedMergeSha": "8a59aa8a4f6b52becad3503922b9a1e4cdf6127c",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06FullAtlas",
+      "id": "NEX-M06-FULL-ATLAS-WO-001",
+      "issues": [
+        11,
+        14
+      ],
+      "pr": 217,
+      "protectedMergeSha": "373d6e7a4eb3cceffe86d9eb491f518c1f558228",
+      "verdict": "M09_PERFORMANCE_ATLAS_DERIVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03BoundedAdmission",
+      "id": "NEX-ADMISSION-M03-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 219,
+      "protectedMergeSha": "d8ad6152eec96aa9d303f4987c5742af665b16ec",
+      "verdict": "BOUNDED_ADMITTED_ANALYSIS_PIPELINE"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m01M02BoundedAdmission",
+      "id": "NEX-ADMISSION-M01-M02-WO-001",
+      "issues": [
+        6,
+        7
+      ],
+      "pr": 221,
+      "protectedMergeSha": "3e8dbc0af90102ceebc1cac3e4901418d07771cf",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "ciBuilderCheckEnforcement",
+      "id": "NEX-CI-BUILDER-CHECK-WO-001",
+      "issues": [
+        6,
+        7,
+        8,
+        11,
+        14
+      ],
+      "pr": 223,
+      "protectedMergeSha": "c972864af21a0e416b335c10c936af2ea6be2d44",
+      "verdict": "BUILDER_REPRODUCIBILITY_ENFORCED_IN_REQUIRED_CHECK"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06FullAdvisories",
+      "id": "NEX-M06-FULL-ADVISORIES-WO-001",
+      "issues": [
+        11,
+        14
+      ],
+      "pr": 227,
+      "protectedMergeSha": "59c799a5fe0715a7a8da0548367b68f21d5d5ddb",
+      "verdict": "FULL_DATASET_ADVISORIES_DERIVED"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03DomainBoundary",
+      "id": "NEX-M03-DOMAIN-BOUNDARY-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 229,
+      "protectedMergeSha": "c2b7c96ac154376ab2de997f64f4e2b448eaad36",
+      "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Interaction200720",
+      "id": "NEX-M09-200-720-WO-001",
+      "issues": [
+        14,
+        8
+      ],
+      "pr": 231,
+      "protectedMergeSha": "c9196541e6a854ed186cac27cb9820582e4f64fb",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Resolution1440",
+      "id": "NEX-M09-RES-1440-WO-001",
+      "issues": [
+        14,
+        8
+      ],
+      "pr": 233,
+      "protectedMergeSha": "586883e2c4416ea3fd4ce3c8cf66879664e5ff55",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m06FullRefresh",
+      "id": "NEX-M06-FULL-REFRESH-WO-001",
+      "issues": [
+        11,
+        14
+      ],
+      "pr": 235,
+      "protectedMergeSha": "db3df0fa454d03dfdf6d11c0f921d95be95c3c3e",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m03DomainConsolidation",
+      "id": "NEX-M03-DOMAIN-CONSOLIDATION-WO-001",
+      "issues": [
+        8
+      ],
+      "pr": 237,
+      "protectedMergeSha": "b0320147c6a9836631dbb5a167efd2aab73b88da",
+      "verdict": "CALIBRATION_RESOLUTION_MATCH_ONLY"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09Visual2560",
+      "id": "NEX-M09-VISUAL-2560-WO-001",
+      "issues": [
+        14,
+        6
+      ],
+      "pr": 239,
+      "protectedMergeSha": "9ab06ca44c4648dd0dc7c1df922feba772ba369c",
+      "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m09CampaignClosure",
+      "id": "NEX-M09-CAMPAIGN-CLOSURE-WO-001",
+      "issues": [
+        14
+      ],
+      "pr": 241,
+      "protectedMergeSha": "ffbfba8e695beca782a97ccdacff2407efddee9a",
+      "verdict": ""
+    }
+  ],
+  "limitations": [
+    "derived from the canonical checkpoint; it does not prove independent review",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT",
+    "the checkpoint is the authority; this index is a navigation aid",
+    "entries without a protected PR and merge SHA are not listed"
+  ],
+  "runs": 57,
+  "schema_version": "nex_provenance_index.v1",
+  "session_date": "2026-11-14",
+  "source": ".engineering/CHECKPOINT.json",
+  "summary": {
+    "audit_labels": [
+      "ADMIN_SOLO_NOT_INDEPENDENT"
+    ],
+    "entries": 57,
+    "max_pr": 241,
+    "min_pr": 112,
+    "unique_merge_shas": 57
+  },
+  "verdict": "PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT"
+}
