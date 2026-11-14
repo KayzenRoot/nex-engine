@@ -64,19 +64,7 @@ def validate_document(document):
     except canonical.ProfileError as exc:
         raise ValueError(str(exc)) from exc
 
-    return {
-        "status": "PASS",
-        "run_id": result.get("run_id"),
-        "run_status": result.get("run_status"),
-        "source_sha": document.get("source_sha"),
-        "workload": {
-            "proxy_count": result.get("workload", {}).get("proxy_count"),
-            "effect_mode": result.get("workload", {}).get("effect_mode"),
-        },
-        "observed_seconds": result.get("observed_seconds"),
-        "one_percent_low_fps": result.get("one_percent_low_fps"),
-        "series": result.get("series"),
-    }
+    return {"status": "PASS", **result}
 
 
 def main() -> int:
