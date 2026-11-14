@@ -8,6 +8,15 @@ import sys
 import unittest
 from pathlib import Path
 
+from _preset_ab_support import (
+    assert_builder_reproduces,
+    assert_captures,
+    assert_limits,
+    assert_sha256sums,
+    assert_validations,
+    load_builder,
+)
+
 REPO = Path(__file__).resolve().parents[2]
 SCENE = REPO / "nex_bench" / "scenes" / "preset_ab"
 PACK = REPO / "nex_bench" / "presets" / "preset_ab" / "presets.v1.json"
@@ -24,16 +33,6 @@ RUN_IDS = (
     "1794653926-33742838",
     "1794653968-33563891",
 )
-
-
-def _load_builder():
-    spec = importlib.util.spec_from_file_location("nex_m09_build_ab", BUILDER)
-    if spec is None or spec.loader is None:
-        raise ImportError("cannot load build_ab.py")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
 
 
 class PresetABFilesTests(unittest.TestCase):
@@ -80,7 +79,8 @@ class PresetABFilesTests(unittest.TestCase):
             "NEX_GPU_PROFILE_SOURCE_SHA",
             "DisplayServer.VSYNC_DISABLED",
             "Engine.max_fps = 240",
-            "const PROXY_COUNT := 200",
+            "const DEFAULT_PROXY_COUNT := 200",
+            "NEX_PRESET_AB_PROXY_COUNT",
             '"effect_mode": "lights"',
             "session.begin(get_viewport()",
             "session.step(delta, get_viewport())",
@@ -90,7 +90,7 @@ class PresetABFilesTests(unittest.TestCase):
 
     def test_validator_expects_harness_provenance(self) -> None:
         code = (SCENE / "validate_preset_ab.py").read_text(encoding="utf-8")
-        for marker in ('EXPECTED_SCENE = "Preset A/B/A"', "EXPECTED_PROXY_COUNT = 200", 'EXPECTED_EFFECT_MODE = "lights"', "EXPECTED_MAX_FPS = 240", "EXPECTED_VSYNC = 0", "canonical.validate_report"):
+        for marker in ('EXPECTED_SCENE = "Preset A/B/A"', "EXPECTED_PROXY_COUNTS = (25, 50, 100, 200)", 'EXPECTED_EFFECT_MODE = "lights"', "EXPECTED_MAX_FPS = 240", "EXPECTED_VSYNC = 0", "canonical.validate_report"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, code)
 
@@ -98,40 +98,20 @@ class PresetABFilesTests(unittest.TestCase):
 class PresetABEvidenceTests(unittest.TestCase):
     def test_captures_are_complete_and_consistent(self) -> None:
         manifest = json.loads((EVIDENCE / "runs.v1.json").read_text(encoding="utf-8"))
-        self.assertEqual("preset_ab_runs.v1", manifest["schema_version"])
-        self.assertEqual(6, len(manifest["runs"]))
-        for entry in manifest["runs"]:
-            with self.subTest(run=entry["run_id"]):
-                document = json.loads((EVIDENCE / f"gpu_profile_{entry['run_id']}.json").read_text(encoding="utf-8"))
-                self.assertEqual("COMPLETE", document["run_status"])
-                self.assertEqual(manifest["source_sha"], document["source_sha"])
-                self.assertEqual("Preset A/B/A", document["workload"]["scene"])
-                self.assertEqual(200, document["workload"]["proxy_count"])
-                self.assertEqual("lights", document["workload"]["effect_mode"])
-                self.assertEqual(240, document["settings"]["max_fps"])
-                self.assertEqual(0, document["settings"]["vsync_mode"])
+        assert_captures(self, EVIDENCE, manifest, 200)
 
     def test_validations_pass(self) -> None:
-        for run_id in RUN_IDS:
-            with self.subTest(run=run_id):
-                validation = json.loads((EVIDENCE / f"gpu_profile_{run_id}.json.validation.json").read_text(encoding="utf-8"))
-                self.assertEqual("PASS", validation["status"])
+        manifest = json.loads((EVIDENCE / "runs.v1.json").read_text(encoding="utf-8"))
+        assert_validations(self, EVIDENCE, manifest)
 
     def test_sha256sums_match_every_file(self) -> None:
-        lines = [line for line in (EVIDENCE / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines() if line.strip()]
-        self.assertEqual(15, len(lines))
-        for line in lines:
-            digest, name = line.split(" *", 1)
-            path = EVIDENCE / name
-            with self.subTest(name=name):
-                self.assertTrue(path.is_file())
-                self.assertEqual(digest, hashlib.sha256(path.read_bytes()).hexdigest())
+        assert_sha256sums(self, EVIDENCE, 15)
 
 
 class PresetABReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.builder = _load_builder()
+        cls.builder = load_builder("nex_m09_build_ab", BUILDER)
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
 
     def test_report_has_three_runs_and_deltas(self) -> None:
@@ -142,20 +122,10 @@ class PresetABReportTests(unittest.TestCase):
         self.assertEqual(3, self.report["baselines"]["ab-low"]["runs"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
-        rebuilt = self.builder.build_report()
-        self.assertEqual(self.report, rebuilt)
-        self.assertEqual(self.builder.render_json(rebuilt), REPORT_JSON.read_text(encoding="utf-8"))
-        self.assertEqual(self.builder.render_markdown(rebuilt), REPORT_MD.read_text(encoding="utf-8"))
+        assert_builder_reproduces(self, self.builder, self.report, REPORT_JSON, REPORT_MD)
 
     def test_limits_and_no_fabricated_gain(self) -> None:
-        limitations = " ".join(self.report["limitations"]).lower()
-        for expected in ("single session", "no cross-scene", "vsync disabled", "not device vram"):
-            with self.subTest(expected=expected):
-                self.assertIn(expected, limitations)
-        text = REPORT_MD.read_text(encoding="utf-8").lower()
-        for forbidden in ("fps improved", "benchmark passed", "universal gain", "quality verified"):
-            with self.subTest(phrase=forbidden):
-                self.assertNotIn(forbidden, text)
+        assert_limits(self, self.report, REPORT_MD, ("single session", "no cross-scene", "vsync disabled", "not device vram"))
 
 
 if __name__ == "__main__":

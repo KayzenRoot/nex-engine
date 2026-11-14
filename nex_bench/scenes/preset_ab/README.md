@@ -8,7 +8,7 @@ Cena de medição autocontida para comparar dois presets `preset_pack.v1` no mes
 
 - 200 proxies determinísticos, luz direcional e 4 omni lights.
 - Câmera isométrica fixa, 1280×720 por padrão.
-- `effect_mode: lights`, `proxy_count: 200` (contrato v2 do profiler).
+- `effect_mode: lights`, `proxy_count` configurável em 25/50/100/200 (contrato v2 do profiler).
 - VSync desligado e `max_fps = 240` para evitar o cap de 16k amostras.
 
 ## Presets
@@ -24,6 +24,7 @@ Cena de medição autocontida para comparar dois presets `preset_pack.v1` no mes
 $env:NEX_GPU_PROFILE_SOURCE_SHA = "<40-hex commit>"
 $env:NEX_PRESET_AB_AUTORUN = "1"
 $env:NEX_PRESET_AB_PRESET = "ab-low"
+$env:NEX_PRESET_AB_PROXY_COUNT = "200"   # 25, 50, 100 or 200
 & "<pinned Godot 4.7.2>" --path nex_bench --rendering-method forward_plus `
   res://scenes/preset_ab/preset_ab.tscn
 ```

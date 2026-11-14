@@ -12,7 +12,9 @@ const PRESET_ENV := "NEX_PRESET_AB_PRESET"
 const SOURCE_SHA_ENV := "NEX_GPU_PROFILE_SOURCE_SHA"
 const WIDTH_ENV := "NEX_PRESET_AB_WIDTH"
 const HEIGHT_ENV := "NEX_PRESET_AB_HEIGHT"
-const PROXY_COUNT := 200
+const DEFAULT_PROXY_COUNT := 200
+const PROXY_COUNT_ENV := "NEX_PRESET_AB_PROXY_COUNT"
+const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
 
 var session: RefCounted
@@ -23,6 +25,7 @@ var directional: DirectionalLight3D
 var omnis: Array[OmniLight3D] = []
 var camera: Camera3D
 var applied := {}
+var proxy_count := DEFAULT_PROXY_COUNT
 
 
 func _ready() -> void:
@@ -31,6 +34,13 @@ func _ready() -> void:
 	var width := int(OS.get_environment(WIDTH_ENV)) if not OS.get_environment(WIDTH_ENV).is_empty() else 1280
 	var height := int(OS.get_environment(HEIGHT_ENV)) if not OS.get_environment(HEIGHT_ENV).is_empty() else 720
 	DisplayServer.window_set_size(Vector2i(width, height))
+	var requested := OS.get_environment(PROXY_COUNT_ENV).strip_edges()
+	if not requested.is_empty():
+		var parsed := int(requested)
+		if ALLOWED_PROXY_COUNTS.has(parsed):
+			proxy_count = parsed
+		else:
+			push_error("proxy count must be one of 25/50/100/200: " + requested)
 	_load_pack()
 	_build_stage()
 	_apply_preset()
@@ -94,7 +104,7 @@ func _build_stage() -> void:
 	ground.material_override = ground_material
 	add_child(ground)
 
-	_build_proxies(PROXY_COUNT)
+	_build_proxies(proxy_count)
 	for index in range(OMNI_COUNT):
 		var lamp := OmniLight3D.new()
 		lamp.name = "Omni_%d" % index
@@ -151,7 +161,7 @@ func _apply_preset() -> void:
 	_apply_shadow_quality(String(rendering.get("shadow_quality", "high")), int(lighting.get("max_shadowed_lights", 4)))
 	Engine.max_fps = int(performance.get("target_fps", 240))
 	applied = {
-		"preset_id": preset_id,
+		"preset_id": preset_id, "proxy_count": proxy_count,
 		"resolution_scale": viewport.scaling_3d_scale,
 		"msaa": String(rendering.get("msaa", "off")),
 		"shadow_quality": String(rendering.get("shadow_quality", "high")),
@@ -219,7 +229,7 @@ func _start_capture() -> void:
 	var context := {
 		"source_sha": OS.get_environment(SOURCE_SHA_ENV).strip_edges().to_lower(),
 		"scene": "Preset A/B/A",
-		"proxy_count": PROXY_COUNT,
+		"proxy_count": proxy_count,
 		"effect_mode": "lights",
 		"renderer": RenderingServer.get_current_rendering_method(),
 		"driver": RenderingServer.get_current_rendering_driver_name(),
