@@ -1,5 +1,10 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · Autonomia contínua registrada
+
+**NEX-ADR-0005 / NEX-D-015 integrados** por PR #187, squash `6e99caa2049bda2646ae16df0b26bef09e5ce3d5`. O administrador pode escolher e executar o próximo incremento bounded de forma contínua, em ciclos longos, sem confirmação por incremento. A autonomia para somente em bloqueio técnico real, dependência não admitida, risco grave, operação irreversível sem autorização, CI vermelha/pendente, Context Lock STALE, base/HEAD divergente, defeito HIGH/CRITICAL, conflito de escrita ou exigência de plataforma. Não admite parents PLANNING_ONLY, não relaxa CI/testes/locks/ruleset e mantém `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+
 ## Current verified scope | 2026-11-14 · M09-PRESET-AB measured A/B/A
 
 **M09-PRESET-AB integrado** por PRs #183/#185, squashes `cb0ac796008273d4aa9a6f987a577cb1c478ea2a` e `9fd83a27b3acf830d5713429e73035198a7dcf63` (source medido `baf818ef`). A cena isolada `nex_bench/scenes/preset_ab/` aplica presets `preset_pack.v1` em runtime (resolução, MSAA, sombras, atlas, glow, tonemap, target fps), desliga vsync, limita a 240 fps e captura pelo profiler existente. **6 capturas COMPLETE/validadas** na RTX 5050 (3 por preset), `SHA256SUMS` de 15 arquivos, relatório e builder reproduzíveis.
