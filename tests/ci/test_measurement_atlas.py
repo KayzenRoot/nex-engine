@@ -28,14 +28,14 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         cls.report = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
         cls.entries = {entry["id"]: entry for entry in cls.report["entries"]}
 
-    def test_totals_cover_eleven_bundles(self) -> None:
+    def test_totals_cover_twelve_bundles(self) -> None:
         self.assertEqual("m09_measurement_atlas.v1", self.report["schema_version"])
-        self.assertEqual(11, self.report["totals"]["bundles"])
-        self.assertEqual(150, self.report["totals"]["performance_captures"])
+        self.assertEqual(12, self.report["totals"]["bundles"])
+        self.assertEqual(156, self.report["totals"]["performance_captures"])
         self.assertEqual(66, self.report["totals"]["visual_images"])
-        self.assertEqual(399, self.report["totals"]["evidence_files"])
-        self.assertEqual(11, self.report["totals"]["unique_source_shas"])
-        self.assertEqual(150, self.report["runs"])
+        self.assertEqual(414, self.report["totals"]["evidence_files"])
+        self.assertEqual(12, self.report["totals"]["unique_source_shas"])
+        self.assertEqual(156, self.report["runs"])
 
     def test_entry_counts_and_source_shas(self) -> None:
         expected = {
@@ -50,6 +50,7 @@ class MeasurementAtlasContentTests(unittest.TestCase):
             "cross-scene": (48, 99, "2a03cbb799bd91cb56aa7ed1287a09d45bfaf8ce"),
             "interaction-200": (12, 27, "c1b73743c0c95d9fb8867079cb91fb74cfc03d49"),
             "interaction-200-720": (6, 15, "99eaad041b84c373da33ec1bb8a5922c31f4dad4"),
+            "res-scaling-1440": (6, 15, "39633b347784e66526c60be6c655d007d86f16cd"),
         }
         for entry_id, (runs, files, sha) in expected.items():
             with self.subTest(entry=entry_id):
@@ -96,6 +97,15 @@ class MeasurementAtlasContentTests(unittest.TestCase):
         self.assertEqual(-1.7, new["model_context"]["cells"][1]["error_pct"])
         self.assertTrue(new["model_context"]["cells"][1]["within_2pct"])
         self.assertFalse(new["model_context"]["cells"][0]["within_2pct"])
+        last = self.entries["res-scaling-1440"]["key_findings"]
+        self.assertEqual({"100/2560x1440": 651.0}, last["gpu_p95_high_vs_low_pct"])
+        self.assertEqual(32.1, last["resolution_deltas_pct"]["1920x1080_to_2560x1440"]["ab-low"])
+        self.assertEqual(87.3, last["resolution_deltas_pct"]["1920x1080_to_2560x1440"]["ab-high"])
+        self.assertEqual(114.6, last["resolution_deltas_pct"]["960x540_to_2560x1440"]["ab-low"])
+        self.assertEqual(388.0, last["resolution_deltas_pct"]["960x540_to_2560x1440"]["ab-high"])
+        self.assertEqual(84.0, last["model_context"]["cells"][0]["error_pct"])
+        self.assertEqual(-70.3, last["model_context"]["cells"][1]["error_pct"])
+        self.assertFalse(last["model_context"]["cells"][1]["within_2pct"])
 
     def test_builder_reproduces_committed_outputs(self) -> None:
         assert_builder_reproduces(self, self.builder, self.report, REPORT_JSON, REPORT_MD)

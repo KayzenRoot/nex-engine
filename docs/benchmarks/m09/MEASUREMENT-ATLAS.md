@@ -3,7 +3,7 @@
 **Status:** `MEASUREMENT_CAMPAIGN_INDEXED / SINGLE_SESSION / NO_GENERALIZATION / ADMIN_SOLO_NOT_INDEPENDENT`
 
 **Hardware:** NVIDIA GeForce RTX 5050 · NVIDIA 617.14 / Vulkan forward_plus · 4.7.2-stable
-**Totais:** 11 bundles · 150 capturas de performance · 66 imagens · 399 arquivos de evidência · 11 source SHAs
+**Totais:** 12 bundles · 156 capturas de performance · 66 imagens · 414 arquivos de evidência · 12 source SHAs
 
 ## Bundles
 
@@ -20,12 +20,14 @@
 | cross-scene | performance | 48 | 99 | `2a03cbb799bd` | MEASURED_COST_OBSERVED |
 | interaction-200 | performance | 12 | 27 | `c1b73743c0c9` | MEASURED_COST_OBSERVED |
 | interaction-200-720 | performance | 6 | 15 | `99eaad041b84` | MEASURED_COST_OBSERVED |
+| res-scaling-1440 | performance | 6 | 15 | `39633b347784` | MEASURED_COST_OBSERVED |
 
 ## Achados cross-experiment
 
 - The high preset costs more GPU time than the low preset in every measured scene and cell; the relative cost grows with resolution.
 - At 50-200 proxies on arena_combat, resolution dominates GPU cost while proxy count has a small GPU effect and a larger CPU effect.
 - At 1280x720, 200 proxies change GPU p95 by only +1.3%/+1.8% versus the 100-proxy context while CPU p95 rises +48.7%/+29.0%; the M03 ab-high prediction remains within 2%.
+- At 2560x1440 the high/low ratio is +651.0% and the M03 ab-high prediction is 70.3% below measured; the 2% match is confined to 1280x720.
 - The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.
 - Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720.
 - All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed.

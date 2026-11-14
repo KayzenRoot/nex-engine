@@ -74,9 +74,9 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         self.assertIn("--check-domain", args)
 
     def test_expected_builder_count(self) -> None:
-        # 1 M01 + 1 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 12 M09 = 19 files / 22 checks.
-        self.assertEqual(19, len(self.commands))
-        self.assertEqual(22, sum(len(value) for value in self.commands.values()))
+        # 1 M01 + 1 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 13 M09 = 20 files / 23 checks.
+        self.assertEqual(20, len(self.commands))
+        self.assertEqual(23, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":

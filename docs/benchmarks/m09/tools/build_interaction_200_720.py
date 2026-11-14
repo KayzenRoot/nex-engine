@@ -14,39 +14,24 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from arena_resolution import build_core  # noqa: E402 - local tool module
 from common import load_json, run_cli  # noqa: E402 - local tool module
-from preset_report import load_capture, load_manifest, pct, render_cells_table, summarize, transform_run  # noqa: E402 - local tool module
+from preset_report import pct, render_cells_table  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 EVIDENCE_REL = Path("nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-arena-200-720")
-EVIDENCE = REPO_ROOT / EVIDENCE_REL
-MANIFEST = EVIDENCE / "runs.v1.json"
 CONTEXT_100 = REPO_ROOT / "docs/benchmarks/m09/m01-ab.v1.json"
-MODEL_REPORT = REPO_ROOT / "docs/benchmarks/m03/budget-validation.v1.json"
 OUTPUT_DIR = REPO_ROOT / "docs/benchmarks/m09"
 REPORT_JSON = OUTPUT_DIR / "interaction-200-720.v1.json"
 REPORT_MD = OUTPUT_DIR / "INTERACTION-200-720-REPORT.md"
 
 REPORT_SCHEMA = "m09_preset_interaction_200_720.v1"
 SCENE_ID = "arena_combat"
-SCENE = "M01 Arena A/B/A"
-LAYOUT = "M01 arena_combat + deterministic fillers"
 WIDTH = 1280
 HEIGHT = 720
 PROXY_COUNT = 200
 PRESETS = ("ab-low", "ab-high")
-RUNS = 6
 CONTEXT_KEYS = ("gpu_p95_ms", "cpu_p95_ms", "pacing_p95_ms", "one_percent_low_fps")
-
-
-def _validate_manifest(manifest: dict[str, Any]) -> None:
-    for preset in PRESETS:
-        group = [run for run in manifest["runs"]
-                 if run.get("preset_id") == preset
-                 and run.get("proxy_count") == PROXY_COUNT
-                 and run.get("viewport_px") == [WIDTH, HEIGHT]]
-        if len(group) != 3 or sorted(run.get("repetition") for run in group) != [1, 2, 3]:
-            raise ValueError(f"runs manifest cell is invalid: {PROXY_COUNT}/{WIDTH}x{HEIGHT}/{preset}")
 
 
 def _context_100() -> dict[str, dict[str, float]]:
@@ -60,53 +45,13 @@ def _context_100() -> dict[str, dict[str, float]]:
     raise ValueError("m01-ab context is missing the arena scene")
 
 
-def _model_predictions() -> dict[str, float]:
-    report = load_json(MODEL_REPORT)
-    values = {cell["preset_id"]: float(cell["predicted_gpu_ms"])
-              for cell in report.get("cells", []) if cell.get("scene_id") == SCENE_ID}
-    if set(values) != set(PRESETS):
-        raise ValueError("M03 budget validation is missing arena predictions")
-    return values
-
-
-def _model_cells(cells: dict[str, dict[str, Any]], predictions: dict[str, float]) -> list[dict[str, Any]]:
-    result = []
-    for preset in PRESETS:
-        measured = float(cells[preset]["gpu_p95_ms"])
-        predicted = predictions[preset]
-        error_pct = (predicted - measured) / measured * 100.0
-        result.append({
-            "preset_id": preset,
-            "predicted_gpu_ms": round(predicted, 3),
-            "measured_gpu_p95_ms": measured,
-            "error_pct": round(error_pct, 1),
-            "within_2pct": abs(error_pct) <= 2.0,
-        })
-    return result
-
-
 def build_report() -> dict[str, Any]:
-    manifest = load_manifest(MANIFEST, RUNS, (PROXY_COUNT,), PRESETS)
-    _validate_manifest(manifest)
-    source_sha = manifest.get("source_sha")
-    runs: list[dict[str, Any]] = []
-    for entry in manifest["runs"]:
-        capture = load_capture(EVIDENCE, entry["run_id"], SCENE, LAYOUT, PROXY_COUNT)
-        if capture["source_sha"] != source_sha:
-            raise ValueError(f"{entry['run_id']}: source_sha mismatch")
-        if capture["viewport"] != [WIDTH, HEIGHT]:
-            raise ValueError(f"{entry['run_id']}: viewport mismatch")
-        runs.append(transform_run(entry, capture))
-    cells = []
-    for preset in PRESETS:
-        group = [run for run in runs if run["preset_id"] == preset]
-        cells.append({"proxy_count": PROXY_COUNT, "width": WIDTH, "height": HEIGHT,
-                      "preset_id": preset, **summarize(group)})
-    by_preset = {cell["preset_id"]: cell for cell in cells}
+    core = build_core(EVIDENCE_REL, WIDTH, HEIGHT, PROXY_COUNT)
+    by_preset = {cell["preset_id"]: cell for cell in core["cells"]}
     low, high = by_preset["ab-low"], by_preset["ab-high"]
     context = _context_100()
-    predictions = _model_predictions()
-    model_cells = _model_cells(by_preset, predictions)
+    model_cells = core["model_context"]["cells"]
+    predictions = {cell["preset_id"]: cell["predicted_gpu_ms"] for cell in model_cells}
     proxy_delta = {
         preset: {
             "gpu_p95_pct": pct(by_preset[preset]["gpu_p95_ms"], context[preset]["gpu_p95_ms"]),
@@ -119,29 +64,9 @@ def build_report() -> dict[str, Any]:
     }
     return {
         "schema_version": REPORT_SCHEMA,
-        "source_sha": source_sha,
-        "evidence_bundle": EVIDENCE_REL.as_posix(),
-        "session_date": "2026-11-14",
-        "hardware": {"gpu": "NVIDIA GeForce RTX 5050", "driver": "NVIDIA 617.14 / Vulkan forward_plus"},
-        "godot_version": "4.7.2-stable (official ed1daf0bf)",
-        "workload": {"scene_id": SCENE_ID, "scene": SCENE, "layout": LAYOUT,
-                     "proxy_count": PROXY_COUNT, "effect_mode": "lights"},
-        "settings": {"vsync_mode": 0, "max_fps": 240, "native_resolution": True},
-        "runs": RUNS,
-        "cells": cells,
-        "deltas_high_vs_low": {
-            "gpu_p95_pct": pct(high["gpu_p95_ms"], low["gpu_p95_ms"]),
-            "gpu_p99_pct": pct(high["gpu_p99_ms"], low["gpu_p99_ms"]),
-            "cpu_p95_pct": pct(high["cpu_p95_ms"], low["cpu_p95_ms"]),
-            "pacing_p95_pct": pct(high["pacing_p95_ms"], low["pacing_p95_ms"]),
-            "one_percent_low_pct": pct(high["one_percent_low_fps"], low["one_percent_low_fps"]),
-        },
+        **core,
         "context_100": context,
         "proxy_100_to_200": proxy_delta,
-        "model_context": {
-            "source": "docs/benchmarks/m03/budget-validation.v1.json",
-            "cells": model_cells,
-        },
         "verdict": "MEASURED_COST_OBSERVED",
         "observations": [
             f"GPU p95 at 200/1280 is {low['gpu_p95_ms']:.3f} ms (ab-low) and {high['gpu_p95_ms']:.3f} ms (ab-high); "
