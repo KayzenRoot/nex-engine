@@ -1,6 +1,12 @@
 # Scope · NEX Bootstrap
 
-## Current bounded scope clarification | Stage B checkpoint only
+## Current bounded admission | M06/M09 evidence pipelines (2026-11-14)
+
+**`BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** para M06 (#11) e M09 (#14), conforme `NEX-ADR-0006` e `NEX-D-016`. Admitidos: contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes M06/M09 já verificados até a base `8ed41bafaf19cff52da9250784f78c3d608ac504`. Não admitidos: runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, generalização de performance/qualidade ou claims de FPS. M01–M05/M07–M08/M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M06/M09 exige WO/Context Lock e checks.
+
+## Historical bounded scope clarification | Stage B checkpoint only
+
+**Historical record.** This section predates the M06/M09 bounded admission and is not current status.
 
 Contracts v1 #19 and synthetic FramePulse S02 #22 are independently protected-integrated (PR #93 and PR #95). Stage A governance lock PR #97 passed 37/37 blob pins and fully audited postmerge CI. Current Stage B corrects **seven canonical status files only**, not execution privileges; M01 parent/S01/other children remain NOT_ADMITTED. No real GPU/FPS benchmark, Godot renderer modification, CI change or native release. All former decisions and immutable scopes below remain valid as historical records. Separate exact-head Owner consent and postmerge audit required for Stage B promotion.
 

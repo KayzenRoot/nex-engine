@@ -9,7 +9,14 @@ Uma Work Order já admitida de risco LOW/STANDARD pode seguir automaticamente po
 A PR #107 foi protegida e squash-merged na main `4d69b7bd264f4814317c6e5fe98eaccdc2b620e0`. Sua fonte medida `d59c94da...` tem 12 capturas válidas, com limitações registradas de resize interno não exercitável e pacing de 60/75 callbacks/s entre coortes. Isto não significa que a NEX Engine inteira ou M01 parent estejam completos.
 
 
-## Current work status | S02 and contracts verified, Stage B checkpoint proposed
+## Current work status | M06/M09 bounded admission (Owner, 2026-11-14)
+
+O Owner autorizou a admissão bounded dos pipelines de evidência M06 (#11) e M09 (#14) como `BOUNDED_ADMITTED_EVIDENCE_PIPELINE`, registrada em `NEX-ADR-0006` e `NEX-D-016`. A admissão cobre contratos, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados. Ela **não** autoriza runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets ou claims de FPS/qualidade. M01–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. Trabalho futuro sob M06/M09 continua exigindo Work Order, Context Lock, evidência, testes e todos os checks; a auditoria permanece `ADMIN_SOLO / NOT_INDEPENDENT`. A main de admissão é `8ed41bafaf19cff52da9250784f78c3d608ac504`; o checkpoint é a autoridade corrente.
+
+
+## Historical work status | S02 and contracts verified, Stage B checkpoint proposed
+
+**Historical record.** This section predates the M06/M09 bounded admission and is not current status.
 
 Contracts #19 (PR #93) and **synthetic-only** S02 #22 (PR #95) are protected-integrated; [S02 final attestation](https://github.com/KayzenRoot/nex-engine/issues/22#issuecomment-6127892436). Stage A lock PR #97 protected-merged to `6192ebb0e77e5e706466ab25e438955efad35f37`. The prior preliminary work-order execution gates retained below are **historical** and must not cause duplicate execution. Stage B proposes a seven-file canonical status reconciliation; it is NOT merged or authoritative before its own Owner-authorized protected squash and postmerge checks. No new modules admitted: M01 parent #6, S01 #21 and future WOs remain NOT_ADMITTED. Before any execution require actual live main SHA, fresh pins, exclusive writer ownership, scoped WO, applicable tests and gates; preserve Codex-local leases. Existing GEF bootstrap worktree has a historical HEAD, not current main.
 
