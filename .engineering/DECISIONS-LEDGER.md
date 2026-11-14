@@ -38,3 +38,7 @@ No design/performance claim about a future engine is approved by this bootstrap 
 ## NEX-D-017 | Owner: admissão bounded M03 (2026-11-14)
 
 **OWNER_DIRECTIVE / APPROVED_ON_ADR_0007_PROMOTION.** M03 (#8) é admitido no escopo `BOUNDED_ADMITTED_ANALYSIS_PIPELINE`, cobrindo contrato `lighting.v1`, light rig, shadow stability, light budget e a validação do modelo contra M09, com docs, builders e testes. Não ficam admitidos runtime, renderer, shaders, cenas, hub, `project.godot`, gameplay, implementação real de luz/sombra/GI, generalização de performance/qualidade ou claims de FPS. M01–M02, M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks, ruleset ou auditoria solo. Ver `.engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md`.
+
+## NEX-D-018 | Owner: admissão bounded M01/M02 (2026-11-14)
+
+**OWNER_DIRECTIVE / APPROVED_ON_ADR_0008_PROMOTION.** M01 (#6) e M02 (#7) são admitidos no escopo `BOUNDED_ADMITTED_REFERENCE_PIPELINE`, cobrindo contratos M01/M02, cenas base de referência, docs/QA, protótipos de câmera/profundidade/perfis/sightline/temporal e testes associados. Não ficam admitidos runtime, hub, renderer, shaders, `project.godot`, engine, gameplay, cenas de produção, renderização real, `nex_modules/render2d/**`/M07, generalização ou claims de FPS. M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`; M03/M06/M09 seguem bounded admitted. A admissão não relaxa CI, segurança, testes, locks, ruleset ou auditoria solo. Ver `.engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md`.

@@ -1,5 +1,12 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M01/M02 bounded admission
+
+**M01 (#6) e M02 (#7) admitidos como `BOUNDED_ADMITTED_REFERENCE_PIPELINE`** por `NEX-ADR-0008` / `NEX-D-018`, sobre a base `e729774583eb8ce3b75271aea66589bb9e04a587`. A admissão cobre contratos M01/M02, cenas base de referência, docs/QA, protótipos de câmera/profundidade/perfis/sightline/temporal e testes associados.
+
+**Escopo:** referência e análise determinística. **Não admitido:** runtime, hub, engine, renderer, shaders, `project.godot`, gameplay, cenas de produção, renderização real, `nex_modules/render2d`/M07, generalização ou claims de FPS. M04–M05, M07–M08 e M10–M12 permanecem `NOT_ADMITTED`; M01/M02/M03/M06/M09 estão bounded admitted. A admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+
 ## Current verified scope | 2026-11-14 · M03 bounded admission
 
 **M03 (#8) admitido como `BOUNDED_ADMITTED_ANALYSIS_PIPELINE`** por `NEX-ADR-0007` / `NEX-D-017`, sobre a base `51110ff02eb2c542832b6290a98fdc5f979b58a9`. A admissão cobre o contrato `lighting.v1`, light rig, shadow stability, light budget e a validação do modelo contra M09, com docs, builders e testes.
