@@ -1,0 +1,236 @@
+{
+  "cross_experiment_findings": [
+    "The high preset costs more GPU time than the low preset in every measured scene and cell; the relative cost grows with resolution.",
+    "At 50-200 proxies on arena_combat, resolution dominates GPU cost while proxy count has a small GPU effect and a larger CPU effect.",
+    "The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.",
+    "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720.",
+    "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed."
+  ],
+  "entries": [
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-ab",
+      "evidence_files": 15,
+      "id": "preset-ab",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": 499.3,
+        "runs": 6
+      },
+      "kind": "performance",
+      "report": "ab.v1.json",
+      "runs": 6,
+      "source_sha": "baf818ef934c418d111091af755e0a19ddd6ac9e",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-preset-scaling",
+      "evidence_files": 39,
+      "id": "proxy-scaling",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": {
+          "100": 499.3,
+          "200": 478.3,
+          "25": 504.7
+        },
+        "scaling_25_to_200_pct": {
+          "ab-high": {
+            "gpu_p95_25_to_200_pct": 13.6
+          },
+          "ab-low": {
+            "gpu_p95_25_to_200_pct": 18.7
+          }
+        }
+      },
+      "kind": "performance",
+      "report": "scaling.v1.json",
+      "runs": 18,
+      "source_sha": "4e4719ac504ddb0ea7961d5c9d557c745f216990",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-ab",
+      "evidence_files": 39,
+      "id": "m01-ab",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": {
+          "arena_combat": 323.9,
+          "corridor_static": 380.7,
+          "dense_city": 331.0
+        }
+      },
+      "kind": "performance",
+      "report": "m01-ab.v1.json",
+      "runs": 18,
+      "source_sha": "617db53d6752f30584b296f133e6990ca6602549",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-m01-visual",
+      "evidence_files": 21,
+      "id": "m01-visual",
+      "key_findings": {
+        "aa_identical": true,
+        "ab_changed_pixels_pct": {
+          "arena_combat": 3.884,
+          "corridor_static": 4.077,
+          "dense_city": 1.745
+        }
+      },
+      "kind": "visual",
+      "report": "m01-visual.v1.json",
+      "runs": 18,
+      "source_sha": "952b5a63bc1696cadf7436a061a7d996c80fa220",
+      "verdict": "VISUAL_DIFFERENCE_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling",
+      "evidence_files": 39,
+      "id": "res-scaling",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": {
+          "1280x720": 334.0,
+          "1920x1080": 429.5,
+          "960x540": 230.2
+        },
+        "scaling_960_to_1920_pct": {
+          "ab-high": {
+            "gpu_p95_960_to_1920_pct": 160.6
+          },
+          "ab-low": {
+            "gpu_p95_960_to_1920_pct": 62.5
+          }
+        }
+      },
+      "kind": "performance",
+      "report": "res-scaling.v1.json",
+      "runs": 18,
+      "source_sha": "6ebb98e8c7c9c6a9a0aa3faae5af7e8d4290b7f5",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction",
+      "evidence_files": 51,
+      "id": "interaction",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": {
+          "100/1920x1080": 473.6,
+          "100/960x540": 227.1,
+          "50/1920x1080": 469.4,
+          "50/960x540": 219.8
+        },
+        "proxy_scaling_pct": {
+          "1920x1080": {
+            "ab-high": 0.7,
+            "ab-low": 0.0
+          },
+          "960x540": {
+            "ab-high": 2.3,
+            "ab-low": 0.0
+          }
+        },
+        "resolution_scaling_pct": {
+          "100": {
+            "ab-high": 163.1,
+            "ab-low": 50.0
+          },
+          "50": {
+            "ab-high": 167.1,
+            "ab-low": 50.0
+          }
+        }
+      },
+      "kind": "performance",
+      "report": "interaction.v1.json",
+      "runs": 24,
+      "source_sha": "2ef072c70189d5d013a62b7efc821f81078ef6d1",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-cross-scene",
+      "evidence_files": 99,
+      "id": "cross-scene",
+      "key_findings": {
+        "gpu_p95_high_vs_low_pct": {
+          "corridor_static": {
+            "100/1920x1080": 464.3,
+            "100/960x540": 294.4,
+            "50/1920x1080": 476.5,
+            "50/960x540": 294.4
+          },
+          "dense_city": {
+            "100/1920x1080": 457.3,
+            "100/960x540": 249.3,
+            "50/1920x1080": 461.5,
+            "50/960x540": 245.6
+          }
+        }
+      },
+      "kind": "performance",
+      "report": "cross-scene.v1.json",
+      "runs": 48,
+      "source_sha": "2a03cbb799bd91cb56aa7ed1287a09d45bfaf8ce",
+      "verdict": "MEASURED_COST_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-interaction-200",
+      "evidence_files": 27,
+      "id": "interaction-200",
+      "key_findings": {
+        "context_100_to_200_pct": {
+          "1920x1080": {
+            "ab-high": 2.3,
+            "ab-low": 9.0
+          },
+          "960x540": {
+            "ab-high": 2.5,
+            "ab-low": 2.1
+          }
+        },
+        "gpu_p95_high_vs_low_pct": {
+          "200/1920x1080": 438.2,
+          "200/960x540": 228.6
+        },
+        "resolution_scaling_pct": {
+          "200": {
+            "ab-high": 162.4,
+            "ab-low": 60.2
+          }
+        }
+      },
+      "kind": "performance",
+      "report": "interaction-200.v1.json",
+      "runs": 12,
+      "source_sha": "c1b73743c0c95d9fb8867079cb91fb74cfc03d49",
+      "verdict": "MEASURED_COST_OBSERVED"
+    }
+  ],
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "images": 18,
+  "limitations": [
+    "synthesis of already integrated evidence; no new capture",
+    "single session and one GPU across all bundles",
+    "measurements are costs and visual pixel differences, not game FPS or quality",
+    "no cross-device or cross-session generalization",
+    "M09 parent remains NOT_ADMITTED"
+  ],
+  "open_questions": [
+    "2560x1440 and ultrawide resolutions above 1920x1080 are not measured.",
+    "Other GPUs, drivers and CPU platforms are not measured.",
+    "Animation, temporal effects, camera motion and real game workloads are not covered.",
+    "Preset application in the hub/engine and M09 parent admission remain out of scope."
+  ],
+  "runs": 144,
+  "schema_version": "m09_measurement_atlas.v1",
+  "session_date": "2026-11-14",
+  "totals": {
+    "bundles": 8,
+    "evidence_files": 330,
+    "performance_captures": 144,
+    "unique_source_shas": 8,
+    "visual_images": 18
+  },
+  "verdict": "MEASUREMENT_CAMPAIGN_INDEXED"
+}
