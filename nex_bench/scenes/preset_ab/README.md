@@ -33,6 +33,19 @@ $env:NEX_PRESET_AB_SCENE = "corridor_static"  # opcional: corridor_static, arena
 
 O processo imprime `NEX_PRESET_AB_CAPTURE <path>` e encerra. Repita com `ab-high` e depois `ab-low` para o A/B/A.
 
+## Captura visual
+
+```powershell
+$env:NEX_PRESET_AB_VISUAL = "1"
+$env:NEX_PRESET_AB_SCENE = "corridor_static"
+$env:NEX_PRESET_AB_PRESET = "ab-low"
+$env:NEX_PRESET_AB_VISUAL_OUTPUT = "C:\caminho\corridor_low.png"
+& "<pinned Godot 4.7.2>" --path nex_bench --rendering-method forward_plus `
+  res://scenes/preset_ab/preset_ab.tscn
+```
+
+O modo visual espera 180 frames após aplicar o preset, lê o viewport 1280×720, corrige a orientação e salva PNG. Imprime `NEX_PRESET_AB_IMAGE <path> <width>x<height>`. É uma captura de frame fixo para comparação de pixels, não uma medida de qualidade.
+
 ## Validação
 
 ```powershell
