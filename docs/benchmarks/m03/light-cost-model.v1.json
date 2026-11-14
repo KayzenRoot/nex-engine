@@ -1,0 +1,15 @@
+{
+  "schema_version": "m03_light_cost_model_snapshot.v1",
+  "model_id": "nex_light_cost_model.v1",
+  "source": "nex_modules/lighting/budget/light_budget_arbiter.gd DEFAULT_MODEL",
+  "units": "ms_gpu_p95",
+  "calibration": "S05 Lighting Matrix, RTX 5050, single session, 25 proxies",
+  "coefficients": {
+    "base_gpu_ms": 0.181,
+    "per_omni_light_ms": 0.0245,
+    "directional_shadow_ms": 0.1,
+    "per_omni_shadow_ms": 0.02025,
+    "per_particle_emitter_ms": 0.01375,
+    "shadow_vfx_interaction_ms": 0.679
+  }
+}
