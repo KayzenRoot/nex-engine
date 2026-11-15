@@ -72,15 +72,27 @@
       "module": "nex_modules/render3d/sightline/",
       "structural_checks": 49,
       "structural_status": "PASS",
-      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "scene_comparison": "PASS",
+      "performance": "MEASURED",
       "scene_analysis": "PASS",
-      "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Headless sightline analysis over real M01 scene AABBs; rendering not measured.",
+      "note": "Rendered reveal in three M01 scenes; hidden/revealed A/B and GPU delta +6.0–8.6%.",
       "evidence": [
         {
           "path": "nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log",
           "sha256": "64f410ea1aeba53518dc21d9f0af40b8386458830c1f2c6a46990ff460e76b2a",
           "bytes": 107
+        }
+      ],
+      "scene_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-sightline-perf/runs.v1.json",
+          "sha256": "8489e319625b2e26f367343f5d2592915a369099ab6c3f98a3b189d381d63145",
+          "bytes": 3654
         }
       ],
       "scene_analysis_evidence": [
@@ -93,6 +105,18 @@
           "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
           "sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
           "bytes": 2288
+        }
+      ],
+      "performance_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-sightline-perf/runs.v1.json",
+          "sha256": "8489e319625b2e26f367343f5d2592915a369099ab6c3f98a3b189d381d63145",
+          "bytes": 3654
         }
       ]
     },
@@ -102,15 +126,27 @@
       "module": "nex_modules/render3d/depth_composition/",
       "structural_checks": 37,
       "structural_status": "PASS",
-      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "scene_comparison": "PASS",
+      "performance": "MEASURED",
       "scene_analysis": "PASS",
-      "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Depth planning over real M01 scene AABBs; z-fighting on rendered meshes not measured.",
+      "note": "Rendered alpha overlay with 0 z-fight/alpha/overlay conflicts; GPU delta +0.0–3.3%.",
       "evidence": [
         {
           "path": "nex_modules/render3d/depth_composition/evidence/headless-smoke-2026-11-13.log",
           "sha256": "3899c6bd6d501f01ed7eaee6b1b05266bfb20d4973be99e14353b7ad568392a6",
           "bytes": 107
+        }
+      ],
+      "scene_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-depth-perf/runs.v1.json",
+          "sha256": "4f62b983e2524df4fa9f54e8b5939945b601d08cd980651740ab4075b91b6c01",
+          "bytes": 3658
         }
       ],
       "scene_analysis_evidence": [
@@ -124,6 +160,18 @@
           "sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
           "bytes": 2288
         }
+      ],
+      "performance_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-depth-perf/runs.v1.json",
+          "sha256": "4f62b983e2524df4fa9f54e8b5939945b601d08cd980651740ab4075b91b6c01",
+          "bytes": 3658
+        }
       ]
     },
     {
@@ -132,15 +180,32 @@
       "module": "nex_modules/render3d/temporal/",
       "structural_checks": 51,
       "structural_status": "PASS",
-      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-      "scene_analysis": "PASS",
+      "scene_comparison": "PASS",
       "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Temporal analysis over static M01 frames; real TAA/upscale not measured.",
+      "scene_analysis": "PASS",
+      "note": "Native TAA captured off/on; region analyzer identical; custom compositor NO_GO; performance not measured.",
       "evidence": [
         {
           "path": "nex_modules/render3d/temporal/evidence/headless-smoke-2026-11-13.log",
           "sha256": "03699812d326f9b90df8e8ee7301d98bc74952e2e1fe362b852c86448023b3ab",
           "bytes": 107
+        }
+      ],
+      "scene_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-temporal-taa/analysis_off.json",
+          "sha256": "9c6c4a71fc052a080df14f295edc391f83f2480c015b877cefc9d31f2933b618",
+          "bytes": 1038
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-temporal-taa/analysis_on.json",
+          "sha256": "a64e6be14487edacf59e14e8f243fbdf7e9588596956b710acfb9a0ab4acea1b",
+          "bytes": 1037
         }
       ],
       "scene_analysis_evidence": [
@@ -162,14 +227,51 @@
       "module": "nex_modules/render3d/profiles/",
       "structural_checks": 87,
       "structural_status": "PASS",
-      "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-      "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Capability states documented, not probed on real scenes.",
+      "scene_comparison": "PASS",
+      "performance": "MEASURED",
+      "scene_analysis": "PASS",
+      "note": "Runtime probe on Forward+/Vulkan; quality/balanced/performance applied; GPU p95 0.758/0.571/0.182 ms.",
       "evidence": [
         {
           "path": "nex_modules/render3d/profiles/evidence/headless-smoke-2026-11-13.log",
           "sha256": "4d6cc20124af5bd081167731d49f96f312ff36b62421328138f26037ff94a379",
           "bytes": 107
+        }
+      ],
+      "scene_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-profiles-perf/runs.v1.json",
+          "sha256": "af0b69a643c20ac925fef5a1a1afe5881881009357449a54ca4ec6e58d75b4fe",
+          "bytes": 3988
+        }
+      ],
+      "scene_analysis_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_modules/render3d/profiles/evidence/runtime-probe-2026-11-15.json",
+          "sha256": "69488ef733986c1177722ff33e9ba87094f9e8395f4f3a4aca1a57883ace9390",
+          "bytes": 20819
+        }
+      ],
+      "performance_evidence": [
+        {
+          "path": "docs/benchmarks/m02/runtime.v1.json",
+          "sha256": "1546fe8bd2f6a430d98054b979db02006ba3dc8c8f115a788ff8159e763de582",
+          "bytes": 17710
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-profiles-perf/runs.v1.json",
+          "sha256": "af0b69a643c20ac925fef5a1a1afe5881881009357449a54ca4ec6e58d75b4fe",
+          "bytes": 3988
         }
       ]
     },

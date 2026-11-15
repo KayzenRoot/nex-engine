@@ -1,0 +1,39 @@
+{
+  "aspect_extents": {
+    "1.3333": {
+      "aspect": 1.33333333333333,
+      "half_height_m": 6.55146421679164,
+      "half_width_m": 8.73528562238885
+    },
+    "1.6000": {
+      "aspect": 1.6,
+      "half_height_m": 6.55146421679164,
+      "half_width_m": 10.4823427468666
+    },
+    "1.7778": {
+      "aspect": 1.77777777777778,
+      "half_height_m": 6.55146421679164,
+      "half_width_m": 11.6470474965185
+    },
+    "2.3333": {
+      "aspect": 2.33333333333333,
+      "half_height_m": 6.55146421679164,
+      "half_width_m": 15.2867498391805
+    }
+  },
+  "fast_follow_max_screen_step_px": 24.325,
+  "fast_follow_states": 30,
+  "limitations": [
+    "round trip uses the y=0 plane; vertical points are not covered",
+    "fast follow is deterministic and headless, not a perceptual test"
+  ],
+  "projection": "perspective",
+  "round_trip_max_error_m": 0.000003,
+  "schema_version": "m02_camera_math.v1",
+  "source_sha": "fa1adae7ab67e38c2556d126627006c338e2e8f4",
+  "verdict": "CAMERA_MATH_CONSISTENT",
+  "viewport_px": [
+    1920,
+    1080
+  ]
+}

@@ -2327,5 +2327,75 @@
     "protectedMergeSha": "7b2c497c37ba9fc8078b0a894e04c9e27c3828fb",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM01": "FULL_REFERENCE_LAB_COMPLETE"
+  },
+  "m02FinalReference": {
+    "id": "NEX-M02-FINAL-REFERENCE-WO-001",
+    "issues": [
+      7,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "admissionAdr": "NEX-ADR-0013-M02-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-023",
+    "s01": {
+      "roundTripM": 3e-06,
+      "fastFollowPx": 24.325,
+      "aspects": 4
+    },
+    "s02": {
+      "changedPixelsPct": {
+        "corridor_static": 1.141,
+        "arena_combat": 0.456,
+        "dense_city": 0.123
+      },
+      "gpuDeltaPct": {
+        "corridor_static": 8.6,
+        "arena_combat": 6.0,
+        "dense_city": 8.2
+      }
+    },
+    "s03": {
+      "changedPixelsPct": {
+        "corridor_static": 0.37,
+        "arena_combat": 0.556,
+        "dense_city": 0.741
+      },
+      "gpuDeltaPct": {
+        "corridor_static": 1.4,
+        "arena_combat": 0.0,
+        "dense_city": 3.3
+      }
+    },
+    "s04": {
+      "verdict": "NO_GO_CUSTOM_COMPOSITOR",
+      "nativeTaa": "AVAILABLE"
+    },
+    "s05": {
+      "passport": "RUNTIME_PROBED",
+      "gpuP95Ms": {
+        "quality": 0.758,
+        "balanced": 0.571,
+        "performance": 0.182
+      }
+    },
+    "qa": {
+      "sceneComparison": "PASS",
+      "performance": "MEASURED_EXCEPT_S04"
+    },
+    "excludedScope": [
+      "M03-M12 renderer/runtime, custom shader or custom compositor",
+      "GI, real shadows or real VFX",
+      "game, gameplay, networking, production scenes or third-party assets",
+      "generalized FPS, quality, cross-device or input-to-photon claims",
+      "M12 brand approval"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M02_REFERENCE_RENDERER_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

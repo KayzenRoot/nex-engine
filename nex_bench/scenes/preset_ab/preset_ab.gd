@@ -25,6 +25,13 @@ const VISUAL_SEQUENCE_INTERVAL := 30
 const CAMERA_MOTION_ENV := "NEX_PRESET_AB_CAMERA_MOTION"
 const CAMERA_MOTION_STEP_DEG := 3.0
 const CAMERA_MODE_ENV := "NEX_PRESET_AB_CAMERA_MODE"
+const SIGHTLINE_ENV := "NEX_PRESET_AB_SIGHTLINE"
+const SIGHTLINE_STAGE_ENV := "NEX_PRESET_AB_SIGHTLINE_STAGE"
+const DEPTH_OVERLAY_ENV := "NEX_PRESET_AB_DEPTH_OVERLAY"
+const TAA_ENV := "NEX_PRESET_AB_TAA"
+const PROFILE_ENV := "NEX_PRESET_AB_PROFILE"
+const SIGHTLINE_SCRIPT := preload("res://scenes/m02_analysis/sightline_controller.gd")
+const DEPTH_SCRIPT := preload("res://scenes/m02_analysis/depth_composition_solver.gd")
 const M02_CAMERA_RIG := preload("res://scenes/m02_camera/camera_rig.gd")
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
@@ -67,6 +74,7 @@ var scene_layout := "built-in deterministic grid"
 var base_mesh_count := 0
 var filler_mesh_count := 0
 var stage_valid := true
+var _sightline_meshes: Dictionary = {}
 
 
 func _ready() -> void:
@@ -82,6 +90,11 @@ func _ready() -> void:
 	_build_stage()
 	if stage_valid:
 		_apply_preset()
+	if stage_valid:
+		_apply_profile()
+	if stage_valid and OS.get_environment(TAA_ENV) == "1":
+		get_viewport().use_taa = true
+		print("NEX_PRESET_AB_TAA enabled")
 	if stage_valid and OS.get_environment(CAMERA_MODE_ENV) == "rig":
 		_use_m02_camera_rig(width, height)
 	if OS.get_environment(VISUAL_SEQUENCE_ENV) == "1":
@@ -236,6 +249,10 @@ func _build_m01_stage() -> void:
 	var total := find_children("*", "MeshInstance3D", true, false).size()
 	if total != target:
 		_fail_stage("mesh count %d does not match proxy_count %d" % [total, target])
+	if OS.get_environment(SIGHTLINE_ENV) == "1":
+		_build_sightline()
+	if OS.get_environment(DEPTH_OVERLAY_ENV) == "1":
+		_build_depth_overlay()
 
 
 func _use_base_rig(root: Node) -> void:
@@ -361,6 +378,40 @@ func _apply_preset() -> void:
 	print("NEX_PRESET_AB_APPLY " + JSON.stringify(applied))
 
 
+func _apply_profile() -> void:
+	var profile := OS.get_environment(PROFILE_ENV).strip_edges()
+	if profile.is_empty():
+		return
+	var viewport := get_viewport()
+	match profile:
+		"quality":
+			viewport.scaling_3d_scale = 1.0
+			viewport.msaa_3d = Viewport.MSAA_4X
+			environment.glow_enabled = true
+			_apply_shadow_quality("high", 4)
+		"balanced":
+			viewport.scaling_3d_scale = 0.85
+			viewport.msaa_3d = Viewport.MSAA_2X
+			environment.glow_enabled = true
+			_apply_shadow_quality("medium", 2)
+		"performance":
+			viewport.scaling_3d_scale = 0.7
+			viewport.msaa_3d = Viewport.MSAA_DISABLED
+			environment.glow_enabled = false
+			_apply_shadow_quality("low", 0)
+		_:
+			_fail_stage("unknown profile: " + profile)
+			return
+	applied["profile"] = profile
+	applied["profile_resolution_scale"] = viewport.scaling_3d_scale
+	print("NEX_PRESET_AB_PROFILE " + JSON.stringify({
+		"profile": profile,
+		"resolution_scale": viewport.scaling_3d_scale,
+		"msaa": viewport.msaa_3d,
+		"glow": environment.glow_enabled,
+	}))
+
+
 func _apply_shadow_quality(quality: String, max_shadowed: int) -> void:
 	match quality:
 		"off":
@@ -428,6 +479,146 @@ func _use_m02_camera_rig(width: int, height: int) -> void:
 	camera.current = false
 	camera = rig.camera
 	camera.current = true
+
+
+func _build_sightline() -> void:
+	var boxes: Array = []
+	for node in find_children("*", "MeshInstance3D", true, false):
+		var item := node as MeshInstance3D
+		if item == null or item.mesh == null:
+			continue
+		var box: AABB = item.global_transform * item.mesh.get_aabb()
+		if box.size.x > 0.1 and box.size.y > 0.1 and box.size.z > 0.1:
+			boxes.append(box)
+	boxes.sort_custom(func(a, b): return a.get_volume() > b.get_volume())
+	if boxes.is_empty() or camera == null:
+		_fail_stage("sightline requires meshes and a camera")
+		return
+	var controller = SIGHTLINE_SCRIPT.new()
+	controller.name = "M02Sightline"
+	add_child(controller)
+	if not controller.configure({"target_alpha": 0.2}):
+		_fail_stage("sightline configure: " + controller.last_error)
+		return
+	controller.set_camera_position(camera.global_position)
+	var scene_bounds := _mesh_bounds(find_children("*", "MeshInstance3D", true, false))
+	var center := scene_bounds.get_center()
+	var focus := Vector3(center.x, scene_bounds.position.y + 1.0, center.z)
+	var forward := (focus - camera.global_position).normalized()
+	var wall := MeshInstance3D.new()
+	var wall_mesh := BoxMesh.new()
+	wall_mesh.size = Vector3(6.0, 4.0, 0.3)
+	wall.mesh = wall_mesh
+	wall.position = focus - forward * 2.0
+	add_child(wall)
+	wall.look_at(camera.global_position, Vector3.UP)
+	var wall_material := StandardMaterial3D.new()
+	wall_material.albedo_color = Color("#4A5568")
+	wall_material.roughness = 0.8
+	wall_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	wall.material_override = wall_material
+	_sightline_meshes["test_wall"] = wall
+	controller.register_occluder("test_wall", AABB(wall.position - Vector3(3.0, 2.0, 3.0), Vector3(6.0, 4.0, 6.0)), 2, false)
+	if not controller.set_actors([
+		{"id": "player", "priority": 0, "position": focus},
+		{"id": "threat", "priority": 1, "position": focus + forward * 1.5},
+		{"id": "decor", "priority": 2, "position": focus - forward * 1.5},
+	]):
+		_fail_stage("sightline actors: " + controller.last_error)
+		return
+	if OS.get_environment(SIGHTLINE_STAGE_ENV) == "revealed":
+		for step in range(10):
+			controller.update(0.05)
+	else:
+		controller.update(0.0001)
+	var state: Dictionary = controller.get_state()
+	for actor in state.get("actors", []):
+		var proxy := MeshInstance3D.new()
+		var capsule := CapsuleMesh.new()
+		capsule.radius = 0.35
+		capsule.height = 1.8
+		proxy.mesh = capsule
+		var position: Array = actor["position"]
+		proxy.position = Vector3(position[0], position[1] + 0.9, position[2])
+		var material := StandardMaterial3D.new()
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		var color := Color("#59C3FF") if String(actor["id"]) == "player" else (Color("#FF5A5A") if String(actor["id"]) == "threat" else Color("#9AA4B2"))
+		var readable := bool(actor["gameplay_visible"]) or bool(actor["visual_readable"])
+		color.a = 1.0 if readable else 0.35
+		material.albedo_color = color
+		if bool(actor["visual_readable"]) and bool(actor["needs_reveal"]):
+			material.emission_enabled = true
+			material.emission = Color("#59C3FF")
+			material.emission_energy_multiplier = 1.5
+		elif bool(actor["danger_alert"]):
+			material.emission_enabled = true
+			material.emission = Color("#FF2D2D")
+			material.emission_energy_multiplier = 1.2
+		proxy.material_override = material
+		add_child(proxy)
+	for occluder in state.get("occluders", []):
+		var id := String(occluder["id"])
+		if not _sightline_meshes.has(id):
+			continue
+		var mesh: MeshInstance3D = _sightline_meshes[id]
+		var base_material: StandardMaterial3D = mesh.material_override
+		var clone: StandardMaterial3D = base_material.duplicate()
+		clone.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		var color: Color = clone.albedo_color
+		color.a = float(occluder["alpha"])
+		clone.albedo_color = color
+		mesh.material_override = clone
+		print("NEX_PRESET_AB_SIGHTLINE_WALL alpha=%.2f" % float(occluder["alpha"]))
+	print("NEX_PRESET_AB_SIGHTLINE " + JSON.stringify(state.get("summary", {})))
+
+
+func _build_depth_overlay() -> void:
+	var boxes: Array = []
+	for node in find_children("*", "MeshInstance3D", true, false):
+		var item := node as MeshInstance3D
+		if item == null or item.mesh == null:
+			continue
+		var box: AABB = item.global_transform * item.mesh.get_aabb()
+		if box.size.x > 0.1 and box.size.y > 0.1 and box.size.z > 0.1:
+			boxes.append(box)
+	boxes.sort_custom(func(a, b): return a.get_volume() > b.get_volume())
+	if boxes.is_empty() or camera == null:
+		_fail_stage("depth overlay requires meshes and a camera")
+		return
+	var focus: Vector3 = boxes[0].get_center()
+	var camera_position := camera.global_position
+	var forward := (focus - camera_position).normalized()
+	var quad := MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(10.0, 10.0)
+	quad.mesh = plane
+	quad.position = camera_position + forward * 2.5
+	add_child(quad)
+	quad.look_at(focus, Vector3.UP)
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.albedo_color = Color(0.1, 0.4, 0.9, 0.45)
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	quad.material_override = material
+	var solver = DEPTH_SCRIPT.new()
+	solver.name = "M02Depth"
+	add_child(solver)
+	if not solver.configure({}):
+		_fail_stage("depth configure: " + solver.last_error)
+		return
+	if not solver.set_camera(camera_position, forward):
+		_fail_stage("depth camera: " + solver.last_error)
+		return
+	solver.register_primitive("overlay", 2, camera_position + forward * 2.5, 1.0, false, false)
+	solver.register_primitive("player", 0, focus, 1.0, true, false)
+	var plan: Dictionary = solver.plan()
+	print("NEX_PRESET_AB_DEPTH " + JSON.stringify({
+		"z_fight_risks": plan.get("z_fight_risks", []).size(),
+		"alpha_over_critical": plan.get("alpha_over_critical", []).size(),
+		"overlay_gameplay_conflicts": plan.get("overlay_gameplay_conflicts", []).size(),
+		"passes": plan.get("passes", {}),
+	}))
 
 
 func _apply_camera_motion(frame_index: int) -> void:

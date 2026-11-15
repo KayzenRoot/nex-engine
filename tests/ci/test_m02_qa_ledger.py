@@ -59,21 +59,25 @@ class QaLedgerTests(unittest.TestCase):
         self.assertEqual(["corridor_static", "arena_combat", "dense_city"], self.ledger["scenes"])
 
     def test_components_are_structural_pass_and_measured_only_with_evidence(self):
-        analysis_components = {"S02", "S03", "S04"}
+        rendered = {"S01", "S02", "S03", "S04", "S05"}
+        measured = {"S01", "S02", "S03", "S05"}
+        analysis = {"S02", "S03", "S04", "S05"}
         for component in self.ledger["components"]:
             with self.subTest(id=component["id"]):
                 self.assertEqual("PASS", component["structural_status"])
-                if component["id"] == "S01":
+                if component["id"] in rendered:
                     self.assertEqual("PASS", component["scene_comparison"])
-                    self.assertEqual("MEASURED", component["performance"])
                     self.assertTrue(component["scene_evidence"])
-                    self.assertTrue(component["performance_evidence"])
                 else:
-                    self.assertIn(component["scene_comparison"],
-                                  {"INCONCLUSIVE_NOT_RUN", "NOT_APPLICABLE_RESEARCH"})
-                    self.assertIn(component["performance"],
-                                  {"INCONCLUSIVE_NOT_RUN", "NOT_APPLICABLE_RESEARCH"})
-                if component["id"] in analysis_components:
+                    self.assertEqual("NOT_APPLICABLE_RESEARCH", component["scene_comparison"])
+                if component["id"] in measured:
+                    self.assertEqual("MEASURED", component["performance"])
+                    self.assertTrue(component["performance_evidence"])
+                elif component["id"] == "S04":
+                    self.assertEqual("INCONCLUSIVE_NOT_RUN", component["performance"])
+                else:
+                    self.assertEqual("NOT_APPLICABLE_RESEARCH", component["performance"])
+                if component["id"] in analysis:
                     self.assertEqual("PASS", component["scene_analysis"])
                     self.assertTrue(component["scene_analysis_evidence"])
                 for evidence in component["evidence"]:
@@ -97,7 +101,7 @@ class QaLedgerTests(unittest.TestCase):
 
     def test_scene_pass_without_evidence_is_rejected(self):
         tampered = json.loads(json.dumps(self.ledger))
-        tampered["components"][1]["scene_comparison"] = "PASS"
+        tampered["components"][5]["scene_comparison"] = "PASS"
         self.assertTrue(any("scene PASS without scene_evidence" in error for error in TOOL.validate(tampered)))
 
     def test_scene_analysis_pass_without_evidence_is_rejected(self):
@@ -108,7 +112,7 @@ class QaLedgerTests(unittest.TestCase):
 
     def test_measured_performance_without_evidence_is_rejected(self):
         tampered = json.loads(json.dumps(self.ledger))
-        tampered["components"][1]["performance"] = "MEASURED"
+        tampered["components"][5]["performance"] = "MEASURED"
         self.assertTrue(any("measured performance without performance_evidence" in error for error in TOOL.validate(tampered)))
 
     def test_measured_claim_high_defect_and_conflict_are_rejected(self):

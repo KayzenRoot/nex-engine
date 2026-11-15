@@ -1,0 +1,34 @@
+{
+  "frames": 5,
+  "mode": "on",
+  "regions": 16,
+  "report": {
+    "action": "NO_GO",
+    "compositor_available": false,
+    "frames": 5,
+    "limitations": [
+      "analysis only; no rendering, TAA, upscale or antialiasing is executed",
+      "real-scene ghosting/flicker/shimmer is INCONCLUSIVE_NOT_RUN",
+      "metrics use synthetic region luminance, not pixel buffers",
+      "CompositorEffect/render-thread is out of scope and requires a separate WO with ABI review",
+      "postprocess is disabled by default; the enable toggle is a guarded mock state"
+    ],
+    "metrics": {
+      "flicker": 0.666666666666667,
+      "ghosting": 0.0,
+      "render_scale": 1.0,
+      "sharpness_penalty": 0.0,
+      "shimmer": 0.0531590415371789
+    },
+    "postprocess_enabled": false,
+    "regions": 16,
+    "thresholds": {
+      "flicker": 0.2,
+      "ghosting": 0.15,
+      "shimmer": 0.05
+    },
+    "verdict": "DEFECT_REPRODUCED"
+  },
+  "schema_version": "m02_taa_analysis.v1",
+  "source_sha": "fa1adae7ab67e38c2556d126627006c338e2e8f4"
+}
