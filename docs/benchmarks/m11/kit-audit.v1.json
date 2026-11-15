@@ -1,0 +1,46 @@
+{
+  "evidence_bundle": "nex_modules/assets/license_audit/evidence/kit-audit-2026-11-15.json",
+  "evidence_sha256": "ef20fe3a0ed10c5f8723067a4dea109bea9b12c31b108f4d5b4639b05d0783c9",
+  "findings": {
+    "license_unverified": 12,
+    "texture_uncompressed": 12
+  },
+  "kit_sha256": "0e597c6579205f93ebb2afc7c659a58593a759df0bdc4f0bd5574306713a6b08",
+  "kit_uri": "nex_modules/materials/kit/kit.v1.json",
+  "limitations": [
+    "analysis only: no asset is imported, cooked, loaded or rendered",
+    "license verification is read from the document, not performed",
+    "byte budgets use cooked_bytes as declared, not filesystem measurements",
+    "dependency cycles are graph arithmetic over declared ids",
+    "quality findings are structural heuristics, not visual review",
+    "no scene, engine or project.godot integration"
+  ],
+  "metrics": {
+    "assets": 12,
+    "failed_stages": 0,
+    "pending_stages": 0,
+    "texture_cooked_bytes": 788844,
+    "total_cooked_bytes": 788844,
+    "unverified_licenses": 12
+  },
+  "observations": [
+    "12 kit textures were audited with matching SHA-256 values",
+    "no stage failed and no stage is pending; raw and imported are the only stages",
+    "0 high-severity findings; 12 medium license_unverified and 12 low texture_uncompressed",
+    "the auditor recommends verifying licenses and enabling texture compression"
+  ],
+  "recommendations": [
+    "enable_texture_compression",
+    "verify_license"
+  ],
+  "runs": 1,
+  "schema_version": "m11_kit_audit.v1",
+  "source_sha": "7e425920cdaf17c158d46979e68df47e66742724",
+  "summary": {
+    "high": 0,
+    "info": 0,
+    "low": 12,
+    "medium": 12
+  },
+  "verdict": "REVIEW_REQUIRED"
+}
