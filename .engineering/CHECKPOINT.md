@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M10 archetype feedback
+
+**Feedback de combate M10** por PR #266, squash `6ecea44372376a881cb31671eba7dbb2992652e8`. O `FeedbackPlanner` integrado planejou **10 spells** do dataset M05 (2 skirmish + 3 elite + 5 boss), todos `SAFE_CONFIG_HEURISTIC` com **0 conflitos**.
+
+**Resultado:** 5 canais por spell; pico de concorrência **5/5**; hit-stop **40/60/100 ms**; shake máximo **0.313**; dano determinístico **32/64/128/225/75**, com críticos em `storm-lance` e `meteor-storm`. O dataset M05 ganhou o campo aditivo `spells` para consumo downstream. Builder `build_archetype_feedback.py --check` reproduz JSON/Markdown; enforcement no Fast Lane em **30 arquivos / 33 comandos**; suíte CI **613 testes OK**. Nenhuma animação, câmera, shader, partícula, cena ou renderer criado; nenhum claim de game feel. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M11 kit asset audit
 
 **Auditoria M11 do kit M04** por PR #264, squash `2fa50a7223482b734007953b59e0720dfb56cb11`. O `AssetPipelineAuditor` integrado auditou **12 assets** do kit (788.844 bytes), com **0 estágios falhos** e **0 pendentes**.
