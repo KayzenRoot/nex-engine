@@ -12,6 +12,10 @@
 
 `NEX-ADR-0013` / `NEX-D-023` admitem o M02 como renderer de referência bounded: câmera S01, sightline S02, DepthWeave S03, TemporalGuard S04 com TAA nativo e compositor customizado NO_GO, RenderPassport S05, R&D S06 e QA S07. As issues #28–#34 e #7 podem ser fechadas após integração protegida. M02 é o segundo módulo base concluído como **renderer de referência**, não como jogo. M03–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `fa1adae7ab67e38c2556d126627006c338e2e8f4`.
 
+### M03 full reference | iluminação cinematográfica concluída (2026-11-15)
+
+`NEX-ADR-0014` / `NEX-D-025` admitem o M03 como iluminação de referência bounded: três looks CineLight originais, ShadowStability low/ultra, SDFGI on/off, FogWeave volumetric/depth/off, LightBridge com dois consumidores mock e LightBudget MVP por energia. As issues #36–#43 e #8 podem ser fechadas após integração protegida. M03 é o terceiro módulo base concluído como **iluminação de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M04–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `6be39d49d8769ff46a98990c6818c8132e9e5a1d`.
+
 ### Extensão bounded M04/M05 | kit não-rendering (2026-11-15)
 
 `NEX-ADR-0011` / `NEX-D-021` estendem o escopo de M04/M05, sem mudar o status dos parents, para o kit PBR procedural `nex_modules/materials/kit/**` (12 PNGs 128×128, quatro `StandardMaterial3D` `.tres`, observação `material.v1`, validação headless) e o dataset `nex_modules/vfx/fxbudget/dataset.gd` com três arquétipos de orçamento de FX. Continua não admitido: shader customizado, `ShaderMaterial`, compilação de shader, renderer, integração/aplicação em cena, rendering, runtime, hub, engine, `project.godot` principal, gameplay, cenas de produção, partículas/emissores/luzes/decais reais, decodificação/compressão/atlas packing, pipeline de import/cook, generalização e claims de FPS/qualidade. A base desta extensão é `99437b22e94a6494eaef801872bb8fd0c79c0f1a`.

@@ -1,0 +1,12 @@
+{
+  "checks": 13,
+  "failures": [],
+  "limitations": [
+    "planning only; no light, shadow map or renderer is created",
+    "priority is the only relevance signal in this MVP",
+    "timeout/fallback is deterministic in milliseconds, not a frame-time measurement"
+  ],
+  "schema_version": "m03_light_bridge_smoke.v1",
+  "source_sha": "6be39d49d8769ff46a98990c6818c8132e9e5a1d",
+  "verdict": "PASS"
+}

@@ -30,6 +30,12 @@ const SIGHTLINE_STAGE_ENV := "NEX_PRESET_AB_SIGHTLINE_STAGE"
 const DEPTH_OVERLAY_ENV := "NEX_PRESET_AB_DEPTH_OVERLAY"
 const TAA_ENV := "NEX_PRESET_AB_TAA"
 const PROFILE_ENV := "NEX_PRESET_AB_PROFILE"
+const LOOK_ENV := "NEX_PRESET_AB_LOOK"
+const TORCHES_ENV := "NEX_PRESET_AB_TORCHES"
+const GI_ENV := "NEX_PRESET_AB_GI"
+const FOG_ENV := "NEX_PRESET_AB_FOG"
+const LIGHT_BUDGET_ENV := "NEX_PRESET_AB_LIGHT_BUDGET"
+const M03_LIGHT_RIG := preload("res://scenes/m03_lighting/light_rig_planner.gd")
 const SIGHTLINE_SCRIPT := preload("res://scenes/m02_analysis/sightline_controller.gd")
 const DEPTH_SCRIPT := preload("res://scenes/m02_analysis/depth_composition_solver.gd")
 const M02_CAMERA_RIG := preload("res://scenes/m02_camera/camera_rig.gd")
@@ -92,6 +98,8 @@ func _ready() -> void:
 		_apply_preset()
 	if stage_valid:
 		_apply_profile()
+	if stage_valid:
+		_apply_look()
 	if stage_valid and OS.get_environment(TAA_ENV) == "1":
 		get_viewport().use_taa = true
 		print("NEX_PRESET_AB_TAA enabled")
@@ -409,6 +417,188 @@ func _apply_profile() -> void:
 		"resolution_scale": viewport.scaling_3d_scale,
 		"msaa": viewport.msaa_3d,
 		"glow": environment.glow_enabled,
+	}))
+
+
+func _look_spec(look: String) -> Dictionary:
+	match look:
+		"dungeon_torch":
+			return {
+				"background": Color("#05070A"),
+				"ambient": Color("#3A2418"), "ambient_energy": 0.22,
+				"exposure": 1.25, "glow_intensity": 0.9, "glow_bloom": 0.14,
+				"sdfgi": true, "sdfgi_energy": 0.8,
+				"volumetric_fog": true, "depth_fog": false, "fog_density": 0.015,
+				"fog_albedo": Color(0.35, 0.28, 0.22), "fog_emission": Color(0.02, 0.01, 0.005),
+				"moon_color": Color("#5A6FA8"), "moon_energy": 0.25,
+				"torch_color": Color("#FF8A3D"), "torch_energy": 4.0, "torch_range": 9.0,
+				"torches": 8, "shadowed": 4,
+				"fill_color": Color("#FFB37A"), "fill_energy": 0.9, "fill_range": 14.0,
+			}
+		"moonlit_exterior":
+			return {
+				"background": Color("#0A1220"),
+				"ambient": Color("#1A2A4A"), "ambient_energy": 0.25,
+				"exposure": 1.0, "glow_intensity": 0.6, "glow_bloom": 0.08,
+				"sdfgi": true, "sdfgi_energy": 0.6,
+				"volumetric_fog": true, "depth_fog": false, "fog_density": 0.008,
+				"fog_albedo": Color(0.18, 0.24, 0.35), "fog_emission": Color(0.0, 0.005, 0.01),
+				"moon_color": Color("#8FB3FF"), "moon_energy": 0.9,
+				"torch_color": Color("#FFB066"), "torch_energy": 1.6, "torch_range": 10.0,
+				"torches": 5, "shadowed": 3,
+				"fill_color": Color("#7FA8FF"), "fill_energy": 0.5, "fill_range": 16.0,
+			}
+		"boss_arena":
+			return {
+				"background": Color("#0B0505"),
+				"ambient": Color("#2A0E0E"), "ambient_energy": 0.2,
+				"exposure": 1.15, "glow_intensity": 0.9, "glow_bloom": 0.15,
+				"sdfgi": true, "sdfgi_energy": 0.7,
+				"volumetric_fog": true, "depth_fog": false, "fog_density": 0.02,
+				"fog_albedo": Color(0.3, 0.12, 0.08), "fog_emission": Color(0.02, 0.002, 0.0),
+				"moon_color": Color("#6A7AA8"), "moon_energy": 0.4,
+				"torch_color": Color("#FF5A1F"), "torch_energy": 4.5, "torch_range": 8.0,
+				"torches": 10, "shadowed": 4,
+				"fill_color": Color("#FF7A4D"), "fill_energy": 0.8, "fill_range": 14.0,
+			}
+	return {}
+
+
+func _torch_position(index: int, count: int) -> Vector3:
+	var bounds := _mesh_bounds(find_children("*", "MeshInstance3D", true, false))
+	var center := bounds.get_center()
+	var radius := maxf(2.0, minf(bounds.size.x, bounds.size.z) * 0.35)
+	var angle := TAU * float(index) / float(maxi(1, count))
+	return Vector3(center.x + cos(angle) * radius, bounds.position.y + 2.5, center.z + sin(angle) * radius)
+
+
+func _apply_look() -> void:
+	var look := OS.get_environment(LOOK_ENV).strip_edges()
+	if look.is_empty():
+		return
+	var spec := _look_spec(look)
+	if spec.is_empty():
+		_fail_stage("unknown look: " + look)
+		return
+	var gi_override := OS.get_environment(GI_ENV).strip_edges()
+	if gi_override == "off":
+		spec["sdfgi"] = false
+	elif gi_override == "sdfgi":
+		spec["sdfgi"] = true
+	var fog_override := OS.get_environment(FOG_ENV).strip_edges()
+	if fog_override == "off":
+		spec["volumetric_fog"] = false
+		spec["depth_fog"] = false
+	elif fog_override == "depth":
+		spec["volumetric_fog"] = false
+		spec["depth_fog"] = true
+	elif fog_override == "volumetric":
+		spec["volumetric_fog"] = true
+		spec["depth_fog"] = false
+	var torch_count := int(spec["torches"])
+	var torch_override := OS.get_environment(TORCHES_ENV).strip_edges()
+	if not torch_override.is_empty():
+		torch_count = maxi(1, int(torch_override))
+	var budget := OS.get_environment(LIGHT_BUDGET_ENV) == "1"
+	var max_shadowed := int(spec["shadowed"])
+	if budget:
+		max_shadowed = mini(2, max_shadowed)
+	environment.background_mode = Environment.BG_COLOR
+	environment.background_color = spec["background"]
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.ambient_light_color = spec["ambient"]
+	environment.ambient_light_energy = spec["ambient_energy"]
+	environment.tonemap_mode = Environment.TONE_MAPPER_ACES
+	environment.tonemap_exposure = spec["exposure"]
+	environment.glow_enabled = true
+	environment.glow_intensity = spec["glow_intensity"]
+	environment.glow_bloom = spec["glow_bloom"]
+	environment.sdfgi_enabled = bool(spec["sdfgi"])
+	environment.sdfgi_energy = float(spec["sdfgi_energy"])
+	environment.volumetric_fog_enabled = bool(spec["volumetric_fog"])
+	if bool(spec["volumetric_fog"]):
+		environment.volumetric_fog_density = float(spec["fog_density"])
+		environment.volumetric_fog_albedo = spec["fog_albedo"]
+		environment.volumetric_fog_emission = spec["fog_emission"]
+		environment.volumetric_fog_length = 64.0
+	else:
+		environment.fog_enabled = bool(spec["depth_fog"])
+		environment.fog_density = float(spec["fog_density"])
+		environment.fog_light_color = spec["fog_albedo"]
+		environment.fog_light_energy = 0.4 if bool(spec["depth_fog"]) else 0.0
+	directional.light_color = spec["moon_color"]
+	directional.light_energy = spec["moon_energy"]
+	directional.shadow_enabled = true
+	directional.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
+	directional.directional_shadow_max_distance = 200.0
+	directional.shadow_bias = 0.05
+	var planner = M03_LIGHT_RIG.new()
+	planner.name = "M03LightRig"
+	add_child(planner)
+	if not planner.configure({"max_shadowed_lights": max_shadowed, "atlas_size": 4096}):
+		_fail_stage("look configure: " + planner.last_error)
+		return
+	if not planner.configure_environment({
+		"ambient_source": 0,
+		"ambient_color": spec["ambient"],
+		"ambient_energy": spec["ambient_energy"],
+		"tonemap": 3,
+		"glow": true,
+		"fog_density": float(spec["fog_density"]) if bool(spec["volumetric_fog"]) else 0.0,
+		"fog_light_energy": 0.4 if bool(spec["depth_fog"]) else 0.0,
+		"gi_mode": 1 if bool(spec["sdfgi"]) else 0,
+		"gi_energy": float(spec["sdfgi_energy"]),
+	}):
+		_fail_stage("look environment: " + planner.last_error)
+		return
+	if not planner.register_light("moon", 0, spec["moon_color"], spec["moon_energy"], true, 0.05, 0.0, 1, 0.0, 0.0, 4):
+		_fail_stage("look moon: " + planner.last_error)
+		return
+	if not planner.register_light("fill", 1, spec["fill_color"], spec["fill_energy"], false, 0.05, 0.0, 1, spec["fill_range"]):
+		_fail_stage("look fill: " + planner.last_error)
+		return
+	for index in range(torch_count):
+		if not planner.register_light("torch_%02d" % index, 1, spec["torch_color"], spec["torch_energy"], true, 0.05, 0.0, 1, spec["torch_range"]):
+			_fail_stage("look torch: " + planner.last_error)
+			return
+	var plan: Dictionary = planner.plan()
+	var assigned := {}
+	for light in plan["lights"]:
+		if String(light["light_type"]) == "omni":
+			assigned[String(light["light_id"])] = bool(light["shadow_assigned"])
+	for index in range(torch_count):
+		var torch := OmniLight3D.new()
+		torch.name = "M03Torch_%02d" % index
+		torch.position = _torch_position(index, torch_count)
+		torch.light_color = spec["torch_color"]
+		torch.light_energy = spec["torch_energy"]
+		torch.omni_range = spec["torch_range"]
+		torch.shadow_enabled = bool(assigned.get("torch_%02d" % index, false))
+		torch.shadow_bias = 0.05
+		add_child(torch)
+		omnis.append(torch)
+	var fill := OmniLight3D.new()
+	fill.name = "M03Fill"
+	var scene_bounds := _mesh_bounds(find_children("*", "MeshInstance3D", true, false))
+	fill.position = scene_bounds.get_center() + Vector3(0.0, 2.5, 0.0)
+	fill.light_color = spec["fill_color"]
+	fill.light_energy = spec["fill_energy"]
+	fill.omni_range = spec["fill_range"]
+	fill.shadow_enabled = false
+	add_child(fill)
+	omnis.append(fill)
+	if camera != null:
+		camera.position = Vector3(13.0, 11.0, 13.0)
+		camera.look_at(Vector3(0.0, 1.0, 0.0), Vector3.UP)
+		camera.fov = 45.0
+	print("NEX_PRESET_AB_LOOK " + JSON.stringify({
+		"look": look,
+		"torches": torch_count,
+		"shadowed": plan["totals"]["shadowed_lights"],
+		"sdfgi": bool(spec["sdfgi"]),
+		"volumetric_fog": bool(spec["volumetric_fog"]),
+		"depth_fog": bool(spec["depth_fog"]),
+		"budget": budget,
 	}))
 
 

@@ -1,0 +1,265 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver; static frames",
+    "the scenes are simple reference geometry, not production art",
+    "SDFGI/LightmapGI/VoxelGI bake and editor-only paths are not exercised",
+    "temporal shadow flicker and combat legibility with real telegraphs are not measured",
+    "no PoE2 parity, FPS or cross-device claim"
+  ],
+  "observations": [
+    "three original looks are rendered at 1920x1080 on the RTX 5050; performance was measured on corridor_static only",
+    "SDFGI is the dominant cost: +58.9% GPU p95 and +473 MiB allocation vs off",
+    "shadow quality from low to ultra roughly doubles GPU p95",
+    "volumetric fog adds only 4.6% over depth fog on this light workload",
+    "the LightBridge passes 13 deterministic checks with two mock consumers"
+  ],
+  "runs": 11,
+  "s01": {
+    "gpu_p95_ms": {
+      "look_boss": 3.119,
+      "look_dungeon": 3.129,
+      "look_moonlit": 3.039
+    },
+    "looks": [
+      {
+        "changed_vs_dungeon_pct": null,
+        "look": "dungeon_torch",
+        "mean_abs_vs_dungeon": null,
+        "scene_id": "corridor_static",
+        "sha256": "799ca3b4ebe6031749d888a7e569d5848de01b067b9732be3f9fee160b90dc6d"
+      },
+      {
+        "changed_vs_dungeon_pct": 100.0,
+        "look": "moonlit_exterior",
+        "mean_abs_vs_dungeon": 20.5585,
+        "scene_id": "corridor_static",
+        "sha256": "e5cc407173d8bc9153d9ef14e5108e259b83cf16aaa033917b48a42a0c8eee85"
+      },
+      {
+        "changed_vs_dungeon_pct": 51.311,
+        "look": "boss_arena",
+        "mean_abs_vs_dungeon": 5.1711,
+        "scene_id": "corridor_static",
+        "sha256": "061bb76d5022f07e80ec30a24950990a277f126834fd9456d0e8b39771457b24"
+      },
+      {
+        "changed_vs_dungeon_pct": null,
+        "look": "dungeon_torch",
+        "mean_abs_vs_dungeon": null,
+        "scene_id": "arena_combat",
+        "sha256": "81d2ef4427d876e97f5f8eb1e3abfc7942f3a9d91b96388eb8f9139a30969ac0"
+      },
+      {
+        "changed_vs_dungeon_pct": 100.0,
+        "look": "moonlit_exterior",
+        "mean_abs_vs_dungeon": 26.4169,
+        "scene_id": "arena_combat",
+        "sha256": "36c752b4c7557bd4fb08148cc822cc28b00cc25a6386f28fe9210df2e8b82ce2"
+      },
+      {
+        "changed_vs_dungeon_pct": 81.125,
+        "look": "boss_arena",
+        "mean_abs_vs_dungeon": 8.8848,
+        "scene_id": "arena_combat",
+        "sha256": "4a0fc7e1ae31323ebef91b5078e7728dc44f9891ccb815889d881d6ef7ed8bbe"
+      },
+      {
+        "changed_vs_dungeon_pct": null,
+        "look": "dungeon_torch",
+        "mean_abs_vs_dungeon": null,
+        "scene_id": "dense_city",
+        "sha256": "439cde767dd70a3f311b6d0ebaffa4c764d39ecfb4acede2edcc4e83aa0bdcc1"
+      },
+      {
+        "changed_vs_dungeon_pct": 100.0,
+        "look": "moonlit_exterior",
+        "mean_abs_vs_dungeon": 31.1702,
+        "scene_id": "dense_city",
+        "sha256": "fa1f74dd276ef2c8f97779d094eff3928ec7c8a91109818ffd1c08e011554619"
+      },
+      {
+        "changed_vs_dungeon_pct": 57.151,
+        "look": "boss_arena",
+        "mean_abs_vs_dungeon": 2.6396,
+        "scene_id": "dense_city",
+        "sha256": "a737b6fe293274ae7257f2006e58a7fdee5c938623c4e49834f6130e4dce6503"
+      }
+    ],
+    "perf_scene": "corridor_static",
+    "verdict": "CINELIGHT_LOOKS_RENDERED"
+  },
+  "s02": {
+    "gpu_delta_pct": 106.0,
+    "gpu_low_p95_ms": 1.526,
+    "gpu_ultra_p95_ms": 3.144,
+    "scenes": [
+      {
+        "changed_pixels_pct": 13.324,
+        "low_sha256": "d4f6241ba1ef21e45f97eb026cca4ee7e01eccbee76a90664b297518b0e03e55",
+        "mean_abs_diff": 0.8772,
+        "scene_id": "corridor_static",
+        "ultra_sha256": "5d9cf03f1ba6b06533dc5b20742dbf1336b33baf60c8c513b115f4a14aecfba1"
+      },
+      {
+        "changed_pixels_pct": 18.191,
+        "low_sha256": "c7e3f20763869a262b25a74429eed89717cf3784875a0debc8c0b864e2c0ca04",
+        "mean_abs_diff": 1.6864,
+        "scene_id": "arena_combat",
+        "ultra_sha256": "e1d58673ab76cdeb317ec923fbfc2c30f5af3561962cf9df8f4c299b24f82a7f"
+      },
+      {
+        "changed_pixels_pct": 4.335,
+        "low_sha256": "1b93592b5de6625d151f856fc1435df33bbcbf756193249c3f8d3d187228b483",
+        "mean_abs_diff": 0.3596,
+        "scene_id": "dense_city",
+        "ultra_sha256": "94c0ea1ea0f12972da571b97ac9e91a975e96c15138d510d876143f01d3a3561"
+      }
+    ],
+    "temporal_stability": "NOT_RUN",
+    "verdict": "SHADOW_QUALITY_DERIVED"
+  },
+  "s03": {
+    "allocation_delta_mib": 451.1,
+    "gpu_delta_pct": 58.9,
+    "gpu_off_p95_ms": 1.976,
+    "gpu_sdfgi_p95_ms": 3.14,
+    "scenes": [
+      {
+        "changed_pixels_pct": 62.166,
+        "mean_abs_diff": 2.9864,
+        "off_sha256": "5bc1ad586422672c71d2ccb08649c3c7118f9c6a520847c172fe0a9d15f9b1d7",
+        "scene_id": "corridor_static",
+        "sdfgi_sha256": "4b6b7a59bd4e4345d8ab42ef74decc0be9d70108eaa58088092da833b2d01ba3"
+      },
+      {
+        "changed_pixels_pct": 76.316,
+        "mean_abs_diff": 2.6351,
+        "off_sha256": "38cbce716b169e5ffdf116a045ca5472c1cd5e63ce332f4239e0c3bf7c667e43",
+        "scene_id": "arena_combat",
+        "sdfgi_sha256": "99ab6dcd65290074c56862f9649ae88ee024dff3f95ecaa5242f594b2bf47226"
+      },
+      {
+        "changed_pixels_pct": 86.161,
+        "mean_abs_diff": 3.388,
+        "off_sha256": "e217ff7b515dca39c46933f328fd3c93b95e6bc7148432d5cf4f57a3def6d104",
+        "scene_id": "dense_city",
+        "sdfgi_sha256": "b0d44caca2d53fc77af63bac1bf247d867ca8dc1a0eb729f0e78201625159fe2"
+      }
+    ],
+    "verdict": "SDFGI_QUALITY_PROFILE_ONLY"
+  },
+  "s04": {
+    "gpu_delta_pct": 4.6,
+    "gpu_depth_p95_ms": 3.008,
+    "gpu_volumetric_p95_ms": 3.145,
+    "scenes": [
+      {
+        "depth_sha256": "8367a408af4ce9f9526287171d6eb7e863df7f051e8bdea93fcd517494eae280",
+        "off_sha256": "7ed83834235326eab7b378d0bb537c6d490d2b78561efd4def076ccd708c5863",
+        "scene_id": "corridor_static",
+        "volumetric_sha256": "c14cd6c0bbfb38ef9413c60cd2a3e046175fd8cede331ec0195c61019bd38d3f",
+        "volumetric_vs_depth_pct": 99.124,
+        "volumetric_vs_off_pct": 88.319
+      },
+      {
+        "depth_sha256": "fa70fd2ed8ca27d7a0572a0d0d122dea489a7a7d7c38574f9f1351e00a1f375e",
+        "off_sha256": "b948d7d0ef7899c1fdaba94c47e09fe60ddd41588cbab447341bb7611b950773",
+        "scene_id": "arena_combat",
+        "volumetric_sha256": "9cd2634efa5f33a1ad501259451b3bc2eca45a8ef12a0359bf5df57c994dd184",
+        "volumetric_vs_depth_pct": 98.998,
+        "volumetric_vs_off_pct": 97.964
+      },
+      {
+        "depth_sha256": "7362dc43ab526afcfc317e76bccfcf2df6c8c6929b6e19f5e475340ca6e6c835",
+        "off_sha256": "02f03c765a44a11369e43683d21b8c18e8d2dd644764ea520bcbd66e04dadc53",
+        "scene_id": "dense_city",
+        "volumetric_sha256": "326dc2a0202d6c4e9ed2c5bcf527d9564d0c189cdc7ca940d2b2b73da4d161e5",
+        "volumetric_vs_depth_pct": 99.953,
+        "volumetric_vs_off_pct": 98.511
+      }
+    ],
+    "verdict": "VOLUMETRIC_WITH_DEPTH_FALLBACK"
+  },
+  "s05": {
+    "bridge_checks": 13,
+    "verdict": "PASS"
+  },
+  "s06": {
+    "gpu_delta_pct": -4.1,
+    "gpu_off_p95_ms": 3.15,
+    "gpu_on_p95_ms": 3.02,
+    "scenes": [
+      {
+        "changed_pixels_pct": 9.274,
+        "off_sha256": "a999627e8818ec1568f8afaad45c47122619e698c20992f8f1b6db4f0912b5b7",
+        "on_sha256": "11ab9ffaf745455059523068362b79b2d14043c8b0417bf7e2a4a3d05615fd4b",
+        "scene_id": "corridor_static"
+      },
+      {
+        "changed_pixels_pct": 7.265,
+        "off_sha256": "303094016757937858f4a45ca60827da09b70ccf94f71440cc227fed5b5550f5",
+        "on_sha256": "f92b4567f4bb81957af2e122e5fe845eb3391aeff9d1aaeb1fb043cfe85bcdaa",
+        "scene_id": "arena_combat"
+      },
+      {
+        "changed_pixels_pct": 0.427,
+        "off_sha256": "6a6abbce1bb15846b367d001db57bcef9ed338cf91b892984dd86088a498a916",
+        "on_sha256": "f5b12ace5ab97124a78945776b9ba3946941be96f614c2df888c0eba34408f0f",
+        "scene_id": "dense_city"
+      }
+    ],
+    "shadowed_off": 4,
+    "shadowed_on": 2,
+    "verdict": "LIGHT_BUDGET_MVP"
+  },
+  "s07": {
+    "decisions": [
+      {
+        "decision": "GO",
+        "evidence": "3 original dark-fantasy looks rendered in 3 scenes",
+        "id": "CineLight Bible"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "low/ultra rendered; temporal shadow flicker not measured",
+        "id": "ShadowStability"
+      },
+      {
+        "decision": "GO_QUALITY_PROFILE_ONLY",
+        "evidence": "SDFGI +58.9% GPU and +451.1 MiB allocation",
+        "id": "GI Atlas"
+      },
+      {
+        "decision": "GO_WITH_FALLBACK",
+        "evidence": "volumetric +4.6% GPU vs depth fog",
+        "id": "FogWeave"
+      },
+      {
+        "decision": "GO",
+        "evidence": "13 deterministic checks with two mock consumers",
+        "id": "LightBridge"
+      },
+      {
+        "decision": "RESEARCH_MORE",
+        "evidence": "energy-only shadow slots; 2 vs 4 shadowed torches saves 4.1% GPU",
+        "id": "LightBudget"
+      }
+    ]
+  },
+  "s08": {
+    "verdict": "M03_LIGHTING_REFERENCE_DERIVED"
+  },
+  "schema_version": "m03_lighting_runtime.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "6be39d49d8769ff46a98990c6818c8132e9e5a1d",
+  "verdict": "M03_LIGHTING_REFERENCE_DERIVED",
+  "viewport_px": [
+    1920,
+    1080
+  ]
+}
