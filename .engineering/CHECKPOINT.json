@@ -2076,5 +2076,43 @@
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM02": "BOUNDED_ADMITTED_REFERENCE_PIPELINE"
+  },
+  "m04M05AssetKit": {
+    "id": "NEX-M04-M05-ASSET-KIT-WO-001",
+    "issues": [
+      9,
+      10
+    ],
+    "admissionAdr": "NEX-ADR-0011-M04-M05-ASSET-KIT-BOUNDED-ADMISSION.md",
+    "decision": "NEX-D-021",
+    "kit": {
+      "textures": 12,
+      "materials": 4,
+      "sizePx": 128,
+      "headlessChecks": 28
+    },
+    "dataset": {
+      "archetypes": [
+        "skirmish",
+        "elite",
+        "boss"
+      ],
+      "verdicts": {
+        "skirmish": "FIT",
+        "elite": "TIGHT",
+        "boss": "OVER_BUDGET"
+      }
+    },
+    "excludedScope": [
+      "custom shader, ShaderMaterial or shader compilation",
+      "renderer, scene integration, material application or rendering",
+      "runtime, hub, engine, main project.godot or gameplay",
+      "real particles, emitters, lights or decals",
+      "texture decoding in runtime, compression, atlas packing or import/cook pipeline",
+      "FPS, frame-time, VRAM, overdraw, quality, game-feel or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
