@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 58 · **PRs:** 112–243
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 59 · **PRs:** 112–246
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -64,6 +64,7 @@
 | m09Visual2560 | NEX-M09-VISUAL-2560-WO-001 | 239 | `9ab06ca44c4648dd0dc7c1df922feba772ba369c` | 14,6 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m09CampaignClosure | NEX-M09-CAMPAIGN-CLOSURE-WO-001 | 241 | `ffbfba8e695beca782a97ccdacff2407efddee9a` | 14 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | provenanceIndex | NEX-PROVENANCE-INDEX-WO-001 | 243 | `0bdd8736c18a4035605d20123ef30d75d8802bd3` | 14,6 | — | ADMIN_SOLO_NOT_INDEPENDENT |
+| m04M05BoundedAdmission | NEX-ADMISSION-M04-M05-WO-001 | 246 | `cd7474c4ebcc5a8275f47cb58235ed14dc0d6150` | — | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 

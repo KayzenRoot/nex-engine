@@ -4,11 +4,13 @@
 
 **M04 (#9) e M05 (#10) admitidos** como `BOUNDED_ADMITTED_MATERIALS_PIPELINE` e `BOUNDED_ADMITTED_VFX_PIPELINE` por `NEX-ADR-0009` / `NEX-D-019`, sobre a base `5f801c09ca4148fb9712f84cfd638bd80f3a4372`. A admissão cobre contratos `material.v1`/`spellfx.v1`, documentação, protótipos determinísticos de orçamento de texturas/FX, smoke headless, testes e evidência já verificados.
 
-**Escopo:** contratos e protótipos determinísticos. **Não admitido:** criação de material/shader/textura/atlas/partícula/emissor/luz/decal, decodificação de textura, atlas packing, criação de partículas, integração de renderização, runtime, hub, engine, renderer, shaders, `project.godot`, gameplay, cenas de produção, renderização real, generalização ou claims de FPS/qualidade. M07–M08 e M10–M12 permanecem `NOT_ADMITTED`; M01/M02/M03/M06/M09 seguem bounded admitted. A admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Escopo:** contratos e protótipos determinísticos. **Não admitido:** criação de material/shader/textura/atlas/partícula/emissor/luz/decal, decodificação de textura, atlas packing, criação de partículas, integração de renderização, runtime, hub, engine, renderer, shaders, `project.godot`, gameplay, cenas de produção, renderização real, generalização ou claims de FPS/qualidade. M07–M08 e M10–M12 permanecem `NOT_ADMITTED`; M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted. A admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+**Integração:** PR #246 squash `cd7474c4ebcc5a8275f47cb58235ed14dc0d6150`; árvore idêntica à revisada e checks pós-merge SUCCESS.
 
 ## Current verified scope | 2026-11-14 · Provenance index
 
-**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **58 entradas** com PR protegida e merge SHA, PRs **112–243**, 58 merge SHAs únicos.
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **59 entradas** com PR protegida e merge SHA, PRs **112–246**, 59 merge SHAs únicos.
 
 **Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
