@@ -73,13 +73,26 @@
       "structural_checks": 49,
       "structural_status": "PASS",
       "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "scene_analysis": "PASS",
       "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Mock occluders only; real obscurance not measured.",
+      "note": "Headless sightline analysis over real M01 scene AABBs; rendering not measured.",
       "evidence": [
         {
           "path": "nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log",
           "sha256": "64f410ea1aeba53518dc21d9f0af40b8386458830c1f2c6a46990ff460e76b2a",
           "bytes": 107
+        }
+      ],
+      "scene_analysis_evidence": [
+        {
+          "path": "docs/benchmarks/m02/analysis-integration.v1.json",
+          "sha256": "50eca78da74363ccbd1f4b686fd050161e4acf5064eef0d6d3254d6f724c7b00",
+          "bytes": 5889
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
+          "sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
+          "bytes": 2288
         }
       ]
     },
@@ -90,13 +103,26 @@
       "structural_checks": 37,
       "structural_status": "PASS",
       "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "scene_analysis": "PASS",
       "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Mock spheres; z-fighting on real meshes not measured.",
+      "note": "Depth planning over real M01 scene AABBs; z-fighting on rendered meshes not measured.",
       "evidence": [
         {
           "path": "nex_modules/render3d/depth_composition/evidence/headless-smoke-2026-11-13.log",
           "sha256": "3899c6bd6d501f01ed7eaee6b1b05266bfb20d4973be99e14353b7ad568392a6",
           "bytes": 107
+        }
+      ],
+      "scene_analysis_evidence": [
+        {
+          "path": "docs/benchmarks/m02/analysis-integration.v1.json",
+          "sha256": "50eca78da74363ccbd1f4b686fd050161e4acf5064eef0d6d3254d6f724c7b00",
+          "bytes": 5889
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
+          "sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
+          "bytes": 2288
         }
       ]
     },
@@ -107,13 +133,26 @@
       "structural_checks": 51,
       "structural_status": "PASS",
       "scene_comparison": "INCONCLUSIVE_NOT_RUN",
+      "scene_analysis": "PASS",
       "performance": "INCONCLUSIVE_NOT_RUN",
-      "note": "Synthetic sequences; real TAA/upscale not measured.",
+      "note": "Temporal analysis over static M01 frames; real TAA/upscale not measured.",
       "evidence": [
         {
           "path": "nex_modules/render3d/temporal/evidence/headless-smoke-2026-11-13.log",
           "sha256": "03699812d326f9b90df8e8ee7301d98bc74952e2e1fe362b852c86448023b3ab",
           "bytes": 107
+        }
+      ],
+      "scene_analysis_evidence": [
+        {
+          "path": "docs/benchmarks/m02/analysis-integration.v1.json",
+          "sha256": "50eca78da74363ccbd1f4b686fd050161e4acf5064eef0d6d3254d6f724c7b00",
+          "bytes": 5889
+        },
+        {
+          "path": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
+          "sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
+          "bytes": 2288
         }
       ]
     },

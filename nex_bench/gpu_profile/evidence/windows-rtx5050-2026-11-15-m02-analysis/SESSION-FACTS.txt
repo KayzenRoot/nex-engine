@@ -1,0 +1,19 @@
+NEX M02-S02/S03/S04 SCENE ANALYSIS SESSION FACTS
+================================================
+Date: 2026-11-15
+Host: Windows
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: 57f204ef7237243da13af66560f80d4a726c7d56
+Analysis script: nex_bench/scenes/m02_analysis/run_analysis.gd
+Mode: headless SceneTree script; no rendering, no GPU claim
+Scenes: corridor_static, arena_combat, dense_city (M01 base scenes)
+Geometry: world AABBs of MeshInstance3D nodes; largest 8 used as sightline
+          occluders and largest 16 approximated as depth sphere primitives
+Sightline: deterministic player/threat/decoration layout around the largest
+           AABB; 10 update steps of 50 ms
+Depth: camera from the scene Camera3D looking at the origin; opaque primitives
+Temporal: 4x4 luminance regions from the five static ab-low frames of the
+          integrated temporal-stability bundle; motion 0, alpha 1, edge false
+Outputs: corridor_static.json, arena_combat.json, dense_city.json
+Limitations: AABB/sphere approximations; one deterministic actor layout per
+             scene; static frames; no rendering, TAA, compositor or quality claim.
