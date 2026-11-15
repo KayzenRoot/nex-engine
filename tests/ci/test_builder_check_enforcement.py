@@ -80,7 +80,10 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
     def test_cross_module_provenance_builder_is_enforced(self) -> None:
         matches = CROSS_MODULE_COMMAND.findall(self.workflow)
         self.assertEqual(
-            [("docs/benchmarks/tools/build_provenance_index.py", "build_provenance_index.py", "--check")],
+            [
+                ("docs/benchmarks/tools/build_provenance_index.py", "build_provenance_index.py", "--check"),
+                ("docs/benchmarks/tools/validate_checkpoint.py", "validate_checkpoint.py", "--check"),
+            ],
             matches,
         )
 

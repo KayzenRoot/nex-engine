@@ -85,3 +85,4 @@ jobs:
           python3 docs/benchmarks/m09/tools/build_res_scaling_1600.py --check
           python3 docs/benchmarks/m09/tools/build_measurement_atlas.py --check
           python3 docs/benchmarks/tools/build_provenance_index.py --check
+          python3 docs/benchmarks/tools/validate_checkpoint.py --check
