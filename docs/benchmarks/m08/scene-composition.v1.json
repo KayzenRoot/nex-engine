@@ -1,0 +1,91 @@
+{
+  "analysis_manifest_sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
+  "analysis_manifest_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
+  "evidence_bundle": "nex_modules/render2_5d/composition/evidence/scene-composition-2026-11-15.json",
+  "evidence_sha256": "6dbaad91d5b2121d4540f0fba553015781a0430d4526ec039027a2d223d5237b",
+  "limitations": [
+    "planning only; no layer, viewport, shader, scene or renderer is created",
+    "the base 3D plan is the M02 scene-analysis bundle, not a rendered depth buffer",
+    "layer roles and parallax values are reference defaults, not art direction",
+    "no FPS, frame-time, visual-quality or game-feel claim"
+  ],
+  "observations": [
+    "corridor_static is SAFE_CONFIG_HEURISTIC with no conflicts",
+    "arena_combat and dense_city each report one medium base_z_fight_risk from the M02 depth plan",
+    "all scenes keep zero high, alpha-over-critical and overlay/gameplay conflicts",
+    "each plan has four layers and the player/threat critical entities"
+  ],
+  "runs": 3,
+  "scenes": [
+    {
+      "base_3d_plan": {
+        "alpha": 0,
+        "alpha_over_critical": 0,
+        "opaque": 16,
+        "overlay": 0,
+        "overlay_gameplay_conflicts": 0,
+        "z_fight_risks": 0
+      },
+      "conflicts": [],
+      "critical_entities": [
+        "player",
+        "threat"
+      ],
+      "layers": 4,
+      "scene_id": "corridor_static",
+      "scene_sha256": "bda652e2780c5d844f790612923a7b047300835596d9187cb8c31c9bfa7587bd",
+      "verdict": "SAFE_CONFIG_HEURISTIC"
+    },
+    {
+      "base_3d_plan": {
+        "alpha": 0,
+        "alpha_over_critical": 0,
+        "opaque": 16,
+        "overlay": 0,
+        "overlay_gameplay_conflicts": 0,
+        "z_fight_risks": 4
+      },
+      "conflicts": [
+        {
+          "code": "base_z_fight_risk",
+          "severity": "medium"
+        }
+      ],
+      "critical_entities": [
+        "player",
+        "threat"
+      ],
+      "layers": 4,
+      "scene_id": "arena_combat",
+      "scene_sha256": "afebea5f10e0f8eb0e0418f297160d1cfb85e7735450205bf60f42b78762a643",
+      "verdict": "CONFLICTS_REPORTED"
+    },
+    {
+      "base_3d_plan": {
+        "alpha": 0,
+        "alpha_over_critical": 0,
+        "opaque": 16,
+        "overlay": 0,
+        "overlay_gameplay_conflicts": 0,
+        "z_fight_risks": 4
+      },
+      "conflicts": [
+        {
+          "code": "base_z_fight_risk",
+          "severity": "medium"
+        }
+      ],
+      "critical_entities": [
+        "player",
+        "threat"
+      ],
+      "layers": 4,
+      "scene_id": "dense_city",
+      "scene_sha256": "61155e5bc5b561f066ece748b96e2286af0962fa202edd1c5c9dc20f12f09849",
+      "verdict": "CONFLICTS_REPORTED"
+    }
+  ],
+  "schema_version": "m08_scene_composition.v1",
+  "source_sha": "d218525cbd7cd84b5c69f5e52577a6244f8733b6",
+  "verdict": "COMPOSITION_PLANNING_DERIVED"
+}
