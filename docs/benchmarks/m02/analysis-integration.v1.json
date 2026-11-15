@@ -1,0 +1,215 @@
+{
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "harness_sha256": "b1a1f726c6289059b240e0244a0dd68db6d2ed2971f0670a0a08046a12172b14",
+  "limitations": [
+    "meshes are approximated as AABBs or spheres; per-pixel depth, edges, aliasing and transparency are not evaluated",
+    "one deterministic actor layout per scene; no gameplay or animation",
+    "temporal analysis uses 4x4 luminance regions from static frames; real TAA/upscale/compositor remain INCONCLUSIVE_NOT_RUN",
+    "no rendering, GPU, FPS, quality or cross-device claim"
+  ],
+  "observations": [
+    "the sightline policy reveals the player behind the largest occluder and raises one danger alert in every scene",
+    "no critical actor is left unseen in any scene",
+    "the depth planner reports 0 z-fight risks in corridor and 4 in arena/city; no alpha-over-critical or overlay-gameplay conflicts",
+    "the temporal analyzer returns BASELINE_ACCEPTABLE on the five static frames of all three scenes",
+    "these are headless analysis results over real scene AABBs and static frames, not rendering or quality claims"
+  ],
+  "runs": 3,
+  "scenes": [
+    {
+      "depth": {
+        "alpha_over_critical": 0,
+        "overlay_gameplay_conflicts": 0,
+        "passes": {
+          "alpha": 0,
+          "opaque": 16,
+          "overlay": 0
+        },
+        "z_fight_risks": 0
+      },
+      "mesh_count": 17,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "sightline": {
+        "actors": [
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": false,
+            "id": "player",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": true,
+            "id": "threat",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [],
+            "danger_alert": false,
+            "id": "decor",
+            "visual_readable": true
+          }
+        ],
+        "summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        }
+      },
+      "temporal": {
+        "action": "KEEP_NATIVE",
+        "frames": 5,
+        "metrics": {
+          "flicker": 0.0,
+          "ghosting": 0.0,
+          "render_scale": 1.0,
+          "sharpness_penalty": 0.0,
+          "shimmer": 0.0
+        },
+        "regions": 16,
+        "verdict": "BASELINE_ACCEPTABLE"
+      }
+    },
+    {
+      "depth": {
+        "alpha_over_critical": 0,
+        "overlay_gameplay_conflicts": 0,
+        "passes": {
+          "alpha": 0,
+          "opaque": 16,
+          "overlay": 0
+        },
+        "z_fight_risks": 4
+      },
+      "mesh_count": 34,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "sightline": {
+        "actors": [
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": false,
+            "id": "player",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": true,
+            "id": "threat",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [],
+            "danger_alert": false,
+            "id": "decor",
+            "visual_readable": true
+          }
+        ],
+        "summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        }
+      },
+      "temporal": {
+        "action": "KEEP_NATIVE",
+        "frames": 5,
+        "metrics": {
+          "flicker": 0.0,
+          "ghosting": 0.0,
+          "render_scale": 1.0,
+          "sharpness_penalty": 0.0,
+          "shimmer": 0.0
+        },
+        "regions": 16,
+        "verdict": "BASELINE_ACCEPTABLE"
+      }
+    },
+    {
+      "depth": {
+        "alpha_over_critical": 0,
+        "overlay_gameplay_conflicts": 0,
+        "passes": {
+          "alpha": 0,
+          "opaque": 16,
+          "overlay": 0
+        },
+        "z_fight_risks": 4
+      },
+      "mesh_count": 23,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "sightline": {
+        "actors": [
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": false,
+            "id": "player",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [
+              "mesh_00"
+            ],
+            "danger_alert": true,
+            "id": "threat",
+            "visual_readable": true
+          },
+          {
+            "blocked_by": [],
+            "danger_alert": false,
+            "id": "decor",
+            "visual_readable": true
+          }
+        ],
+        "summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        }
+      },
+      "temporal": {
+        "action": "KEEP_NATIVE",
+        "frames": 5,
+        "metrics": {
+          "flicker": 0.0,
+          "ghosting": 0.0,
+          "render_scale": 1.0,
+          "sharpness_penalty": 0.0,
+          "shimmer": 0.0
+        },
+        "regions": 16,
+        "verdict": "BASELINE_ACCEPTABLE"
+      }
+    }
+  ],
+  "schema_version": "m02_scene_analysis_integration.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "57f204ef7237243da13af66560f80d4a726c7d56",
+  "verdict": "SCENE_ANALYSIS_DERIVED"
+}

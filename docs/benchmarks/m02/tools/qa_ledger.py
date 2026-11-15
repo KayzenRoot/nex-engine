@@ -39,15 +39,27 @@ COMPONENTS = [
     {"id": "S02", "name": "Sightline reveal", "module": "nex_modules/render3d/sightline/",
      "structural_checks": 49, "evidence": ["nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log"],
      "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-     "performance": "INCONCLUSIVE_NOT_RUN", "note": "Mock occluders only; real obscurance not measured."},
+     "scene_analysis": "PASS",
+     "scene_analysis_evidence": ["docs/benchmarks/m02/analysis-integration.v1.json",
+                                 "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json"],
+     "performance": "INCONCLUSIVE_NOT_RUN",
+     "note": "Headless sightline analysis over real M01 scene AABBs; rendering not measured."},
     {"id": "S03", "name": "DepthWeave composition", "module": "nex_modules/render3d/depth_composition/",
      "structural_checks": 37, "evidence": ["nex_modules/render3d/depth_composition/evidence/headless-smoke-2026-11-13.log"],
      "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-     "performance": "INCONCLUSIVE_NOT_RUN", "note": "Mock spheres; z-fighting on real meshes not measured."},
+     "scene_analysis": "PASS",
+     "scene_analysis_evidence": ["docs/benchmarks/m02/analysis-integration.v1.json",
+                                 "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json"],
+     "performance": "INCONCLUSIVE_NOT_RUN",
+     "note": "Depth planning over real M01 scene AABBs; z-fighting on rendered meshes not measured."},
     {"id": "S04", "name": "TemporalGuard gate", "module": "nex_modules/render3d/temporal/",
      "structural_checks": 51, "evidence": ["nex_modules/render3d/temporal/evidence/headless-smoke-2026-11-13.log"],
      "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-     "performance": "INCONCLUSIVE_NOT_RUN", "note": "Synthetic sequences; real TAA/upscale not measured."},
+     "scene_analysis": "PASS",
+     "scene_analysis_evidence": ["docs/benchmarks/m02/analysis-integration.v1.json",
+                                 "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json"],
+     "performance": "INCONCLUSIVE_NOT_RUN",
+     "note": "Temporal analysis over static M01 frames; real TAA/upscale not measured."},
     {"id": "S05", "name": "RenderPassport profiles", "module": "nex_modules/render3d/profiles/",
      "structural_checks": 87, "evidence": ["nex_modules/render3d/profiles/evidence/headless-smoke-2026-11-13.log"],
      "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
@@ -101,10 +113,13 @@ def _hash_entries(paths: list[str]) -> list[dict]:
 def build() -> dict:
     components = []
     for component in COMPONENTS:
-        entry = {key: value for key, value in component.items() if key not in ("evidence", "scene_evidence", "performance_evidence")}
+        entry = {key: value for key, value in component.items()
+                 if key not in ("evidence", "scene_evidence", "scene_analysis_evidence", "performance_evidence")}
         entry["evidence"] = _evidence_entries(component)
         if "scene_evidence" in component:
             entry["scene_evidence"] = _hash_entries(component["scene_evidence"])
+        if "scene_analysis_evidence" in component:
+            entry["scene_analysis_evidence"] = _hash_entries(component["scene_analysis_evidence"])
         if "performance_evidence" in component:
             entry["performance_evidence"] = _hash_entries(component["performance_evidence"])
         components.append(entry)
@@ -152,6 +167,10 @@ def _validate_component(component: dict, index: int, errors: list[str]) -> None:
         errors.append(f"{label}: PASS without evidence")
     if component.get("scene_comparison") == "PASS" and not component.get("scene_evidence"):
         errors.append(f"{label}: scene PASS without scene_evidence")
+    if component.get("scene_analysis", "INCONCLUSIVE_NOT_RUN") not in SCENE_STATUSES:
+        errors.append(f"{label}: invalid scene_analysis")
+    if component.get("scene_analysis") == "PASS" and not component.get("scene_analysis_evidence"):
+        errors.append(f"{label}: scene analysis PASS without scene_analysis_evidence")
     if component.get("performance") == "MEASURED" and not component.get("performance_evidence"):
         errors.append(f"{label}: measured performance without performance_evidence")
 

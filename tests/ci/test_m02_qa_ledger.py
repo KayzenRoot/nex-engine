@@ -58,7 +58,8 @@ class QaLedgerTests(unittest.TestCase):
         self.assertEqual(6, len(self.ledger["components"]))
         self.assertEqual(["corridor_static", "arena_combat", "dense_city"], self.ledger["scenes"])
 
-    def test_components_are_structural_pass_and_only_s01_is_measured(self):
+    def test_components_are_structural_pass_and_measured_only_with_evidence(self):
+        analysis_components = {"S02", "S03", "S04"}
         for component in self.ledger["components"]:
             with self.subTest(id=component["id"]):
                 self.assertEqual("PASS", component["structural_status"])
@@ -72,6 +73,9 @@ class QaLedgerTests(unittest.TestCase):
                                   {"INCONCLUSIVE_NOT_RUN", "NOT_APPLICABLE_RESEARCH"})
                     self.assertIn(component["performance"],
                                   {"INCONCLUSIVE_NOT_RUN", "NOT_APPLICABLE_RESEARCH"})
+                if component["id"] in analysis_components:
+                    self.assertEqual("PASS", component["scene_analysis"])
+                    self.assertTrue(component["scene_analysis_evidence"])
                 for evidence in component["evidence"]:
                     self.assertEqual(64, len(evidence["sha256"]))
 
@@ -85,7 +89,9 @@ class QaLedgerTests(unittest.TestCase):
 
     def test_evidence_hashes_match_files(self):
         for component in self.ledger["components"]:
-            for evidence in component["evidence"]:
+            entries = list(component["evidence"])
+            entries += component.get("scene_analysis_evidence", [])
+            for evidence in entries:
                 with self.subTest(path=evidence["path"]):
                     self.assertEqual(TOOL.staged_sha(evidence["path"])[0], evidence["sha256"])
 
@@ -93,6 +99,12 @@ class QaLedgerTests(unittest.TestCase):
         tampered = json.loads(json.dumps(self.ledger))
         tampered["components"][1]["scene_comparison"] = "PASS"
         self.assertTrue(any("scene PASS without scene_evidence" in error for error in TOOL.validate(tampered)))
+
+    def test_scene_analysis_pass_without_evidence_is_rejected(self):
+        tampered = json.loads(json.dumps(self.ledger))
+        del tampered["components"][1]["scene_analysis_evidence"]
+        self.assertTrue(any("scene analysis PASS without scene_analysis_evidence" in error
+                            for error in TOOL.validate(tampered)))
 
     def test_measured_performance_without_evidence_is_rejected(self):
         tampered = json.loads(json.dumps(self.ledger))

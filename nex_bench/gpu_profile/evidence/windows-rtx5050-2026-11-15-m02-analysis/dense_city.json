@@ -1,0 +1,244 @@
+{
+  "camera_position": [
+    59.0,
+    59.0,
+    59.0
+  ],
+  "depth": {
+    "alpha_over_critical": [],
+    "limitations": [
+      "mock spheres, view-axis depth only; no rasterization",
+      "alpha_over_critical is conservative depth-based, not pixel coverage",
+      "edge pixels/aliasing cannot be evaluated without rendering",
+      "orthographic and perspective share view-axis ordering in this prototype",
+      "M08 2.5D composition contract is a draft, not an admitted implementation"
+    ],
+    "overlay_gameplay_conflicts": [],
+    "passes": {
+      "alpha": [],
+      "opaque": [
+        "mesh_07",
+        "mesh_03",
+        "mesh_12",
+        "mesh_09",
+        "mesh_04",
+        "mesh_06",
+        "mesh_02",
+        "mesh_08",
+        "mesh_10",
+        "mesh_15",
+        "mesh_00",
+        "mesh_11",
+        "mesh_13",
+        "mesh_01",
+        "mesh_05",
+        "mesh_14"
+      ],
+      "overlay": []
+    },
+    "z_fight_risks": [
+      {
+        "a": "mesh_04",
+        "b": "mesh_06",
+        "delta": 0.0
+      },
+      {
+        "a": "mesh_02",
+        "b": "mesh_08",
+        "delta": 0.0
+      },
+      {
+        "a": "mesh_10",
+        "b": "mesh_15",
+        "delta": 0.0
+      },
+      {
+        "a": "mesh_11",
+        "b": "mesh_13",
+        "delta": 0.0
+      }
+    ]
+  },
+  "limitations": [
+    "headless analysis over real scene AABBs and static frames; no rendering",
+    "meshes are approximated as AABB/sphere primitives",
+    "single deterministic actor layout per scene",
+    "temporal analysis uses 4x4 luminance regions from static ab-low frames"
+  ],
+  "mesh_count": 23,
+  "occluders_used": 8,
+  "primitives_used": 16,
+  "scene_id": "dense_city",
+  "schema_version": "m02_scene_analysis.v1",
+  "sightline": {
+    "actors": [
+      {
+        "blocked_by": [
+          "mesh_00"
+        ],
+        "critical": false,
+        "danger_alert": false,
+        "gameplay_visible": false,
+        "id": "player",
+        "needs_reveal": true,
+        "position": [
+          0.0,
+          -0.280000001192093,
+          0.0
+        ],
+        "priority": 0,
+        "visual_readable": true
+      },
+      {
+        "blocked_by": [
+          "mesh_00"
+        ],
+        "critical": false,
+        "danger_alert": true,
+        "gameplay_visible": false,
+        "id": "threat",
+        "needs_reveal": false,
+        "position": [
+          -1.15287387371063,
+          -1.43834507465363,
+          -1.15287387371063
+        ],
+        "priority": 1,
+        "visual_readable": true
+      },
+      {
+        "blocked_by": [],
+        "critical": false,
+        "danger_alert": false,
+        "gameplay_visible": true,
+        "id": "decor",
+        "needs_reveal": false,
+        "position": [
+          1.15287387371063,
+          0.878345131874084,
+          1.15287387371063
+        ],
+        "priority": 2,
+        "visual_readable": true
+      }
+    ],
+    "occluders": [
+      {
+        "active": true,
+        "alpha": 0.35,
+        "blockers": [
+          0
+        ],
+        "capped": false,
+        "id": "mesh_00",
+        "kind": 2,
+        "reveal_progress": 1.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_01",
+        "kind": 0,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_02",
+        "kind": 0,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_03",
+        "kind": 2,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_04",
+        "kind": 0,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_05",
+        "kind": 0,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_06",
+        "kind": 2,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      },
+      {
+        "active": false,
+        "alpha": 1.0,
+        "blockers": [],
+        "capped": false,
+        "id": "mesh_07",
+        "kind": 0,
+        "reveal_progress": 0.0,
+        "silhouette": false,
+        "transparent": false
+      }
+    ],
+    "summary": {
+      "active_reveals": 1,
+      "critical_unseen": false,
+      "danger_alerts": 1,
+      "max_reveal": 8
+    }
+  },
+  "temporal": {
+    "action": "KEEP_NATIVE",
+    "frames": 5,
+    "limitations": [
+      "analysis only; no rendering, TAA, upscale or antialiasing is executed",
+      "real-scene ghosting/flicker/shimmer is INCONCLUSIVE_NOT_RUN",
+      "metrics use synthetic region luminance, not pixel buffers",
+      "CompositorEffect/render-thread is out of scope and requires a separate WO with ABI review",
+      "postprocess is disabled by default; the enable toggle is a guarded mock state"
+    ],
+    "metrics": {
+      "flicker": 0.0,
+      "ghosting": 0.0,
+      "render_scale": 1.0,
+      "sharpness_penalty": 0.0,
+      "shimmer": 0.0
+    },
+    "regions": 16,
+    "verdict": "BASELINE_ACCEPTABLE"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "m02_scene_analysis_runs.v1",
+  "source_sha": "57f204ef7237243da13af66560f80d4a726c7d56",
+  "harness_sha256": "b1a1f726c6289059b240e0244a0dd68db6d2ed2971f0670a0a08046a12172b14",
+  "workload": {
+    "scenes": [
+      {
+        "scene_id": "corridor_static",
+        "scene": "M01 Corridor A/B/A"
+      },
+      {
+        "scene_id": "arena_combat",
+        "scene": "M01 Arena A/B/A"
+      },
+      {
+        "scene_id": "dense_city",
+        "scene": "M01 City A/B/A"
+      }
+    ],
+    "components": [
+      "sightline",
+      "depth",
+      "temporal"
+    ],
+    "max_occluders": 8,
+    "max_primitives": 16,
+    "temporal_regions": 16
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "file": "corridor_static.json",
+      "sha256": "bda652e2780c5d844f790612923a7b047300835596d9187cb8c31c9bfa7587bd",
+      "mesh_count": 17,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "sightline_summary": {
+        "active_reveals": 1,
+        "critical_unseen": false,
+        "danger_alerts": 1,
+        "max_reveal": 8
+      },
+      "depth_z_fight_risks": 0,
+      "temporal_verdict": "BASELINE_ACCEPTABLE"
+    },
+    {
+      "sequence": 2,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "file": "arena_combat.json",
+      "sha256": "afebea5f10e0f8eb0e0418f297160d1cfb85e7735450205bf60f42b78762a643",
+      "mesh_count": 34,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "sightline_summary": {
+        "active_reveals": 1,
+        "critical_unseen": false,
+        "danger_alerts": 1,
+        "max_reveal": 8
+      },
+      "depth_z_fight_risks": 4,
+      "temporal_verdict": "BASELINE_ACCEPTABLE"
+    },
+    {
+      "sequence": 3,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "file": "dense_city.json",
+      "sha256": "61155e5bc5b561f066ece748b96e2286af0962fa202edd1c5c9dc20f12f09849",
+      "mesh_count": 23,
+      "occluders_used": 8,
+      "primitives_used": 16,
+      "sightline_summary": {
+        "active_reveals": 1,
+        "critical_unseen": false,
+        "danger_alerts": 1,
+        "max_reveal": 8
+      },
+      "depth_z_fight_risks": 4,
+      "temporal_verdict": "BASELINE_ACCEPTABLE"
+    }
+  ]
+}
