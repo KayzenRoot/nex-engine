@@ -73,6 +73,19 @@ def _findings_temporal(report: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _findings_camera_motion(report: dict[str, Any]) -> dict[str, Any]:
+    pairs = [pair for cell in report["cells"] for pair in cell["pairs"]]
+    return {
+        "changed_pixels_pct_range": [
+            min(pair["changed_pixels_pct"] for pair in pairs),
+            max(pair["changed_pixels_pct"] for pair in pairs),
+        ],
+        "mean_abs_diff_mean_by_cell": {
+            f"{cell['scene_id']}/{cell['preset_id']}": cell["mean_abs_diff_mean"] for cell in report["cells"]
+        },
+    }
+
+
 def _findings_res_scaling(report: dict[str, Any]) -> dict[str, Any]:
     return {"gpu_p95_high_vs_low_pct": {
         key: value["gpu_p95_pct"] for key, value in report["deltas_high_vs_low"].items()
@@ -139,6 +152,9 @@ ENTRIES: tuple[dict[str, Any], ...] = (
     {"id": "m01-temporal", "kind": "visual", "report": "temporal-stability.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-m01-temporal", "runs": 30, "files": 33,
      "findings": _findings_temporal},
+    {"id": "camera-motion", "kind": "visual", "report": "camera-motion.v1.json",
+     "evidence": "windows-rtx5050-2026-11-14-camera-motion", "runs": 30, "files": 33,
+     "findings": _findings_camera_motion},
     {"id": "res-scaling", "kind": "performance", "report": "res-scaling.v1.json",
      "evidence": "windows-rtx5050-2026-11-14-res-scaling", "runs": 18, "files": 39,
      "findings": _findings_res_scaling},
@@ -216,12 +232,13 @@ def build_report() -> dict[str, Any]:
         "At 2560x1440 the high/low ratio is +651.0% and the M03 ab-high prediction is 70.3% below measured; the 2% match is confined to 1280x720.",
         "The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.",
         "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720, 1.276-3.367% at 1920x1080 and 1.031-3.074% at 2560x1440.",
+        "Camera-motion sequences produce distinct frames in every consecutive pair; changed pixels range 3.132-19.766% across the six cells.",
         "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed.",
     ]
     open_questions = [
         "Resolutions above 2560x1440 and ultrawide aspect ratios are not measurable on the current 2560x1080 desktop; a 3840x2160 attempt was clamped to 2560x1009 and rejected as INVALID.",
         "Other GPUs, drivers and CPU platforms are not measured.",
-        "Animation, temporal effects, camera motion and real game workloads are not covered.",
+        "Animation, VFX, physics and real game workloads are not covered.",
         "Preset application in the hub/engine and M09 parent admission remain out of scope.",
     ]
     return {

@@ -22,6 +22,8 @@ const VISUAL_WARMUP_FRAMES := 180
 const VISUAL_SEQUENCE_ENV := "NEX_PRESET_AB_VISUAL_SEQUENCE"
 const VISUAL_SEQUENCE_FRAMES := 5
 const VISUAL_SEQUENCE_INTERVAL := 30
+const CAMERA_MOTION_ENV := "NEX_PRESET_AB_CAMERA_MOTION"
+const CAMERA_MOTION_STEP_DEG := 3.0
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
 const M01_SCENES := {
@@ -399,6 +401,17 @@ func _tonemap_mode(value: String) -> int:
 			return Environment.TONE_MAPPER_FILMIC
 
 
+func _apply_camera_motion(frame_index: int) -> void:
+	if OS.get_environment(CAMERA_MOTION_ENV) != "1" or camera == null:
+		return
+	var flat := Vector2(camera.position.x, camera.position.z)
+	if flat.length() < 0.001:
+		return
+	var angle := atan2(flat.y, flat.x) + deg_to_rad(CAMERA_MOTION_STEP_DEG * frame_index)
+	camera.position = Vector3(flat.length() * cos(angle), camera.position.y, flat.length() * sin(angle))
+	camera.look_at(Vector3.ZERO, Vector3.UP)
+
+
 func _start_visual_sequence() -> void:
 	if not stage_valid:
 		print("NEX_PRESET_AB_FAIL stage")
@@ -414,6 +427,7 @@ func _start_visual_sequence() -> void:
 	var output_dir := ProjectSettings.globalize_path(requested_dir)
 	DirAccess.make_dir_recursive_absolute(output_dir)
 	for frame_index in range(VISUAL_SEQUENCE_FRAMES):
+		_apply_camera_motion(frame_index)
 		await RenderingServer.frame_post_draw
 		var image := get_viewport().get_texture().get_image()
 		if image == null or image.is_empty():

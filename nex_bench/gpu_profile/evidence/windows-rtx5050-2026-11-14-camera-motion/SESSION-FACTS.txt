@@ -1,0 +1,21 @@
+NEX M09 CAMERA-MOTION SEQUENCE SESSION FACTS
+============================================
+Date: 2026-11-14
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: a6ce04bf74e7dee5712738a213704aab8068132b
+Scenes: corridor_static, arena_combat, dense_city (M01 base scenes)
+Proxy count: 100 deterministic fillers per scene
+Resolution: 1280x720 with NEX_PRESET_AB_NATIVE_RESOLUTION=1
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Motion: deterministic orbit around the origin, 3 degrees per captured frame
+Frames: 5 per scene/preset, 30 PNGs total; 30-frame interval between captures
+Warmup: 180 frames before the first capture
+Validation: every PNG is 1280x720 with 3 channels and its manifest SHA-256;
+            every consecutive frame pair differs in at least one pixel.
+Comparison: exact RGB byte comparison with changed-pixel threshold 2.
+Limitations: single session; discrete 3-degree steps; static scene content;
+             no animation, VFX, physics or gameplay motion; no quality claim.
