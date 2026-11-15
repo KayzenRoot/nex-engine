@@ -3,7 +3,7 @@
 **Status:** `MEASUREMENT_CAMPAIGN_INDEXED / SINGLE_SESSION / NO_GENERALIZATION / ADMIN_SOLO_NOT_INDEPENDENT`
 
 **Hardware:** NVIDIA GeForce RTX 5050 · NVIDIA 617.14 / Vulkan forward_plus · 4.7.2-stable
-**Totais:** 14 bundles · 156 capturas de performance · 114 imagens · 468 arquivos de evidência · 14 source SHAs
+**Totais:** 15 bundles · 162 capturas de performance · 114 imagens · 483 arquivos de evidência · 15 source SHAs
 
 ## Bundles
 
@@ -23,6 +23,7 @@
 | interaction-200 | performance | 12 | 27 | `c1b73743c0c9` | MEASURED_COST_OBSERVED |
 | interaction-200-720 | performance | 6 | 15 | `99eaad041b84` | MEASURED_COST_OBSERVED |
 | res-scaling-1440 | performance | 6 | 15 | `39633b347784` | MEASURED_COST_OBSERVED |
+| res-scaling-1600 | performance | 6 | 15 | `b9fd2ed1cbde` | MEASURED_COST_OBSERVED |
 
 ## Achados cross-experiment
 
@@ -30,6 +31,7 @@
 - At 50-200 proxies on arena_combat, resolution dominates GPU cost while proxy count has a small GPU effect and a larger CPU effect.
 - At 1280x720, 200 proxies change GPU p95 by only +1.3%/+1.8% versus the 100-proxy context while CPU p95 rises +48.7%/+29.0%; the M03 ab-high prediction remains within 2%.
 - At 2560x1440 the high/low ratio is +651.0% and the M03 ab-high prediction is 70.3% below measured; the 2% match is confined to 1280x720.
+- At 1600x900 the curve remains monotonic: GPU p95 rises +25.5%/+37.4% from 1280x720 and +17.3%/+30.7% to 1920x1080; the M03 ab-high error is -27.2%.
 - The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.
 - Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720, 1.276-3.367% at 1920x1080 and 1.031-3.074% at 2560x1440.
 - Camera-motion sequences produce distinct frames in every consecutive pair; changed pixels range 3.132-19.766% across the six cells.

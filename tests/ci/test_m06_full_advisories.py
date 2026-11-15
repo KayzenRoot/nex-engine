@@ -26,11 +26,11 @@ class M06FullAdvisoriesTests(unittest.TestCase):
         self.assertEqual("docs/benchmarks/m06/observations/m09-observations-full.v1.json", self.report["source_bundle"])
         expected = {entry["observation_id"] for entry in json.loads(OBSERVATIONS.read_text(encoding="utf-8"))["observations"]}
         self.assertEqual(expected, set(self.advisories))
-        self.assertEqual(156, self.report["observation_count"])
+        self.assertEqual(162, self.report["observation_count"])
 
     def test_summary_and_recommendations_are_derived_and_safe(self) -> None:
         summary = self.report["summary"]
-        self.assertEqual({"pacing": 156}, summary["bottleneck_counts"])
+        self.assertEqual({"pacing": 162}, summary["bottleneck_counts"])
         headrooms = [entry["frame_budget"]["render_headroom_ms"] for entry in self.advisories.values()]
         shares = [entry["frame_budget"]["gpu_share_of_frame_pct"] for entry in self.advisories.values()]
         self.assertEqual([min(headrooms), max(headrooms), max(shares)], [

@@ -15,7 +15,7 @@ REPORT_MD = DOCS / "M09-PERFORMANCE-ATLAS.md"
 SOURCE = DOCS / "observations" / "m09-observations-full.v1.json"
 EXPECTED_COUNTS = {"preset-ab": 6, "proxy-scaling": 18, "m01-ab": 18, "res-scaling": 18,
                    "interaction": 24, "cross-scene": 48, "interaction-200": 12,
-                   "interaction-200-720": 6, "res-scaling-1440": 6}
+                   "interaction-200-720": 6, "res-scaling-1440": 6, "res-scaling-1600": 6}
 
 
 class M06M09AtlasTests(unittest.TestCase):
@@ -26,11 +26,11 @@ class M06M09AtlasTests(unittest.TestCase):
         cls.source = json.loads(SOURCE.read_text(encoding="utf-8"))
         cls.bundles = {bundle["bundle"]: bundle for bundle in cls.report["bundles"]}
 
-    def test_report_covers_nine_bundles_and_156_observations(self) -> None:
+    def test_report_covers_ten_bundles_and_162_observations(self) -> None:
         self.assertEqual("m06_m09_performance_atlas.v1", self.report["schema_version"])
-        self.assertEqual(156, self.report["observation_count"])
-        self.assertEqual(9, self.report["bundle_count"])
-        self.assertEqual(156, len(self.source["observations"]))
+        self.assertEqual(162, self.report["observation_count"])
+        self.assertEqual(10, self.report["bundle_count"])
+        self.assertEqual(162, len(self.source["observations"]))
         self.assertEqual(EXPECTED_COUNTS, {name: bundle["runs"] for name, bundle in self.bundles.items()})
 
     def test_every_bundle_is_pacing_and_has_cells(self) -> None:
@@ -44,7 +44,7 @@ class M06M09AtlasTests(unittest.TestCase):
 
     def test_summary_and_top_cell_values(self) -> None:
         summary = self.report["summary"]
-        self.assertEqual({"pacing": 156}, summary["bottleneck_counts"])
+        self.assertEqual({"pacing": 162}, summary["bottleneck_counts"])
         self.assertEqual(0.068, summary["gpu_p95_ms"]["min"])
         self.assertEqual(1.55, summary["gpu_p95_ms"]["max"])
         self.assertEqual(0.226, summary["gpu_p95_ms"]["median"])

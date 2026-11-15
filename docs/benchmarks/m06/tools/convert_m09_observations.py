@@ -28,6 +28,7 @@ FULL_BUNDLES = (
     ("windows-rtx5050-2026-11-14-interaction-200", "interaction-200"),
     ("windows-rtx5050-2026-11-14-arena-200-720", "interaction-200-720"),
     ("windows-rtx5050-2026-11-14-res-scaling-1440", "res-scaling-1440"),
+    ("windows-rtx5050-2026-11-14-res-scaling-1600", "res-scaling-1600"),
 )
 
 SELECTORS = (
@@ -255,9 +256,9 @@ def build_bundle_full() -> dict[str, Any]:
                 }
             )
     observations = [_observation(selector) for selector in selectors]
-    if len(observations) != 156:
-        raise ValueError("full observation bundle must contain 156 observations")
-    if len({observation["observation_id"] for observation in observations}) != 156:
+    if len(observations) != 162:
+        raise ValueError("full observation bundle must contain 162 observations")
+    if len({observation["observation_id"] for observation in observations}) != 162:
         raise ValueError("full observation ids must be unique")
     return {
         "schema_version": BUNDLE_VERSION,

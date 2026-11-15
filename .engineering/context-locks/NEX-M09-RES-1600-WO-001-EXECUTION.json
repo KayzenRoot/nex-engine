@@ -1,0 +1,221 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-M09-RES-1600-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 14,
+  "secondaryIssue": 11,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Owner authorized all listed paths at once; this measurement adds the 1600x900 resolution point and refreshes the M06 chain.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "b9fd2ed1cbde0625200b104fbd2c34796258dad3",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_M09_CAMERA_MOTION_CHECKPOINT",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "e4cfbdb08b5ac8f7b3e29916c430459034f5db18"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "5c73a8b8034dc1851e9fd4dd03f2eb8a505b00c6"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "90ca0d6aaf5e2553525ca9214c1ea0360964eb38"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "1190565c6bba4d0dcd24bb1219e56ab98bea37a4"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "24c859ed11897a28c18fd42fde9d25215ada9b95"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "caa2a5ee9e8ea019203b36f986542d35bb30d744"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "cecefbfd357223c89eed192ca22aa8d9c68be946"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/arena_resolution.py",
+      "gitBlobSha1": "e6e9471f0930c9fa3c89d2ba8e716e2865274ff0"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/common.py",
+      "gitBlobSha1": "adfa1463e585f057a13c6a35d6b8d43d6807c68c"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/preset_report.py",
+      "gitBlobSha1": "8b8695c2c533e1285195211df998d045ab89cc10"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/png_image.py",
+      "gitBlobSha1": "d28d79eda81575845512bee3adbdabba38786134"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/build_measurement_atlas.py",
+      "gitBlobSha1": "06bb46c63987ad9d6c581fbd020b83db6c195f67"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/convert_m09_observations.py",
+      "gitBlobSha1": "2e1028766b58fa3b67eddbdbedc878789f3edfed"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_m09_atlas.py",
+      "gitBlobSha1": "3c87a5f218d22c4083d631e6cefd33dccb708403"
+    },
+    {
+      "path": "docs/benchmarks/m06/tools/build_advisories.py",
+      "gitBlobSha1": "b838b7fff74f643c1d9b4f1b95fadc3940c5afb8"
+    },
+    {
+      "path": "docs/benchmarks/m09/README.md",
+      "gitBlobSha1": "903e022de4a960c5e8a08bf43c388de7de73d508"
+    },
+    {
+      "path": "docs/benchmarks/m06/README.md",
+      "gitBlobSha1": "7d3f204bcf0309e6bad3f33f968bb372c82c9b0a"
+    },
+    {
+      "path": "tests/ci/test_measurement_atlas.py",
+      "gitBlobSha1": "86d5651dc3232db7b484abefc2662ade41af0212"
+    },
+    {
+      "path": "tests/ci/test_builder_check_enforcement.py",
+      "gitBlobSha1": "2b0b5e8b840f50e407f675c084d6c160ac6e5355"
+    },
+    {
+      "path": "tests/ci/test_m06_full_observations.py",
+      "gitBlobSha1": "d2e4af121707ff02d1f8fc1a61168124a8b3b91f"
+    },
+    {
+      "path": "tests/ci/test_m06_m09_atlas.py",
+      "gitBlobSha1": "1c5b2fe71a3f40692771c2e0f9b871a3b85ab638"
+    },
+    {
+      "path": "tests/ci/test_m06_full_advisories.py",
+      "gitBlobSha1": "b8ffb450880285500f2e9b4cc1834d2ad6919f4b"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling-1600/",
+      "docs/benchmarks/m09/tools/build_res_scaling_1600.py",
+      "docs/benchmarks/m09/res-scaling-1600.v1.json",
+      "docs/benchmarks/m09/RES-SCALING-1600-REPORT.md",
+      "docs/benchmarks/m09/measurement-atlas.v1.json",
+      "docs/benchmarks/m09/MEASUREMENT-ATLAS.md",
+      "docs/benchmarks/m09/README.md",
+      "docs/benchmarks/m06/tools/convert_m09_observations.py",
+      "docs/benchmarks/m06/tools/build_m09_atlas.py",
+      "docs/benchmarks/m06/tools/build_advisories.py",
+      "docs/benchmarks/m06/observations/m09-observations-full.v1.json",
+      "docs/benchmarks/m06/m09-performance-atlas.v1.json",
+      "docs/benchmarks/m06/M09-PERFORMANCE-ATLAS.md",
+      "docs/benchmarks/m06/advisories-full.v1.json",
+      "docs/benchmarks/m06/ADVISORIES-FULL.md",
+      "docs/benchmarks/m06/README.md",
+      "tests/ci/test_res_scaling_1600.py",
+      "tests/ci/test_measurement_atlas.py",
+      "tests/ci/test_builder_check_enforcement.py",
+      "tests/ci/test_m06_full_observations.py",
+      "tests/ci/test_m06_m09_atlas.py",
+      "tests/ci/test_m06_full_advisories.py",
+      ".github/workflows/nex-ci-fastlane.yml",
+      ".engineering/work-orders/NEX-M09-RES-1600-WO-001.md",
+      ".engineering/context-locks/NEX-M09-RES-1600-WO-001-EXECUTION.json",
+      ".engineering/evidence/NEX-M09-RES-1600-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-M09-RES-1600-WO-001-PROPOSED.md",
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md"
+    ],
+    "readOnly": [
+      "nex_bench/scenes/**",
+      "nex_bench/gpu_profile/session.gd",
+      "nex_bench/presets/**",
+      "docs/benchmarks/m09/** (exceto os paths acima)",
+      "docs/benchmarks/m03/**",
+      "contracts/**",
+      "nex_modules/**",
+      "ops/**",
+      "tooling/**",
+      "tests/** (exceto os testes acima)",
+      ".engineering/** (exceto os paths acima)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset or required-context changes",
+      "harness, scene, preset or contract changes",
+      "model coefficient or snapshot changes",
+      "visual 1600 measurement",
+      "runtime/renderer/shader/hub/project.godot changes",
+      "FPS, quality, universal gain or cross-device claims",
+      "new parent admissions"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}

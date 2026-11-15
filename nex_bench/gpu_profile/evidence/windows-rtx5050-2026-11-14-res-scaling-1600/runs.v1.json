@@ -1,0 +1,111 @@
+{
+  "schema_version": "preset_ab_runs.v1",
+  "source_sha": "b9fd2ed1cbde0625200b104fbd2c34796258dad3",
+  "workload": {
+    "scene_id": "arena_combat",
+    "scene": "M01 Arena A/B/A",
+    "layout": "M01 arena_combat + deterministic fillers",
+    "effect_mode": "lights",
+    "proxy_counts": [
+      100
+    ],
+    "resolutions": [
+      {
+        "width": 1600,
+        "height": 900
+      }
+    ]
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "run_id": "1794702878-34354441",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:34:38Z"
+    },
+    {
+      "sequence": 2,
+      "run_id": "1794702913-33808291",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "repetition": 1,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:35:13Z"
+    },
+    {
+      "sequence": 3,
+      "run_id": "1794702948-33738278",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:35:48Z"
+    },
+    {
+      "sequence": 4,
+      "run_id": "1794702982-33495537",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "repetition": 2,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:36:22Z"
+    },
+    {
+      "sequence": 5,
+      "run_id": "1794703017-33583839",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:36:57Z"
+    },
+    {
+      "sequence": 6,
+      "run_id": "1794703051-33929597",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "proxy_count": 100,
+      "preset_id": "ab-high",
+      "repetition": 3,
+      "viewport_px": [
+        1600,
+        900
+      ],
+      "captured_at_utc": "2026-11-15T00:37:31Z"
+    }
+  ]
+}
