@@ -291,11 +291,29 @@ def build_observation(textures: dict[str, bytes]) -> dict[str, Any]:
     }
 
 
-def render_markdown(observation: dict[str, Any]) -> str:
+def render_markdown(observation: dict[str, Any],
+                    title: str = "NEX M04 · Procedural material kit",
+                    status: str = "REFERENCE_KIT / NON_RENDERING / NO_QUALITY_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT",
+                    bullets: list[str] | None = None,
+                    limitations: list[str] | None = None,
+                    footer: str = "Gerado por `docs/benchmarks/m04/tools/build_material_kit.py`; `--check` reproduz bytes e SHA-256.") -> str:
+    if bullets is None:
+        bullets = [
+            "- 12 texturas PNG determinísticas (albedo, normal, ORM) em 128×128, geradas sem rendering.",
+            "- 4 materiais `StandardMaterial3D` em `.tres`, carregados headless por `ResourceLoader`.",
+            "- Uma observação `material.v1` com SHA-256 de cada textura e orçamento declarado.",
+        ]
+    if limitations is None:
+        limitations = [
+            "- Kit de referência: não é arte de produção nem prova de qualidade visual.",
+            "- Sem shader customizado, sem compilação de shader, sem renderer, sem cena ou runtime.",
+            "- Texturas não são comprimidas nem importadas para um pipeline de build; o log headless cobre apenas o carregamento local.",
+            "- Nenhum FPS, frame-time, VRAM ou ganho é alegado.",
+        ]
     lines = [
-        "# NEX M04 · Procedural material kit",
+        f"# {title}",
         "",
-        "**Status:** `REFERENCE_KIT / NON_RENDERING / NO_QUALITY_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`",
+        f"**Status:** `{status}`",
         "",
         f"**Base:** `{BASE_SHA}` · **Godot:** `{observation['provenance']['godot_version']}`",
         "",
@@ -311,24 +329,11 @@ def render_markdown(observation: dict[str, Any]) -> str:
             f"{surface['metallic']:.2f} | {surface['roughness']:.2f} | {emission:.2f} | "
             f"{len(material['textures'])} |"
         )
-    lines.extend([
-        "",
-        "## O que é",
-        "",
-        "- 12 texturas PNG determinísticas (albedo, normal, ORM) em 128×128, geradas sem rendering.",
-        "- 4 materiais `StandardMaterial3D` em `.tres`, carregados headless por `ResourceLoader`.",
-        "- Uma observação `material.v1` com SHA-256 de cada textura e orçamento declarado.",
-        "",
-        "## Limitações",
-        "",
-        "- Kit de referência: não é arte de produção nem prova de qualidade visual.",
-        "- Sem shader customizado, sem compilação de shader, sem renderer, sem cena ou runtime.",
-        "- Texturas não são comprimidas nem importadas para um pipeline de build; o log headless cobre apenas o carregamento local.",
-        "- Nenhum FPS, frame-time, VRAM ou ganho é alegado.",
-        "",
-        "Gerado por `docs/benchmarks/m04/tools/build_material_kit.py`; `--check` reproduz bytes e SHA-256.",
-        "",
-    ])
+    lines.extend(["", "## O que é", ""])
+    lines.extend(bullets)
+    lines.extend(["", "## Limitações", ""])
+    lines.extend(limitations)
+    lines.extend(["", footer, ""])
     return "\n".join(lines)
 
 

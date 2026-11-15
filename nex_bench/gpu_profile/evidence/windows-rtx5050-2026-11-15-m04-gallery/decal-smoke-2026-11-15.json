@@ -1,0 +1,12 @@
+{
+  "checks": 12,
+  "failures": [],
+  "limitations": [
+    "planning only; no Decal3D is created by this smoke",
+    "priority is the only relevance signal in this MVP",
+    "no overdraw or GPU cost is measured"
+  ],
+  "schema_version": "m04_decal_smoke.v1",
+  "source_sha": "e09cce2f4332e00a0f51eacb346f5763fe228db9",
+  "verdict": "PASS"
+}

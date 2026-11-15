@@ -1,0 +1,125 @@
+{
+  "cells": [
+    {
+      "maps": [
+        {
+          "committed": false,
+          "decoded_bytes": 5592404,
+          "detail": "native",
+          "height_px": 1024,
+          "png_bytes": 4195716,
+          "sha256": "c74ac234c5473217cf18e4d8f6ca83a36ca999f0c67407d8d66a88ffb78bfedd",
+          "slot": "albedo",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 1024
+        },
+        {
+          "committed": false,
+          "decoded_bytes": 5592404,
+          "detail": "native",
+          "height_px": 1024,
+          "png_bytes": 4195716,
+          "sha256": "9f3729aea760cf670b54039fca6e2cca863d4ee7d0c584d85bfc0b5c1d9d8584",
+          "slot": "normal",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 1024
+        },
+        {
+          "committed": false,
+          "decoded_bytes": 5592404,
+          "detail": "native",
+          "height_px": 1024,
+          "png_bytes": 4195716,
+          "sha256": "36a984d99c8daedb8664520bbec77c94c4d7424b5ec589b7ad77447853be3f86",
+          "slot": "orm",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 1024
+        }
+      ],
+      "size_px": 1024
+    },
+    {
+      "maps": [
+        {
+          "committed": false,
+          "decoded_bytes": 22369620,
+          "detail": "nearest_upscale_from_1024",
+          "height_px": 2048,
+          "png_bytes": 16780612,
+          "sha256": "99e93dba8305645e6bcf7bd963196a676fa0f96c82da475307813f2d4a03448a",
+          "slot": "albedo",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 2048
+        },
+        {
+          "committed": false,
+          "decoded_bytes": 22369620,
+          "detail": "nearest_upscale_from_1024",
+          "height_px": 2048,
+          "png_bytes": 16780612,
+          "sha256": "f283ff716674ec6461def6f154358bd0f337a8527991fbf4e4a5a92310a051c4",
+          "slot": "normal",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 2048
+        },
+        {
+          "committed": false,
+          "decoded_bytes": 22369620,
+          "detail": "nearest_upscale_from_1024",
+          "height_px": 2048,
+          "png_bytes": 16780612,
+          "sha256": "366a4154319154787ae30c481cd58788d0252e23a0d269a395abdfb3b5c69f58",
+          "slot": "orm",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 2048
+        }
+      ],
+      "size_px": 2048
+    },
+    {
+      "maps": [
+        {
+          "committed": false,
+          "decoded_bytes": 89478484,
+          "detail": "nearest_upscale_from_1024",
+          "height_px": 4096,
+          "png_bytes": 67118148,
+          "sha256": "97a7ed3327d1dbf6c18c873003d5caa755773db3ce61c14b2ab2142cbc17383e",
+          "slot": "albedo",
+          "status": "GENERATED_IN_MEMORY",
+          "width_px": 4096
+        },
+        {
+          "reason": "4K non-albedo omitted to bound memory",
+          "slot": "normal",
+          "status": "NOT_GENERATED"
+        },
+        {
+          "reason": "4K non-albedo omitted to bound memory",
+          "slot": "orm",
+          "status": "NOT_GENERATED"
+        }
+      ],
+      "size_px": 4096
+    }
+  ],
+  "generated_in_memory_only": true,
+  "limitations": [
+    "2K/4K do not contain native high-frequency detail; they are scaling probes",
+    "no BC/BPTC/VRAM compression or GPU sampling is measured",
+    "large textures are not committed; only hashes and sizes are evidence",
+    "single material; no cross-material atlas packing",
+    "no visual quality or FPS claim"
+  ],
+  "material_id": "stone_wet",
+  "observations": [
+    "1K is generated natively for albedo, normal and ORM",
+    "2K is a nearest-neighbour upscale of the 1K reference; 4K albedo is a 4x upscale",
+    "decoded bytes include the full mip chain (4/3 of the base level)",
+    "PNG uses stored deflate; compression is a separate M11 import concern"
+  ],
+  "runs": 3,
+  "schema_version": "m04_texture_scaling.v1",
+  "source_size_px": 1024,
+  "verdict": "SCALING_DERIVED"
+}
