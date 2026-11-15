@@ -778,6 +778,18 @@
       "pr": 266,
       "protectedMergeSha": "6ecea44372376a881cb31671eba7dbb2992652e8",
       "verdict": "SAFE_CONFIG_HEURISTIC"
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m08SceneComposition",
+      "id": "NEX-M08-SCENE-COMPOSITION-WO-001",
+      "issues": [
+        13,
+        7
+      ],
+      "pr": 268,
+      "protectedMergeSha": "7549ad3bb588349969a92e08255f84ced2e17bc1",
+      "verdict": ""
     }
   ],
   "limitations": [
@@ -786,7 +798,7 @@
     "the checkpoint is the authority; this index is a navigation aid",
     "entries without a protected PR and merge SHA are not listed"
   ],
-  "runs": 69,
+  "runs": 70,
   "schema_version": "nex_provenance_index.v1",
   "session_date": "2026-11-14",
   "source": ".engineering/CHECKPOINT.json",
@@ -794,10 +806,10 @@
     "audit_labels": [
       "ADMIN_SOLO_NOT_INDEPENDENT"
     ],
-    "entries": 69,
-    "max_pr": 266,
+    "entries": 70,
+    "max_pr": 268,
     "min_pr": 112,
-    "unique_merge_shas": 69
+    "unique_merge_shas": 70
   },
   "verdict": "PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT"
 }

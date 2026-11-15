@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M08 scene composition
+
+**Composição 2.5D M08** por PR #268, squash `7549ad3bb588349969a92e08255f84ced2e17bc1`. O `CompositionPlanner` integrado planejou **quatro camadas** (`background`, `gameplay`, `foreground`, `hud`) com entidades críticas `player`/`threat` para as três cenas M01, a partir da análise M02.
+
+**Resultado:** `corridor_static` **`SAFE_CONFIG_HEURISTIC`** sem conflitos; `arena_combat` e `dense_city` **`CONFLICTS_REPORTED`** com exatamente um `base_z_fight_risk` medium cada. Zero conflitos high, alpha-over-critical ou overlay/gameplay. Builder `build_scene_composition.py --check` reproduz JSON/Markdown; enforcement no Fast Lane em **31 arquivos / 34 comandos**; suíte CI **620 testes OK**. Nenhuma camada, viewport, shader, cena ou renderer criado; nenhum claim visual. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M10 archetype feedback
 
 **Feedback de combate M10** por PR #266, squash `6ecea44372376a881cb31671eba7dbb2992652e8`. O `FeedbackPlanner` integrado planejou **10 spells** do dataset M05 (2 skirmish + 3 elite + 5 boss), todos `SAFE_CONFIG_HEURISTIC` com **0 conflitos**.
