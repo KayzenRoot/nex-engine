@@ -25,9 +25,17 @@ SOURCE_SHA = "9b40dac928d568cb7783b9e8ae830f35fa2acc21"
 SCENES = ["corridor_static", "arena_combat", "dense_city"]
 COMPONENTS = [
     {"id": "S01", "name": "Isometric camera", "module": "nex_modules/render3d/camera/",
-     "structural_checks": 32, "evidence": ["nex_modules/render3d/camera/evidence/headless-smoke-2026-11-13.log"],
-     "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
-     "performance": "INCONCLUSIVE_NOT_RUN", "note": "Structural smoke only; real-scene A/B/A not run."},
+     "structural_checks": 32,
+     "evidence": ["nex_modules/render3d/camera/evidence/headless-smoke-2026-11-13.log",
+                  "docs/benchmarks/m02/camera-integration.v1.json",
+                  "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-visual/runs.v1.json",
+                  "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-perf/runs.v1.json"],
+     "structural_status": "PASS", "scene_comparison": "PASS", "performance": "MEASURED",
+     "scene_evidence": ["docs/benchmarks/m02/camera-integration.v1.json",
+                        "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-visual/runs.v1.json"],
+     "performance_evidence": ["docs/benchmarks/m02/camera-integration.v1.json",
+                              "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-perf/runs.v1.json"],
+     "note": "Scene A/B/A and performance A/B/A measured; the rig reproduces the baseline framing with negligible difference."},
     {"id": "S02", "name": "Sightline reveal", "module": "nex_modules/render3d/sightline/",
      "structural_checks": 49, "evidence": ["nex_modules/render3d/sightline/evidence/headless-smoke-2026-11-13.log"],
      "structural_status": "PASS", "scene_comparison": "INCONCLUSIVE_NOT_RUN",
@@ -80,11 +88,25 @@ def _evidence_entries(component: dict) -> list[dict]:
     return entries
 
 
+def _hash_entries(paths: list[str]) -> list[dict]:
+    entries = []
+    for relative in paths:
+        if not (REPO / relative).is_file():
+            raise SystemExit(f"MISSING EVIDENCE: {relative}")
+        digest, size = staged_sha(relative)
+        entries.append({"path": relative, "sha256": digest, "bytes": size})
+    return entries
+
+
 def build() -> dict:
     components = []
     for component in COMPONENTS:
-        entry = {key: value for key, value in component.items() if key != "evidence"}
+        entry = {key: value for key, value in component.items() if key not in ("evidence", "scene_evidence", "performance_evidence")}
         entry["evidence"] = _evidence_entries(component)
+        if "scene_evidence" in component:
+            entry["scene_evidence"] = _hash_entries(component["scene_evidence"])
+        if "performance_evidence" in component:
+            entry["performance_evidence"] = _hash_entries(component["performance_evidence"])
         components.append(entry)
     return {
         "schema_version": "nex_m02_qa_ledger.v1",

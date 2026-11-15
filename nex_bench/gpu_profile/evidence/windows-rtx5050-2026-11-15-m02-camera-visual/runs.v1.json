@@ -1,0 +1,266 @@
+{
+  "schema_version": "preset_ab_camera_ab_runs.v1",
+  "harness_source_sha": "ad41089a3a37407ce8773ea86ac364873971551d",
+  "workload": {
+    "proxy_count": 100,
+    "effect_mode": "lights",
+    "viewport_px": [
+      1280,
+      720
+    ],
+    "camera_modes": [
+      "baseline",
+      "rig"
+    ],
+    "scenes": [
+      {
+        "scene_id": "corridor_static",
+        "scene": "M01 Corridor A/B/A"
+      },
+      {
+        "scene_id": "arena_combat",
+        "scene": "M01 Arena A/B/A"
+      },
+      {
+        "scene_id": "dense_city",
+        "scene": "M01 City A/B/A"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "corridor_static_baseline_1.png",
+      "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 2,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "corridor_static_baseline_2.png",
+      "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 3,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "corridor_static_baseline_3.png",
+      "sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 4,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "corridor_static_rig_1.png",
+      "sha256": "1d2aca8bb6adbb60ef5cb0d541eb552e0972acc55e9e5f10b183352719fa9551",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 5,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "corridor_static_rig_2.png",
+      "sha256": "1d2aca8bb6adbb60ef5cb0d541eb552e0972acc55e9e5f10b183352719fa9551",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 6,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "corridor_static_rig_3.png",
+      "sha256": "1d2aca8bb6adbb60ef5cb0d541eb552e0972acc55e9e5f10b183352719fa9551",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 7,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "arena_combat_baseline_1.png",
+      "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 8,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "arena_combat_baseline_2.png",
+      "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 9,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "arena_combat_baseline_3.png",
+      "sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 10,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "arena_combat_rig_1.png",
+      "sha256": "1a899f401b1621bfc77c6aef8622e571b2406d482806f49274a98c9365703fcf",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 11,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "arena_combat_rig_2.png",
+      "sha256": "1a899f401b1621bfc77c6aef8622e571b2406d482806f49274a98c9365703fcf",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 12,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "arena_combat_rig_3.png",
+      "sha256": "1a899f401b1621bfc77c6aef8622e571b2406d482806f49274a98c9365703fcf",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 13,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "dense_city_baseline_1.png",
+      "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 14,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "dense_city_baseline_2.png",
+      "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 15,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "dense_city_baseline_3.png",
+      "sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 16,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "file": "dense_city_rig_1.png",
+      "sha256": "c59bab909503632e50d64cedaae491a3849bfabcaf8cdf0e16a2ff4540ee8f5a",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 17,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "file": "dense_city_rig_2.png",
+      "sha256": "c59bab909503632e50d64cedaae491a3849bfabcaf8cdf0e16a2ff4540ee8f5a",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    },
+    {
+      "sequence": 18,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "file": "dense_city_rig_3.png",
+      "sha256": "c59bab909503632e50d64cedaae491a3849bfabcaf8cdf0e16a2ff4540ee8f5a",
+      "width": 1280,
+      "height": 720,
+      "channels": 3
+    }
+  ]
+}

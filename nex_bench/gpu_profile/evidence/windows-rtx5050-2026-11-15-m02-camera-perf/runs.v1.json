@@ -1,0 +1,320 @@
+{
+  "schema_version": "preset_ab_camera_perf_runs.v1",
+  "source_sha": "ad41089a3a37407ce8773ea86ac364873971551d",
+  "workload": {
+    "proxy_count": 100,
+    "effect_mode": "lights",
+    "viewport_px": [
+      1280,
+      720
+    ],
+    "camera_modes": [
+      "baseline",
+      "rig"
+    ],
+    "scenes": [
+      {
+        "scene_id": "corridor_static",
+        "scene": "M01 Corridor A/B/A"
+      },
+      {
+        "scene_id": "arena_combat",
+        "scene": "M01 Arena A/B/A"
+      },
+      {
+        "scene_id": "dense_city",
+        "scene": "M01 City A/B/A"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "sequence": 1,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736403-33826904",
+      "file": "gpu_profile_1794736403-33826904.json",
+      "sha256": "61d1dd0393c2ab36c714bd29fee172fcf25f2d58825135df54e87cfa560c37ec",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:53:23Z"
+    },
+    {
+      "sequence": 2,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736437-33538467",
+      "file": "gpu_profile_1794736437-33538467.json",
+      "sha256": "e8d95054991fad32523d46486bd65adce73b2ab9aa34137f3c7a67aff2d34ea0",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:53:57Z"
+    },
+    {
+      "sequence": 3,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736472-33490893",
+      "file": "gpu_profile_1794736472-33490893.json",
+      "sha256": "20ed50e048d080d178c8c3358ed94c5ce4b7d98563c5ef026abc3406e297ce59",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:54:32Z"
+    },
+    {
+      "sequence": 4,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736506-33567701",
+      "file": "gpu_profile_1794736506-33567701.json",
+      "sha256": "1f7a0d1b03038b93e95d12e0e3091daf78d07bde5d0d07c3c3ed52a38a655a2b",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:55:06Z"
+    },
+    {
+      "sequence": 5,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736540-33545793",
+      "file": "gpu_profile_1794736540-33545793.json",
+      "sha256": "9fd25e19de4d1767ebe888f1b2e3ccdde819c5ec2856603faffb5bc6c68c787d",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:55:40Z"
+    },
+    {
+      "sequence": 6,
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736575-33519432",
+      "file": "gpu_profile_1794736575-33519432.json",
+      "sha256": "7f0e19787d72fbae42f9f2721da35cdc93c3517b0dbe13ccc211d900a41192ab",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:56:15Z"
+    },
+    {
+      "sequence": 7,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736609-33584389",
+      "file": "gpu_profile_1794736609-33584389.json",
+      "sha256": "a79f250d39cbce1ebd3d2169953f24a58a4d301507768841a7c18fcf3675c7b7",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:56:49Z"
+    },
+    {
+      "sequence": 8,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736643-33477981",
+      "file": "gpu_profile_1794736643-33477981.json",
+      "sha256": "0780f10f33a7b3f1b9878ebb909e80f2a2a48c6a8a990b91a87acda932ee0fce",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:57:23Z"
+    },
+    {
+      "sequence": 9,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736678-33562227",
+      "file": "gpu_profile_1794736678-33562227.json",
+      "sha256": "d31a12eb65bff34f134662eae55ad4501b8aca816b61be0cd7f83904265a74fb",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:57:58Z"
+    },
+    {
+      "sequence": 10,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736713-34260158",
+      "file": "gpu_profile_1794736713-34260158.json",
+      "sha256": "28960bd98641e38b68f3bb3ebdc1a338a5cf59893c6700716e46c536012b9b6e",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:58:33Z"
+    },
+    {
+      "sequence": 11,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736747-33506914",
+      "file": "gpu_profile_1794736747-33506914.json",
+      "sha256": "198a661ba71bdb7d9b373a94fabb428b4798723d1fa80e70c84daaa52b1f5371",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:59:07Z"
+    },
+    {
+      "sequence": 12,
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736785-34791044",
+      "file": "gpu_profile_1794736785-34791044.json",
+      "sha256": "fead6cbecea0942031702f25281502b5a7a2df9324c5399b76d1124bfc2a5af5",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T09:59:45Z"
+    },
+    {
+      "sequence": 13,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736819-33378958",
+      "file": "gpu_profile_1794736819-33378958.json",
+      "sha256": "f9599c41cf5d4ec8aa3bf0396980cee0efe2e333f01a5136231ec6475426d172",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:00:19Z"
+    },
+    {
+      "sequence": 14,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736853-33336899",
+      "file": "gpu_profile_1794736853-33336899.json",
+      "sha256": "2c8787b5efd416c2a1e874971b4340631551676ea0f1e2776ac18ef2f7b01807",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:00:53Z"
+    },
+    {
+      "sequence": 15,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "baseline",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736887-33454227",
+      "file": "gpu_profile_1794736887-33454227.json",
+      "sha256": "be435db96d1906cb5d467b93093cdfaaf8ff764edd8d534df68902df721a9c38",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:01:27Z"
+    },
+    {
+      "sequence": 16,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 1,
+      "run_id": "1794736921-33390576",
+      "file": "gpu_profile_1794736921-33390576.json",
+      "sha256": "4088610ef32cef3feb658354bb77037219d9085e8705310ca3968e6c682c1323",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:02:01Z"
+    },
+    {
+      "sequence": 17,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 2,
+      "run_id": "1794736955-33378500",
+      "file": "gpu_profile_1794736955-33378500.json",
+      "sha256": "b0572c5473f425305c30c3ae43e02b0f5be13fc689c6306a110ff6a9ba5526f7",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:02:35Z"
+    },
+    {
+      "sequence": 18,
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "camera_mode": "rig",
+      "preset_id": "ab-low",
+      "repetition": 3,
+      "run_id": "1794736990-33408895",
+      "file": "gpu_profile_1794736990-33408895.json",
+      "sha256": "170236a0ff5b3b064542a793763768581784ffbc6dfd79cbd055ecfcea83774b",
+      "viewport_px": [
+        1280,
+        720
+      ],
+      "captured_at_utc": "2026-11-15T10:03:10Z"
+    }
+  ]
+}

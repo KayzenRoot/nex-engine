@@ -1,0 +1,20 @@
+NEX M02-S01 CAMERA VISUAL A/B/A SESSION FACTS
+=============================================
+Date: 2026-11-15
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: ad41089a3a37407ce8773ea86ac364873971551d
+Scenes: corridor_static, arena_combat, dense_city (M01 base scenes)
+Proxy count: 100 deterministic fillers per scene
+Resolution: 1280x720 with NEX_PRESET_AB_NATIVE_RESOLUTION=1
+Preset: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+Modes: baseline (scene Camera3D) and rig (M02 IsometricCameraRig configured to
+       the scene camera distance and FOV, yaw 45, pitch -35.264)
+Sequence: per scene, baseline x3 then rig x3; visual mode waits 180 frames
+Captures: 18 PNGs (3 scenes x 2 modes x 3 repetitions)
+Validation: every PNG is 1280x720 with 3 channels and its manifest SHA-256;
+            the three repetitions of each mode are byte-identical.
+Comparison: exact RGB byte comparison with changed-pixel threshold 2.
+Limitations: single session; one preset; static frame; no quality claim.
