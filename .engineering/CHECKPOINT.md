@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M01 reference lab complete
+
+**M01 finalizado** por PR #272, squash `7b2c497c37ba9fc8078b0a894e04c9e27c3828fb`, sob `NEX-ADR-0012` / `NEX-D-022`. O laboratório de referência agora tem **18 capturas nativas 1920×1080** (3 cenas × 2 presets × 3 repetições) com A/A byte-idêntico, A/B full + 5 regiões e **9 runs de performance 1080p** validados 9/9.
+
+**Resultado:** GPU p95 **0.139/0.151/0.122 ms**; CPU p95 **0.395/0.382/0.363 ms**; pacing p95 **4.273/4.291/4.255 ms**; 1% low **223.26/224.27/223.76 FPS**. Budget 1080p **`OWNER_APPROVED`**; meta experimental 120 FPS medida no workload de referência. `LICENSE-AUDIT.md` registra **0 assets de terceiros**. As issues **#21, #23, #27 e #6** foram fechadas como `COMPLETED`; #22/#24/#25/#26 já estavam concluídas. M01 é o primeiro módulo base concluído **como laboratório de referência**, não como jogo. M02–M12 continuam bounded e exigem WO própria para rendering/runtime; M12 continua dependente de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · Evidence checksum validator
 
 **Validador global de evidência** por PR #270, squash `1dc2c7ca96847cb9d405c2836d1728576423093e`. O `validate_evidence.py --check` verifica **27 bundles / 803 entradas** de `SHA256SUMS.txt`, aceitando variantes LF/CRLF de bundles históricos e resolvendo caminhos relativos ao bundle ou à raiz.
