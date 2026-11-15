@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M03 cinematic lighting complete
+
+**M03 finalizado** por PR #276, squash `19c1542c12385b370e045d766d650bdddce5f623`, sob `NEX-ADR-0014` / `NEX-D-025`. A iluminação de referência tem **3 looks originais de dark fantasy**, **36 capturas** nativas, **11 runs** de performance e **13 checks** de LightBridge.
+
+**Resultado:** CineLight GPU p95 **3.039–3.129 ms**; ShadowStability low **1.526 ms** → ultra **3.144 ms** (+106.0%); SDFGI off **1.976 ms** → on **3.140 ms** (+58.9%, +451.1 MiB); FogWeave depth **3.008 ms** → volumetric **3.145 ms** (+4.6%); LightBudget 4→2 tochas **3.150 → 3.020 ms** (-4.1%). SDFGI restrito a qualidade; volumetric fog com fallback depth; LightBudget `RESEARCH_MORE`. As issues **#36–#43 e #8** foram fechadas como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M03 é o terceiro módulo base concluído como **iluminação de referência**, não como jogo. M04–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M02 reference renderer complete
 
 **M02 finalizado** por PR #274, squash `f95f7b00a6b73671d71bf1d79923e6e4c07533c5`, sob `NEX-ADR-0013` / `NEX-D-023`. O renderer de referência agora tem **27 runs nativos** validados, câmera com 4 aspect ratios, sightline renderizado, overlay de profundidade, TAA nativo off/on e perfis quality/balanced/performance.
