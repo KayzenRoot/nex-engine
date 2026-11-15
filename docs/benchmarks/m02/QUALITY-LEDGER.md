@@ -1,22 +1,22 @@
 # NEX M02 · Quality ledger (what improved, what cost, what regressed)
 
-**Status:** `PROPOSED / NO_MEASURED_GAIN / S01_MEASURED / S02_S03_S04_ANALYSIS_ONLY / PERFORMANCE_UNMEASURED`
+**Status:** `M02_RUNTIME_REFERENCE_MEASURED / S01_S02_S03_S05_RENDERED / S04_TAA_NO_GO_CUSTOM / NO_GENERAL_QUALITY_CLAIM`
 
 | Component | What got better (structural) | What it costs | What regressed |
 |---|---|---|---|
-| S01 camera | Deterministic framing, dead zone, replay, contract state | Low; controller maintenance | None observed; A/B/A framing reproduced with GPU delta 0.0–1.25% |
-| S02 Sightline | Reveal policy, critical-threat alerts, hysteresis | Medium; per-scene occluder data | None observed in headless scene analysis; rendering unmeasured |
-| S03 DepthWeave | Pass ordering, z-fight risk, conflict reporting | Medium; AABB/sphere approximations | None observed in headless scene analysis; real depth unmeasured |
-| S04 TemporalGuard | Ghosting/flicker/shimmer metrics and gate | Medium–high; analysis to maintain | None observed on static frames; real TAA unmeasured |
-| S05 RenderPassport | Capability/probe separation, fallbacks, profiles | Low | None observed structurally; driver probe unmeasured |
+| S01 camera | Deterministic framing, dead zone, replay, contract state | Low; controller maintenance | None observed; 3D↔screen 3e-6 m; A/B framing reproduced |
+| S02 Sightline | Rendered reveal policy, critical alerts, hysteresis | Medium; test wall/occluder data | None observed; GPU delta +6.0–8.6% |
+| S03 DepthWeave | Rendered alpha overlay, pass ordering, conflict reporting | Medium; AABB approximations | None observed; 0 conflicts; GPU delta +0.0–3.3% |
+| S04 TemporalGuard | Native TAA off/on evidence, ghosting/flicker/shimmer gate | Medium–high; region analysis | Custom compositor NO_GO; no benefit proven |
+| S05 RenderPassport | Runtime probe, fallbacks, three reversible profiles | Low | None observed; GPU p95 0.758/0.571/0.182 ms by profile |
 | S06 Research | Decision matrix, redundancy rejection | Low | Not applicable |
 
 ## Explicit non-claims
 
 - No FPS, frame-time, VRAM, visual-quality or perceptual improvement is claimed.
-- Structural PASS ≠ scene PASS; only S01 was executed A/B/A in the three M01 scenes. S02–S04 scene analysis is headless and does not render.
+- Structural PASS ≠ scene PASS; S01/S02/S03/S05 have rendered evidence, S04 is visual/region evidence only.
 - The Quality targets in `budget.v1.json` remain aspirational.
-- The only GO is the RenderPassport process tool; the four render features remain `RESEARCH_MORE`.
+- The only GO for a custom compositor is NO_GO; RenderPassport and the rendered S02/S03 policies are GO.
 
 ## Next data needed
 

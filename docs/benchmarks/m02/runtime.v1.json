@@ -1,0 +1,534 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver; static frames for S01/S02/S03/S05",
+    "the temporal analyzer uses 4x4 luminance regions, not per-pixel TAA metrics",
+    "the depth overlay is a deterministic test quad, not production art",
+    "no game, gameplay, M03-M12 renderer or cross-device claim"
+  ],
+  "observations": [
+    "camera round-trip error is 3e-6 m and fast follow stays under 25 px per step",
+    "sightline reveal is visible in all three scenes with 0 critical unseen",
+    "depth overlay plan reports 0 z-fight, alpha-over-critical and overlay/gameplay conflicts",
+    "native TAA changes the first frame but the region analyzer is identical off/on",
+    "profile cost ordering is quality > balanced > performance in GPU p95 and allocation"
+  ],
+  "runs": 27,
+  "s01": {
+    "aspects": [
+      {
+        "height": 1080,
+        "sha256": "71fd92e20d83371c9950d5549ffdc28abb059d4c35b0dedf5488fec4a07957fd",
+        "tag": "16x9",
+        "width": 1920
+      },
+      {
+        "height": 1200,
+        "sha256": "23c7baca8bb909415cfc7745ae9a156a15edd6eef567edbbe6d678f2b0aaaa5e",
+        "tag": "16x10",
+        "width": 1920
+      },
+      {
+        "height": 1080,
+        "sha256": "918567d0e44c8a5ed03fc917e9375463f059d4f754f0a6e894656a5d86c55497",
+        "tag": "21x9",
+        "width": 2560
+      },
+      {
+        "height": 1080,
+        "sha256": "f9fda0dc5e2598da1441e4cbae3bade443f8de6ed7d3b9d7ff2969871e551103",
+        "tag": "4x3",
+        "width": 1440
+      }
+    ],
+    "camera_integration": "docs/benchmarks/m02/camera-integration.v1.json",
+    "camera_math": {
+      "aspect_extents": {
+        "1.3333": {
+          "aspect": 1.33333333333333,
+          "half_height_m": 6.55146421679164,
+          "half_width_m": 8.73528562238885
+        },
+        "1.6000": {
+          "aspect": 1.6,
+          "half_height_m": 6.55146421679164,
+          "half_width_m": 10.4823427468666
+        },
+        "1.7778": {
+          "aspect": 1.77777777777778,
+          "half_height_m": 6.55146421679164,
+          "half_width_m": 11.6470474965185
+        },
+        "2.3333": {
+          "aspect": 2.33333333333333,
+          "half_height_m": 6.55146421679164,
+          "half_width_m": 15.2867498391805
+        }
+      },
+      "fast_follow_max_screen_step_px": 24.325,
+      "fast_follow_states": 30,
+      "limitations": [
+        "round trip uses the y=0 plane; vertical points are not covered",
+        "fast follow is deterministic and headless, not a perceptual test"
+      ],
+      "projection": "perspective",
+      "round_trip_max_error_m": 3e-06,
+      "schema_version": "m02_camera_math.v1",
+      "source_sha": "fa1adae7ab67e38c2556d126627006c338e2e8f4",
+      "verdict": "CAMERA_MATH_CONSISTENT",
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    }
+  },
+  "s02": {
+    "scenes": [
+      {
+        "baseline_gpu_p95_ms": 0.139,
+        "changed_pixels_pct": 1.141,
+        "gpu_delta_pct": 8.6,
+        "gpu_p95_ms": 0.151,
+        "hidden_sha256": "f1c9d7841464eb6be8518227ebbd0263e3caa947621360b0f3a5329b6cc429f1",
+        "hidden_summary": {
+          "active_reveals": 0,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "mean_abs_diff": 0.2631,
+        "one_percent_low_fps": 226.31,
+        "revealed_sha256": "d9467f7487d86a9c5798958c339c854adf3e31a1c93c07986cd32c32fb775cbd",
+        "revealed_summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "scene_id": "corridor_static"
+      },
+      {
+        "baseline_gpu_p95_ms": 0.151,
+        "changed_pixels_pct": 0.456,
+        "gpu_delta_pct": 6.0,
+        "gpu_p95_ms": 0.16,
+        "hidden_sha256": "2f92a1ff36d34628aedd8715b42646fe7ae040bd78e0a6e3b43002ba198cb705",
+        "hidden_summary": {
+          "active_reveals": 0,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "mean_abs_diff": 0.1084,
+        "one_percent_low_fps": 225.07,
+        "revealed_sha256": "265daecc6ce360e8ab561c7d4f91e3199bb6de83259789009ffa333cba0dae5e",
+        "revealed_summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "scene_id": "arena_combat"
+      },
+      {
+        "baseline_gpu_p95_ms": 0.122,
+        "changed_pixels_pct": 0.123,
+        "gpu_delta_pct": 8.2,
+        "gpu_p95_ms": 0.132,
+        "hidden_sha256": "419c0fb15df2f93104d4133072aad2c23179c7147b09f22fe630a707df8ea5b5",
+        "hidden_summary": {
+          "active_reveals": 0,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "mean_abs_diff": 0.0194,
+        "one_percent_low_fps": 225.64,
+        "revealed_sha256": "7fd36ee3d1d334ee04fb0aeb93b4698ed27797d1eb46dcdd792e499e4eb844df",
+        "revealed_summary": {
+          "active_reveals": 1,
+          "critical_unseen": false,
+          "danger_alerts": 1,
+          "max_reveal": 8
+        },
+        "scene_id": "dense_city"
+      }
+    ],
+    "verdict": "SIGHTLINE_RENDERED"
+  },
+  "s03": {
+    "scenes": [
+      {
+        "baseline_gpu_p95_ms": 0.139,
+        "changed_pixels_pct": 0.37,
+        "gpu_delta_pct": 1.4,
+        "gpu_p95_ms": 0.141,
+        "mean_abs_diff": 0.1662,
+        "off_sha256": "71fd92e20d83371c9950d5549ffdc28abb059d4c35b0dedf5488fec4a07957fd",
+        "on_sha256": "40a9a033fa6fd561381a37b5e68b915147da57dfcc599fec67efb2cc18336fc2",
+        "one_percent_low_fps": 219.78,
+        "plan": {
+          "alpha_over_critical": 0,
+          "overlay_gameplay_conflicts": 0,
+          "passes": {
+            "alpha": [],
+            "opaque": [
+              "player"
+            ],
+            "overlay": [
+              "overlay"
+            ]
+          },
+          "z_fight_risks": 0
+        },
+        "scene_id": "corridor_static"
+      },
+      {
+        "baseline_gpu_p95_ms": 0.151,
+        "changed_pixels_pct": 0.556,
+        "gpu_delta_pct": 0.0,
+        "gpu_p95_ms": 0.151,
+        "mean_abs_diff": 0.2936,
+        "off_sha256": "8da68bc4560076134e9f36d158d2db9bb30a372e8d43222731117acf635b5506",
+        "on_sha256": "4502291668e65333a4768c8e66a869de6bba1cf67d00eaf4928ce7e602ea1ce8",
+        "one_percent_low_fps": 225.88,
+        "plan": {
+          "alpha_over_critical": 0,
+          "overlay_gameplay_conflicts": 0,
+          "passes": {
+            "alpha": [],
+            "opaque": [
+              "player"
+            ],
+            "overlay": [
+              "overlay"
+            ]
+          },
+          "z_fight_risks": 0
+        },
+        "scene_id": "arena_combat"
+      },
+      {
+        "baseline_gpu_p95_ms": 0.122,
+        "changed_pixels_pct": 0.741,
+        "gpu_delta_pct": 3.3,
+        "gpu_p95_ms": 0.126,
+        "mean_abs_diff": 0.4249,
+        "off_sha256": "71147b00464b492057b82df3d37b303be5c0024fbddb44ec74b9f411d2c56b03",
+        "on_sha256": "1445e56bac018126cf502682772b3511379c6f5738b6ca47a39c0a19e15865a9",
+        "one_percent_low_fps": 228.8,
+        "plan": {
+          "alpha_over_critical": 0,
+          "overlay_gameplay_conflicts": 0,
+          "passes": {
+            "alpha": [],
+            "opaque": [
+              "player"
+            ],
+            "overlay": [
+              "overlay"
+            ]
+          },
+          "z_fight_risks": 0
+        },
+        "scene_id": "dense_city"
+      }
+    ],
+    "verdict": "DEPTH_OVERLAY_SAFE"
+  },
+  "s04": {
+    "first_frame_ab": {
+      "changed_pixels": 54344,
+      "changed_pixels_pct": 2.621,
+      "max_abs_diff": 116,
+      "mean_abs_diff": 0.2121,
+      "psnr_db": 44.123
+    },
+    "note": "native TAA is available and was captured; the region analyzer flags the same flicker on/off, so no custom compositor is justified.",
+    "off": {
+      "action": "NO_GO",
+      "compositor_available": false,
+      "frames": 5,
+      "limitations": [
+        "analysis only; no rendering, TAA, upscale or antialiasing is executed",
+        "real-scene ghosting/flicker/shimmer is INCONCLUSIVE_NOT_RUN",
+        "metrics use synthetic region luminance, not pixel buffers",
+        "CompositorEffect/render-thread is out of scope and requires a separate WO with ABI review",
+        "postprocess is disabled by default; the enable toggle is a guarded mock state"
+      ],
+      "metrics": {
+        "flicker": 0.666666666666667,
+        "ghosting": 0.0,
+        "render_scale": 1.0,
+        "sharpness_penalty": 0.0,
+        "shimmer": 0.0501089327865177
+      },
+      "postprocess_enabled": false,
+      "regions": 16,
+      "thresholds": {
+        "flicker": 0.2,
+        "ghosting": 0.15,
+        "shimmer": 0.05
+      },
+      "verdict": "DEFECT_REPRODUCED"
+    },
+    "on": {
+      "action": "NO_GO",
+      "compositor_available": false,
+      "frames": 5,
+      "limitations": [
+        "analysis only; no rendering, TAA, upscale or antialiasing is executed",
+        "real-scene ghosting/flicker/shimmer is INCONCLUSIVE_NOT_RUN",
+        "metrics use synthetic region luminance, not pixel buffers",
+        "CompositorEffect/render-thread is out of scope and requires a separate WO with ABI review",
+        "postprocess is disabled by default; the enable toggle is a guarded mock state"
+      ],
+      "metrics": {
+        "flicker": 0.666666666666667,
+        "ghosting": 0.0,
+        "render_scale": 1.0,
+        "sharpness_penalty": 0.0,
+        "shimmer": 0.0531590415371789
+      },
+      "postprocess_enabled": false,
+      "regions": 16,
+      "thresholds": {
+        "flicker": 0.2,
+        "ghosting": 0.15,
+        "shimmer": 0.05
+      },
+      "verdict": "DEFECT_REPRODUCED"
+    },
+    "verdict": "NO_GO_CUSTOM_COMPOSITOR"
+  },
+  "s05": {
+    "passport": {
+      "action": "PASSPORT_READY",
+      "capabilities": [
+        {
+          "category": "camera",
+          "id": "camera.perspective",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "camera",
+          "id": "camera.orthographic",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "visibility",
+          "id": "visibility.mesh_lod",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "visibility",
+          "id": "visibility.visibility_ranges",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "visibility",
+          "id": "visibility.occlusion_culling",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "composition",
+          "id": "composition.render_scale",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "composition",
+          "id": "composition.msaa",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "composition",
+          "id": "composition.temporal_aa",
+          "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+          "state": "MEASURED_ENABLED",
+          "verification": "RUNTIME_PROBED"
+        },
+        {
+          "category": "composition",
+          "id": "composition.depth_prepass",
+          "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html",
+          "state": "REQUIRES_MEASUREMENT",
+          "verification": "DOCUMENTED_UNVERIFIED"
+        }
+      ],
+      "effective": {
+        "degraded": false,
+        "driver": "vulkan",
+        "fallback_chain": [],
+        "renderer": "forward_plus"
+      },
+      "flags": {
+        "gpu_name_implies_capability": false,
+        "personal_hardware_collected": false,
+        "project_godot_writes": false
+      },
+      "inventory": {
+        "driver": "vulkan",
+        "godot": "4.7.2-stable (official)",
+        "gpu": "NVIDIA GeForce RTX 5050",
+        "os": "Windows",
+        "renderer": "forward_plus",
+        "vram_mib": 8192
+      },
+      "limitations": [
+        "documentation-derived capability states are unverified until a runtime probe supplies them",
+        "no rendering, benchmark, screenshot or frame-time is executed",
+        "GPU name never implies a capability; the passport reports inventory and probe separately",
+        "no project.godot write, no remote hardware collection and no telemetry upload",
+        "profiles are settings, not measured performance; no FPS claim is made"
+      ],
+      "probe_status": "RUNTIME_PROBED",
+      "verdict": "OK"
+    },
+    "profiles": [
+      {
+        "cpu_p95_ms": 0.486,
+        "gpu_p95_ms": 0.758,
+        "one_percent_low_fps": 226.5,
+        "pacing_p95_ms": 4.216,
+        "profile": "quality",
+        "renderer_allocation_bytes_median": 219736048,
+        "settings": {
+          "glow": true,
+          "msaa": 2,
+          "profile": "quality",
+          "resolution_scale": 1.0
+        },
+        "visuals": [
+          {
+            "scene_id": "corridor_static",
+            "sha256": "86fc32acceb01307b4d8952ef04f2fce8857624cf93105cbdd61336bc21e3796"
+          },
+          {
+            "scene_id": "arena_combat",
+            "sha256": "c53e6bb0c2c8a66a8455bd7e4248f7f8e9108a8b0c0c133d613380d254d2e5f9"
+          },
+          {
+            "scene_id": "dense_city",
+            "sha256": "77d041c9d098864bb0a3d9e51e99327db4d147381dd4c2c6f83b46eed68ba92e"
+          }
+        ]
+      },
+      {
+        "cpu_p95_ms": 0.441,
+        "gpu_p95_ms": 0.571,
+        "one_percent_low_fps": 225.16,
+        "pacing_p95_ms": 4.208,
+        "profile": "balanced",
+        "renderer_allocation_bytes_median": 130638576,
+        "settings": {
+          "glow": true,
+          "msaa": 1,
+          "profile": "balanced",
+          "resolution_scale": 0.850000023841858
+        },
+        "visuals": [
+          {
+            "scene_id": "corridor_static",
+            "sha256": "d2f73ea247491b48e2eca76bb1fb6a92216b323f1b9dd2337251ca9df011ae3a"
+          },
+          {
+            "scene_id": "arena_combat",
+            "sha256": "4b28aeca24b1f9e480412fbc0f7bfc8eee01c2e77fe09b94bd4654e5b6d0214a"
+          },
+          {
+            "scene_id": "dense_city",
+            "sha256": "21c001d50a8f9335e6aef465a469dedde2c5a84a4d9e809c9a94f8e7232333b7"
+          }
+        ]
+      },
+      {
+        "cpu_p95_ms": 0.374,
+        "gpu_p95_ms": 0.182,
+        "one_percent_low_fps": 226.38,
+        "pacing_p95_ms": 4.216,
+        "profile": "performance",
+        "renderer_allocation_bytes_median": 47376624,
+        "settings": {
+          "glow": false,
+          "msaa": 0,
+          "profile": "performance",
+          "resolution_scale": 0.699999988079071
+        },
+        "visuals": [
+          {
+            "scene_id": "corridor_static",
+            "sha256": "80cb084a334fa3ebde41870eece6746301cdd58c8204ddc1b3861e33de466fc2"
+          },
+          {
+            "scene_id": "arena_combat",
+            "sha256": "431b29163ff807599eeeaae374676ee6229edf49993c1f83f6df342868890537"
+          },
+          {
+            "scene_id": "dense_city",
+            "sha256": "a7ca599c2d2c622f195d88cc5f4c4a359db45361218aa4e9e1344c7664bf481d"
+          }
+        ]
+      }
+    ],
+    "verdict": "PROFILES_APPLIED"
+  },
+  "s06": {
+    "decisions": [
+      {
+        "decision": "GO",
+        "evidence": "round trip 3e-6 m, 4 aspect captures, A/B framing reproduced",
+        "id": "NEX IsoDirector",
+        "native": "Camera3D perspective/orthographic"
+      },
+      {
+        "decision": "GO",
+        "evidence": "reveal rendered in 3 scenes, no critical unseen, GPU delta small",
+        "id": "Sightline",
+        "native": "occlusion query / material fade"
+      },
+      {
+        "decision": "GO",
+        "evidence": "overlay pass with 0 z-fight/alpha/overlay conflicts, GPU delta small",
+        "id": "DepthWeave",
+        "native": "transparent sorting / depth prepass"
+      },
+      {
+        "decision": "NO_GO_CUSTOM_COMPOSITOR",
+        "evidence": "native TAA available; off/on analyzer metrics identical, no benefit proven",
+        "id": "TemporalGuard",
+        "native": "native TAA"
+      },
+      {
+        "decision": "GO",
+        "evidence": "runtime probe on Forward+/Vulkan, three profiles OK, switch reversible",
+        "id": "RenderPassport",
+        "native": "documented capability matrix"
+      }
+    ]
+  },
+  "s07": {
+    "verdict": "M02_RUNTIME_REFERENCE_DERIVED"
+  },
+  "schema_version": "m02_runtime.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "fa1adae7ab67e38c2556d126627006c338e2e8f4",
+  "verdict": "M02_RUNTIME_REFERENCE_DERIVED"
+}

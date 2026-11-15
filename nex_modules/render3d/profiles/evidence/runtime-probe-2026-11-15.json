@@ -1,0 +1,560 @@
+{
+  "inventory": {
+    "d3d12_available": true,
+    "driver": "vulkan",
+    "godot": "4.7.2-stable (official)",
+    "gpu": "NVIDIA GeForce RTX 5050",
+    "os": "Windows",
+    "renderer": "forward_plus",
+    "vram_mib": 8192,
+    "vulkan_available": true
+  },
+  "limitations": [
+    "vram_mib is the documented RTX 5050 8 GB capacity, not a live free-memory probe",
+    "capability booleans are runtime observations for this session, not cross-driver proof",
+    "profiles are reversible settings; no FPS or quality claim"
+  ],
+  "passport": {
+    "action": "PASSPORT_READY",
+    "capabilities": [
+      {
+        "category": "camera",
+        "id": "camera.perspective",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "camera",
+        "id": "camera.orthographic",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "visibility",
+        "id": "visibility.mesh_lod",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "visibility",
+        "id": "visibility.visibility_ranges",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "visibility",
+        "id": "visibility.occlusion_culling",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "composition",
+        "id": "composition.render_scale",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "composition",
+        "id": "composition.msaa",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "composition",
+        "id": "composition.temporal_aa",
+        "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+        "state": "MEASURED_ENABLED",
+        "verification": "RUNTIME_PROBED"
+      },
+      {
+        "category": "composition",
+        "id": "composition.depth_prepass",
+        "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html",
+        "state": "REQUIRES_MEASUREMENT",
+        "verification": "DOCUMENTED_UNVERIFIED"
+      }
+    ],
+    "effective": {
+      "degraded": false,
+      "driver": "vulkan",
+      "fallback_chain": [],
+      "renderer": "forward_plus"
+    },
+    "flags": {
+      "gpu_name_implies_capability": false,
+      "personal_hardware_collected": false,
+      "project_godot_writes": false
+    },
+    "inventory": {
+      "driver": "vulkan",
+      "godot": "4.7.2-stable (official)",
+      "gpu": "NVIDIA GeForce RTX 5050",
+      "os": "Windows",
+      "renderer": "forward_plus",
+      "vram_mib": 8192
+    },
+    "limitations": [
+      "documentation-derived capability states are unverified until a runtime probe supplies them",
+      "no rendering, benchmark, screenshot or frame-time is executed",
+      "GPU name never implies a capability; the passport reports inventory and probe separately",
+      "no project.godot write, no remote hardware collection and no telemetry upload",
+      "profiles are settings, not measured performance; no FPS claim is made"
+    ],
+    "probe_status": "RUNTIME_PROBED",
+    "verdict": "OK"
+  },
+  "probe": {
+    "camera.orthographic": true,
+    "camera.perspective": true,
+    "composition.msaa": true,
+    "composition.render_scale": true,
+    "composition.temporal_aa": true,
+    "visibility.mesh_lod": true,
+    "visibility.occlusion_culling": true,
+    "visibility.visibility_ranges": true
+  },
+  "profiles": {
+    "balanced": {
+      "action": "USE_PROFILE",
+      "degraded_features": [],
+      "limitations": [
+        "documentation-derived capability states are unverified until a runtime probe supplies them",
+        "no rendering, benchmark, screenshot or frame-time is executed",
+        "GPU name never implies a capability; the passport reports inventory and probe separately",
+        "no project.godot write, no remote hardware collection and no telemetry upload",
+        "profiles are settings, not measured performance; no FPS claim is made"
+      ],
+      "passport": {
+        "action": "PASSPORT_READY",
+        "capabilities": [
+          {
+            "category": "camera",
+            "id": "camera.perspective",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "camera",
+            "id": "camera.orthographic",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.mesh_lod",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.visibility_ranges",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.occlusion_culling",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.render_scale",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.msaa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.temporal_aa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.depth_prepass",
+            "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html",
+            "state": "REQUIRES_MEASUREMENT",
+            "verification": "DOCUMENTED_UNVERIFIED"
+          }
+        ],
+        "effective": {
+          "degraded": false,
+          "driver": "vulkan",
+          "fallback_chain": [],
+          "renderer": "forward_plus"
+        },
+        "flags": {
+          "gpu_name_implies_capability": false,
+          "personal_hardware_collected": false,
+          "project_godot_writes": false
+        },
+        "inventory": {
+          "driver": "vulkan",
+          "godot": "4.7.2-stable (official)",
+          "gpu": "NVIDIA GeForce RTX 5050",
+          "os": "Windows",
+          "renderer": "forward_plus",
+          "vram_mib": 8192
+        },
+        "limitations": [
+          "documentation-derived capability states are unverified until a runtime probe supplies them",
+          "no rendering, benchmark, screenshot or frame-time is executed",
+          "GPU name never implies a capability; the passport reports inventory and probe separately",
+          "no project.godot write, no remote hardware collection and no telemetry upload",
+          "profiles are settings, not measured performance; no FPS claim is made"
+        ],
+        "probe_status": "RUNTIME_PROBED",
+        "verdict": "OK"
+      },
+      "profile": "balanced",
+      "reversible": true,
+      "settings": {
+        "camera_distance_m": 18.0,
+        "driver": "vulkan",
+        "max_fps": 60.0,
+        "mesh_lod": true,
+        "msaa": "2x",
+        "occlusion_culling": true,
+        "pixel_snap": true,
+        "render_scale": 0.85,
+        "renderer": "forward_plus",
+        "visibility_ranges": true,
+        "vsync": 1.0
+      },
+      "verdict": "OK",
+      "writes_project_godot": false
+    },
+    "performance": {
+      "action": "USE_PROFILE",
+      "degraded_features": [],
+      "limitations": [
+        "documentation-derived capability states are unverified until a runtime probe supplies them",
+        "no rendering, benchmark, screenshot or frame-time is executed",
+        "GPU name never implies a capability; the passport reports inventory and probe separately",
+        "no project.godot write, no remote hardware collection and no telemetry upload",
+        "profiles are settings, not measured performance; no FPS claim is made"
+      ],
+      "passport": {
+        "action": "PASSPORT_READY",
+        "capabilities": [
+          {
+            "category": "camera",
+            "id": "camera.perspective",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "camera",
+            "id": "camera.orthographic",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.mesh_lod",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.visibility_ranges",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.occlusion_culling",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.render_scale",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.msaa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.temporal_aa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.depth_prepass",
+            "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html",
+            "state": "REQUIRES_MEASUREMENT",
+            "verification": "DOCUMENTED_UNVERIFIED"
+          }
+        ],
+        "effective": {
+          "degraded": false,
+          "driver": "vulkan",
+          "fallback_chain": [],
+          "renderer": "forward_plus"
+        },
+        "flags": {
+          "gpu_name_implies_capability": false,
+          "personal_hardware_collected": false,
+          "project_godot_writes": false
+        },
+        "inventory": {
+          "driver": "vulkan",
+          "godot": "4.7.2-stable (official)",
+          "gpu": "NVIDIA GeForce RTX 5050",
+          "os": "Windows",
+          "renderer": "forward_plus",
+          "vram_mib": 8192
+        },
+        "limitations": [
+          "documentation-derived capability states are unverified until a runtime probe supplies them",
+          "no rendering, benchmark, screenshot or frame-time is executed",
+          "GPU name never implies a capability; the passport reports inventory and probe separately",
+          "no project.godot write, no remote hardware collection and no telemetry upload",
+          "profiles are settings, not measured performance; no FPS claim is made"
+        ],
+        "probe_status": "RUNTIME_PROBED",
+        "verdict": "OK"
+      },
+      "profile": "performance",
+      "reversible": true,
+      "settings": {
+        "camera_distance_m": 18.0,
+        "driver": "vulkan",
+        "max_fps": 60.0,
+        "mesh_lod": true,
+        "msaa": "disabled",
+        "occlusion_culling": true,
+        "pixel_snap": false,
+        "render_scale": 0.75,
+        "renderer": "forward_plus",
+        "visibility_ranges": true,
+        "vsync": 1.0
+      },
+      "verdict": "OK",
+      "writes_project_godot": false
+    },
+    "quality": {
+      "action": "USE_PROFILE",
+      "degraded_features": [],
+      "limitations": [
+        "documentation-derived capability states are unverified until a runtime probe supplies them",
+        "no rendering, benchmark, screenshot or frame-time is executed",
+        "GPU name never implies a capability; the passport reports inventory and probe separately",
+        "no project.godot write, no remote hardware collection and no telemetry upload",
+        "profiles are settings, not measured performance; no FPS claim is made"
+      ],
+      "passport": {
+        "action": "PASSPORT_READY",
+        "capabilities": [
+          {
+            "category": "camera",
+            "id": "camera.perspective",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "camera",
+            "id": "camera.orthographic",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.mesh_lod",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/mesh_lod.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.visibility_ranges",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/visibility_ranges.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "visibility",
+            "id": "visibility.occlusion_culling",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/3d/occlusion_culling.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.render_scale",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.msaa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.temporal_aa",
+            "source": "https://docs.godotengine.org/en/4.7/tutorials/rendering/renderers.html",
+            "state": "MEASURED_ENABLED",
+            "verification": "RUNTIME_PROBED"
+          },
+          {
+            "category": "composition",
+            "id": "composition.depth_prepass",
+            "source": "https://docs.godotengine.org/en/4.7/engine_details/architecture/internal_rendering_architecture.html",
+            "state": "REQUIRES_MEASUREMENT",
+            "verification": "DOCUMENTED_UNVERIFIED"
+          }
+        ],
+        "effective": {
+          "degraded": false,
+          "driver": "vulkan",
+          "fallback_chain": [],
+          "renderer": "forward_plus"
+        },
+        "flags": {
+          "gpu_name_implies_capability": false,
+          "personal_hardware_collected": false,
+          "project_godot_writes": false
+        },
+        "inventory": {
+          "driver": "vulkan",
+          "godot": "4.7.2-stable (official)",
+          "gpu": "NVIDIA GeForce RTX 5050",
+          "os": "Windows",
+          "renderer": "forward_plus",
+          "vram_mib": 8192
+        },
+        "limitations": [
+          "documentation-derived capability states are unverified until a runtime probe supplies them",
+          "no rendering, benchmark, screenshot or frame-time is executed",
+          "GPU name never implies a capability; the passport reports inventory and probe separately",
+          "no project.godot write, no remote hardware collection and no telemetry upload",
+          "profiles are settings, not measured performance; no FPS claim is made"
+        ],
+        "probe_status": "RUNTIME_PROBED",
+        "verdict": "OK"
+      },
+      "profile": "quality",
+      "reversible": true,
+      "settings": {
+        "camera_distance_m": 18.0,
+        "driver": "vulkan",
+        "max_fps": 0.0,
+        "mesh_lod": true,
+        "msaa": "4x",
+        "occlusion_culling": true,
+        "pixel_snap": true,
+        "render_scale": 1.0,
+        "renderer": "forward_plus",
+        "visibility_ranges": true,
+        "vsync": 1.0
+      },
+      "verdict": "OK",
+      "writes_project_godot": false
+    }
+  },
+  "schema_version": "m02_capability_passport_run.v1",
+  "session": "windows-rtx5050-2026-11-15-m02-profiles",
+  "source_sha": "fa1adae7ab67e38c2556d126627006c338e2e8f4",
+  "switch": {
+    "action": "SWITCH_PROFILE",
+    "diff": {
+      "max_fps": {
+        "from": 0.0,
+        "to": 60.0
+      },
+      "msaa": {
+        "from": "4x",
+        "to": "disabled"
+      },
+      "pixel_snap": {
+        "from": true,
+        "to": false
+      },
+      "render_scale": {
+        "from": 1.0,
+        "to": 0.75
+      }
+    },
+    "from": "quality",
+    "from_settings": {
+      "camera_distance_m": 18.0,
+      "driver": "vulkan",
+      "max_fps": 0.0,
+      "mesh_lod": true,
+      "msaa": "4x",
+      "occlusion_culling": true,
+      "pixel_snap": true,
+      "render_scale": 1.0,
+      "renderer": "forward_plus",
+      "visibility_ranges": true,
+      "vsync": 1.0
+    },
+    "limitations": [
+      "documentation-derived capability states are unverified until a runtime probe supplies them",
+      "no rendering, benchmark, screenshot or frame-time is executed",
+      "GPU name never implies a capability; the passport reports inventory and probe separately",
+      "no project.godot write, no remote hardware collection and no telemetry upload",
+      "profiles are settings, not measured performance; no FPS claim is made"
+    ],
+    "reversible": true,
+    "round_trip": true,
+    "to": "performance",
+    "to_settings": {
+      "camera_distance_m": 18.0,
+      "driver": "vulkan",
+      "max_fps": 60.0,
+      "mesh_lod": true,
+      "msaa": "disabled",
+      "occlusion_culling": true,
+      "pixel_snap": false,
+      "render_scale": 0.75,
+      "renderer": "forward_plus",
+      "visibility_ranges": true,
+      "vsync": 1.0
+    },
+    "verdict": "OK",
+    "writes_project_godot": false
+  }
+}

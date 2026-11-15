@@ -8,6 +8,10 @@
 
 `NEX-ADR-0012` / `NEX-D-022` admitem, de forma bounded ao laboratório M01, as três cenas base, o harness nativo, a golden matrix 1920×1080, o budget 1080p aprovado, a auditoria de licenças e o gate final. As issues #21, #23, #27 e #6 podem ser fechadas após integração protegida. M01 é o primeiro módulo base concluído como **laboratório de referência**, não como jogo. M02–M12 continuam bounded e exigem WO própria para rendering/runtime; M12 depende de aprovação de marca. A base desta extensão é `900d2b2d031a87048702625a1e98bc50905bc663`.
 
+### M02 full reference | renderer concluído (2026-11-15)
+
+`NEX-ADR-0013` / `NEX-D-023` admitem o M02 como renderer de referência bounded: câmera S01, sightline S02, DepthWeave S03, TemporalGuard S04 com TAA nativo e compositor customizado NO_GO, RenderPassport S05, R&D S06 e QA S07. As issues #28–#34 e #7 podem ser fechadas após integração protegida. M02 é o segundo módulo base concluído como **renderer de referência**, não como jogo. M03–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `fa1adae7ab67e38c2556d126627006c338e2e8f4`.
+
 ### Extensão bounded M04/M05 | kit não-rendering (2026-11-15)
 
 `NEX-ADR-0011` / `NEX-D-021` estendem o escopo de M04/M05, sem mudar o status dos parents, para o kit PBR procedural `nex_modules/materials/kit/**` (12 PNGs 128×128, quatro `StandardMaterial3D` `.tres`, observação `material.v1`, validação headless) e o dataset `nex_modules/vfx/fxbudget/dataset.gd` com três arquétipos de orçamento de FX. Continua não admitido: shader customizado, `ShaderMaterial`, compilação de shader, renderer, integração/aplicação em cena, rendering, runtime, hub, engine, `project.godot` principal, gameplay, cenas de produção, partículas/emissores/luzes/decais reais, decodificação/compressão/atlas packing, pipeline de import/cook, generalização e claims de FPS/qualidade. A base desta extensão é `99437b22e94a6494eaef801872bb8fd0c79c0f1a`.

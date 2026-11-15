@@ -64,6 +64,7 @@ jobs:
           python3 docs/benchmarks/m02/tools/qa_ledger.py --check
           python3 docs/benchmarks/m02/tools/build_camera_integration.py --check
           python3 docs/benchmarks/m02/tools/build_analysis_integration.py --check
+          python3 docs/benchmarks/m02/tools/build_m02_runtime.py --check
           python3 docs/benchmarks/m03/tools/build_budget_validation.py --check
           python3 docs/benchmarks/m03/tools/build_budget_validation.py --check-domain
           python3 docs/benchmarks/m04/tools/build_material_kit.py --check
