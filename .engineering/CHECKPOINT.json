@@ -2115,6 +2115,14 @@
     "runtimeAdmission": false,
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "pr": 260,
-    "protectedMergeSha": "420680b391e7ca3b23d9e065452cf52d85711740"
+    "protectedMergeSha": "420680b391e7ca3b23d9e065452cf52d85711740",
+    "kitBudget": {
+      "verdict": "FIT",
+      "materials": 4,
+      "uniqueTextures": 12,
+      "decodedBytes": 1048572,
+      "atlasPressure": 0.047,
+      "findings": 0
+    }
   }
 }

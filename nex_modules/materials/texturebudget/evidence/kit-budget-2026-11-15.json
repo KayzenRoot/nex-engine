@@ -1,0 +1,161 @@
+{
+  "kit_sha256": "0e597c6579205f93ebb2afc7c659a58593a759df0bdc4f0bd5574306713a6b08",
+  "kit_uri": "nex_modules/materials/kit/kit.v1.json",
+  "report": {
+    "atlas": {
+      "pressure_ratio": 0.047,
+      "tiles_available": 256,
+      "tiles_required": 12
+    },
+    "budget": {
+      "atlas_size": 4096,
+      "max_decoded_bytes": 268435456,
+      "max_texture_count": 512,
+      "tile_px": 256
+    },
+    "decoded_bytes_dedup": 1048572,
+    "decoded_bytes_total": 1048572,
+    "downscale_plan": [],
+    "duplicate_bytes_saved": 0,
+    "duplicate_refs": 0,
+    "findings": [],
+    "limitations": [
+      "planning only: no texture is loaded, decoded, uploaded or rendered",
+      "decoded size is width*height*4 with a 4/3 mipmap factor, not measured VRAM",
+      "atlas pressure is tile arithmetic (256 px tiles), not an allocator simulation",
+      "downscale steps reduce dimensions by half down to 64 px; no resampling is performed",
+      "visual quality and runtime cost are INCONCLUSIVE_NOT_RUN",
+      "no scene, engine or project.godot integration"
+    ],
+    "materials": 4,
+    "projected_bytes_after_plan": 1048572,
+    "recommendations": [],
+    "schema_version": "texture_budget.report.v1",
+    "texture_refs": 12,
+    "unique_textures": [
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "15daa6e16929cfb6104318b551d1be7a6346dfdf16b743b8199d68da0bac5ec8",
+        "slot": "orm",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "203f7f90ee6dec379f36c74a3e051c70c79ae4e421c5a0b217f62c546c85fce1",
+        "slot": "normal",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "352f512eeb80ca379d7c4ac6c2c0978fbb22484656f35e6b56a79dade06c490c",
+        "slot": "albedo",
+        "srgb": true,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "705e30885a8eea0f5e4577fd9b63c4587cce2804dd086dc454c52945e5ad30ed",
+        "slot": "albedo",
+        "srgb": true,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "82c7443863cd631d9fe7e479603570041e73ce769d217e3edc816dc75497bf61",
+        "slot": "albedo",
+        "srgb": true,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "9f88b07ea11e4b5e9632b1e82f022f9622c6aba49082e7848687549d2549283a",
+        "slot": "orm",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "b034af4166eb82c90b0a9e21dc8e03b200d3524bc195727020849c2bb82575e8",
+        "slot": "orm",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "b645cd2fa03d812173588a402dd52b8390c40b25c3734d7fe24e868474233175",
+        "slot": "orm",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "d8a08e23dc9d395908f8f78ec3e51c0396f37767fa8d49fb0fa2c0e5091af446",
+        "slot": "normal",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "f2efaaf133290a0ec3a5a180c6e9ea07ace926c49c38b9f5e68046bb09277a99",
+        "slot": "albedo",
+        "srgb": true,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "f4bbee0122a4402a8b85859001ce79c8a9618dcfee263c6b2229a4a4b6088bfb",
+        "slot": "normal",
+        "srgb": false,
+        "width_px": 128
+      },
+      {
+        "bytes": 87381,
+        "height_px": 128,
+        "mipmaps": true,
+        "refs": 1,
+        "sha256": "ffde2bbe3eff1f920a8023e77228ab7827bb0b495c11c39bd460fe36de5bfac5",
+        "slot": "normal",
+        "srgb": false,
+        "width_px": 128
+      }
+    ],
+    "verdict": "FIT"
+  },
+  "schema_version": "m04_kit_budget_run.v1",
+  "source_sha": "873f4a7d05d3b70912a5112089e3ebfbf068703c"
+}

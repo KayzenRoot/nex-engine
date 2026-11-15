@@ -1,0 +1,42 @@
+{
+  "atlas": {
+    "pressure_ratio": 0.047,
+    "tiles_available": 256,
+    "tiles_required": 12
+  },
+  "budget": {
+    "atlas_size": 4096,
+    "max_decoded_bytes": 268435456,
+    "max_texture_count": 512,
+    "tile_px": 256
+  },
+  "decoded_bytes_dedup": 1048572,
+  "decoded_bytes_total": 1048572,
+  "duplicate_refs": 0,
+  "evidence_bundle": "nex_modules/materials/texturebudget/evidence/kit-budget-2026-11-15.json",
+  "evidence_sha256": "3c3051ab7c1931ee8e77ad34c98ab63bf3d7929e4936bd0be126c17d4e79044d",
+  "findings": [],
+  "kit_sha256": "0e597c6579205f93ebb2afc7c659a58593a759df0bdc4f0bd5574306713a6b08",
+  "kit_uri": "nex_modules/materials/kit/kit.v1.json",
+  "limitations": [
+    "planning only: no texture is loaded, decoded, uploaded or rendered",
+    "decoded size is width*height*4 with a 4/3 mipmap factor, not measured VRAM",
+    "atlas pressure is tile arithmetic (256 px tiles), not an allocator simulation",
+    "downscale steps reduce dimensions by half down to 64 px; no resampling is performed",
+    "visual quality and runtime cost are INCONCLUSIVE_NOT_RUN",
+    "no scene, engine or project.godot integration"
+  ],
+  "materials": 4,
+  "observations": [
+    "all 12 kit textures are unique and referenced once",
+    "decoded size is 1,048,572 bytes against a 268,435,456-byte budget",
+    "atlas pressure is 0.047 (12 tiles of 256 available)",
+    "the planner reports no findings and a FIT verdict"
+  ],
+  "runs": 1,
+  "schema_version": "m04_kit_budget.v1",
+  "source_sha": "873f4a7d05d3b70912a5112089e3ebfbf068703c",
+  "texture_refs": 12,
+  "unique_textures": 12,
+  "verdict": "FIT"
+}
