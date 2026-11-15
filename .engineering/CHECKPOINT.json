@@ -2237,5 +2237,20 @@
     "newMeasurement": true,
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM08": "BOUNDED_ADMITTED_COMPOSITION_PIPELINE"
+  },
+  "evidenceValidator": {
+    "id": "NEX-EVIDENCE-VALIDATOR-WO-001",
+    "bundles": 27,
+    "entries": 803,
+    "corrections": 1,
+    "correctedFile": "GPU-DEVICE-SNAPSHOT.txt",
+    "excludedScope": [
+      "modifying evidence file bytes",
+      "suppressing or excluding a checksum error without a recorded correction",
+      "performance, quality or independent-approval claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

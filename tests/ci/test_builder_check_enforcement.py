@@ -88,12 +88,13 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
             [
                 ("docs/benchmarks/tools/build_provenance_index.py", "build_provenance_index.py", "--check"),
                 ("docs/benchmarks/tools/validate_checkpoint.py", "validate_checkpoint.py", "--check"),
+                ("docs/benchmarks/tools/validate_evidence.py", "validate_evidence.py", "--check"),
             ],
             matches,
         )
 
     def test_expected_builder_count(self) -> None:
-        # 1 M01 + 3 M02 + 1 M03 (2 invocations) + 2 M04 + 1 M05 + 4 M06 (6 invocations) + 1 M08 + 16 M09 + 1 M10 + 1 M11 = 31 files / 34 checks.
+        # 1 M01 + 3 M02 + 1 M03 (2 invocations) + 2 M04 + 1 M05 + 4 M06 (6 invocations) + 1 M08 + 16 M09 + 1 M10 + 1 M11 = 31 files / 34 checks, plus 3 cross-module validators.
         self.assertEqual(31, len(self.commands))
         self.assertEqual(34, sum(len(value) for value in self.commands.values()))
 
