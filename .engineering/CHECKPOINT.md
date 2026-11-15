@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M02-S02/S03/S04 scene analysis
+
+**M02-S02/S03/S04 integrados** por PR #258, squash `8827b7605a5c0d93aa3a8cb5150b7768ba59fd28`. Os protótipos `SightlineController`, `DepthCompositionSolver` e `TemporalGuardAnalyzer` foram vendorizados em `nex_bench/scenes/m02_analysis/` e executados headless sobre geometria real das três cenas M01 e sobre os cinco frames estáticos integrados.
+
+**Resultado:** 17/34/23 meshes; 8 occluders e 16 primitivas por cena; **1 reveal e 1 danger alert** por cena, nenhum ator crítico não visto; **0 z-fight risks** em corridor e **4** em arena/city; 0 alpha-over-critical e 0 overlay-gameplay conflicts; temporal `BASELINE_ACCEPTABLE` em 5 frames e 16 regiões. QA ledger: S02–S04 `scene_analysis=PASS`; `scene_comparison` e `performance` permanecem `INCONCLUSIVE_NOT_RUN` porque não há rendering. 3 runs hasheados; suíte CI **573 testes OK**; 30 comandos de builder/validator. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · All parents bounded admitted
 
 **M07 (#12), M08 (#13), M10 (#15), M11 (#16) e M12 (#17) admitidos** como `BOUNDED_ADMITTED_RENDER2D_PIPELINE`, `BOUNDED_ADMITTED_COMPOSITION_PIPELINE`, `BOUNDED_ADMITTED_ANIMATION_PIPELINE`, `BOUNDED_ADMITTED_ASSET_PIPELINE` e `BOUNDED_ADMITTED_IDENTITY_PIPELINE` por `NEX-ADR-0010` / `NEX-D-020`, sobre a base `8bb4bef1b216e71eafe0dc83efe897bb926530ce`. A admissão cobre contratos, documentação, protótipos determinísticos, smoke headless, testes e evidência já verificados.
