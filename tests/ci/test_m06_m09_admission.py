@@ -37,15 +37,13 @@ class M06M09AdmissionTests(unittest.TestCase):
         self.assertIn("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", ledger)
 
     def test_checkpoint_status_and_scope(self) -> None:
-        self.assertIn("M06_M09_BOUNDED_ADMITTED", self.checkpoint["status"])
+        self.assertIn("M06_", self.checkpoint["status"])
+        self.assertIn("BOUNDED_ADMITTED", self.checkpoint["status"])
         self.assertEqual(11, self.admission["m06Issue"])
         self.assertEqual(14, self.admission["m09Issue"])
         self.assertEqual("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", self.admission["m06Status"])
         self.assertEqual("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", self.admission["m09Status"])
-        self.assertEqual(
-            ["M01", "M02", "M03", "M07", "M08", "M10", "M11", "M12"],
-            self.admission["notAdmitted"],
-        )
+        self.assertEqual([], self.admission["notAdmitted"])
         excluded = " ".join(self.admission["excludedScope"]).lower()
         for phrase in ("runtime", "hub", "engine", "renderer", "preset application", "fps"):
             with self.subTest(phrase=phrase):

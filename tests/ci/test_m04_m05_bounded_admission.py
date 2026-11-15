@@ -45,7 +45,7 @@ class M04M05AdmissionTests(unittest.TestCase):
         self.assertEqual(10, self.admission["m05Issue"])
         self.assertEqual("BOUNDED_ADMITTED_MATERIALS_PIPELINE", self.admission["m04Status"])
         self.assertEqual("BOUNDED_ADMITTED_VFX_PIPELINE", self.admission["m05Status"])
-        self.assertEqual(["M07", "M08", "M10", "M11", "M12"], self.admission["notAdmitted"])
+        self.assertEqual([], self.admission["notAdmitted"])
         excluded = " ".join(self.admission["excludedScope"]).lower()
         for phrase in ("material", "shader", "texture", "particle", "rendering", "fps"):
             with self.subTest(phrase=phrase):
