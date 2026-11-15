@@ -2201,5 +2201,36 @@
     "newMeasurement": true,
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM10": "BOUNDED_ADMITTED_ANIMATION_PIPELINE"
+  },
+  "m08SceneComposition": {
+    "id": "NEX-M08-SCENE-COMPOSITION-WO-001",
+    "issues": [
+      13,
+      7
+    ],
+    "scenes": {
+      "corridor_static": "SAFE_CONFIG_HEURISTIC",
+      "arena_combat": "CONFLICTS_REPORTED",
+      "dense_city": "CONFLICTS_REPORTED"
+    },
+    "layers": 4,
+    "criticalEntities": [
+      "player",
+      "threat"
+    ],
+    "baseZfightRisks": {
+      "corridor_static": 0,
+      "arena_combat": 4,
+      "dense_city": 4
+    },
+    "highConflicts": 0,
+    "excludedScope": [
+      "layer, viewport, shader, scene or renderer creation",
+      "runtime, hub or engine changes",
+      "visual-quality, FPS, frame-time, game-feel or gain claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

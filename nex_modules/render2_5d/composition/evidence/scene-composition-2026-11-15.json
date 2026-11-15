@@ -1,0 +1,344 @@
+{
+  "analysis_manifest_sha256": "1aab9825beeab8b69ac45ea46c251e33609713c5006e3e4c465715d0931df068",
+  "analysis_manifest_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-analysis/runs.v1.json",
+  "limitations": [
+    "planning only; no layer, viewport, shader, scene or renderer is created",
+    "the base 3D plan is the M02 scene-analysis bundle, not a rendered depth buffer",
+    "layer roles and parallax values are reference defaults, not art direction",
+    "no FPS, frame-time, visual-quality or game-feel claim"
+  ],
+  "scenes": [
+    {
+      "report": {
+        "base_3d_plan": {
+          "alpha_count": 0,
+          "alpha_over_critical": 0,
+          "opaque_count": 16,
+          "overlay_count": 0,
+          "overlay_gameplay_conflicts": 0,
+          "plan_schema": "depth_composition.plan.v1",
+          "plan_sha256": "bda652e2780c5d844f790612923a7b047300835596d9187cb8c31c9bfa7587bd",
+          "z_fight_risks": 0
+        },
+        "conflicts": [],
+        "critical_entities": [
+          {
+            "entity_id": "player",
+            "must_remain_visible": true,
+            "role": "player"
+          },
+          {
+            "entity_id": "threat",
+            "must_remain_visible": true,
+            "role": "threat"
+          }
+        ],
+        "layers": [
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 0,
+            "effective_parallax": 0.4,
+            "gameplay_critical": false,
+            "layer_id": "background",
+            "may_cover_gameplay": false,
+            "parallax": 0.4,
+            "role": "background",
+            "stack_index": 0
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 1,
+            "effective_parallax": 1.0,
+            "gameplay_critical": true,
+            "layer_id": "gameplay",
+            "may_cover_gameplay": false,
+            "parallax": 1.0,
+            "role": "gameplay",
+            "stack_index": 1
+          },
+          {
+            "alpha": 0.4,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 2,
+            "effective_parallax": 1.4,
+            "gameplay_critical": false,
+            "layer_id": "foreground",
+            "may_cover_gameplay": false,
+            "parallax": 1.4,
+            "role": "foreground",
+            "stack_index": 2
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 3,
+            "effective_parallax": 0.0,
+            "gameplay_critical": false,
+            "layer_id": "hud",
+            "may_cover_gameplay": false,
+            "parallax": 0.0,
+            "role": "hud",
+            "stack_index": 3
+          }
+        ],
+        "limitations": [
+          "planning only: no layer, viewport, shader, scene or renderer is created",
+          "alpha-over-critical is depth/alpha arithmetic, not pixel coverage",
+          "parallax bands are planning heuristics, not camera measurements",
+          "the planner groups layers by role for draw order; it does not reorder 3D primitives",
+          "visual composition and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "policies": {
+          "conflict_policy": "report",
+          "critical_guard": true,
+          "depth_policy": "hybrid",
+          "hud_layer_id": "hud",
+          "overlay_may_cover_gameplay": false
+        },
+        "schema_version": "composition.plan.v1",
+        "summary": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "verdict": "SAFE_CONFIG_HEURISTIC"
+      },
+      "scene_id": "corridor_static",
+      "scene_sha256": "bda652e2780c5d844f790612923a7b047300835596d9187cb8c31c9bfa7587bd"
+    },
+    {
+      "report": {
+        "base_3d_plan": {
+          "alpha_count": 0,
+          "alpha_over_critical": 0,
+          "opaque_count": 16,
+          "overlay_count": 0,
+          "overlay_gameplay_conflicts": 0,
+          "plan_schema": "depth_composition.plan.v1",
+          "plan_sha256": "afebea5f10e0f8eb0e0418f297160d1cfb85e7735450205bf60f42b78762a643",
+          "z_fight_risks": 4
+        },
+        "conflicts": [
+          {
+            "code": "base_z_fight_risk",
+            "message": "base 3D plan reports z-fight risks",
+            "severity": "medium"
+          }
+        ],
+        "critical_entities": [
+          {
+            "entity_id": "player",
+            "must_remain_visible": true,
+            "role": "player"
+          },
+          {
+            "entity_id": "threat",
+            "must_remain_visible": true,
+            "role": "threat"
+          }
+        ],
+        "layers": [
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 0,
+            "effective_parallax": 0.4,
+            "gameplay_critical": false,
+            "layer_id": "background",
+            "may_cover_gameplay": false,
+            "parallax": 0.4,
+            "role": "background",
+            "stack_index": 0
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 1,
+            "effective_parallax": 1.0,
+            "gameplay_critical": true,
+            "layer_id": "gameplay",
+            "may_cover_gameplay": false,
+            "parallax": 1.0,
+            "role": "gameplay",
+            "stack_index": 1
+          },
+          {
+            "alpha": 0.4,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 2,
+            "effective_parallax": 1.4,
+            "gameplay_critical": false,
+            "layer_id": "foreground",
+            "may_cover_gameplay": false,
+            "parallax": 1.4,
+            "role": "foreground",
+            "stack_index": 2
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 3,
+            "effective_parallax": 0.0,
+            "gameplay_critical": false,
+            "layer_id": "hud",
+            "may_cover_gameplay": false,
+            "parallax": 0.0,
+            "role": "hud",
+            "stack_index": 3
+          }
+        ],
+        "limitations": [
+          "planning only: no layer, viewport, shader, scene or renderer is created",
+          "alpha-over-critical is depth/alpha arithmetic, not pixel coverage",
+          "parallax bands are planning heuristics, not camera measurements",
+          "the planner groups layers by role for draw order; it does not reorder 3D primitives",
+          "visual composition and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "policies": {
+          "conflict_policy": "report",
+          "critical_guard": true,
+          "depth_policy": "hybrid",
+          "hud_layer_id": "hud",
+          "overlay_may_cover_gameplay": false
+        },
+        "schema_version": "composition.plan.v1",
+        "summary": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 1
+        },
+        "verdict": "CONFLICTS_REPORTED"
+      },
+      "scene_id": "arena_combat",
+      "scene_sha256": "afebea5f10e0f8eb0e0418f297160d1cfb85e7735450205bf60f42b78762a643"
+    },
+    {
+      "report": {
+        "base_3d_plan": {
+          "alpha_count": 0,
+          "alpha_over_critical": 0,
+          "opaque_count": 16,
+          "overlay_count": 0,
+          "overlay_gameplay_conflicts": 0,
+          "plan_schema": "depth_composition.plan.v1",
+          "plan_sha256": "61155e5bc5b561f066ece748b96e2286af0962fa202edd1c5c9dc20f12f09849",
+          "z_fight_risks": 4
+        },
+        "conflicts": [
+          {
+            "code": "base_z_fight_risk",
+            "message": "base 3D plan reports z-fight risks",
+            "severity": "medium"
+          }
+        ],
+        "critical_entities": [
+          {
+            "entity_id": "player",
+            "must_remain_visible": true,
+            "role": "player"
+          },
+          {
+            "entity_id": "threat",
+            "must_remain_visible": true,
+            "role": "threat"
+          }
+        ],
+        "layers": [
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 0,
+            "effective_parallax": 0.4,
+            "gameplay_critical": false,
+            "layer_id": "background",
+            "may_cover_gameplay": false,
+            "parallax": 0.4,
+            "role": "background",
+            "stack_index": 0
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 1,
+            "effective_parallax": 1.0,
+            "gameplay_critical": true,
+            "layer_id": "gameplay",
+            "may_cover_gameplay": false,
+            "parallax": 1.0,
+            "role": "gameplay",
+            "stack_index": 1
+          },
+          {
+            "alpha": 0.4,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 2,
+            "effective_parallax": 1.4,
+            "gameplay_critical": false,
+            "layer_id": "foreground",
+            "may_cover_gameplay": false,
+            "parallax": 1.4,
+            "role": "foreground",
+            "stack_index": 2
+          },
+          {
+            "alpha": 1.0,
+            "blend_mode": "normal",
+            "depth_mode": "inherit_3d",
+            "draw_index": 3,
+            "effective_parallax": 0.0,
+            "gameplay_critical": false,
+            "layer_id": "hud",
+            "may_cover_gameplay": false,
+            "parallax": 0.0,
+            "role": "hud",
+            "stack_index": 3
+          }
+        ],
+        "limitations": [
+          "planning only: no layer, viewport, shader, scene or renderer is created",
+          "alpha-over-critical is depth/alpha arithmetic, not pixel coverage",
+          "parallax bands are planning heuristics, not camera measurements",
+          "the planner groups layers by role for draw order; it does not reorder 3D primitives",
+          "visual composition and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "policies": {
+          "conflict_policy": "report",
+          "critical_guard": true,
+          "depth_policy": "hybrid",
+          "hud_layer_id": "hud",
+          "overlay_may_cover_gameplay": false
+        },
+        "schema_version": "composition.plan.v1",
+        "summary": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 1
+        },
+        "verdict": "CONFLICTS_REPORTED"
+      },
+      "scene_id": "dense_city",
+      "scene_sha256": "61155e5bc5b561f066ece748b96e2286af0962fa202edd1c5c9dc20f12f09849"
+    }
+  ],
+  "schema_version": "m08_scene_composition_run.v1",
+  "source_sha": "d218525cbd7cd84b5c69f5e52577a6244f8733b6"
+}

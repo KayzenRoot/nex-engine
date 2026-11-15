@@ -68,6 +68,7 @@ jobs:
           python3 docs/benchmarks/m04/tools/build_kit_budget.py --check
           python3 docs/benchmarks/m05/tools/build_fx_budget_dataset.py --check
           python3 docs/benchmarks/m06/tools/build_atlas.py --check
+          python3 docs/benchmarks/m08/tools/build_scene_composition.py --check
           python3 docs/benchmarks/m10/tools/build_archetype_feedback.py --check
           python3 docs/benchmarks/m11/tools/build_kit_audit.py --check
           python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check
