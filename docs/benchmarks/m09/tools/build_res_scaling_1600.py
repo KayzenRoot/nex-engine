@@ -14,8 +14,8 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from arena_resolution import PRESETS, build_core, render_model_and_footer  # noqa: E402 - local tool module
-from common import load_json, run_cli  # noqa: E402 - local tool module
+from arena_resolution import PRESETS, build_core, load_context, render_model_and_footer  # noqa: E402 - local tool module
+from common import run_cli  # noqa: E402 - local tool module
 from preset_report import pct, render_cells_table  # noqa: E402 - local tool module
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
@@ -34,28 +34,10 @@ CONTEXT_RESOLUTIONS = ((1280, 720), (1920, 1080))
 CONTEXT_KEYS = ("gpu_p95_ms", "cpu_p95_ms", "pacing_p95_ms", "one_percent_low_fps")
 
 
-def _context() -> dict[str, dict[str, dict[str, float]]]:
-    report = load_json(CONTEXT)
-    if report.get("workload", {}).get("scene_id") != SCENE_ID:
-        raise ValueError("res-scaling context is not the arena scene")
-    values: dict[str, dict[str, dict[str, float]]] = {}
-    for width, height in CONTEXT_RESOLUTIONS:
-        key = f"{width}x{height}"
-        values[key] = {}
-        for preset in PRESETS:
-            match = [cell for cell in report.get("cells", [])
-                     if cell.get("preset_id") == preset
-                     and cell.get("width") == width and cell.get("height") == height]
-            if len(match) != 1:
-                raise ValueError(f"res-scaling context is missing {key}/{preset}")
-            values[key][preset] = {name: float(match[0][name]) for name in CONTEXT_KEYS}
-    return values
-
-
 def build_report() -> dict[str, Any]:
     core = build_core(EVIDENCE_REL, WIDTH, HEIGHT, PROXY_COUNT)
     cells = {cell["preset_id"]: cell for cell in core["cells"]}
-    context = _context()
+    context = load_context(CONTEXT, CONTEXT_RESOLUTIONS, CONTEXT_KEYS)
     model_cells = core["model_context"]["cells"]
     predictions = {cell["preset_id"]: cell["predicted_gpu_ms"] for cell in model_cells}
     deltas = {

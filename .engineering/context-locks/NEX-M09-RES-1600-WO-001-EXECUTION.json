@@ -185,7 +185,9 @@
       ".engineering/evidence/NEX-M09-RES-1600-WO-001-EVIDENCE.md",
       ".engineering/checkpoint-deltas/NEX-M09-RES-1600-WO-001-PROPOSED.md",
       ".engineering/CHECKPOINT.json",
-      ".engineering/CHECKPOINT.md"
+      ".engineering/CHECKPOINT.md",
+      "docs/benchmarks/m09/tools/arena_resolution.py",
+      "docs/benchmarks/m09/tools/build_res_scaling_1440.py"
     ],
     "readOnly": [
       "nex_bench/scenes/**",
