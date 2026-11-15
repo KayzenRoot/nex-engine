@@ -1,28 +1,36 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · All parents bounded admitted
+
+**M07 (#12), M08 (#13), M10 (#15), M11 (#16) e M12 (#17) admitidos** como `BOUNDED_ADMITTED_RENDER2D_PIPELINE`, `BOUNDED_ADMITTED_COMPOSITION_PIPELINE`, `BOUNDED_ADMITTED_ANIMATION_PIPELINE`, `BOUNDED_ADMITTED_ASSET_PIPELINE` e `BOUNDED_ADMITTED_IDENTITY_PIPELINE` por `NEX-ADR-0010` / `NEX-D-020`, sobre a base `8bb4bef1b216e71eafe0dc83efe897bb926530ce`. A admissão cobre contratos, documentação, protótipos determinísticos, smoke headless, testes e evidência já verificados.
+
+**Status:** `ALL_PARENTS_BOUNDED_ADMITTED_M01_..._M12`; nenhum parent permanece `NOT_ADMITTED`. **Não admitido:** runtime, hub, engine, renderer, shaders, `project.godot`, gameplay, cenas de produção, renderização real, geração de assets, importação/cozimento, aprovação de marca, performance/FPS/qualidade/game feel. M01–M06/M09 seguem bounded admitted em referência/análise/evidência. A admissão não relaxa CI, segurança, testes, locks ou ruleset. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+**Integração:** PR #256 squash `4a095ef0f9b292ac5c5acf4fa1ebfcbf5fd1a0a9`; árvore idêntica à revisada e checks pós-merge SUCCESS.
+
 ## Current verified scope | 2026-11-15 · M02-S01 camera integration
 
 **M02-S01 integrado** por PR #254, squash `7ab8d4abdaf72b8a33921e9c3bf82bca782c4d7e`. O `IsometricCameraRig` foi vendorizado no harness como modo aditivo `baseline|rig`; 18 PNGs visuais e 18 capturas de performance A/B/A nas três cenas M01.
 
-**Resultado:** A/A byte-idêntico; A/B mean abs **0.002/0.0003/0.0** e changed pixels **0.013%/0.003%/0.0%** — o rig reproduz o enquadramento baseline. GPU p95 delta **0.0%/+0.94%/+1.25%**; CPU **0.0%/+13.3%/+12.94%**. QA ledger: S01 `scene_comparison=PASS` e `performance=MEASURED`; S02–S05 permanecem `INCONCLUSIVE_NOT_RUN`; S06 research-only. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** A/A byte-idêntico; A/B mean abs **0.002/0.0003/0.0** e changed pixels **0.013%/0.003%/0.0%** — o rig reproduz o enquadramento baseline. GPU p95 delta **0.0%/+0.94%/+1.25%**; CPU **0.0%/+13.3%/+12.94%**. QA ledger: S01 `scene_comparison=PASS` e `performance=MEASURED`; S02–S05 permanecem `INCONCLUSIVE_NOT_RUN`; S06 research-only. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-14 · Checkpoint schema validator
 
 **NEX-CP-SCHEMA integrado** por PR #252, squash `cf179d7d9ea21ec73fe2698606b4006c2c800720`. O validador `validate_checkpoint.py --check` roda no job requerido e cobre **62 blocos de proveniência**.
 
-**Resultado:** falha em SHA inválido, `pr` sem merge SHA, aprovação independente falsa, bloco de admissão ausente, merge SHAs duplicados e contagem de proveniência incoerente. O checkpoint e o índice permanecem coerentes; nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** falha em SHA inválido, `pr` sem merge SHA, aprovação independente falsa, bloco de admissão ausente, merge SHAs duplicados e contagem de proveniência incoerente. O checkpoint e o índice permanecem coerentes; nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-14 · M09 1600×900
 
 **M09-RES-1600 integrado** por PR #250, squash `b3eaaee65c0f9128510307c041d90deba6b12aac`. Nova sessão de **6 capturas** em `arena_combat`, 100 proxies, 1600×900, A/B/A, todas PASS no validador dedicado.
 
-**Resultado:** GPU p95 **0.133 ms** (ab-low) e **0.632 ms** (ab-high), high/low **+375.2%**. Deltas 1280→1600 **+25.5%/+37.4%**; 1600→1920 **+17.3%/+30.7%**. Modelo M03: **ab-high −27.2%** (entre o match de 1280 e o erro de 1920); ab-low +185.0%. M06 atualizado para **162 observações / 10 bundles**; atlas M09 em **15 bundles / 162 capturas / 114 imagens / 483 arquivos**. Nenhum harness, cena, preset, contrato, modelo, renderer, shader ou `project.godot` alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** GPU p95 **0.133 ms** (ab-low) e **0.632 ms** (ab-high), high/low **+375.2%**. Deltas 1280→1600 **+25.5%/+37.4%**; 1600→1920 **+17.3%/+30.7%**. Modelo M03: **ab-high −27.2%** (entre o match de 1280 e o erro de 1920); ab-low +185.0%. M06 atualizado para **162 observações / 10 bundles**; atlas M09 em **15 bundles / 162 capturas / 114 imagens / 483 arquivos**. Nenhum harness, cena, preset, contrato, modelo, renderer, shader ou `project.godot` alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-14 · M09 camera-motion sequence
 
 **M09-CAMERA-MOTION integrado** por PR #248, squash `1feb0863234bf12bcceb048736270fb33e9a5d1f`. Flag aditiva `NEX_PRESET_AB_CAMERA_MOTION` com órbita determinística de **3° por frame capturado**; **30 PNGs** (3 cenas × 2 presets × 5 frames) a 1280×720.
 
-**Resultado:** todos os pares consecutivos diferem; changed pixels **3.132–19.766%**; mean abs médio por célula **1.80–5.16**. Atlas M09 em **14 bundles / 114 imagens / 468 arquivos**. Flag desligada mantém o comportamento estático existente; a estabilidade temporal estática continua em bundle separado. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** todos os pares consecutivos diferem; changed pixels **3.132–19.766%**; mean abs médio por célula **1.80–5.16**. Atlas M09 em **14 bundles / 114 imagens / 468 arquivos**. Flag desligada mantém o comportamento estático existente; a estabilidade temporal estática continua em bundle separado. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-14 · M04/M05 bounded admission
 
@@ -34,9 +42,9 @@
 
 ## Current verified scope | 2026-11-14 · Provenance index
 
-**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **63 entradas** com PR protegida e merge SHA, PRs **112–254**, 63 merge SHAs únicos.
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **64 entradas** com PR protegida e merge SHA, PRs **112–256**, 64 merge SHAs únicos.
 
-**Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-14 · M09 resolution campaign closure
 
