@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 64 · **PRs:** 112–256
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 65 · **PRs:** 112–258
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -70,6 +70,7 @@
 | cpSchemaValidator | NEX-CP-SCHEMA-WO-001 | 252 | `cf179d7d9ea21ec73fe2698606b4006c2c800720` | 14 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m02S01Integration | NEX-M02-S01-INTEGRATION-WO-001 | 254 | `7ab8d4abdaf72b8a33921e9c3bf82bca782c4d7e` | 7,28 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m07M08M10M11M12BoundedAdmission | NEX-ADMISSION-M07-M08-M10-M11-M12-WO-001 | 256 | `4a095ef0f9b292ac5c5acf4fa1ebfcbf5fd1a0a9` | 12,13,15,16,17 | — | ADMIN_SOLO_NOT_INDEPENDENT |
+| m02S02S03S04Analysis | NEX-M02-S02-S03-S04-ANALYSIS-WO-001 | 258 | `8827b7605a5c0d93aa3a8cb5150b7768ba59fd28` | 7,29,30,31 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 

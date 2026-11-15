@@ -718,6 +718,20 @@
       "pr": 256,
       "protectedMergeSha": "4a095ef0f9b292ac5c5acf4fa1ebfcbf5fd1a0a9",
       "verdict": ""
+    },
+    {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "block": "m02S02S03S04Analysis",
+      "id": "NEX-M02-S02-S03-S04-ANALYSIS-WO-001",
+      "issues": [
+        7,
+        29,
+        30,
+        31
+      ],
+      "pr": 258,
+      "protectedMergeSha": "8827b7605a5c0d93aa3a8cb5150b7768ba59fd28",
+      "verdict": ""
     }
   ],
   "limitations": [
@@ -726,7 +740,7 @@
     "the checkpoint is the authority; this index is a navigation aid",
     "entries without a protected PR and merge SHA are not listed"
   ],
-  "runs": 64,
+  "runs": 65,
   "schema_version": "nex_provenance_index.v1",
   "session_date": "2026-11-14",
   "source": ".engineering/CHECKPOINT.json",
@@ -734,10 +748,10 @@
     "audit_labels": [
       "ADMIN_SOLO_NOT_INDEPENDENT"
     ],
-    "entries": 64,
-    "max_pr": 256,
+    "entries": 65,
+    "max_pr": 258,
     "min_pr": 112,
-    "unique_merge_shas": 64
+    "unique_merge_shas": 65
   },
   "verdict": "PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT"
 }
