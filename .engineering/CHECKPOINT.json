@@ -2256,5 +2256,72 @@
     "protectedMergeSha": "1dc2c7ca96847cb9d405c2836d1728576423093e",
     "newMeasurement": false,
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT"
+  },
+  "m01FinalReference": {
+    "id": "NEX-M01-FINAL-REFERENCE-WO-001",
+    "issues": [
+      6,
+      21,
+      23,
+      27
+    ],
+    "admissionAdr": "NEX-ADR-0012-M01-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-022",
+    "golden": {
+      "runs": 18,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "aaIdentical": true,
+      "abChangedPixelsPct": {
+        "corridor_static": 3.367,
+        "arena_combat": 3.354,
+        "dense_city": 1.276
+      },
+      "abPsnrDb": {
+        "corridor_static": 38.485,
+        "arena_combat": 36.851,
+        "dense_city": 40.464
+      }
+    },
+    "performance": {
+      "runs": 9,
+      "gpuP95Ms": {
+        "corridor_static": 0.139,
+        "arena_combat": 0.151,
+        "dense_city": 0.122
+      },
+      "cpuP95Ms": {
+        "corridor_static": 0.395,
+        "arena_combat": 0.382,
+        "dense_city": 0.363
+      },
+      "pacingP95Ms": {
+        "corridor_static": 4.273,
+        "arena_combat": 4.291,
+        "dense_city": 4.255
+      },
+      "onePercentLowFps": {
+        "corridor_static": 223.26,
+        "arena_combat": 224.27,
+        "dense_city": 223.76
+      }
+    },
+    "budget": {
+      "status": "OWNER_APPROVED",
+      "date": "2026-11-15"
+    },
+    "license": "ORIGINAL_NEX_GENERATED_NO_THIRD_PARTY_ASSETS",
+    "excludedScope": [
+      "game, gameplay, networking, production scenes or M02-M12 renderer/runtime",
+      "custom shaders, compositor, GI, real shadows or real VFX",
+      "third-party assets, cloud or paid services",
+      "generalized FPS, quality, cross-device or input-to-photon claims",
+      "M12 brand approval"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M01_REFERENCE_LAB_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

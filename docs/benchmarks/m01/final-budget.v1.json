@@ -1,0 +1,165 @@
+{
+  "budget": {
+    "cpu_p95_ms": 2.0,
+    "experimental_120_one_percent_low_fps": 120.0,
+    "experimental_120_pacing_p95_ms": 8.33,
+    "gpu_p95_ms": 1.0,
+    "one_percent_low_fps": 60.0,
+    "pacing_p95_ms": 16.67
+  },
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m01-perf-1080",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver",
+    "100-mesh light workload; no dense-game or cross-device generalization",
+    "callback pacing is not input-to-photon or display presentation",
+    "allocation is renderer-side and session-history, not device VRAM"
+  ],
+  "observations": [
+    "all 9 runs are 1920x1080 native Forward+/Vulkan on the RTX 5050",
+    "GPU p95 medians are 0.121-0.151 ms and CPU p95 medians are 0.361-0.476 ms",
+    "pacing p95 medians are 4.246-4.296 ms and 1% low medians are 223.26-225.98 FPS",
+    "the 60 FPS and experimental 120 FPS pacing budgets are met on this light workload",
+    "the 240 FPS cap and VSync-off settings mean this is not a display-presentation claim"
+  ],
+  "ownerDecision": {
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "date": "2026-11-15",
+    "record": "Owner authorized finalizing the base modules starting with M01 and explicitly approved closing the M01 budget decision.",
+    "status": "OWNER_APPROVED"
+  },
+  "runs": 9,
+  "scenes": [
+    {
+      "budget": {
+        "cpu_p95_ms": 2.0,
+        "gpu_p95_ms": 1.0,
+        "one_percent_low_fps": 60.0,
+        "pacing_p95_ms": 16.67
+      },
+      "checks": {
+        "cpu_p95": true,
+        "gpu_p95": true,
+        "one_percent_low": true,
+        "pacing_p95": true
+      },
+      "cpu_p95_ms": 0.395,
+      "gpu_p50_ms": 0.128,
+      "gpu_p95_ms": 0.139,
+      "gpu_p95_spread_pct": 0.7,
+      "gpu_p99_ms": 0.249,
+      "layout": "M01 corridor_static + deterministic fillers",
+      "one_percent_low_fps": 223.26,
+      "one_percent_low_spread_pct": 0.5,
+      "pacing_p95_ms": 4.273,
+      "renderer_allocation_bytes_median": 36208368,
+      "runs": 3,
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "seed": 4101,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "budget": {
+        "cpu_p95_ms": 2.0,
+        "gpu_p95_ms": 1.0,
+        "one_percent_low_fps": 60.0,
+        "pacing_p95_ms": 16.67
+      },
+      "checks": {
+        "cpu_p95": true,
+        "gpu_p95": true,
+        "one_percent_low": true,
+        "pacing_p95": true
+      },
+      "cpu_p95_ms": 0.382,
+      "gpu_p50_ms": 0.14,
+      "gpu_p95_ms": 0.151,
+      "gpu_p95_spread_pct": 0.7,
+      "gpu_p99_ms": 0.267,
+      "layout": "M01 arena_combat + deterministic fillers",
+      "one_percent_low_fps": 224.27,
+      "one_percent_low_spread_pct": 1.9,
+      "pacing_p95_ms": 4.291,
+      "renderer_allocation_bytes_median": 36282336,
+      "runs": 3,
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "seed": 4102,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "budget": {
+        "cpu_p95_ms": 2.0,
+        "gpu_p95_ms": 1.0,
+        "one_percent_low_fps": 60.0,
+        "pacing_p95_ms": 16.67
+      },
+      "checks": {
+        "cpu_p95": true,
+        "gpu_p95": true,
+        "one_percent_low": true,
+        "pacing_p95": true
+      },
+      "cpu_p95_ms": 0.363,
+      "gpu_p50_ms": 0.11,
+      "gpu_p95_ms": 0.122,
+      "gpu_p95_spread_pct": 0.8,
+      "gpu_p99_ms": 0.151,
+      "layout": "M01 dense_city + deterministic fillers",
+      "one_percent_low_fps": 223.76,
+      "one_percent_low_spread_pct": 1.1,
+      "pacing_p95_ms": 4.255,
+      "renderer_allocation_bytes_median": 36208496,
+      "runs": 3,
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "seed": 4103,
+      "viewport_px": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "schema_version": "m01_final_performance_budget.v1",
+  "session_date": "2026-11-15",
+  "settings": {
+    "max_fps": 240,
+    "observation_seconds": 30.0,
+    "vsync": 0,
+    "warmup_seconds": 2.0
+  },
+  "source_sha": "900d2b2d031a87048702625a1e98bc50905bc663",
+  "targets": [
+    {
+      "frame_budget_ms": 16.67,
+      "id": "quality-1080p60",
+      "status": "MET_ON_REFERENCE_WORKLOAD"
+    },
+    {
+      "frame_budget_ms": 8.33,
+      "id": "performance-120",
+      "status": "MET_ON_REFERENCE_WORKLOAD"
+    }
+  ],
+  "verdict": "M01_BUDGET_APPROVED_AND_MEASURED",
+  "viewport_px": [
+    1920,
+    1080
+  ],
+  "workload": {
+    "effect_mode": "lights",
+    "preset_id": "ab-low",
+    "proxy_count": 100
+  }
+}

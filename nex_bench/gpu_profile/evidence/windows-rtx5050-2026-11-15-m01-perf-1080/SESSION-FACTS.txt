@@ -1,0 +1,18 @@
+NEX M01 PERFORMANCE 1920x1080 SESSION FACTS
+===========================================
+Date: 2026-11-15
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: 900d2b2d031a87048702625a1e98bc50905bc663
+Viewport: 1920 x 1080 (native content scale disabled)
+Workload: 100 meshes per scene, effect_mode lights, preset ab-low
+Warmup: 2.0 s; observation: 30.0 s; 3 serial repetitions per scene
+Settings: VSync disabled; Engine.max_fps = 240
+Scenes: corridor_static (seed 4101), arena_combat (4102), dense_city (4103)
+Metrics: GPU_RENDER_MS, CPU_RENDER_MS, FRAME_PACING_INTERVAL_MS,
+         RENDERER_ALLOCATION_BYTES; p50/p95/p99 nearest-rank and 1% low.
+Limitations: callback pacing is not display presentation or input-to-photon;
+             single GPU/driver/session; light 100-mesh workload; no
+             generalization or game-performance claim.
