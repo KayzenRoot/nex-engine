@@ -1,0 +1,314 @@
+{
+  "archetypes": [
+    {
+      "archetype_id": "skirmish",
+      "budget": {
+        "max_decals": 32,
+        "max_emitters": 32,
+        "max_gpu_emitters": 8,
+        "max_particles": 800
+      },
+      "label": "three-trash-pack",
+      "report": {
+        "budget": {
+          "max_decals": 32,
+          "max_emitters": 32,
+          "max_gpu_emitters": 8,
+          "max_particles": 800
+        },
+        "findings": [],
+        "limitations": [
+          "planning only: no particle, emitter, light, decal or renderer is created",
+          "particle totals are arithmetic amounts, not simulated alive particles or overdraw",
+          "GPU-to-CPU conversion is a planning suggestion, not a measured trade-off",
+          "emitter merging and decal reduction have no projected scene in this prototype",
+          "visual clarity and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "per_spell": [
+          {
+            "decals": 1,
+            "duration_ms": 4650,
+            "element": "fire",
+            "emitters": 5,
+            "gpu_emitters": 2,
+            "particles": 226,
+            "phases": 4,
+            "spell_id": "ember-bolt"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 4500,
+            "element": "ice",
+            "emitters": 2,
+            "gpu_emitters": 1,
+            "particles": 258,
+            "phases": 2,
+            "spell_id": "frost-nova"
+          }
+        ],
+        "recommendations": [],
+        "reduction_plan": {
+          "gpu_emitters": {
+            "projected_gpu_emitters": 3,
+            "steps": [],
+            "steps_count": 0
+          },
+          "particles": {
+            "projected_particles": 480,
+            "steps": [],
+            "steps_count": 0
+          }
+        },
+        "schema_version": "fx_budget.report.v1",
+        "totals": {
+          "decals": 2,
+          "duration_ms": 9150,
+          "emitters": 7,
+          "gpu_emitters": 3,
+          "light_bridges": 1,
+          "particles": 484,
+          "spells": 2
+        },
+        "verdict": "FIT"
+      },
+      "spell_count": 2
+    },
+    {
+      "archetype_id": "elite",
+      "budget": {
+        "max_decals": 16,
+        "max_emitters": 16,
+        "max_gpu_emitters": 8,
+        "max_particles": 1100
+      },
+      "label": "elite-with-adds",
+      "report": {
+        "budget": {
+          "max_decals": 16,
+          "max_emitters": 16,
+          "max_gpu_emitters": 8,
+          "max_particles": 1100
+        },
+        "findings": [
+          {
+            "code": "tight_particles",
+            "message": "particle amount is close to the budget",
+            "severity": "medium"
+          }
+        ],
+        "limitations": [
+          "planning only: no particle, emitter, light, decal or renderer is created",
+          "particle totals are arithmetic amounts, not simulated alive particles or overdraw",
+          "GPU-to-CPU conversion is a planning suggestion, not a measured trade-off",
+          "emitter merging and decal reduction have no projected scene in this prototype",
+          "visual clarity and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "per_spell": [
+          {
+            "decals": 1,
+            "duration_ms": 4650,
+            "element": "fire",
+            "emitters": 5,
+            "gpu_emitters": 2,
+            "particles": 226,
+            "phases": 4,
+            "spell_id": "ember-bolt"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 4500,
+            "element": "ice",
+            "emitters": 2,
+            "gpu_emitters": 1,
+            "particles": 258,
+            "phases": 2,
+            "spell_id": "frost-nova"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 2600,
+            "element": "lightning",
+            "emitters": 4,
+            "gpu_emitters": 2,
+            "particles": 563,
+            "phases": 3,
+            "spell_id": "storm-lance"
+          }
+        ],
+        "recommendations": [],
+        "reduction_plan": {
+          "gpu_emitters": {
+            "projected_gpu_emitters": 5,
+            "steps": [],
+            "steps_count": 0
+          },
+          "particles": {
+            "projected_particles": 1040,
+            "steps": [],
+            "steps_count": 0
+          }
+        },
+        "schema_version": "fx_budget.report.v1",
+        "totals": {
+          "decals": 3,
+          "duration_ms": 11750,
+          "emitters": 11,
+          "gpu_emitters": 5,
+          "light_bridges": 2,
+          "particles": 1047,
+          "spells": 3
+        },
+        "verdict": "TIGHT"
+      },
+      "spell_count": 3
+    },
+    {
+      "archetype_id": "boss",
+      "budget": {
+        "max_decals": 24,
+        "max_emitters": 24,
+        "max_gpu_emitters": 12,
+        "max_particles": 2000
+      },
+      "label": "boss-with-adds",
+      "report": {
+        "budget": {
+          "max_decals": 24,
+          "max_emitters": 24,
+          "max_gpu_emitters": 12,
+          "max_particles": 2000
+        },
+        "findings": [
+          {
+            "code": "over_particles",
+            "message": "particle amount exceeds the budget",
+            "severity": "high"
+          }
+        ],
+        "limitations": [
+          "planning only: no particle, emitter, light, decal or renderer is created",
+          "particle totals are arithmetic amounts, not simulated alive particles or overdraw",
+          "GPU-to-CPU conversion is a planning suggestion, not a measured trade-off",
+          "emitter merging and decal reduction have no projected scene in this prototype",
+          "visual clarity and runtime cost are INCONCLUSIVE_NOT_RUN",
+          "no scene, engine or project.godot integration"
+        ],
+        "per_spell": [
+          {
+            "decals": 1,
+            "duration_ms": 4650,
+            "element": "fire",
+            "emitters": 5,
+            "gpu_emitters": 2,
+            "particles": 226,
+            "phases": 4,
+            "spell_id": "ember-bolt"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 4500,
+            "element": "ice",
+            "emitters": 2,
+            "gpu_emitters": 1,
+            "particles": 258,
+            "phases": 2,
+            "spell_id": "frost-nova"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 3300,
+            "element": "nature",
+            "emitters": 3,
+            "gpu_emitters": 1,
+            "particles": 402,
+            "phases": 2,
+            "spell_id": "grave-bind"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 6500,
+            "element": "fire",
+            "emitters": 4,
+            "gpu_emitters": 2,
+            "particles": 1304,
+            "phases": 3,
+            "spell_id": "meteor-storm"
+          },
+          {
+            "decals": 1,
+            "duration_ms": 2600,
+            "element": "lightning",
+            "emitters": 4,
+            "gpu_emitters": 2,
+            "particles": 563,
+            "phases": 3,
+            "spell_id": "storm-lance"
+          }
+        ],
+        "recommendations": [
+          {
+            "action": "reduce_particles",
+            "excess": 753,
+            "quality_cost": "medium"
+          }
+        ],
+        "reduction_plan": {
+          "gpu_emitters": {
+            "projected_gpu_emitters": 8,
+            "steps": [],
+            "steps_count": 0
+          },
+          "particles": {
+            "projected_particles": 1834,
+            "steps": [
+              {
+                "emitter_id": "meteor-burst",
+                "from_amount": 900,
+                "saved_particles": 450,
+                "spell_id": "meteor-storm",
+                "to_amount": 450
+              },
+              {
+                "emitter_id": "lance-burst",
+                "from_amount": 512,
+                "saved_particles": 256,
+                "spell_id": "storm-lance",
+                "to_amount": 256
+              },
+              {
+                "emitter_id": "meteor-charge",
+                "from_amount": 400,
+                "saved_particles": 200,
+                "spell_id": "meteor-storm",
+                "to_amount": 200
+              }
+            ],
+            "steps_count": 3
+          }
+        },
+        "schema_version": "fx_budget.report.v1",
+        "totals": {
+          "decals": 5,
+          "duration_ms": 21550,
+          "emitters": 18,
+          "gpu_emitters": 8,
+          "light_bridges": 3,
+          "particles": 2753,
+          "spells": 5
+        },
+        "verdict": "OVER_BUDGET"
+      },
+      "spell_count": 5
+    }
+  ],
+  "godot_version": "4.7.2-stable",
+  "limitations": [
+    "planning only; no particle, emitter, light, decal or renderer is created",
+    "budgets are reference values, not measured hardware limits",
+    "no FPS, frame-time, overdraw or visual-quality claim"
+  ],
+  "schema_version": "fx_budget_dataset.v1",
+  "source_sha": "99437b22e94a6494eaef801872bb8fd0c79c0f1a"
+}
