@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M02-S01 camera integration
+
+**M02-S01 integrado** por PR #254, squash `7ab8d4abdaf72b8a33921e9c3bf82bca782c4d7e`. O `IsometricCameraRig` foi vendorizado no harness como modo aditivo `baseline|rig`; 18 PNGs visuais e 18 capturas de performance A/B/A nas três cenas M01.
+
+**Resultado:** A/A byte-idêntico; A/B mean abs **0.002/0.0003/0.0** e changed pixels **0.013%/0.003%/0.0%** — o rig reproduz o enquadramento baseline. GPU p95 delta **0.0%/+0.94%/+1.25%**; CPU **0.0%/+13.3%/+12.94%**. QA ledger: S01 `scene_comparison=PASS` e `performance=MEASURED`; S02–S05 permanecem `INCONCLUSIVE_NOT_RUN`; S06 research-only. Nenhuma cena base, preset, contrato, renderer, shader ou `project.godot` alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · Checkpoint schema validator
 
 **NEX-CP-SCHEMA integrado** por PR #252, squash `cf179d7d9ea21ec73fe2698606b4006c2c800720`. O validador `validate_checkpoint.py --check` roda no job requerido e cobre **62 blocos de proveniência**.
@@ -28,7 +34,7 @@
 
 ## Current verified scope | 2026-11-14 · Provenance index
 
-**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **62 entradas** com PR protegida e merge SHA, PRs **112–252**, 62 merge SHAs únicos.
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **63 entradas** com PR protegida e merge SHA, PRs **112–254**, 63 merge SHAs únicos.
 
 **Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
