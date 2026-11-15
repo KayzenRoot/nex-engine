@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "1.0",
+  "kind": "nex.execution.context_lock",
+  "id": "NEX-ADMISSION-M04-M05-WO-001-EXECUTION",
+  "repository": "KayzenRoot/nex-engine",
+  "issue": 9,
+  "secondaryIssue": 10,
+  "ownerAdmission": {
+    "status": "OWNER_APPROVED_STANDING_AUTHORIZATION",
+    "date": "2026-11-14",
+    "record": "Owner authorized all listed paths at once; M04/M05 bounded materials/VFX admission is the first governance increment.",
+    "auditLabel": "ADMIN_SOLO_NOT_INDEPENDENT",
+    "externalHumanReviewerRequired": false
+  },
+  "status": "EXECUTABLE_ON_BOUND_BASE",
+  "authorityBaseSha": "5f801c09ca4148fb9712f84cfd638bd80f3a4372",
+  "authorityBaseMeaning": "LIVE_MAIN_AFTER_CHECKPOINT_CORRECTION",
+  "authorityBaseFingerprints": [
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "a6a20ba304c50e469b7d0e24755540bc7c306d72"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "6237154d4600d83ea5e11d5018f7683da9937422"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "bf58da374bf6426c6aba517422f7589e4c02c83d"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "f205fa6ea5b6bcaec3d5bd3c90ffdc19a242002d"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "1bf7a9ba515631a436a8bc40f4303d5bbacaee76"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0007-M03-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "caa2a5ee9e8ea019203b36f986542d35bb30d744"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0008-M01-M02-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "cecefbfd357223c89eed192ca22aa8d9c68be946"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "contracts/m04/material.v1.schema.json",
+      "gitBlobSha1": "9c1ad6df798973ca83f1cb4b990c7179cd0401c0"
+    },
+    {
+      "path": "contracts/m04/ownership.v1.json",
+      "gitBlobSha1": "090868ab2dc9cbc03dccbbe1d6164c253356154d"
+    },
+    {
+      "path": "contracts/m05/spellfx.v1.schema.json",
+      "gitBlobSha1": "442cd3f5bfffb91dd6728a7bb4cc48ac537b0908"
+    },
+    {
+      "path": "contracts/m05/ownership.v1.json",
+      "gitBlobSha1": "3f7c82a402cfce77fe3d9ea8473182be9c6ae221"
+    },
+    {
+      "path": "docs/contracts/m04.md",
+      "gitBlobSha1": "507bc65d7ed7299eadce6f3885db4ba229458d91"
+    },
+    {
+      "path": "docs/contracts/m05.md",
+      "gitBlobSha1": "4113e66941c94f6b607024e3a7f96eb9e36f1816"
+    },
+    {
+      "path": "nex_modules/materials/texturebudget/texture_budget_planner.gd",
+      "gitBlobSha1": "c64fcaa7f82ace948277cfab309b272fa9bd0562"
+    },
+    {
+      "path": "nex_modules/vfx/fxbudget/fx_budget_planner.gd",
+      "gitBlobSha1": "a6e1960495f28348ed3833f050a10ff89ce99040"
+    },
+    {
+      "path": "tests/ci/test_texture_budget_planner.py",
+      "gitBlobSha1": "8ca1833f65b6026b9fb8a586f653a5f857cfcfe3"
+    },
+    {
+      "path": "tests/ci/test_fx_budget_planner.py",
+      "gitBlobSha1": "c5f2353e94c87844c1df79baf708b5da1bb6ca40"
+    }
+  ],
+  "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
+  "risk": "STANDARD",
+  "scope": {
+    "writeAllowedExact": [
+      ".engineering/decisions/NEX-ADR-0009-M04-M05-BOUNDED-ADMISSION.md",
+      ".engineering/DECISIONS-LEDGER.md",
+      ".engineering/work-orders/NEX-ADMISSION-M04-M05-WO-001.md",
+      ".engineering/context-locks/NEX-ADMISSION-M04-M05-WO-001-EXECUTION.json",
+      "AGENTS.md",
+      ".engineering/SCOPE.md",
+      ".engineering/CHECKPOINT.json",
+      ".engineering/CHECKPOINT.md",
+      "tests/ci/test_m04_m05_bounded_admission.py",
+      "tests/ci/test_m01_m02_bounded_admission.py",
+      "tests/ci/test_m03_bounded_admission.py",
+      "tests/ci/test_m06_m09_admission.py",
+      ".engineering/evidence/NEX-ADMISSION-M04-M05-WO-001-EVIDENCE.md",
+      ".engineering/checkpoint-deltas/NEX-ADMISSION-M04-M05-WO-001-PROPOSED.md"
+    ],
+    "readOnly": [
+      "contracts/**",
+      "nex_modules/**",
+      "docs/**",
+      "nex_bench/**",
+      "tooling/**",
+      "tests/** (exceto os testes acima)",
+      ".engineering/** (exceto os paths acima)"
+    ],
+    "forbidden": [
+      "main direct writes",
+      "force push",
+      "ruleset bypass",
+      "material/shader/texture/particle creation",
+      "rendering integration or runtime changes",
+      "hub or project.godot changes",
+      "M07-M08/M10-M12 admission",
+      "FPS, quality, game-feel or licensing claims"
+    ]
+  },
+  "prConditions": {
+    "onePr": true,
+    "merge": "ADMIN_SOLO_PROTECTED_SQUASH_AFTER_REQUIRED_CHECKS",
+    "checks": "ALL_REQUIRED_SUCCESS"
+  },
+  "stop": "STALE_IF_MAIN_OR_FINGERPRINTS_CHANGE"
+}

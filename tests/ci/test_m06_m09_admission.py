@@ -43,7 +43,7 @@ class M06M09AdmissionTests(unittest.TestCase):
         self.assertEqual("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", self.admission["m06Status"])
         self.assertEqual("BOUNDED_ADMITTED_EVIDENCE_PIPELINE", self.admission["m09Status"])
         self.assertEqual(
-            ["M01", "M02", "M03", "M04", "M05", "M07", "M08", "M10", "M11", "M12"],
+            ["M01", "M02", "M03", "M07", "M08", "M10", "M11", "M12"],
             self.admission["notAdmitted"],
         )
         excluded = " ".join(self.admission["excludedScope"]).lower()
