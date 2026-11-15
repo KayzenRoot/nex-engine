@@ -53,8 +53,8 @@ def validate(checkpoint: dict[str, Any], index: dict[str, Any] | None = None) ->
     if not SHA.match(str(checkpoint.get("mainObservedSha", ""))):
         errors.append("mainObservedSha must be a 40-hex Git SHA")
     status = str(checkpoint.get("status", ""))
-    if "BOUNDED_ADMITTED" not in status or "NOT_ADMITTED" not in status:
-        errors.append("status must record both BOUNDED_ADMITTED and NOT_ADMITTED parents")
+    if "BOUNDED_ADMITTED" not in status or ("NOT_ADMITTED" not in status and "ALL_PARENTS" not in status):
+        errors.append("status must record BOUNDED_ADMITTED and either NOT_ADMITTED or ALL_PARENTS")
     for key, value in checkpoint.items():
         if not isinstance(value, dict):
             continue

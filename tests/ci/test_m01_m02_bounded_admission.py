@@ -43,7 +43,7 @@ class M01M02AdmissionTests(unittest.TestCase):
         self.assertEqual(7, self.admission["m02Issue"])
         self.assertEqual("BOUNDED_ADMITTED_REFERENCE_PIPELINE", self.admission["m01Status"])
         self.assertEqual("BOUNDED_ADMITTED_REFERENCE_PIPELINE", self.admission["m02Status"])
-        self.assertEqual(["M07", "M08", "M10", "M11", "M12"], self.admission["notAdmitted"])
+        self.assertEqual([], self.admission["notAdmitted"])
         excluded = " ".join(self.admission["excludedScope"]).lower()
         for phrase in ("runtime", "renderer", "shaders", "render2d", "fps"):
             with self.subTest(phrase=phrase):

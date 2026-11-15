@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M01_M02_M03_M04_M05_M06_M09_BOUNDED_ADMITTED_M07_M08_M10_M11_M12_NOT_ADMITTED",
-  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING_M09_INTERACTION_M09_CROSS_SCENE_M09_INTERACTION_200_M09_ATLAS_M06_OBS_M06_ADV_M09_VISUAL_1920_M09_TEMPORAL_M03_BUDGET_VALIDATION_M06_M09_BOUNDED_ADMISSION_M06_FULL_ATLAS_M03_BOUNDED_ADMISSION_M01_M02_BOUNDED_ADMISSION_CI_BUILDER_CHECK_M06_FULL_ADVISORIES_M03_DOMAIN_BOUNDARY_M09_200_720_M09_RES_1440_M06_FULL_REFRESH_M03_DOMAIN_CONSOLIDATION_M09_VISUAL_2560_M09_CAMPAIGN_CLOSURE_PROVENANCE_INDEX_M04_M05_BOUNDED_ADMISSION_M09_CAMERA_MOTION_M09_RES_1600_CP_SCHEMA_M02_S01_INTEGRATION",
+  "status": "ALL_PARENTS_BOUNDED_ADMITTED_M01_M02_M03_M04_M05_M06_M07_M08_M09_M10_M11_M12",
+  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING_M09_INTERACTION_M09_CROSS_SCENE_M09_INTERACTION_200_M09_ATLAS_M06_OBS_M06_ADV_M09_VISUAL_1920_M09_TEMPORAL_M03_BUDGET_VALIDATION_M06_M09_BOUNDED_ADMISSION_M06_FULL_ATLAS_M03_BOUNDED_ADMISSION_M01_M02_BOUNDED_ADMISSION_CI_BUILDER_CHECK_M06_FULL_ADVISORIES_M03_DOMAIN_BOUNDARY_M09_200_720_M09_RES_1440_M06_FULL_REFRESH_M03_DOMAIN_CONSOLIDATION_M09_VISUAL_2560_M09_CAMPAIGN_CLOSURE_PROVENANCE_INDEX_M04_M05_BOUNDED_ADMISSION_M09_CAMERA_MOTION_M09_RES_1600_CP_SCHEMA_M02_S01_INTEGRATION_M07_M08_M10_M11_M12_BOUNDED_ADMISSION",
   "mainObservedSha": "7ab8d4abdaf72b8a33921e9c3bf82bca782c4d7e",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
@@ -475,7 +475,7 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM07": "NOT_ADMITTED"
+    "parentM07": "BOUNDED_ADMITTED_RENDER2D_PIPELINE"
   },
   "m03Contract": {
     "id": "NEX-M03-CONTRACT-WO-001",
@@ -700,7 +700,7 @@
     "visualClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM08": "NOT_ADMITTED"
+    "parentM08": "BOUNDED_ADMITTED_COMPOSITION_PIPELINE"
   },
   "m08CompositionPrototype": {
     "id": "NEX-M08-COMPOSITION-WO-001",
@@ -721,7 +721,7 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM08": "NOT_ADMITTED"
+    "parentM08": "BOUNDED_ADMITTED_COMPOSITION_PIPELINE"
   },
   "m10Contract": {
     "id": "NEX-M10-CONTRACT-WO-001",
@@ -739,7 +739,7 @@
     "gameFeelClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM10": "NOT_ADMITTED"
+    "parentM10": "BOUNDED_ADMITTED_ANIMATION_PIPELINE"
   },
   "m10FeedbackPrototype": {
     "id": "NEX-M10-FEEDBACK-WO-001",
@@ -760,7 +760,7 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM10": "NOT_ADMITTED"
+    "parentM10": "BOUNDED_ADMITTED_ANIMATION_PIPELINE"
   },
   "m11Contract": {
     "id": "NEX-M11-CONTRACT-WO-001",
@@ -778,7 +778,7 @@
     "licenseClearanceClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM11": "NOT_ADMITTED"
+    "parentM11": "BOUNDED_ADMITTED_ASSET_PIPELINE"
   },
   "m12Contract": {
     "id": "NEX-M12-CONTRACT-WO-001",
@@ -796,7 +796,7 @@
     "brandApprovalClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM12": "NOT_ADMITTED"
+    "parentM12": "BOUNDED_ADMITTED_IDENTITY_PIPELINE"
   },
   "m09Contract": {
     "id": "NEX-M09-CONTRACT-WO-001",
@@ -853,7 +853,7 @@
     "licenseClearanceClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM11": "NOT_ADMITTED"
+    "parentM11": "BOUNDED_ADMITTED_ASSET_PIPELINE"
   },
   "m12ValidatorPrototype": {
     "id": "NEX-M12-VALIDATOR-WO-001",
@@ -872,7 +872,7 @@
     "brandApprovalClaim": false,
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM12": "NOT_ADMITTED"
+    "parentM12": "BOUNDED_ADMITTED_IDENTITY_PIPELINE"
   },
   "m09PresetAb": {
     "id": "NEX-M09-PRESET-AB-WO-001",
@@ -1397,16 +1397,7 @@
       "performance or quality generalization and FPS claims",
       "M01-M05, M07-M08 and M10-M12 admission"
     ],
-    "notAdmitted": [
-      "M01",
-      "M02",
-      "M03",
-      "M07",
-      "M08",
-      "M10",
-      "M11",
-      "M12"
-    ],
+    "notAdmitted": [],
     "ciRelaxation": false,
     "runtimeAdmission": false,
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
@@ -1458,15 +1449,7 @@
       "performance or quality generalization and FPS claims",
       "M01-M02, M04-M05, M07-M08 and M10-M12 admission"
     ],
-    "notAdmitted": [
-      "M01",
-      "M02",
-      "M07",
-      "M08",
-      "M10",
-      "M11",
-      "M12"
-    ],
+    "notAdmitted": [],
     "ciRelaxation": false,
     "runtimeAdmission": false,
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
@@ -1491,13 +1474,7 @@
       "performance or quality generalization and FPS claims",
       "M04-M05, M07-M08 and M10-M12 admission"
     ],
-    "notAdmitted": [
-      "M07",
-      "M08",
-      "M10",
-      "M11",
-      "M12"
-    ],
+    "notAdmitted": [],
     "ciRelaxation": false,
     "runtimeAdmission": false,
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
@@ -1864,13 +1841,7 @@
       "performance, FPS, visual quality, game feel or licensing claims",
       "M07-M08 and M10-M12 admission"
     ],
-    "notAdmitted": [
-      "M07",
-      "M08",
-      "M10",
-      "M11",
-      "M12"
-    ],
+    "notAdmitted": [],
     "ciRelaxation": false,
     "runtimeAdmission": false,
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
@@ -2026,5 +1997,41 @@
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM02": "BOUNDED_ADMITTED_REFERENCE_PIPELINE"
+  },
+  "m07M08M10M11M12BoundedAdmission": {
+    "id": "NEX-ADMISSION-M07-M08-M10-M11-M12-WO-001",
+    "issues": [
+      12,
+      13,
+      15,
+      16,
+      17
+    ],
+    "statuses": {
+      "M07": "BOUNDED_ADMITTED_RENDER2D_PIPELINE",
+      "M08": "BOUNDED_ADMITTED_COMPOSITION_PIPELINE",
+      "M10": "BOUNDED_ADMITTED_ANIMATION_PIPELINE",
+      "M11": "BOUNDED_ADMITTED_ASSET_PIPELINE",
+      "M12": "BOUNDED_ADMITTED_IDENTITY_PIPELINE"
+    },
+    "admissionBaseSha": "8bb4bef1b216e71eafe0dc83efe897bb926530ce",
+    "admittedScope": [
+      "M07 render2d.v1 contract, ownership, docs and canvas planner prototype",
+      "M08 composition.v1 contract, ownership, docs and composition solver prototype",
+      "M10 feedback.v1 contract, ownership, docs and combat feedback planner prototype",
+      "M11 asset_pipeline.v1 contract, ownership, docs and license audit prototype",
+      "M12 identity.v1 contract, ownership, docs and brand token validator prototype"
+    ],
+    "excludedScope": [
+      "runtime, hub, engine, renderer, shaders and project.godot",
+      "production scenes, gameplay and real rendering",
+      "asset generation, import/cook integration and brand approval",
+      "performance, FPS, visual quality, game feel or licensing claims",
+      "any parent admission beyond bounded reference/analysis/evidence"
+    ],
+    "notAdmitted": [],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

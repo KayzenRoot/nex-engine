@@ -41,10 +41,7 @@ class M03AdmissionTests(unittest.TestCase):
         self.assertIn("BOUNDED_ADMITTED", self.checkpoint["status"])
         self.assertEqual(8, self.admission["issue"])
         self.assertEqual("BOUNDED_ADMITTED_ANALYSIS_PIPELINE", self.admission["status"])
-        self.assertEqual(
-            ["M01", "M02", "M07", "M08", "M10", "M11", "M12"],
-            self.admission["notAdmitted"],
-        )
+        self.assertEqual([], self.admission["notAdmitted"])
         excluded = " ".join(self.admission["excludedScope"]).lower()
         for phrase in ("runtime", "renderer", "shaders", "scenes", "fps"):
             with self.subTest(phrase=phrase):
