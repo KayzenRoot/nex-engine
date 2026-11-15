@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M04 kit texture budget
+
+**Orçamento do kit M04 medido** por PR #262, squash `2a2151815b997c3464292fcdae23596909a25c7f`. O `TextureBudgetPlanner` integrado analisou a observação `material.v1` do kit: **4 materiais**, **12 texturas únicas**, **0 refs duplicadas**, **1.048.572 bytes** decodificados/deduplicados e pressão de atlas **0.047** (12 de 256 tiles).
+
+**Resultado:** veredito **FIT**, nenhum finding; `kit_sha256` confere com o `kit.v1.json` commitado. Builder `build_kit_budget.py --check` reproduz JSON/Markdown; enforcement no Fast Lane em **28 arquivos / 31 comandos**; suíte CI **600 testes OK**. Nenhuma textura foi decodificada, comprimida, empacotada, importada ou renderizada; nenhum contrato, planner, kit, cena, preset, renderer, shader ou `project.godot` alterado. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M04/M05 non-rendering asset kit
 
 **M04/M05 estendidos** por PR #260, squash `420680b391e7ca3b23d9e065452cf52d85711740`, sob `NEX-ADR-0011` / `NEX-D-021`. O kit M04 contém **12 PNGs determinísticos 128×128** (albedo, normal, ORM), **quatro `StandardMaterial3D`** `.tres`, uma observação `material.v1` e validação headless por `ResourceLoader` (`KIT_LOAD_OK 28 checks`). O dataset M05 contém **três arquétipos** analisados pelo `FXBudgetPlanner`: `skirmish` **FIT** (484 partículas, 7 emitters), `elite` **TIGHT** (1047/1100) e `boss` **OVER_BUDGET** (2753/2000) com plano de redução de 3 passos e projeção 1834.
