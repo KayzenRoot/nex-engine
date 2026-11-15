@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · M09 1600×900
+
+**M09-RES-1600 integrado** por PR #250, squash `b3eaaee65c0f9128510307c041d90deba6b12aac`. Nova sessão de **6 capturas** em `arena_combat`, 100 proxies, 1600×900, A/B/A, todas PASS no validador dedicado.
+
+**Resultado:** GPU p95 **0.133 ms** (ab-low) e **0.632 ms** (ab-high), high/low **+375.2%**. Deltas 1280→1600 **+25.5%/+37.4%**; 1600→1920 **+17.3%/+30.7%**. Modelo M03: **ab-high −27.2%** (entre o match de 1280 e o erro de 1920); ab-low +185.0%. M06 atualizado para **162 observações / 10 bundles**; atlas M09 em **15 bundles / 162 capturas / 114 imagens / 483 arquivos**. Nenhum harness, cena, preset, contrato, modelo, renderer, shader ou `project.godot` alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M09 camera-motion sequence
 
 **M09-CAMERA-MOTION integrado** por PR #248, squash `1feb0863234bf12bcceb048736270fb33e9a5d1f`. Flag aditiva `NEX_PRESET_AB_CAMERA_MOTION` com órbita determinística de **3° por frame capturado**; **30 PNGs** (3 cenas × 2 presets × 5 frames) a 1280×720.
@@ -16,7 +22,7 @@
 
 ## Current verified scope | 2026-11-14 · Provenance index
 
-**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **60 entradas** com PR protegida e merge SHA, PRs **112–248**, 60 merge SHAs únicos.
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **61 entradas** com PR protegida e merge SHA, PRs **112–250**, 61 merge SHAs únicos.
 
 **Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
@@ -70,7 +76,7 @@
 
 ## Current verified scope | 2026-11-14 · CI builder reproducibility enforcement
 
-**CI-BUILDER-CHECK integrado** por PR #223, squash `c972864af21a0e416b335c10c936af2ea6be2d44`, e estendido a M01/M02 por PR #225, squash `e9f8f0172a7c183b57fd203dc1053af099c63bec`. O check obrigatório `NEX Fast Lane / Batch Policy Tests` passa a executar **26 comandos `--check`** dos builders determinísticos de M01/M02/M03/M06/M09 (23 arquivos; `convert_m09_observations.py` e `build_advisories.py` cobrem `--check`/`--check-full`; `build_budget_validation.py` cobre `--check`/`--check-domain`).
+**CI-BUILDER-CHECK integrado** por PR #223, squash `c972864af21a0e416b335c10c936af2ea6be2d44`, e estendido a M01/M02 por PR #225, squash `e9f8f0172a7c183b57fd203dc1053af099c63bec`. O check obrigatório `NEX Fast Lane / Batch Policy Tests` passa a executar **27 comandos `--check`** dos builders determinísticos de M01/M02/M03/M06/M09 (24 arquivos; `convert_m09_observations.py` e `build_advisories.py` cobrem `--check`/`--check-full`; `build_budget_validation.py` cobre `--check`/`--check-domain`).
 
 **Guard:** `tests/ci/test_builder_check_enforcement.py` falha se um builder novo não for listado, se algum comando usar modo escrita ou se o job deixar de ser required context. Nenhum builder, artefato, dado, contrato, medição ou ruleset foi alterado; nenhuma nova medição. M01/M02/M03/M06/M09 seguem bounded admitted e M04–M05, M07–M08 e M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
