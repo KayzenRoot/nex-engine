@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 61 · **PRs:** 112–250
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 62 · **PRs:** 112–252
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -67,6 +67,7 @@
 | m04M05BoundedAdmission | NEX-ADMISSION-M04-M05-WO-001 | 246 | `cd7474c4ebcc5a8275f47cb58235ed14dc0d6150` | — | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m09CameraMotion | NEX-M09-CAMERA-MOTION-WO-001 | 248 | `1feb0863234bf12bcceb048736270fb33e9a5d1f` | 14 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m09Resolution1600 | NEX-M09-RES-1600-WO-001 | 250 | `b3eaaee65c0f9128510307c041d90deba6b12aac` | 14,11 | — | ADMIN_SOLO_NOT_INDEPENDENT |
+| cpSchemaValidator | NEX-CP-SCHEMA-WO-001 | 252 | `cf179d7d9ea21ec73fe2698606b4006c2c800720` | 14 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 

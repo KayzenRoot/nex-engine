@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-14 · Checkpoint schema validator
+
+**NEX-CP-SCHEMA integrado** por PR #252, squash `cf179d7d9ea21ec73fe2698606b4006c2c800720`. O validador `validate_checkpoint.py --check` roda no job requerido e cobre **62 blocos de proveniência**.
+
+**Resultado:** falha em SHA inválido, `pr` sem merge SHA, aprovação independente falsa, bloco de admissão ausente, merge SHAs duplicados e contagem de proveniência incoerente. O checkpoint e o índice permanecem coerentes; nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-14 · M09 1600×900
 
 **M09-RES-1600 integrado** por PR #250, squash `b3eaaee65c0f9128510307c041d90deba6b12aac`. Nova sessão de **6 capturas** em `arena_combat`, 100 proxies, 1600×900, A/B/A, todas PASS no validador dedicado.
@@ -22,7 +28,7 @@
 
 ## Current verified scope | 2026-11-14 · Provenance index
 
-**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **61 entradas** com PR protegida e merge SHA, PRs **112–250**, 61 merge SHAs únicos.
+**NEX-PROVENANCE-INDEX integrado** por PR #243, squash `0bdd8736c18a4035605d20123ef30d75d8802bd3`. O índice deriva do `CHECKPOINT.json` **62 entradas** com PR protegida e merge SHA, PRs **112–252**, 62 merge SHAs únicos.
 
 **Resultado:** cada entrada traz bloco, ID, PR, merge SHA, issues, veredito/status e rótulo de auditoria; todos os rótulos são `ADMIN_SOLO_NOT_INDEPENDENT` e nenhum `INDEPENDENT_APPROVED`. O índice é uma ferramenta de navegação; o checkpoint permanece a autoridade. Nenhum checkpoint, admissão, medição, harness, contrato, modelo ou ruleset alterado. M01/M02/M03/M04/M05/M06/M09 seguem bounded admitted e M07–M08/M10–M12 `NOT_ADMITTED`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
