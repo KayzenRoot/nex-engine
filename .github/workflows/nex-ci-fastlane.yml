@@ -59,6 +59,8 @@ jobs:
           # Every deterministic builder must reproduce its committed artifact.
           # --check never writes; a mismatch fails the required Fast Lane check.
           python3 docs/benchmarks/m01/tools/build_manifest.py --check
+          python3 docs/benchmarks/m01/tools/build_golden_matrix.py --check
+          python3 docs/benchmarks/m01/tools/build_performance_budget.py --check
           python3 docs/benchmarks/m02/tools/qa_ledger.py --check
           python3 docs/benchmarks/m02/tools/build_camera_integration.py --check
           python3 docs/benchmarks/m02/tools/build_analysis_integration.py --check

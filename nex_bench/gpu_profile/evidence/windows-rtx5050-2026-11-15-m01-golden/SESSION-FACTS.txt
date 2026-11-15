@@ -1,0 +1,25 @@
+NEX M01 GOLDEN MATRIX 1920x1080 SESSION FACTS
+=============================================
+Date: 2026-11-15
+Host: Windows
+GPU: NVIDIA GeForce RTX 5050
+Driver: NVIDIA 617.14 (Vulkan, forward_plus)
+Godot: 4.7.2-stable (official ed1daf0bf)
+Harness source: 900d2b2d031a87048702625a1e98bc50905bc663
+Viewport: 1920 x 1080 (native content scale disabled)
+Visual warmup: 180 frames after preset application
+Workload: 100 meshes per scene, effect_mode lights
+Scenes:
+  corridor_static  M01 Corridor A/B/A  17 base meshes + 83 deterministic fillers  seed 4101
+  arena_combat     M01 Arena A/B/A     34 base meshes + 66 deterministic fillers  seed 4102
+  dense_city       M01 City A/B/A      23 base meshes + 77 deterministic fillers  seed 4103
+Presets: ab-low (scale 0.5, MSAA off, shadows low, atlas 1024, glow off)
+         ab-high (scale 1.0, MSAA 4x, shadows ultra, atlas 4096, glow on)
+Sequence per scene: ab-low, ab-high x 3 repetitions
+Capture: viewport texture read after RenderingServer.frame_post_draw, flipped Y,
+         saved as 8-bit RGB PNG.
+Determinism: the three repetitions of each scene/preset pair are byte-identical
+             (same SHA-256), so every A/A pixel comparison is exactly zero.
+Limitations: single session, one GPU and driver; static frame; PNG comparison is
+             not a quality metric; fillers may overlap base-scene props; no FPS or
+             generalization claim.

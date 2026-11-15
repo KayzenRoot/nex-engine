@@ -1,0 +1,257 @@
+{
+  "changed_pixel_threshold": 2,
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m01-golden",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "license": {
+    "audit": "docs/benchmarks/m01/LICENSE-AUDIT.md",
+    "status": "ORIGINAL_NEX_GENERATED_NO_THIRD_PARTY_ASSETS",
+    "third_party_assets": 0
+  },
+  "limitations": [
+    "single session, one GPU and driver; static frame",
+    "PNG comparison is a regression signal, not an artistic quality metric",
+    "fillers may overlap base-scene props",
+    "no FPS, game-performance or cross-device generalization claim"
+  ],
+  "observations": [
+    "all 18 captures are 1920x1080 native Forward+/Vulkan on the RTX 5050",
+    "all three repetitions per scene/preset are byte-identical",
+    "the ab-low vs ab-high comparison is the only lighting/preset difference",
+    "S01 acceptance images are the ab-low first repetitions per scene",
+    "no third-party asset is referenced by the three base scenes"
+  ],
+  "runs": 18,
+  "scenes": [
+    {
+      "aa": {
+        "comparisons": 6,
+        "identical_sha": true,
+        "metrics": {
+          "changed_pixels": 0,
+          "changed_pixels_pct": 0.0,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "psnr_db": null
+        }
+      },
+      "ab": {
+        "matched_pairs": 3,
+        "metrics": {
+          "changed_pixels": 69814,
+          "changed_pixels_pct": 3.367,
+          "max_abs_diff": 167,
+          "mean_abs_diff": 0.4168,
+          "psnr_db": 38.485
+        }
+      },
+      "acceptance_image": {
+        "file": "corridor_static_ab-low_1.png",
+        "height": 1080,
+        "sha256": "51d583eba143dae78c7366ec60fe864cfc6aaf04b3291ed9c2d1e98ec6d87477",
+        "width": 1920
+      },
+      "regions": {
+        "bottom_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 311040,
+          "psnr_db": null
+        },
+        "center_gameplay": {
+          "changed_pixels_pct": 7.845,
+          "mean_abs_diff": 0.9732,
+          "pixels": 870912,
+          "psnr_db": 34.782
+        },
+        "full": {
+          "changed_pixels_pct": 3.367,
+          "mean_abs_diff": 0.4168,
+          "pixels": 2073600,
+          "psnr_db": 38.485
+        },
+        "left_band": {
+          "changed_pixels_pct": 0.154,
+          "mean_abs_diff": 0.0208,
+          "pixels": 414720,
+          "psnr_db": 51.672
+        },
+        "right_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 414720,
+          "psnr_db": null
+        },
+        "top_band": {
+          "changed_pixels_pct": 0.275,
+          "mean_abs_diff": 0.026,
+          "pixels": 311040,
+          "psnr_db": 53.13
+        }
+      },
+      "scene": "M01 Corridor A/B/A",
+      "scene_id": "corridor_static",
+      "scene_sha256": "9fada790391ce170e34115742f61ec1aa4b98d251b21a73dec675166fc20d773",
+      "seed": 4101
+    },
+    {
+      "aa": {
+        "comparisons": 6,
+        "identical_sha": true,
+        "metrics": {
+          "changed_pixels": 0,
+          "changed_pixels_pct": 0.0,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "psnr_db": null
+        }
+      },
+      "ab": {
+        "matched_pairs": 3,
+        "metrics": {
+          "changed_pixels": 69548,
+          "changed_pixels_pct": 3.354,
+          "max_abs_diff": 189,
+          "mean_abs_diff": 0.4215,
+          "psnr_db": 36.851
+        }
+      },
+      "acceptance_image": {
+        "file": "arena_combat_ab-low_1.png",
+        "height": 1080,
+        "sha256": "04242959d48ec34daed93c2581c3590844caa06baff93e66da44f534e552a5bf",
+        "width": 1920
+      },
+      "regions": {
+        "bottom_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 311040,
+          "psnr_db": null
+        },
+        "center_gameplay": {
+          "changed_pixels_pct": 7.986,
+          "mean_abs_diff": 1.0036,
+          "pixels": 870912,
+          "psnr_db": 33.083
+        },
+        "full": {
+          "changed_pixels_pct": 3.354,
+          "mean_abs_diff": 0.4215,
+          "pixels": 2073600,
+          "psnr_db": 36.851
+        },
+        "left_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 414720,
+          "psnr_db": null
+        },
+        "right_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 414720,
+          "psnr_db": null
+        },
+        "top_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 311040,
+          "psnr_db": null
+        }
+      },
+      "scene": "M01 Arena A/B/A",
+      "scene_id": "arena_combat",
+      "scene_sha256": "13f6e1a3258ecc7bd36edbbc0b7192509848e35404d1d30fe63a675358d4b8d9",
+      "seed": 4102
+    },
+    {
+      "aa": {
+        "comparisons": 6,
+        "identical_sha": true,
+        "metrics": {
+          "changed_pixels": 0,
+          "changed_pixels_pct": 0.0,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "psnr_db": null
+        }
+      },
+      "ab": {
+        "matched_pairs": 3,
+        "metrics": {
+          "changed_pixels": 26461,
+          "changed_pixels_pct": 1.276,
+          "max_abs_diff": 146,
+          "mean_abs_diff": 0.1785,
+          "psnr_db": 40.464
+        }
+      },
+      "acceptance_image": {
+        "file": "dense_city_ab-low_1.png",
+        "height": 1080,
+        "sha256": "0d58adfb79c6bf30a5c381351c12210cc284d228c6573aa50079fccf63a656ab",
+        "width": 1920
+      },
+      "regions": {
+        "bottom_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 311040,
+          "psnr_db": null
+        },
+        "center_gameplay": {
+          "changed_pixels_pct": 3.038,
+          "mean_abs_diff": 0.4251,
+          "pixels": 870912,
+          "psnr_db": 36.697
+        },
+        "full": {
+          "changed_pixels_pct": 1.276,
+          "mean_abs_diff": 0.1785,
+          "pixels": 2073600,
+          "psnr_db": 40.464
+        },
+        "left_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 414720,
+          "psnr_db": null
+        },
+        "right_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 414720,
+          "psnr_db": null
+        },
+        "top_band": {
+          "changed_pixels_pct": 0.0,
+          "mean_abs_diff": 0.0,
+          "pixels": 311040,
+          "psnr_db": null
+        }
+      },
+      "scene": "M01 City A/B/A",
+      "scene_id": "dense_city",
+      "scene_sha256": "429e3a173ef9a20f0388617bb2a26c557b114235b5e31fcbb3a7155f110890e1",
+      "seed": 4103
+    }
+  ],
+  "schema_version": "m01_golden_matrix.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "900d2b2d031a87048702625a1e98bc50905bc663",
+  "verdict": "S01_ACCEPTANCE_AND_S03_GOLDEN_MATRIX_DERIVED",
+  "viewport_px": [
+    1920,
+    1080
+  ],
+  "workload": {
+    "effect_mode": "lights",
+    "layout": "M01 base scenes + deterministic fillers",
+    "proxy_count": 100,
+    "scene": "M01 A/B/A"
+  }
+}
