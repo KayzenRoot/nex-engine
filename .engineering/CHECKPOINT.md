@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M04 materials reference complete
+
+**M04 finalizado** por PR #278, squash `110e35834c51cd625b2e01d9584ff607c875cd40`, sob `NEX-ADR-0015` / `NEX-D-026`. O módulo de materiais agora tem **8 materiais PBR originais**, **24 texturas 256×256**, galeria nativa 1920×1080, shader triplanar/wet, Decal3D e escala 1K/2K/4K.
+
+**Resultado:** triplanar on/off **3.102%** de pixels (PSNR 33.618 dB); Decal3D **4.286%** de pixels com API **12/12 checks**; scaling 1K **4.2/5.6 MB**, 2K **16.8/22.4 MB**, 4K albedo **67.1/89.5 MB**. As issues **#44–#51 e #9** foram fechadas como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo. M05–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M03 cinematic lighting complete
 
 **M03 finalizado** por PR #276, squash `19c1542c12385b370e045d766d650bdddce5f623`, sob `NEX-ADR-0014` / `NEX-D-025`. A iluminação de referência tem **3 looks originais de dark fantasy**, **36 capturas** nativas, **11 runs** de performance e **13 checks** de LightBridge.
