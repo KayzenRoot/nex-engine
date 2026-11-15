@@ -81,7 +81,7 @@
     }
   ],
   "evidence_bundle": "nex_modules/vfx/fxbudget/evidence/fx-budget-dataset-2026-11-15.json",
-  "evidence_sha256": "ec5fbcf23cf670ecf281fd30b13140277dbb0cb1f31ad90673bff20005a5569b",
+  "evidence_sha256": "fd51d65b744c8d540283360b7de0ebe9cab861916063065e9c7749dbe3bcb57e",
   "godot_version": "4.7.2-stable",
   "limitations": [
     "planning only; no particle, emitter, light, decal or renderer is created",

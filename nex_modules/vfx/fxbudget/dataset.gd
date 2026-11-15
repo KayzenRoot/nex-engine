@@ -134,6 +134,7 @@ func _run() -> void:
 			"label": archetype["label"],
 			"budget": archetype["budget"],
 			"spell_count": archetype["spells"].size(),
+			"spells": archetype["spells"],
 			"report": report,
 		})
 	var document := {

@@ -2162,5 +2162,39 @@
     "newMeasurement": true,
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM11": "BOUNDED_ADMITTED_ASSET_PIPELINE"
+  },
+  "m10ArchetypeFeedback": {
+    "id": "NEX-M10-ARCHETYPE-FEEDBACK-WO-001",
+    "issues": [
+      15,
+      10
+    ],
+    "archetypes": [
+      "skirmish",
+      "elite",
+      "boss"
+    ],
+    "spellPlans": 10,
+    "verdict": "SAFE_CONFIG_HEURISTIC",
+    "conflicts": {
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    "totalChannels": {
+      "skirmish": 10,
+      "elite": 15,
+      "boss": 25
+    },
+    "maxPeakConcurrency": 5,
+    "maxShakeIntensity": 0.313,
+    "excludedScope": [
+      "animation, AnimationPlayer, camera, shader, particle or renderer creation",
+      "scene integration, runtime, hub or engine changes",
+      "game-feel, FPS, frame-time, quality or gain claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
