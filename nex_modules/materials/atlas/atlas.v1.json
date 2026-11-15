@@ -387,7 +387,7 @@
       ]
     },
     {
-      "alpha_mode": "blend",
+      "alpha_mode": "opaque",
       "cull_mode": "back",
       "material_id": "water_clear",
       "quality_variant": "high",
@@ -446,25 +446,25 @@
   "performance": {
     "cpu_render_time": {
       "status": "UNAVAILABLE",
-      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+      "unavailable_reason": "kit generation is headless; nothing is rendered"
     },
     "draw_calls": {
       "status": "UNAVAILABLE",
-      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+      "unavailable_reason": "kit generation is headless; nothing is rendered"
     },
     "frame_interval": {
       "provider": "SceneTree._process(delta)",
       "status": "UNAVAILABLE",
-      "unavailable_reason": "atlas generation is headless"
+      "unavailable_reason": "kit generation is headless; nothing is rendered"
     },
     "gpu_render_time": {
       "status": "UNAVAILABLE",
-      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+      "unavailable_reason": "kit generation is headless; nothing is rendered"
     },
     "measurement_status": "UNAVAILABLE",
     "renderer_allocation_bytes": {
       "status": "UNAVAILABLE",
-      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+      "unavailable_reason": "kit generation is headless; nothing is rendered"
     }
   },
   "provenance": {

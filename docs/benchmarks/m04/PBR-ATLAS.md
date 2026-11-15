@@ -2,18 +2,18 @@
 
 **Status:** `REFERENCE_ATLAS / NATIVE_GALLERY / NO_POE2_PARITY_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Base:** `e09cce2f4332e00a0f51eacb346f5763fe228db9` · **Godot:** `4.7.2-stable` · **Resolução:** 256×256
+**Base:** `e09cce2f4332e00a0f51eacb346f5763fe228db9` · **Godot:** `4.7.2-stable`
 
-| Material | Albedo | Metallic | Roughness | Texturas |
-|---|---:|---:|---:|---:|
-| stone_wet | 0.38/0.40/0.43 | 0.00 | 0.55 | 3 |
-| brushed_metal | 0.62/0.64/0.68 | 1.00 | 0.30 | 3 |
-| oak_wood | 0.45/0.31/0.18 | 0.00 | 0.70 | 3 |
-| cloth_crimson | 0.38/0.08/0.09 | 0.00 | 0.90 | 3 |
-| skin_pale | 0.72/0.58/0.50 | 0.00 | 0.50 | 3 |
-| terrain_earth | 0.22/0.17/0.12 | 0.00 | 0.95 | 3 |
-| foliage_deep | 0.12/0.30/0.12 | 0.00 | 0.80 | 3 |
-| water_clear | 0.08/0.22/0.30 | 0.15 | 0.12 | 3 |
+| Material | Albedo | Metallic | Roughness | Emission | Textures |
+|---|---:|---:|---:|---:|---:|
+| stone_wet | 0.38/0.40/0.43 | 0.00 | 0.55 | 0.00 | 3 |
+| brushed_metal | 0.62/0.64/0.68 | 1.00 | 0.30 | 0.00 | 3 |
+| oak_wood | 0.45/0.31/0.18 | 0.00 | 0.70 | 0.00 | 3 |
+| cloth_crimson | 0.38/0.08/0.09 | 0.00 | 0.90 | 0.00 | 3 |
+| skin_pale | 0.72/0.58/0.50 | 0.00 | 0.50 | 0.00 | 3 |
+| terrain_earth | 0.22/0.17/0.12 | 0.00 | 0.95 | 0.00 | 3 |
+| foliage_deep | 0.12/0.30/0.12 | 0.00 | 0.80 | 0.00 | 3 |
+| water_clear | 0.08/0.22/0.30 | 0.15 | 0.12 | 0.00 | 3 |
 
 ## O que é
 
