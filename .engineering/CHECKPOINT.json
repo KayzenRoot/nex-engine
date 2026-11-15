@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "project": "KayzenRoot/nex-engine",
-  "status": "M01_M02_M03_M06_M09_BOUNDED_ADMITTED_M04_M05_M07_M08_M10_M11_M12_NOT_ADMITTED",
-  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING_M09_INTERACTION_M09_CROSS_SCENE_M09_INTERACTION_200_M09_ATLAS_M06_OBS_M06_ADV_M09_VISUAL_1920_M09_TEMPORAL_M03_BUDGET_VALIDATION_M06_M09_BOUNDED_ADMISSION_M06_FULL_ATLAS_M03_BOUNDED_ADMISSION_M01_M02_BOUNDED_ADMISSION_CI_BUILDER_CHECK_M06_FULL_ADVISORIES_M03_DOMAIN_BOUNDARY_M09_200_720_M09_RES_1440_M06_FULL_REFRESH_M03_DOMAIN_CONSOLIDATION_M09_VISUAL_2560_M09_CAMPAIGN_CLOSURE_PROVENANCE_INDEX",
+  "status": "M01_M02_M03_M04_M05_M06_M09_BOUNDED_ADMITTED_M07_M08_M10_M11_M12_NOT_ADMITTED",
+  "phase": "M00_COMPLETED_M01_BASELINE_FROZEN_M02_S01_S07_QA_M07_S01_M03_CONTRACT_M03_LIGHTRIG_M03_SHADOWSTAB_M03_LIGHTBUDGET_M04_M05_CONTRACTS_M04_TEXTUREBUDGET_M05_FXBUDGET_M06_CONTRACT_M06_ATLAS_M08_CONTRACT_M08_COMPOSITION_M09_CONTRACT_M09_RESOLVER_M09_PRESET_AB_M09_PRESET_SCALING_M10_CONTRACT_M10_FEEDBACK_M11_CONTRACT_M11_AUDIT_M12_CONTRACT_M12_VALIDATOR_M09_M01_AB_M09_M01_VISUAL_M09_RES_SCALING_M09_INTERACTION_M09_CROSS_SCENE_M09_INTERACTION_200_M09_ATLAS_M06_OBS_M06_ADV_M09_VISUAL_1920_M09_TEMPORAL_M03_BUDGET_VALIDATION_M06_M09_BOUNDED_ADMISSION_M06_FULL_ATLAS_M03_BOUNDED_ADMISSION_M01_M02_BOUNDED_ADMISSION_CI_BUILDER_CHECK_M06_FULL_ADVISORIES_M03_DOMAIN_BOUNDARY_M09_200_720_M09_RES_1440_M06_FULL_REFRESH_M03_DOMAIN_CONSOLIDATION_M09_VISUAL_2560_M09_CAMPAIGN_CLOSURE_PROVENANCE_INDEX_M04_M05_BOUNDED_ADMISSION",
   "mainObservedSha": "0bdd8736c18a4035605d20123ef30d75d8802bd3",
   "workOrderId": "NEX-M00-WO-001",
   "workOrderIssue": 5,
@@ -578,8 +578,8 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM04": "NOT_ADMITTED",
-    "parentM05": "NOT_ADMITTED"
+    "parentM04": "BOUNDED_ADMITTED_MATERIALS_PIPELINE",
+    "parentM05": "BOUNDED_ADMITTED_VFX_PIPELINE"
   },
   "m04TexturebudgetPrototype": {
     "id": "NEX-M04-TEXTUREBUDGET-WO-001",
@@ -600,7 +600,7 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM04": "NOT_ADMITTED"
+    "parentM04": "BOUNDED_ADMITTED_MATERIALS_PIPELINE"
   },
   "m05FxbudgetPrototype": {
     "id": "NEX-M05-FXBUDGET-WO-001",
@@ -621,7 +621,7 @@
     "performance": "INCONCLUSIVE_NOT_RUN",
     "checkpointDelta": "PROPOSED_NOT_PROMOTED",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
-    "parentM05": "NOT_ADMITTED"
+    "parentM05": "BOUNDED_ADMITTED_VFX_PIPELINE"
   },
   "m06Contract": {
     "id": "NEX-M06-CONTRACT-WO-001",
@@ -1401,8 +1401,6 @@
       "M01",
       "M02",
       "M03",
-      "M04",
-      "M05",
       "M07",
       "M08",
       "M10",
@@ -1463,8 +1461,6 @@
     "notAdmitted": [
       "M01",
       "M02",
-      "M04",
-      "M05",
       "M07",
       "M08",
       "M10",
@@ -1496,8 +1492,6 @@
       "M04-M05, M07-M08 and M10-M12 admission"
     ],
     "notAdmitted": [
-      "M04",
-      "M05",
       "M07",
       "M08",
       "M10",
@@ -1849,5 +1843,36 @@
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM09": "BOUNDED_ADMITTED_EVIDENCE_PIPELINE"
+  },
+  "m04M05BoundedAdmission": {
+    "id": "NEX-ADMISSION-M04-M05-WO-001",
+    "m04Issue": 9,
+    "m05Issue": 10,
+    "m04Status": "BOUNDED_ADMITTED_MATERIALS_PIPELINE",
+    "m05Status": "BOUNDED_ADMITTED_VFX_PIPELINE",
+    "admissionBaseSha": "5f801c09ca4148fb9712f84cfd638bd80f3a4372",
+    "admittedScope": [
+      "M04 material.v1 and ownership contracts, docs and texture-budget prototype",
+      "M05 spellfx.v1 and ownership contracts, docs and FX-budget prototype",
+      "deterministic headless smoke, structural tests and evidence already verified"
+    ],
+    "excludedScope": [
+      "material, shader, texture, atlas, particle, emitter, light or decal creation",
+      "texture decoding, atlas packing, particle creation and rendering integration",
+      "runtime, hub, engine, renderer, shaders and project.godot",
+      "production scenes, gameplay and real rendering",
+      "performance, FPS, visual quality, game feel or licensing claims",
+      "M07-M08 and M10-M12 admission"
+    ],
+    "notAdmitted": [
+      "M07",
+      "M08",
+      "M10",
+      "M11",
+      "M12"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

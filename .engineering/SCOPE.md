@@ -1,8 +1,8 @@
 # Scope · NEX Bootstrap
 
-## Current bounded admission | M01/M02/M03/M06/M09 pipelines (2026-11-14)
+## Current bounded admission | M01/M02/M03/M04/M05/M06/M09 pipelines (2026-11-14)
 
-**`BOUNDED_ADMITTED_REFERENCE_PIPELINE`** para M01 (#6) e M02 (#7), **`BOUNDED_ADMITTED_ANALYSIS_PIPELINE`** para M03 (#8), e **`BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** para M06 (#11) e M09 (#14), conforme `NEX-ADR-0006` a `NEX-ADR-0008` e `NEX-D-016` a `NEX-D-018`. Admitidos: contratos, cenas base de referência, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados até a base `e729774583eb8ce3b75271aea66589bb9e04a587`. Não admitidos: runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, implementação real de luz/sombra/GI, renderização real, generalização ou claims de FPS. M04–M05/M07–M08/M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M01/M02/M03/M06/M09 exige WO/Context Lock e checks.
+**`BOUNDED_ADMITTED_REFERENCE_PIPELINE`** para M01 (#6) e M02 (#7), **`BOUNDED_ADMITTED_ANALYSIS_PIPELINE`** para M03 (#8), **`BOUNDED_ADMITTED_MATERIALS_PIPELINE`** para M04 (#9), **`BOUNDED_ADMITTED_VFX_PIPELINE`** para M05 (#10), e **`BOUNDED_ADMITTED_EVIDENCE_PIPELINE`** para M06 (#11) e M09 (#14), conforme `NEX-ADR-0006` a `NEX-ADR-0009` e `NEX-D-016` a `NEX-D-019`. Admitidos: contratos, cenas base de referência, protótipos, harnesses, bundles de evidência, relatórios, builders e testes já verificados até a base `5f801c09ca4148fb9712f84cfd638bd80f3a4372`. Não admitidos: runtime, hub, engine, renderer, shaders, cenas de produção, aplicação de presets, implementação real de luz/sombra/GI, criação de materiais/texturas/partículas, renderização real, generalização ou claims de FPS. M07–M08/M10–M12 permanecem `NOT_ADMITTED`. A admissão não relaxa CI, segurança, testes, locks ou ruleset; trabalho futuro sob M01/M02/M03/M04/M05/M06/M09 exige WO/Context Lock e checks.
 
 ## Historical bounded scope clarification | Stage B checkpoint only
 
