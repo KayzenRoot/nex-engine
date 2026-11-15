@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M11 kit asset audit
+
+**Auditoria M11 do kit M04** por PR #264, squash `2fa50a7223482b734007953b59e0720dfb56cb11`. O `AssetPipelineAuditor` integrado auditou **12 assets** do kit (788.844 bytes), com **0 estágios falhos** e **0 pendentes**.
+
+**Resultado:** **0 findings high**; **12 medium `license_unverified`** e **12 low `texture_uncompressed`**; veredito **`REVIEW_REQUIRED`** com recomendações de verificação de licença e compressão. `kit_sha256` confere com o `kit.v1.json`; nenhuma textura foi importada, cozinhada, carregada ou renderizada, e nenhuma licença foi declarada verificada. Builder `build_kit_audit.py --check` reproduz JSON/Markdown; enforcement no Fast Lane em **29 arquivos / 32 comandos**; suíte CI **606 testes OK**. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M04 kit texture budget
 
 **Orçamento do kit M04 medido** por PR #262, squash `2a2151815b997c3464292fcdae23596909a25c7f`. O `TextureBudgetPlanner` integrado analisou a observação `material.v1` do kit: **4 materiais**, **12 texturas únicas**, **0 refs duplicadas**, **1.048.572 bytes** decodificados/deduplicados e pressão de atlas **0.047** (12 de 256 tiles).
