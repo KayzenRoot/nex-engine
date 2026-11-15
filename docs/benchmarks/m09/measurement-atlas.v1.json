@@ -6,6 +6,7 @@
     "At 2560x1440 the high/low ratio is +651.0% and the M03 ab-high prediction is 70.3% below measured; the 2% match is confined to 1280x720.",
     "The resolution-dominance pattern repeats in corridor_static and dense_city, not only in arena_combat.",
     "Visual A/A captures are byte-identical within each scene/preset pair; A/B captures differ in 1.745-4.077% of pixels at 1280x720, 1.276-3.367% at 1920x1080 and 1.031-3.074% at 2560x1440.",
+    "Camera-motion sequences produce distinct frames in every consecutive pair; changed pixels range 3.132-19.766% across the six cells.",
     "All evidence is single-session on one RTX 5050; no cross-device or cross-session generalization is claimed."
   ],
   "entries": [
@@ -133,6 +134,30 @@
       "runs": 30,
       "source_sha": "22f428aebf43da39750adb6a8c919d0b2721d9a1",
       "verdict": "TEMPORAL_STABILITY_OBSERVED"
+    },
+    {
+      "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-camera-motion",
+      "evidence_files": 33,
+      "id": "camera-motion",
+      "key_findings": {
+        "changed_pixels_pct_range": [
+          3.132,
+          19.766
+        ],
+        "mean_abs_diff_mean_by_cell": {
+          "arena_combat/ab-high": 2.2321,
+          "arena_combat/ab-low": 2.1781,
+          "corridor_static/ab-high": 5.1619,
+          "corridor_static/ab-low": 5.0913,
+          "dense_city/ab-high": 1.8396,
+          "dense_city/ab-low": 1.7989
+        }
+      },
+      "kind": "visual",
+      "report": "camera-motion.v1.json",
+      "runs": 30,
+      "source_sha": "a6ce04bf74e7dee5712738a213704aab8068132b",
+      "verdict": "CAMERA_MOTION_OBSERVED"
     },
     {
       "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-res-scaling",
@@ -353,7 +378,7 @@
     "driver": "NVIDIA 617.14 / Vulkan forward_plus",
     "gpu": "NVIDIA GeForce RTX 5050"
   },
-  "images": 84,
+  "images": 114,
   "limitations": [
     "synthesis of already integrated evidence; no new capture",
     "single session and one GPU across all bundles",
@@ -364,18 +389,18 @@
   "open_questions": [
     "Resolutions above 2560x1440 and ultrawide aspect ratios are not measurable on the current 2560x1080 desktop; a 3840x2160 attempt was clamped to 2560x1009 and rejected as INVALID.",
     "Other GPUs, drivers and CPU platforms are not measured.",
-    "Animation, temporal effects, camera motion and real game workloads are not covered.",
+    "Animation, VFX, physics and real game workloads are not covered.",
     "Preset application in the hub/engine and M09 parent admission remain out of scope."
   ],
   "runs": 156,
   "schema_version": "m09_measurement_atlas.v1",
   "session_date": "2026-11-14",
   "totals": {
-    "bundles": 13,
-    "evidence_files": 435,
+    "bundles": 14,
+    "evidence_files": 468,
     "performance_captures": 156,
-    "unique_source_shas": 13,
-    "visual_images": 84
+    "unique_source_shas": 14,
+    "visual_images": 114
   },
   "verdict": "MEASUREMENT_CAMPAIGN_INDEXED"
 }

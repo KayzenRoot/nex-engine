@@ -1,0 +1,289 @@
+{
+  "cells": [
+    {
+      "changed_pixels_pct_max": 19.766,
+      "frames": 5,
+      "mean_abs_diff_mean": 5.0913,
+      "pairs": [
+        {
+          "changed_pixels_pct": 10.799,
+          "from_frame": 0,
+          "mean_abs_diff": 2.8639,
+          "psnr_db": 26.561,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 14.97,
+          "from_frame": 1,
+          "mean_abs_diff": 4.4909,
+          "psnr_db": 24.34,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 17.89,
+          "from_frame": 2,
+          "mean_abs_diff": 5.8262,
+          "psnr_db": 23.057,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 19.766,
+          "from_frame": 3,
+          "mean_abs_diff": 7.1841,
+          "psnr_db": 21.734,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-low",
+      "psnr_db_min": 21.734,
+      "scene_id": "corridor_static"
+    },
+    {
+      "changed_pixels_pct_max": 19.168,
+      "frames": 5,
+      "mean_abs_diff_mean": 5.1619,
+      "pairs": [
+        {
+          "changed_pixels_pct": 9.367,
+          "from_frame": 0,
+          "mean_abs_diff": 2.8854,
+          "psnr_db": 26.016,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 13.867,
+          "from_frame": 1,
+          "mean_abs_diff": 4.5276,
+          "psnr_db": 23.985,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 16.949,
+          "from_frame": 2,
+          "mean_abs_diff": 5.8667,
+          "psnr_db": 22.807,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 19.168,
+          "from_frame": 3,
+          "mean_abs_diff": 7.3677,
+          "psnr_db": 21.428,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-high",
+      "psnr_db_min": 21.428,
+      "scene_id": "corridor_static"
+    },
+    {
+      "changed_pixels_pct_max": 8.534,
+      "frames": 5,
+      "mean_abs_diff_mean": 2.1781,
+      "pairs": [
+        {
+          "changed_pixels_pct": 5.102,
+          "from_frame": 0,
+          "mean_abs_diff": 1.3634,
+          "psnr_db": 29.722,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 7.11,
+          "from_frame": 1,
+          "mean_abs_diff": 2.1096,
+          "psnr_db": 27.323,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 8.085,
+          "from_frame": 2,
+          "mean_abs_diff": 2.4887,
+          "psnr_db": 26.434,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 8.534,
+          "from_frame": 3,
+          "mean_abs_diff": 2.7507,
+          "psnr_db": 25.912,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-low",
+      "psnr_db_min": 25.912,
+      "scene_id": "arena_combat"
+    },
+    {
+      "changed_pixels_pct_max": 8.088,
+      "frames": 5,
+      "mean_abs_diff_mean": 2.2321,
+      "pairs": [
+        {
+          "changed_pixels_pct": 4.397,
+          "from_frame": 0,
+          "mean_abs_diff": 1.4734,
+          "psnr_db": 28.83,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 6.508,
+          "from_frame": 1,
+          "mean_abs_diff": 2.175,
+          "psnr_db": 26.948,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 7.598,
+          "from_frame": 2,
+          "mean_abs_diff": 2.4982,
+          "psnr_db": 26.288,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 8.088,
+          "from_frame": 3,
+          "mean_abs_diff": 2.7817,
+          "psnr_db": 25.728,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-high",
+      "psnr_db_min": 25.728,
+      "scene_id": "arena_combat"
+    },
+    {
+      "changed_pixels_pct_max": 7.051,
+      "frames": 5,
+      "mean_abs_diff_mean": 1.7989,
+      "pairs": [
+        {
+          "changed_pixels_pct": 3.86,
+          "from_frame": 0,
+          "mean_abs_diff": 1.0001,
+          "psnr_db": 31.902,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 5.43,
+          "from_frame": 1,
+          "mean_abs_diff": 1.6293,
+          "psnr_db": 29.341,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 6.349,
+          "from_frame": 2,
+          "mean_abs_diff": 2.0852,
+          "psnr_db": 28.055,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 7.051,
+          "from_frame": 3,
+          "mean_abs_diff": 2.4811,
+          "psnr_db": 27.127,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-low",
+      "psnr_db_min": 27.127,
+      "scene_id": "dense_city"
+    },
+    {
+      "changed_pixels_pct_max": 6.477,
+      "frames": 5,
+      "mean_abs_diff_mean": 1.8396,
+      "pairs": [
+        {
+          "changed_pixels_pct": 3.132,
+          "from_frame": 0,
+          "mean_abs_diff": 1.0532,
+          "psnr_db": 30.911,
+          "to_frame": 1
+        },
+        {
+          "changed_pixels_pct": 4.695,
+          "from_frame": 1,
+          "mean_abs_diff": 1.6616,
+          "psnr_db": 28.802,
+          "to_frame": 2
+        },
+        {
+          "changed_pixels_pct": 5.69,
+          "from_frame": 2,
+          "mean_abs_diff": 2.1142,
+          "psnr_db": 27.694,
+          "to_frame": 3
+        },
+        {
+          "changed_pixels_pct": 6.477,
+          "from_frame": 3,
+          "mean_abs_diff": 2.5293,
+          "psnr_db": 26.768,
+          "to_frame": 4
+        }
+      ],
+      "preset_id": "ab-high",
+      "psnr_db_min": 26.768,
+      "scene_id": "dense_city"
+    }
+  ],
+  "changed_pixel_threshold": 2,
+  "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-14-camera-motion",
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "harness_source_sha": "a6ce04bf74e7dee5712738a213704aab8068132b",
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "discrete 3-degree camera steps between captured frames; not continuous animation",
+    "static scene content; animation, VFX, physics and gameplay motion are not covered",
+    "the comparison is exact RGB byte comparison; it does not model human perception or color spaces",
+    "no FPS, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "all 30 frames were captured with a deterministic 3-degree orbit step between frames; every consecutive pair differs",
+    "the mean absolute difference grows with frame index: 2.864 -> 7.184 in the first cell",
+    "changed pixels range from 3.132% to 19.766% across all pairs",
+    "this is a harness capability observation for camera motion, not a quality, stability or performance claim",
+    "static temporal stability remains covered by the separate temporal-stability bundle"
+  ],
+  "runs": 30,
+  "schema_version": "m09_camera_motion.v1",
+  "session_date": "2026-11-14",
+  "verdict": "CAMERA_MOTION_OBSERVED",
+  "viewport_px": [
+    1280,
+    720
+  ],
+  "workload": {
+    "camera_motion": {
+      "frames": 5,
+      "mode": "orbit",
+      "step_deg": 3.0
+    },
+    "effect_mode": "lights",
+    "proxy_count": 100,
+    "scenes": [
+      {
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ],
+    "viewport_px": [
+      1280,
+      720
+    ]
+  }
+}
