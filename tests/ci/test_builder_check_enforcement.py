@@ -88,9 +88,9 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         )
 
     def test_expected_builder_count(self) -> None:
-        # 1 M01 + 1 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 16 M09 = 23 files / 26 checks.
-        self.assertEqual(23, len(self.commands))
-        self.assertEqual(26, sum(len(value) for value in self.commands.values()))
+        # 1 M01 + 2 M02 + 1 M03 (2 invocations) + 4 M06 files (6 invocations) + 16 M09 = 24 files / 27 checks.
+        self.assertEqual(24, len(self.commands))
+        self.assertEqual(27, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":

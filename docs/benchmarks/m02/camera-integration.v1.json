@@ -1,0 +1,140 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session on one RTX 5050; no cross-device, cross-driver or cross-session generalization",
+    "one preset (ab-low), static frame and one camera pose per scene",
+    "CPU p95 deltas are small in absolute terms and not proven to be causal",
+    "no animation, camera motion, gameplay or production-scene validation",
+    "no FPS gain, quality or universal recommendation is claimed"
+  ],
+  "observations": [
+    "all three repetitions of each camera mode are byte-identical",
+    "the rig reproduces the baseline framing with negligible pixel difference: 0.000% (city), 0.003% (arena) and 0.013% (corridor) of changed pixels",
+    "GPU p95 is effectively unchanged (0.0% to +1.25%); CPU p95 is unchanged in corridor and +12.9%/+13.3% in arena/city with small absolute values",
+    "this is a scene and performance comparison for one preset, not a quality or FPS claim"
+  ],
+  "performance": {
+    "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-perf",
+    "runs": 18,
+    "scenes": [
+      {
+        "baseline": {
+          "cpu_p95_ms": 0.366,
+          "gpu_p95_ms": 0.094,
+          "pacing_p95_ms": 4.21
+        },
+        "delta_pct": {
+          "cpu_p95_ms": 0.0,
+          "gpu_p95_ms": 0.0,
+          "pacing_p95_ms": 0.33
+        },
+        "rig": {
+          "cpu_p95_ms": 0.366,
+          "gpu_p95_ms": 0.094,
+          "pacing_p95_ms": 4.224
+        },
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "baseline": {
+          "cpu_p95_ms": 0.361,
+          "gpu_p95_ms": 0.106,
+          "pacing_p95_ms": 4.209
+        },
+        "delta_pct": {
+          "cpu_p95_ms": 13.3,
+          "gpu_p95_ms": 0.94,
+          "pacing_p95_ms": 0.29
+        },
+        "rig": {
+          "cpu_p95_ms": 0.409,
+          "gpu_p95_ms": 0.107,
+          "pacing_p95_ms": 4.221
+        },
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "baseline": {
+          "cpu_p95_ms": 0.309,
+          "gpu_p95_ms": 0.08,
+          "pacing_p95_ms": 4.24
+        },
+        "delta_pct": {
+          "cpu_p95_ms": 12.94,
+          "gpu_p95_ms": 1.25,
+          "pacing_p95_ms": -0.4
+        },
+        "rig": {
+          "cpu_p95_ms": 0.349,
+          "gpu_p95_ms": 0.081,
+          "pacing_p95_ms": 4.223
+        },
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ]
+  },
+  "runs": 18,
+  "schema_version": "m02_camera_integration.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "ad41089a3a37407ce8773ea86ac364873971551d",
+  "verdict": "CAMERA_RIG_REPRODUCES_BASELINE_FRAMING",
+  "viewport_px": [
+    1280,
+    720
+  ],
+  "visual": {
+    "evidence_bundle": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m02-camera-visual",
+    "runs": 18,
+    "scenes": [
+      {
+        "aa_identical": true,
+        "ab": {
+          "changed_pixels": 121,
+          "changed_pixels_pct": 0.013,
+          "max_abs_diff": 141,
+          "mean_abs_diff": 0.002,
+          "psnr_db": 59.661
+        },
+        "baseline_sha256": "35cdc66948d646623f5722f6b436117c715e6f809a1d068fc50b1113aec22de1",
+        "rig_sha256": "1d2aca8bb6adbb60ef5cb0d541eb552e0972acc55e9e5f10b183352719fa9551",
+        "scene": "M01 Corridor A/B/A",
+        "scene_id": "corridor_static"
+      },
+      {
+        "aa_identical": true,
+        "ab": {
+          "changed_pixels": 29,
+          "changed_pixels_pct": 0.003,
+          "max_abs_diff": 34,
+          "mean_abs_diff": 0.0003,
+          "psnr_db": 71.951
+        },
+        "baseline_sha256": "e22dcebf2dd6a403ee64804fcf85949faedd84dbb3037ab4d903a19c9d223b9e",
+        "rig_sha256": "1a899f401b1621bfc77c6aef8622e571b2406d482806f49274a98c9365703fcf",
+        "scene": "M01 Arena A/B/A",
+        "scene_id": "arena_combat"
+      },
+      {
+        "aa_identical": true,
+        "ab": {
+          "changed_pixels": 0,
+          "changed_pixels_pct": 0.0,
+          "max_abs_diff": 1,
+          "mean_abs_diff": 0.0,
+          "psnr_db": 106.527
+        },
+        "baseline_sha256": "cda6fe4407c5bbe95cb90af2a0e68825db541003686e06dce7c9dcba70457d8e",
+        "rig_sha256": "c59bab909503632e50d64cedaae491a3849bfabcaf8cdf0e16a2ff4540ee8f5a",
+        "scene": "M01 City A/B/A",
+        "scene_id": "dense_city"
+      }
+    ]
+  }
+}

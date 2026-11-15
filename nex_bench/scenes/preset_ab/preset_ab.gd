@@ -24,6 +24,8 @@ const VISUAL_SEQUENCE_FRAMES := 5
 const VISUAL_SEQUENCE_INTERVAL := 30
 const CAMERA_MOTION_ENV := "NEX_PRESET_AB_CAMERA_MOTION"
 const CAMERA_MOTION_STEP_DEG := 3.0
+const CAMERA_MODE_ENV := "NEX_PRESET_AB_CAMERA_MODE"
+const M02_CAMERA_RIG := preload("res://scenes/m02_camera/camera_rig.gd")
 const ALLOWED_PROXY_COUNTS := [25, 50, 100, 200]
 const OMNI_COUNT := 4
 const M01_SCENES := {
@@ -80,6 +82,8 @@ func _ready() -> void:
 	_build_stage()
 	if stage_valid:
 		_apply_preset()
+	if stage_valid and OS.get_environment(CAMERA_MODE_ENV) == "rig":
+		_use_m02_camera_rig(width, height)
 	if OS.get_environment(VISUAL_SEQUENCE_ENV) == "1":
 		call_deferred("_start_visual_sequence")
 	elif OS.get_environment(VISUAL_ENV) == "1":
@@ -399,6 +403,31 @@ func _tonemap_mode(value: String) -> int:
 			return Environment.TONE_MAPPER_ACES
 		_:
 			return Environment.TONE_MAPPER_FILMIC
+
+
+func _use_m02_camera_rig(width: int, height: int) -> void:
+	if camera == null:
+		_fail_stage("M02 camera mode requires a baseline camera")
+		return
+	var distance := clampf(camera.position.length(), 1.0, 500.0)
+	var fov := clampf(camera.fov, 10.0, 100.0)
+	var rig = M02_CAMERA_RIG.new()
+	rig.name = "M02CameraRig"
+	add_child(rig)
+	rig.set_viewport_size(Vector2i(width, height))
+	if not rig.configure({
+		"projection": "perspective",
+		"yaw_deg": 45.0,
+		"pitch_deg": -35.264,
+		"distance_m": distance,
+		"vertical_fov_deg": fov,
+	}):
+		_fail_stage("M02 camera rig configuration failed: " + rig.last_error)
+		return
+	rig.set_focus(Vector3.ZERO)
+	camera.current = false
+	camera = rig.camera
+	camera.current = true
 
 
 func _apply_camera_motion(frame_index: int) -> void:
