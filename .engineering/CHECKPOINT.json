@@ -2134,5 +2134,28 @@
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "parentM04": "BOUNDED_ADMITTED_MATERIALS_PIPELINE"
+  },
+  "m11KitAudit": {
+    "id": "NEX-M11-KIT-AUDIT-WO-001",
+    "issues": [
+      16
+    ],
+    "assets": 12,
+    "bytes": 788844,
+    "verdict": "REVIEW_REQUIRED",
+    "findings": {
+      "high": 0,
+      "medium": 12,
+      "low": 12
+    },
+    "excludedScope": [
+      "asset import, cook, compression, texture load or rendering",
+      "legal license verification or licensing claim",
+      "shader, renderer, scene, runtime, hub or engine changes",
+      "FPS, frame-time, VRAM, quality or gain claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": false,
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

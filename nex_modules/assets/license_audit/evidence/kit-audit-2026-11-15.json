@@ -1,0 +1,581 @@
+{
+  "document": {
+    "assets": [
+      {
+        "asset_id": "concrete_floor_albedo",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "705e30885a8eea0f5e4577fd9b63c4587cce2804dd086dc454c52945e5ad30ed",
+        "source_uri": "res://textures/concrete_floor_albedo.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "concrete_floor_normal",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "d8a08e23dc9d395908f8f78ec3e51c0396f37767fa8d49fb0fa2c0e5091af446",
+        "source_uri": "res://textures/concrete_floor_normal.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "concrete_floor_orm",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "b034af4166eb82c90b0a9e21dc8e03b200d3524bc195727020849c2bb82575e8",
+        "source_uri": "res://textures/concrete_floor_orm.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "brushed_metal_albedo",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "352f512eeb80ca379d7c4ac6c2c0978fbb22484656f35e6b56a79dade06c490c",
+        "source_uri": "res://textures/brushed_metal_albedo.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "brushed_metal_normal",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "ffde2bbe3eff1f920a8023e77228ab7827bb0b495c11c39bd460fe36de5bfac5",
+        "source_uri": "res://textures/brushed_metal_normal.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "brushed_metal_orm",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "b645cd2fa03d812173588a402dd52b8390c40b25c3734d7fe24e868474233175",
+        "source_uri": "res://textures/brushed_metal_orm.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "oak_wood_albedo",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "f2efaaf133290a0ec3a5a180c6e9ea07ace926c49c38b9f5e68046bb09277a99",
+        "source_uri": "res://textures/oak_wood_albedo.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "oak_wood_normal",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "203f7f90ee6dec379f36c74a3e051c70c79ae4e421c5a0b217f62c546c85fce1",
+        "source_uri": "res://textures/oak_wood_normal.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "oak_wood_orm",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "15daa6e16929cfb6104318b551d1be7a6346dfdf16b743b8199d68da0bac5ec8",
+        "source_uri": "res://textures/oak_wood_orm.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "emissive_trim_albedo",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "82c7443863cd631d9fe7e479603570041e73ce769d217e3edc816dc75497bf61",
+        "source_uri": "res://textures/emissive_trim_albedo.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "emissive_trim_normal",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "f4bbee0122a4402a8b85859001ce79c8a9618dcfee263c6b2229a4a4b6088bfb",
+        "source_uri": "res://textures/emissive_trim_normal.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      },
+      {
+        "asset_id": "emissive_trim_orm",
+        "cooked_bytes": 65737,
+        "dependencies": [],
+        "import_settings": {
+          "compression": "none",
+          "lod_count": 1,
+          "max_dimension_px": 128
+        },
+        "kind": "texture",
+        "license": {
+          "attribution": "NEX Engine procedural kit; generated deterministically",
+          "source_uri": "nex_modules/materials/kit/README.md",
+          "spdx_id": "LicenseRef-NEX-Procedural",
+          "verification": "unverified"
+        },
+        "source_sha256": "9f88b07ea11e4b5e9632b1e82f022f9622c6aba49082e7848687549d2549283a",
+        "source_uri": "res://textures/emissive_trim_orm.png",
+        "stages": [
+          {
+            "stage": "raw",
+            "status": "pass"
+          },
+          {
+            "stage": "imported",
+            "status": "pass",
+            "tool_id": "godot-4.7.2-import"
+          }
+        ]
+      }
+    ],
+    "budget": {
+      "max_assets": 100,
+      "max_texture_bytes": 52428800,
+      "max_total_bytes": 104857600,
+      "max_unverified_licenses": 12
+    },
+    "captured_at_utc": "2026-11-15T00:00:00Z",
+    "observation_id": "m11-kit-audit.v1",
+    "policy": {
+      "allow_unverified": true,
+      "allowed_spdx_ids": [
+        "LicenseRef-NEX-Procedural"
+      ],
+      "require_attribution": true,
+      "require_cooked_artifact": false,
+      "require_verified_license": false
+    },
+    "provenance": {
+      "base_sha": "7e425920cdaf17c158d46979e68df47e66742724",
+      "capture_mode": "headless",
+      "godot_version": "4.7.2-stable",
+      "hardware": {
+        "driver_version": "NVIDIA 617.14",
+        "gpu_model": "NVIDIA GeForce RTX 5050"
+      },
+      "head_sha": "7e425920cdaf17c158d46979e68df47e66742724",
+      "measurement_status": "UNAVAILABLE"
+    },
+    "schema_version": "asset_pipeline.v1"
+  },
+  "kit_sha256": "0e597c6579205f93ebb2afc7c659a58593a759df0bdc4f0bd5574306713a6b08",
+  "kit_uri": "nex_modules/materials/kit/kit.v1.json",
+  "report": {
+    "budget": {
+      "max_assets": 100,
+      "max_texture_bytes": 52428800,
+      "max_total_bytes": 104857600,
+      "max_unverified_licenses": 12
+    },
+    "findings": [
+      {
+        "asset_id": "emissive_trim_orm",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "emissive_trim_normal",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "emissive_trim_albedo",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "oak_wood_orm",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "oak_wood_normal",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "oak_wood_albedo",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "brushed_metal_orm",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "brushed_metal_normal",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "brushed_metal_albedo",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "concrete_floor_orm",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "concrete_floor_normal",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "concrete_floor_albedo",
+        "code": "license_unverified",
+        "message": "license is unverified",
+        "severity": "medium"
+      },
+      {
+        "asset_id": "brushed_metal_albedo",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "brushed_metal_normal",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "brushed_metal_orm",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "concrete_floor_orm",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "oak_wood_albedo",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "oak_wood_normal",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "concrete_floor_normal",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "oak_wood_orm",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "emissive_trim_albedo",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "concrete_floor_albedo",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "emissive_trim_normal",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      },
+      {
+        "asset_id": "emissive_trim_orm",
+        "code": "texture_uncompressed",
+        "message": "texture uses no compression",
+        "severity": "low"
+      }
+    ],
+    "limitations": [
+      "analysis only: no asset is imported, cooked, loaded or rendered",
+      "license verification is read from the document, not performed",
+      "byte budgets use cooked_bytes as declared, not filesystem measurements",
+      "dependency cycles are graph arithmetic over declared ids",
+      "quality findings are structural heuristics, not visual review",
+      "no scene, engine or project.godot integration"
+    ],
+    "metrics": {
+      "assets": 12,
+      "failed_stages": 0,
+      "pending_stages": 0,
+      "texture_cooked_bytes": 788844,
+      "total_cooked_bytes": 788844,
+      "unverified_licenses": 12
+    },
+    "recommendations": [
+      "enable_texture_compression",
+      "verify_license"
+    ],
+    "schema_version": "asset_pipeline_audit.report.v1",
+    "summary": {
+      "high": 0,
+      "info": 0,
+      "low": 12,
+      "medium": 12
+    },
+    "verdict": "REVIEW_REQUIRED"
+  },
+  "schema_version": "m11_kit_audit_run.v1",
+  "source_sha": "7e425920cdaf17c158d46979e68df47e66742724"
+}
