@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 67 · **PRs:** 112–262
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 68 · **PRs:** 112–264
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -73,6 +73,7 @@
 | m02S02S03S04Analysis | NEX-M02-S02-S03-S04-ANALYSIS-WO-001 | 258 | `8827b7605a5c0d93aa3a8cb5150b7768ba59fd28` | 7,29,30,31 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m04M05AssetKit | NEX-M04-M05-ASSET-KIT-WO-001 | 260 | `420680b391e7ca3b23d9e065452cf52d85711740` | 9,10 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m04KitBudget | NEX-M04-KIT-BUDGET-WO-001 | 262 | `2a2151815b997c3464292fcdae23596909a25c7f` | 9 | FIT | ADMIN_SOLO_NOT_INDEPENDENT |
+| m11KitAudit | NEX-M11-KIT-AUDIT-WO-001 | 264 | `2fa50a7223482b734007953b59e0720dfb56cb11` | 16 | REVIEW_REQUIRED | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 
