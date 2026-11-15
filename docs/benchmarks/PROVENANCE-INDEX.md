@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 69 · **PRs:** 112–266
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 70 · **PRs:** 112–268
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -75,6 +75,7 @@
 | m04KitBudget | NEX-M04-KIT-BUDGET-WO-001 | 262 | `2a2151815b997c3464292fcdae23596909a25c7f` | 9 | FIT | ADMIN_SOLO_NOT_INDEPENDENT |
 | m11KitAudit | NEX-M11-KIT-AUDIT-WO-001 | 264 | `2fa50a7223482b734007953b59e0720dfb56cb11` | 16 | REVIEW_REQUIRED | ADMIN_SOLO_NOT_INDEPENDENT |
 | m10ArchetypeFeedback | NEX-M10-ARCHETYPE-FEEDBACK-WO-001 | 266 | `6ecea44372376a881cb31671eba7dbb2992652e8` | 15,10 | SAFE_CONFIG_HEURISTIC | ADMIN_SOLO_NOT_INDEPENDENT |
+| m08SceneComposition | NEX-M08-SCENE-COMPOSITION-WO-001 | 268 | `7549ad3bb588349969a92e08255f84ced2e17bc1` | 13,7 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 
