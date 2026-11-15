@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · M02 reference renderer complete
+
+**M02 finalizado** por PR #274, squash `f95f7b00a6b73671d71bf1d79923e6e4c07533c5`, sob `NEX-ADR-0013` / `NEX-D-023`. O renderer de referência agora tem **27 runs nativos** validados, câmera com 4 aspect ratios, sightline renderizado, overlay de profundidade, TAA nativo off/on e perfis quality/balanced/performance.
+
+**Resultado:** S01 round-trip **3e-6 m** e fast follow **24.325 px**; S02 reveal **0→1** com GPU delta **+6.0–8.6%**; S03 overlay com **0 conflitos** e GPU delta **+0.0–3.3%**; S04 TAA nativo off/on com métricas idênticas e compositor customizado **NO_GO**; S05 passport **RUNTIME_PROBED** e GPU p95 **0.758/0.571/0.182 ms**. QA ledger S01/S02/S03/S05 `PASS`+`MEASURED`; S04 `PASS`+`INCONCLUSIVE_NOT_RUN`. As issues **#28–#34 e #7** foram fechadas como `COMPLETED`. M02 é o segundo módulo base concluído como **renderer de referência**, não como jogo. M03–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M01 reference lab complete
 
 **M01 finalizado** por PR #272, squash `7b2c497c37ba9fc8078b0a894e04c9e27c3828fb`, sob `NEX-ADR-0012` / `NEX-D-022`. O laboratório de referência agora tem **18 capturas nativas 1920×1080** (3 cenas × 2 presets × 3 repetições) com A/A byte-idêntico, A/B full + 5 regiões e **9 runs de performance 1080p** validados 9/9.
