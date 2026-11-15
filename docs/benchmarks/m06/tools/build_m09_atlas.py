@@ -29,6 +29,7 @@ BUNDLES = (
     ("windows-rtx5050-2026-11-14-interaction-200", "interaction-200"),
     ("windows-rtx5050-2026-11-14-arena-200-720", "interaction-200-720"),
     ("windows-rtx5050-2026-11-14-res-scaling-1440", "res-scaling-1440"),
+    ("windows-rtx5050-2026-11-14-res-scaling-1600", "res-scaling-1600"),
 )
 
 
@@ -96,10 +97,10 @@ def build_report() -> dict[str, Any]:
     bundle = _load(SOURCE)
     observations = bundle.get("observations")
     sources_list = bundle.get("sources")
-    if not isinstance(observations, list) or len(observations) != 156:
-        raise ValueError("full observation bundle must contain 156 observations")
-    if not isinstance(sources_list, list) or len(sources_list) != 156:
-        raise ValueError("full observation bundle must contain 156 sources")
+    if not isinstance(observations, list) or len(observations) != 162:
+        raise ValueError("full observation bundle must contain 162 observations")
+    if not isinstance(sources_list, list) or len(sources_list) != 162:
+        raise ValueError("full observation bundle must contain 162 sources")
     sources = {entry["observation_id"]: entry for entry in sources_list}
     by_bundle: dict[str, list[dict[str, Any]]] = {name: [] for _, name in BUNDLES}
     for observation in observations:
@@ -112,7 +113,7 @@ def build_report() -> dict[str, Any]:
         by_bundle[short].append(observation)
     expected = {"preset-ab": 6, "proxy-scaling": 18, "m01-ab": 18, "res-scaling": 18,
                 "interaction": 24, "cross-scene": 48, "interaction-200": 12,
-                "interaction-200-720": 6, "res-scaling-1440": 6}
+                "interaction-200-720": 6, "res-scaling-1440": 6, "res-scaling-1600": 6}
     bundles = []
     for _, short in BUNDLES:
         group = by_bundle[short]
@@ -165,7 +166,7 @@ def build_report() -> dict[str, Any]:
         },
         "verdict": "M09_PERFORMANCE_ATLAS_DERIVED",
         "observations": [
-            "All 156 observations classify as pacing at the 240 fps cap.",
+            "All 162 observations classify as pacing at the 240 fps cap.",
             "The atlas aggregates seven M09 performance bundles by bundle and workload cell.",
             "GPU p95 varies with scene, preset, resolution and proxy count; the per-bundle cells retain that detail.",
             "The atlas is a derived index of measured observations, not a new benchmark or a quality claim.",

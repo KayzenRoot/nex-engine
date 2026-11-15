@@ -53,6 +53,25 @@ def _model_cells(cells: dict[str, dict[str, Any]], predictions: dict[str, float]
     return result
 
 
+def load_context(path: Path, resolutions: tuple[tuple[int, int], ...],
+                 keys: tuple[str, ...]) -> dict[str, dict[str, dict[str, float]]]:
+    report = load_json(path)
+    if report.get("workload", {}).get("scene_id") != SCENE_ID:
+        raise ValueError("res-scaling context is not the arena scene")
+    values: dict[str, dict[str, dict[str, float]]] = {}
+    for width, height in resolutions:
+        key = f"{width}x{height}"
+        values[key] = {}
+        for preset in PRESETS:
+            match = [cell for cell in report.get("cells", [])
+                     if cell.get("preset_id") == preset
+                     and cell.get("width") == width and cell.get("height") == height]
+            if len(match) != 1:
+                raise ValueError(f"res-scaling context is missing {key}/{preset}")
+            values[key][preset] = {name: float(match[0][name]) for name in keys}
+    return values
+
+
 def build_core(evidence_rel: Path, width: int, height: int, proxy_count: int) -> dict[str, Any]:
     evidence = REPO_ROOT / evidence_rel
     manifest = load_manifest(evidence / "runs.v1.json", RUNS, (proxy_count,), PRESETS)

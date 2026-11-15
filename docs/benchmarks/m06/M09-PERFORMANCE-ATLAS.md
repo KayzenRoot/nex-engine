@@ -2,7 +2,7 @@
 
 **Status:** `M09_PERFORMANCE_ATLAS_DERIVED / SINGLE_SESSION / NO_FPS_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 156 · **Bundles:** 9
+**Fonte:** `docs/benchmarks/m06/observations/m09-observations-full.v1.json` · **Observações:** 162 · **Bundles:** 10
 
 ## Bundles
 
@@ -17,6 +17,7 @@
 | interaction-200 | 12 | 1 | 2 | 0.239 | 0.432 | 4.264 | 19.92% | {'pacing': 12} |
 | interaction-200-720 | 6 | 1 | 2 | 0.290 | 0.561 | 4.233 | 11.10% | {'pacing': 6} |
 | res-scaling-1440 | 6 | 1 | 2 | 0.877 | 0.442 | 4.268 | 36.29% | {'pacing': 6} |
+| res-scaling-1600 | 6 | 1 | 2 | 0.383 | 0.521 | 4.263 | 14.92% | {'pacing': 6} |
 
 ## Top 10 células por GPU p95
 
@@ -35,14 +36,14 @@
 
 ## Resumo
 
-- Bottlenecks: {'pacing': 156}.
+- Bottlenecks: {'pacing': 162}.
 - GPU p95 global: 0.068–1.550 ms (mediana 0.226).
-- Pacing p95: 4.199–4.311 ms.
+- Pacing p95: 4.199–4.312 ms.
 - Maior GPU share: 36.29%.
 
 ## Observações
 
-- All 156 observations classify as pacing at the 240 fps cap.
+- All 162 observations classify as pacing at the 240 fps cap.
 - The atlas aggregates seven M09 performance bundles by bundle and workload cell.
 - GPU p95 varies with scene, preset, resolution and proxy count; the per-bundle cells retain that detail.
 - The atlas is a derived index of measured observations, not a new benchmark or a quality claim.

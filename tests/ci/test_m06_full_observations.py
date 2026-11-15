@@ -27,6 +27,7 @@ EXPECTED_COUNTS = {
     "windows-rtx5050-2026-11-14-interaction-200": 12,
     "windows-rtx5050-2026-11-14-arena-200-720": 6,
     "windows-rtx5050-2026-11-14-res-scaling-1440": 6,
+    "windows-rtx5050-2026-11-14-res-scaling-1600": 6,
 }
 
 
@@ -39,15 +40,15 @@ class M06FullObservationTests(unittest.TestCase):
         cls.observations = {entry["observation_id"]: entry for entry in cls.bundle["observations"]}
         cls.sources = {entry["observation_id"]: entry for entry in cls.bundle["sources"]}
 
-    def test_bundle_has_156_unique_observations_and_sources(self) -> None:
+    def test_bundle_has_162_unique_observations_and_sources(self) -> None:
         self.assertEqual("m06_observation_bundle.v1", self.bundle["schema_version"])
         self.assertEqual("full", self.bundle["mode"])
-        self.assertEqual(156, len(self.bundle["observations"]))
-        self.assertEqual(156, len(self.bundle["sources"]))
-        self.assertEqual(156, len(self.observations))
+        self.assertEqual(162, len(self.bundle["observations"]))
+        self.assertEqual(162, len(self.bundle["sources"]))
+        self.assertEqual(162, len(self.observations))
         self.assertEqual(set(self.observations), set(self.sources))
 
-    def test_bundle_coverage_matches_the_nine_performance_bundles(self) -> None:
+    def test_bundle_coverage_matches_the_ten_performance_bundles(self) -> None:
         counts = Counter(source["bundle"] for source in self.bundle["sources"])
         self.assertEqual(EXPECTED_COUNTS, dict(counts))
 
