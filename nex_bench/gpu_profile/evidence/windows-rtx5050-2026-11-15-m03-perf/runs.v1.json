@@ -1,0 +1,205 @@
+{
+  "schema_version": "m03_lighting_runs.v1",
+  "source_sha": "6be39d49d8769ff46a98990c6818c8132e9e5a1d",
+  "session_date": "2026-11-15",
+  "runs": [
+    {
+      "sequence": 1,
+      "label": "look_dungeon",
+      "mode": "look",
+      "param": "dungeon_torch",
+      "run_id": "1794778189-34196442",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778189-34196442.json"
+    },
+    {
+      "sequence": 2,
+      "label": "look_moonlit",
+      "mode": "look",
+      "param": "moonlit_exterior",
+      "run_id": "1794778224-33949273",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778224-33949273.json"
+    },
+    {
+      "sequence": 3,
+      "label": "look_boss",
+      "mode": "look",
+      "param": "boss_arena",
+      "run_id": "1794778258-34030353",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778258-34030353.json"
+    },
+    {
+      "sequence": 4,
+      "label": "gi_sdfgi",
+      "mode": "gi",
+      "param": "sdfgi",
+      "run_id": "1794778293-33991780",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778293-33991780.json"
+    },
+    {
+      "sequence": 5,
+      "label": "gi_off",
+      "mode": "gi",
+      "param": "off",
+      "run_id": "1794778327-33603031",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778327-33603031.json"
+    },
+    {
+      "sequence": 6,
+      "label": "fog_volumetric",
+      "mode": "fog",
+      "param": "volumetric",
+      "run_id": "1794778362-34018251",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778362-34018251.json"
+    },
+    {
+      "sequence": 7,
+      "label": "fog_depth",
+      "mode": "fog",
+      "param": "depth",
+      "run_id": "1794778406-34713852",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778406-34713852.json"
+    },
+    {
+      "sequence": 8,
+      "label": "shadow_low",
+      "mode": "shadow",
+      "param": "low",
+      "run_id": "1794778441-33967578",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778441-33967578.json"
+    },
+    {
+      "sequence": 9,
+      "label": "shadow_ultra",
+      "mode": "shadow",
+      "param": "ultra",
+      "run_id": "1794778476-34048074",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778476-34048074.json"
+    },
+    {
+      "sequence": 10,
+      "label": "budget_on",
+      "mode": "budget",
+      "param": "on",
+      "run_id": "1794778511-34038411",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778511-34038411.json"
+    },
+    {
+      "sequence": 11,
+      "label": "budget_off",
+      "mode": "budget",
+      "param": "off",
+      "run_id": "1794778545-34010541",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794778545-34010541.json"
+    }
+  ]
+}

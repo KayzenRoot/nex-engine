@@ -2401,5 +2401,68 @@
     "protectedMergeSha": "f95f7b00a6b73671d71bf1d79923e6e4c07533c5",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM02": "FULL_REFERENCE_RENDERER_COMPLETE"
+  },
+  "m03FinalReference": {
+    "id": "NEX-M03-FINAL-REFERENCE-WO-001",
+    "issues": [
+      8,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "admissionAdr": "NEX-ADR-0014-M03-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-025",
+    "looks": {
+      "count": 3,
+      "captures": 9,
+      "gpuP95Ms": {
+        "dungeon_torch": 3.129,
+        "moonlit_exterior": 3.039,
+        "boss_arena": 3.119
+      }
+    },
+    "shadows": {
+      "lowGpuP95Ms": 1.526,
+      "ultraGpuP95Ms": 3.144,
+      "deltaPct": 106.0,
+      "temporal": "NOT_RUN"
+    },
+    "gi": {
+      "offGpuP95Ms": 1.976,
+      "sdfgiGpuP95Ms": 3.14,
+      "deltaPct": 58.9,
+      "allocationDeltaMib": 451.1
+    },
+    "fog": {
+      "depthGpuP95Ms": 3.008,
+      "volumetricGpuP95Ms": 3.145,
+      "deltaPct": 4.6
+    },
+    "bridge": {
+      "checks": 13,
+      "verdict": "PASS"
+    },
+    "budget": {
+      "onGpuP95Ms": 3.02,
+      "offGpuP95Ms": 3.15,
+      "deltaPct": -4.1,
+      "shadowedOn": 2,
+      "shadowedOff": 4
+    },
+    "excludedScope": [
+      "PoE2 assets, shaders, scenes or parity claims",
+      "production art, characters, real VFX or combat telegraphs",
+      "LightmapGI/VoxelGI bake, full dynamic GI or dynamic occlusion",
+      "M04-M12 renderer/runtime, game, gameplay, networking or cloud",
+      "generalized FPS, quality or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M03_REFERENCE_LIGHTING_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
