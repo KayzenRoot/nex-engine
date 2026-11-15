@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-15 · Evidence checksum validator
+
+**Validador global de evidência** por PR #270, squash `1dc2c7ca96847cb9d405c2836d1728576423093e`. O `validate_evidence.py --check` verifica **27 bundles / 803 entradas** de `SHA256SUMS.txt`, aceitando variantes LF/CRLF de bundles históricos e resolvendo caminhos relativos ao bundle ou à raiz.
+
+**Resultado:** **1 divergência histórica real** encontrada e corrigida de forma transparente: `GPU-DEVICE-SNAPSHOT.txt` (`ad93615…` → `f3488105…`), com `CORRECTION.md` no bundle; os bytes da evidência não foram alterados. `EVIDENCE_SUMS_OK` após a correção; 7 testes do validador e **627 testes CI OK**; terceiro validador cross-module no Fast Lane. O checkpoint M08 teve um `HTTP 500` transitório da API no `NEX Native Batch` e passou no re-run; todos os checks pós-merge ficaram SUCCESS. Todos os parents M01–M12 seguem bounded admitted em referência/análise/evidência. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M08 scene composition
 
 **Composição 2.5D M08** por PR #268, squash `7549ad3bb588349969a92e08255f84ced2e17bc1`. O `CompositionPlanner` integrado planejou **quatro camadas** (`background`, `gameplay`, `foreground`, `hud`) com entidades críticas `player`/`threat` para as três cenas M01, a partir da análise M02.
