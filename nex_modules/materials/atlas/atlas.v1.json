@@ -1,0 +1,489 @@
+{
+  "captured_at_utc": "2026-11-15T00:00:00Z",
+  "materials": [
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "stone_wet",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.38,
+          0.4,
+          0.43,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.55
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "1bd06709a4ebadf14b468dae4fc10395fcdc24f7076fe022531605601b1957e9",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/stone_wet_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "eb7f7cae28a2d350fb2e35ecdc3fb348961fc594943f76a0c800bccc177b2255",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/stone_wet_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "26b71da599cdfbffb4eae68ed1cf6e5b0402f27f8fb01806100e1e6649f47709",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/stone_wet_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "brushed_metal",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.62,
+          0.64,
+          0.68,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 1.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.3
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "fdc3cf5c56ecd46eb2167ffb626e04d1d5473040afa8d3e2ab1e5dedc3b55cf7",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/brushed_metal_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "fc1b334e5d29ef09ffe5b6789f559e7342891e37a733d53f4f56ae4e1a102d7a",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/brushed_metal_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "97398dcd26a308e6dd2da90b5a4b071450b0d3b3034f9442f578bb09fc76c300",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/brushed_metal_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "oak_wood",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.45,
+          0.31,
+          0.18,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.7
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "c9812020c737b3df5d32b80efdd7c73d2651d5dfd04935895387593ee8be987c",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/oak_wood_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "0f18aa4866fd1b481299e15ab69b3a3466552d38e1ae8ea65827d4f7eafa9fa5",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/oak_wood_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "fb07d63edde16fb08509cb80a2fc3060eaea3d2e183156ee7feed0ffd510b0ee",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/oak_wood_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "cloth_crimson",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.38,
+          0.08,
+          0.09,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.9
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "bb8a40c7d720d34d286660e1df0bb4464842fe08c8b55f836b1cf1e099fe1099",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/cloth_crimson_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "4b76b400a1b127993e1e532cd5441852371378f94c42b3103f716df2c5bf3900",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/cloth_crimson_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "b11e2f42cef438fdf823a111a55fe816bbdefdb406ba8fddbe708a04875ab101",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/cloth_crimson_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "skin_pale",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.72,
+          0.58,
+          0.5,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.5
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "67c8a302049910084f15f7e658ff5fd75fd6bd0a85fd864a78e5df5f8876b85e",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/skin_pale_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "21a1ff15af56196f6e42856a583cd84ffca347114d5c9e67063b17b1cd510944",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/skin_pale_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "59327de7bc256291ecb1b8fa24ba36fa91fa1b6384e940aa9e5f78847ce07411",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/skin_pale_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "terrain_earth",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.22,
+          0.17,
+          0.12,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.95
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "ce5ee9666f8e590158654f532c809bc6d0261e1747588749007d880343794f3c",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/terrain_earth_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "005af672686537c4a20e35c94739bf9e406cbf3895c739c11bb8ab0c8f739252",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/terrain_earth_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "9b77c68a9b14210c0a7ed4c121fe1aac3b66ae918ad5bde08b8568adb2510462",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/terrain_earth_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "opaque",
+      "cull_mode": "back",
+      "material_id": "foliage_deep",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.12,
+          0.3,
+          0.12,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.0,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.8
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "c6d11584279a5a9accf5f145c5cbe2eb242db81953030f1e955ac8911b853672",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/foliage_deep_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "08706dfe3744c436f6655d41acbebca3a4b11dace9abc7a38ef6a9ca0a9bff80",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/foliage_deep_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "dfbf8846c93e45d8034830e64cb654a17a259ba8e449347a9844edc5ced75ad7",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/foliage_deep_orm.png",
+          "width_px": 256
+        }
+      ]
+    },
+    {
+      "alpha_mode": "blend",
+      "cull_mode": "back",
+      "material_id": "water_clear",
+      "quality_variant": "high",
+      "shader_id": "StandardMaterial3D",
+      "surface": {
+        "albedo_rgba": [
+          0.08,
+          0.22,
+          0.3,
+          1.0
+        ],
+        "emission_energy": 0.0,
+        "emission_rgba": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallic": 0.15,
+        "normal_strength": 1.0,
+        "occlusion_strength": 1.0,
+        "roughness": 0.12
+      },
+      "textures": [
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "5feda5cf9447843ee4a6aca64793616e7e9b7d31c84494bac907e50582b2ccb0",
+          "slot": "albedo",
+          "srgb": true,
+          "uri": "res://textures/water_clear_albedo.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "e588a69114d39f404138be4f2dcd8b917a54a492312ca40b54bc371bb5be48a3",
+          "slot": "normal",
+          "srgb": false,
+          "uri": "res://textures/water_clear_normal.png",
+          "width_px": 256
+        },
+        {
+          "height_px": 256,
+          "mipmaps": true,
+          "sha256": "106a81786b06516fd6ea80bed64b2ecacc823a6fb6a1184ec8ccffa8d6b130d6",
+          "slot": "orm",
+          "srgb": false,
+          "uri": "res://textures/water_clear_orm.png",
+          "width_px": 256
+        }
+      ]
+    }
+  ],
+  "observation_id": "m04-pbr-atlas.v1",
+  "performance": {
+    "cpu_render_time": {
+      "status": "UNAVAILABLE",
+      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+    },
+    "draw_calls": {
+      "status": "UNAVAILABLE",
+      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+    },
+    "frame_interval": {
+      "provider": "SceneTree._process(delta)",
+      "status": "UNAVAILABLE",
+      "unavailable_reason": "atlas generation is headless"
+    },
+    "gpu_render_time": {
+      "status": "UNAVAILABLE",
+      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+    },
+    "measurement_status": "UNAVAILABLE",
+    "renderer_allocation_bytes": {
+      "status": "UNAVAILABLE",
+      "unavailable_reason": "atlas generation is headless; nothing is rendered"
+    }
+  },
+  "provenance": {
+    "base_sha": "e09cce2f4332e00a0f51eacb346f5763fe228db9",
+    "capture_mode": "headless",
+    "evidence_uri": "nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-15-m04-gallery/SESSION-FACTS.txt",
+    "godot_version": "4.7.2-stable",
+    "hardware": {
+      "driver_version": "NVIDIA 617.14",
+      "gpu_model": "NVIDIA GeForce RTX 5050"
+    },
+    "head_sha": "e09cce2f4332e00a0f51eacb346f5763fe228db9",
+    "measurement_status": "UNAVAILABLE"
+  },
+  "schema_version": "material.v1",
+  "texture_budget": {
+    "atlas_size": 4096,
+    "max_texture_bytes": 268435456,
+    "max_texture_count": 512,
+    "orm_packed": true
+  }
+}

@@ -2468,5 +2468,55 @@
     "protectedMergeSha": "19c1542c12385b370e045d766d650bdddce5f623",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM03": "FULL_REFERENCE_LIGHTING_COMPLETE"
+  },
+  "m04FinalReference": {
+    "id": "NEX-M04-FINAL-REFERENCE-WO-001",
+    "issues": [
+      9,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "admissionAdr": "NEX-ADR-0015-M04-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-026",
+    "atlas": {
+      "materials": 8,
+      "textures": 24,
+      "sizePx": 256
+    },
+    "shader": {
+      "name": "triplanar_wet",
+      "changedPixelsPct": 3.102,
+      "meanAbs": 0.7365,
+      "psnrDb": 33.618
+    },
+    "decal": {
+      "changedPixelsPct": 4.286,
+      "checks": 12,
+      "verdict": "PASS"
+    },
+    "scaling": {
+      "1kPng": 4195716,
+      "1kDecoded": 5592404,
+      "2kPng": 16780612,
+      "2kDecoded": 22369620,
+      "4kPng": 67118148,
+      "4kDecoded": 89478484
+    },
+    "excludedScope": [
+      "PoE2 assets, shaders, scenes or parity claims",
+      "production art, hair, foliage alpha or detail masks",
+      "BC/BPTC, VRAM, atlas packing or import/cook",
+      "M05-M12 renderer/runtime, game, gameplay, networking or cloud",
+      "generalized FPS, quality or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M04_REFERENCE_MATERIALS_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

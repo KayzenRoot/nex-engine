@@ -1,0 +1,131 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver; static gallery frame",
+    "2K/4K are nearest-neighbour upscales, not native detail",
+    "no BC/BPTC compression, VRAM measurement, atlas packing or import/cook",
+    "no hair, foliage alpha, normal mapping or detail masks",
+    "no production art or PoE2 parity"
+  ],
+  "observations": [
+    "8 original PBR materials are rendered on spheres with a native gallery",
+    "the triplanar wet shader changes 3.102% of pixels versus the Standard baseline",
+    "the Decal3D test changes 4.286% of pixels and the request bridge passes 12 checks",
+    "texture scaling: 1K albedo 4.2 MB PNG / 5.6 MB decoded; 2K 16.8 MB / 22.4 MB; 4K 67.1 MB / 89.5 MB",
+    "no third-party assets, no PoE2 parity and no quality/FPS claim"
+  ],
+  "runs": 5,
+  "s01": {
+    "atlas_sha256": "559103a29e049fb567de1d484ebe7c3c304b363616924a60d9e802af69387c2a",
+    "gallery_px": [
+      1920,
+      1080
+    ],
+    "gallery_sha256": "c6ff7ef5f11f34de28b065f6a8a199ebdc51ce1e73fd580e44c9c90f4ff1bd68",
+    "materials": 8,
+    "size_px": 256,
+    "textures": 24,
+    "verdict": "PBR_ATLAS_RENDERED"
+  },
+  "s02": {
+    "changed_pixels_pct": 3.102,
+    "mean_abs_diff": 0.7365,
+    "psnr_db": 33.618,
+    "shader": "triplanar_wet.gdshader",
+    "triplanar_off_sha256": "c5255b3a344d2ca77dda82db1dbb55d70268cbe5ef8afe14e328216c646bc8ff",
+    "triplanar_on_sha256": "6d6a689bf3e17accff6b2f956d727ca397a76d3dbfd75b68eb0e89bbcd787048",
+    "uniforms": [
+      "albedo_tex",
+      "orm_tex",
+      "uv_scale",
+      "wetness"
+    ],
+    "verdict": "SHADER_APPLIED"
+  },
+  "s03": {
+    "detail_masks": false,
+    "normal_mapping": false,
+    "triplanar": true,
+    "verdict": "SURFACEBLEND_MVP",
+    "wetness": true
+  },
+  "s04": {
+    "cards": [
+      "stone_wet",
+      "brushed_metal",
+      "oak_wood",
+      "cloth_crimson",
+      "skin_pale",
+      "terrain_earth",
+      "foliage_deep",
+      "water_clear"
+    ],
+    "foliage_alpha": false,
+    "hair": false,
+    "skin_subsurface": true,
+    "verdict": "MATERIAL_CARDS_RENDERED",
+    "water_alpha": true
+  },
+  "s05": {
+    "decal_changed_pixels_pct": 4.286,
+    "decal_visual": true,
+    "request_checks": 12,
+    "request_verdict": "PASS",
+    "verdict": "DECAL_SURFACE_DERIVED"
+  },
+  "s06": {
+    "compression": "NOT_EXERCISABLE",
+    "native_1k_decoded_bytes": 5592404,
+    "native_1k_png_bytes": 4195716,
+    "upscaled_2k_decoded_bytes": 22369620,
+    "upscaled_2k_png_bytes": 16780612,
+    "upscaled_4k_decoded_bytes": 89478484,
+    "upscaled_4k_png_bytes": 67118148,
+    "verdict": "TEXTURE_SCALING_DERIVED"
+  },
+  "s07": {
+    "decisions": [
+      {
+        "decision": "GO",
+        "evidence": "8 materials / 24 textures rendered in the native gallery",
+        "id": "PBR Reference Atlas"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "triplanar/wet shader applied; no variants/caches",
+        "id": "ShaderForge"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "triplanar + wetness; normal/detail masks not implemented",
+        "id": "SurfaceBlend"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "8 cards, skin SSS and water alpha; hair/foliage alpha not implemented",
+        "id": "Material Fidelity"
+      },
+      {
+        "decision": "GO",
+        "evidence": "Decal3D visual + 12 request checks",
+        "id": "DecalSurface Bridge"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "1K/2K/4K byte scaling; no BC/VRAM measurement",
+        "id": "TextureBudget"
+      }
+    ]
+  },
+  "s08": {
+    "verdict": "M04_MATERIALS_REFERENCE_DERIVED"
+  },
+  "schema_version": "m04_materials_runtime.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "e09cce2f4332e00a0f51eacb346f5763fe228db9",
+  "verdict": "M04_MATERIALS_REFERENCE_DERIVED"
+}
