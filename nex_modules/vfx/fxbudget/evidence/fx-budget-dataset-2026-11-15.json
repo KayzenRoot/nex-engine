@@ -72,7 +72,131 @@
         },
         "verdict": "FIT"
       },
-      "spell_count": 2
+      "spell_count": 2,
+      "spells": [
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 8
+          },
+          "element": "fire",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 300,
+              "emitters": [
+                {
+                  "amount": 64,
+                  "emitter_id": "cast-spark",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 200,
+              "emitters": [
+                {
+                  "amount": 32,
+                  "emitter_id": "travel-trail",
+                  "gpu": false,
+                  "kind": "trail",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "travel"
+            },
+            {
+              "duration_ms": 150,
+              "emitters": [
+                {
+                  "amount": 128,
+                  "emitter_id": "impact-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "impact-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 4000,
+              "emitters": [
+                {
+                  "amount": 1,
+                  "emitter_id": "linger-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "ember-bolt"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 4
+          },
+          "element": "ice",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 1500,
+              "emitters": [
+                {
+                  "amount": 256,
+                  "emitter_id": "nova-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 3000,
+              "emitters": [
+                {
+                  "amount": 2,
+                  "emitter_id": "nova-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "frost-nova"
+        }
+      ]
     },
     {
       "archetype_id": "elite",
@@ -162,7 +286,196 @@
         },
         "verdict": "TIGHT"
       },
-      "spell_count": 3
+      "spell_count": 3,
+      "spells": [
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 8
+          },
+          "element": "fire",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 300,
+              "emitters": [
+                {
+                  "amount": 64,
+                  "emitter_id": "cast-spark",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 200,
+              "emitters": [
+                {
+                  "amount": 32,
+                  "emitter_id": "travel-trail",
+                  "gpu": false,
+                  "kind": "trail",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "travel"
+            },
+            {
+              "duration_ms": 150,
+              "emitters": [
+                {
+                  "amount": 128,
+                  "emitter_id": "impact-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "impact-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 4000,
+              "emitters": [
+                {
+                  "amount": 1,
+                  "emitter_id": "linger-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "ember-bolt"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 4
+          },
+          "element": "ice",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 1500,
+              "emitters": [
+                {
+                  "amount": 256,
+                  "emitter_id": "nova-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 3000,
+              "emitters": [
+                {
+                  "amount": 2,
+                  "emitter_id": "nova-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "frost-nova"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 6
+          },
+          "element": "lightning",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 400,
+              "emitters": [
+                {
+                  "amount": 48,
+                  "emitter_id": "charge-arc",
+                  "gpu": true,
+                  "kind": "beam",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 200,
+              "emitters": [
+                {
+                  "amount": 512,
+                  "emitter_id": "lance-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "lance-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 2000,
+              "emitters": [
+                {
+                  "amount": 2,
+                  "emitter_id": "lance-scorch",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "storm-lance"
+        }
+      ]
     },
     {
       "archetype_id": "boss",
@@ -300,7 +613,312 @@
         },
         "verdict": "OVER_BUDGET"
       },
-      "spell_count": 5
+      "spell_count": 5,
+      "spells": [
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 8
+          },
+          "element": "fire",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 300,
+              "emitters": [
+                {
+                  "amount": 64,
+                  "emitter_id": "cast-spark",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 200,
+              "emitters": [
+                {
+                  "amount": 32,
+                  "emitter_id": "travel-trail",
+                  "gpu": false,
+                  "kind": "trail",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "travel"
+            },
+            {
+              "duration_ms": 150,
+              "emitters": [
+                {
+                  "amount": 128,
+                  "emitter_id": "impact-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "impact-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 4000,
+              "emitters": [
+                {
+                  "amount": 1,
+                  "emitter_id": "linger-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "ember-bolt"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 4
+          },
+          "element": "ice",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 1500,
+              "emitters": [
+                {
+                  "amount": 256,
+                  "emitter_id": "nova-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 3000,
+              "emitters": [
+                {
+                  "amount": 2,
+                  "emitter_id": "nova-decal",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "frost-nova"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 6
+          },
+          "element": "lightning",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 400,
+              "emitters": [
+                {
+                  "amount": 48,
+                  "emitter_id": "charge-arc",
+                  "gpu": true,
+                  "kind": "beam",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 200,
+              "emitters": [
+                {
+                  "amount": 512,
+                  "emitter_id": "lance-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "lance-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 2000,
+              "emitters": [
+                {
+                  "amount": 2,
+                  "emitter_id": "lance-scorch",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "storm-lance"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 8
+          },
+          "element": "fire",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 900,
+              "emitters": [
+                {
+                  "amount": 400,
+                  "emitter_id": "meteor-charge",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "cast"
+            },
+            {
+              "duration_ms": 600,
+              "emitters": [
+                {
+                  "amount": 900,
+                  "emitter_id": "meteor-burst",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 1,
+                  "emitter_id": "meteor-light",
+                  "gpu": false,
+                  "kind": "light",
+                  "lifetime_ms": 500,
+                  "light_bridge": true
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 5000,
+              "emitters": [
+                {
+                  "amount": 3,
+                  "emitter_id": "meteor-scorch",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "meteor-storm"
+        },
+        {
+          "decal_policy": {
+            "fade_ms": 3000,
+            "max_decals": 4
+          },
+          "element": "nature",
+          "gameplay_authority": {
+            "cancel_on_death": true,
+            "damage_owner": "gameplay",
+            "hit_detection": "gameplay"
+          },
+          "phases": [
+            {
+              "duration_ms": 800,
+              "emitters": [
+                {
+                  "amount": 300,
+                  "emitter_id": "bind-roots",
+                  "gpu": true,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                },
+                {
+                  "amount": 2,
+                  "emitter_id": "bind-mark",
+                  "gpu": false,
+                  "kind": "decal",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "impact"
+            },
+            {
+              "duration_ms": 2500,
+              "emitters": [
+                {
+                  "amount": 100,
+                  "emitter_id": "bind-motes",
+                  "gpu": false,
+                  "kind": "particles",
+                  "lifetime_ms": 500,
+                  "light_bridge": false
+                }
+              ],
+              "phase": "linger"
+            }
+          ],
+          "spell_id": "grave-bind"
+        }
+      ]
     }
   ],
   "godot_version": "4.7.2-stable",

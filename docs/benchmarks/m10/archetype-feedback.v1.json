@@ -1,0 +1,187 @@
+{
+  "archetypes": [
+    {
+      "archetype_id": "skirmish",
+      "label": "three-trash-pack",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "peak_concurrency": 5,
+          "spell_id": "ember-bolt",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "peak_concurrency": 5,
+          "spell_id": "frost-nova",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.232,
+        "spells": 2,
+        "total_channels": 10,
+        "total_hit_stop_ms": 40,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    },
+    {
+      "archetype_id": "elite",
+      "label": "elite-with-adds",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "peak_concurrency": 5,
+          "spell_id": "ember-bolt",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "peak_concurrency": 5,
+          "spell_id": "frost-nova",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": true,
+          "damage": 128,
+          "element": "lightning",
+          "peak_concurrency": 5,
+          "spell_id": "storm-lance",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.264,
+        "spells": 3,
+        "total_channels": 15,
+        "total_hit_stop_ms": 60,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    },
+    {
+      "archetype_id": "boss",
+      "label": "boss-with-adds",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "peak_concurrency": 5,
+          "spell_id": "ember-bolt",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "peak_concurrency": 5,
+          "spell_id": "frost-nova",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": true,
+          "damage": 128,
+          "element": "lightning",
+          "peak_concurrency": 5,
+          "spell_id": "storm-lance",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": true,
+          "damage": 225,
+          "element": "fire",
+          "peak_concurrency": 5,
+          "spell_id": "meteor-storm",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        },
+        {
+          "critical": false,
+          "damage": 75,
+          "element": "nature",
+          "peak_concurrency": 5,
+          "spell_id": "grave-bind",
+          "total_channels": 5,
+          "verdict": "SAFE_CONFIG_HEURISTIC"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.313,
+        "spells": 5,
+        "total_channels": 25,
+        "total_hit_stop_ms": 100,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    }
+  ],
+  "dataset_sha256": "fd51d65b744c8d540283360b7de0ebe9cab861916063065e9c7749dbe3bcb57e",
+  "dataset_uri": "nex_modules/vfx/fxbudget/evidence/fx-budget-dataset-2026-11-15.json",
+  "evidence_bundle": "nex_modules/animation/combat_feedback/evidence/archetype-feedback-2026-11-15.json",
+  "evidence_sha256": "b4a181b0d8a22d0bf36dfea1c11ca3daf7afdc7d585f65504e220a1252e1e262",
+  "limitations": [
+    "planning only; no animation, camera, shader, scene or renderer is created",
+    "damage is derived from impact particle amounts as reference data, not gameplay balance",
+    "each spell is planned independently; archetype totals are aggregates, not a simultaneous rotation",
+    "no FPS, frame-time, game-feel or visual-quality claim"
+  ],
+  "observations": [
+    "all 10 spell plans return SAFE_CONFIG_HEURISTIC with zero conflicts",
+    "each spell uses five channels and peaks at the 5-channel concurrency budget",
+    "archetype totals are 10, 15 and 25 channels for skirmish, elite and boss",
+    "the largest shake intensity is 0.313 for meteor-storm, below the 0.8 budget"
+  ],
+  "runs": 3,
+  "schema_version": "m10_archetype_feedback.v1",
+  "source_sha": "91e6c15794662b3502244c2d03879b8dbb9980dd",
+  "verdict": "FEEDBACK_PLANNING_DERIVED"
+}

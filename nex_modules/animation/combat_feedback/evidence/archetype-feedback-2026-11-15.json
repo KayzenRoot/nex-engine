@@ -1,0 +1,1301 @@
+{
+  "archetypes": [
+    {
+      "archetype_id": "skirmish",
+      "label": "three-trash-pack",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "report": {
+            "attack": {
+              "attack_id": "ember-bolt",
+              "phases": [
+                {
+                  "duration_ms": 300,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 350,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 4000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4650
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 650,
+                "critical": false,
+                "damage": 32,
+                "element": "fire",
+                "event_id": "hit-ember-bolt",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.216,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-ember-bolt",
+                "duration_ms": 20,
+                "end_ms": 670,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-ember-bolt",
+                "duration_ms": 200,
+                "end_ms": 850,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.216,
+                "priority": 4,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-ember-bolt",
+                "duration_ms": 120,
+                "end_ms": 770,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-ember-bolt",
+                "duration_ms": 150,
+                "end_ms": 800,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-ember-bolt",
+                "duration_ms": 400,
+                "end_ms": 1050,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 650,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "ember-bolt"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "report": {
+            "attack": {
+              "attack_id": "frost-nova",
+              "phases": [
+                {
+                  "duration_ms": 1500,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 3000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4500
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 1500,
+                "critical": false,
+                "damage": 64,
+                "element": "ice",
+                "event_id": "hit-frost-nova",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.232,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-frost-nova",
+                "duration_ms": 20,
+                "end_ms": 1520,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-frost-nova",
+                "duration_ms": 200,
+                "end_ms": 1700,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.232,
+                "priority": 4,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-frost-nova",
+                "duration_ms": 120,
+                "end_ms": 1620,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-frost-nova",
+                "duration_ms": 150,
+                "end_ms": 1650,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-frost-nova",
+                "duration_ms": 400,
+                "end_ms": 1900,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "frost-nova"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.232,
+        "spells": 2,
+        "total_channels": 10,
+        "total_hit_stop_ms": 40,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    },
+    {
+      "archetype_id": "elite",
+      "label": "elite-with-adds",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "report": {
+            "attack": {
+              "attack_id": "ember-bolt",
+              "phases": [
+                {
+                  "duration_ms": 300,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 350,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 4000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4650
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 650,
+                "critical": false,
+                "damage": 32,
+                "element": "fire",
+                "event_id": "hit-ember-bolt",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.216,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-ember-bolt",
+                "duration_ms": 20,
+                "end_ms": 670,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-ember-bolt",
+                "duration_ms": 200,
+                "end_ms": 850,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.216,
+                "priority": 4,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-ember-bolt",
+                "duration_ms": 120,
+                "end_ms": 770,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-ember-bolt",
+                "duration_ms": 150,
+                "end_ms": 800,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-ember-bolt",
+                "duration_ms": 400,
+                "end_ms": 1050,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 650,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "ember-bolt"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "report": {
+            "attack": {
+              "attack_id": "frost-nova",
+              "phases": [
+                {
+                  "duration_ms": 1500,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 3000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4500
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 1500,
+                "critical": false,
+                "damage": 64,
+                "element": "ice",
+                "event_id": "hit-frost-nova",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.232,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-frost-nova",
+                "duration_ms": 20,
+                "end_ms": 1520,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-frost-nova",
+                "duration_ms": 200,
+                "end_ms": 1700,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.232,
+                "priority": 4,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-frost-nova",
+                "duration_ms": 120,
+                "end_ms": 1620,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-frost-nova",
+                "duration_ms": 150,
+                "end_ms": 1650,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-frost-nova",
+                "duration_ms": 400,
+                "end_ms": 1900,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "frost-nova"
+        },
+        {
+          "critical": true,
+          "damage": 128,
+          "element": "lightning",
+          "report": {
+            "attack": {
+              "attack_id": "storm-lance",
+              "phases": [
+                {
+                  "duration_ms": 400,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 200,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 2000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 2600
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 600,
+                "critical": true,
+                "damage": 128,
+                "element": "lightning",
+                "event_id": "hit-storm-lance",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.264,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-storm-lance",
+                "duration_ms": 20,
+                "end_ms": 620,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-storm-lance",
+                "duration_ms": 200,
+                "end_ms": 800,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.264,
+                "priority": 4,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-storm-lance",
+                "duration_ms": 120,
+                "end_ms": 720,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-storm-lance",
+                "duration_ms": 150,
+                "end_ms": 750,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-storm-lance",
+                "duration_ms": 400,
+                "end_ms": 1000,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 600,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "storm-lance"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.264,
+        "spells": 3,
+        "total_channels": 15,
+        "total_hit_stop_ms": 60,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    },
+    {
+      "archetype_id": "boss",
+      "label": "boss-with-adds",
+      "spells": [
+        {
+          "critical": false,
+          "damage": 32,
+          "element": "fire",
+          "report": {
+            "attack": {
+              "attack_id": "ember-bolt",
+              "phases": [
+                {
+                  "duration_ms": 300,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 350,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 4000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4650
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 650,
+                "critical": false,
+                "damage": 32,
+                "element": "fire",
+                "event_id": "hit-ember-bolt",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.216,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-ember-bolt",
+                "duration_ms": 20,
+                "end_ms": 670,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-ember-bolt",
+                "duration_ms": 200,
+                "end_ms": 850,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.216,
+                "priority": 4,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-ember-bolt",
+                "duration_ms": 120,
+                "end_ms": 770,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-ember-bolt",
+                "duration_ms": 150,
+                "end_ms": 800,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 650,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-ember-bolt",
+                "duration_ms": 400,
+                "end_ms": 1050,
+                "event_id": "hit-ember-bolt",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 650,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "ember-bolt"
+        },
+        {
+          "critical": false,
+          "damage": 64,
+          "element": "ice",
+          "report": {
+            "attack": {
+              "attack_id": "frost-nova",
+              "phases": [
+                {
+                  "duration_ms": 1500,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 3000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 4500
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 1500,
+                "critical": false,
+                "damage": 64,
+                "element": "ice",
+                "event_id": "hit-frost-nova",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.232,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-frost-nova",
+                "duration_ms": 20,
+                "end_ms": 1520,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-frost-nova",
+                "duration_ms": 200,
+                "end_ms": 1700,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.232,
+                "priority": 4,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-frost-nova",
+                "duration_ms": 120,
+                "end_ms": 1620,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-frost-nova",
+                "duration_ms": 150,
+                "end_ms": 1650,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-frost-nova",
+                "duration_ms": 400,
+                "end_ms": 1900,
+                "event_id": "hit-frost-nova",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "frost-nova"
+        },
+        {
+          "critical": true,
+          "damage": 128,
+          "element": "lightning",
+          "report": {
+            "attack": {
+              "attack_id": "storm-lance",
+              "phases": [
+                {
+                  "duration_ms": 400,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 200,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 2000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 2600
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 600,
+                "critical": true,
+                "damage": 128,
+                "element": "lightning",
+                "event_id": "hit-storm-lance",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.264,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-storm-lance",
+                "duration_ms": 20,
+                "end_ms": 620,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-storm-lance",
+                "duration_ms": 200,
+                "end_ms": 800,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.264,
+                "priority": 4,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-storm-lance",
+                "duration_ms": 120,
+                "end_ms": 720,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-storm-lance",
+                "duration_ms": 150,
+                "end_ms": 750,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 600,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-storm-lance",
+                "duration_ms": 400,
+                "end_ms": 1000,
+                "event_id": "hit-storm-lance",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 600,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "storm-lance"
+        },
+        {
+          "critical": true,
+          "damage": 225,
+          "element": "fire",
+          "report": {
+            "attack": {
+              "attack_id": "meteor-storm",
+              "phases": [
+                {
+                  "duration_ms": 900,
+                  "phase": "anticipation"
+                },
+                {
+                  "duration_ms": 600,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 5000,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 6500
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 1500,
+                "critical": true,
+                "damage": 225,
+                "element": "fire",
+                "event_id": "hit-meteor-storm",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.313,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-meteor-storm",
+                "duration_ms": 20,
+                "end_ms": 1520,
+                "event_id": "hit-meteor-storm",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-meteor-storm",
+                "duration_ms": 200,
+                "end_ms": 1700,
+                "event_id": "hit-meteor-storm",
+                "intensity": 0.3125,
+                "priority": 4,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-meteor-storm",
+                "duration_ms": 120,
+                "end_ms": 1620,
+                "event_id": "hit-meteor-storm",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-meteor-storm",
+                "duration_ms": 150,
+                "end_ms": 1650,
+                "event_id": "hit-meteor-storm",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-meteor-storm",
+                "duration_ms": 400,
+                "end_ms": 1900,
+                "event_id": "hit-meteor-storm",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 1500,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "meteor-storm"
+        },
+        {
+          "critical": false,
+          "damage": 75,
+          "element": "nature",
+          "report": {
+            "attack": {
+              "attack_id": "grave-bind",
+              "phases": [
+                {
+                  "duration_ms": 800,
+                  "phase": "active"
+                },
+                {
+                  "duration_ms": 2500,
+                  "phase": "recovery"
+                }
+              ],
+              "total_duration_ms": 3300
+            },
+            "budget": {
+              "max_concurrent_channels": 5,
+              "max_hit_stop_ms": 80,
+              "max_shake_amplitude": 0.8,
+              "max_total_channels": 8
+            },
+            "conflicts": [],
+            "hit_events": [
+              {
+                "at_ms": 800,
+                "critical": false,
+                "damage": 75,
+                "element": "nature",
+                "event_id": "hit-grave-bind",
+                "target_id": "target-01"
+              }
+            ],
+            "limitations": [
+              "planning only: no animation, camera, shader, scene or renderer is created",
+              "hit-stop and shake budgets are arithmetic, not measured game feel",
+              "concurrency counts channel intervals at their start instants, not rendered overlap",
+              "priority orders the timeline but does not resolve or suppress conflicts",
+              "readability and runtime cost are INCONCLUSIVE_NOT_RUN",
+              "no scene, engine or project.godot integration"
+            ],
+            "metrics": {
+              "damage_numbers": 1,
+              "max_shake_intensity": 0.238,
+              "peak_concurrency": 5,
+              "total_channels": 5,
+              "total_hit_stop_ms": 20
+            },
+            "schema_version": "feedback.plan.v1",
+            "summary": {
+              "high": 0,
+              "info": 0,
+              "low": 0,
+              "medium": 0
+            },
+            "timeline": [
+              {
+                "channel": "hit_stop",
+                "channel_id": "hitstop-grave-bind",
+                "duration_ms": 20,
+                "end_ms": 820,
+                "event_id": "hit-grave-bind",
+                "intensity": 0.5,
+                "priority": 5,
+                "start_ms": 800,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "camera_shake",
+                "channel_id": "shake-grave-bind",
+                "duration_ms": 200,
+                "end_ms": 1000,
+                "event_id": "hit-grave-bind",
+                "intensity": 0.2375,
+                "priority": 4,
+                "start_ms": 800,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "flash",
+                "channel_id": "flash-grave-bind",
+                "duration_ms": 120,
+                "end_ms": 920,
+                "event_id": "hit-grave-bind",
+                "intensity": 0.6,
+                "priority": 3,
+                "start_ms": 800,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "recoil",
+                "channel_id": "recoil-grave-bind",
+                "duration_ms": 150,
+                "end_ms": 950,
+                "event_id": "hit-grave-bind",
+                "intensity": 0.4,
+                "priority": 2,
+                "start_ms": 800,
+                "target_id": "target-01"
+              },
+              {
+                "channel": "damage_number",
+                "channel_id": "damage-grave-bind",
+                "duration_ms": 400,
+                "end_ms": 1200,
+                "event_id": "hit-grave-bind",
+                "intensity": 0.3,
+                "priority": 1,
+                "start_ms": 800,
+                "target_id": "target-01"
+              }
+            ],
+            "verdict": "SAFE_CONFIG_HEURISTIC"
+          },
+          "spell_id": "grave-bind"
+        }
+      ],
+      "summary": {
+        "conflicts": {
+          "high": 0,
+          "info": 0,
+          "low": 0,
+          "medium": 0
+        },
+        "max_peak_concurrency": 5,
+        "max_shake_intensity": 0.313,
+        "spells": 5,
+        "total_channels": 25,
+        "total_hit_stop_ms": 100,
+        "verdicts": [
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC",
+          "SAFE_CONFIG_HEURISTIC"
+        ]
+      }
+    }
+  ],
+  "dataset_sha256": "fd51d65b744c8d540283360b7de0ebe9cab861916063065e9c7749dbe3bcb57e",
+  "dataset_uri": "nex_modules/vfx/fxbudget/evidence/fx-budget-dataset-2026-11-15.json",
+  "limitations": [
+    "planning only; no animation, camera, shader, scene or renderer is created",
+    "damage is derived from impact particle amounts as reference data, not gameplay balance",
+    "each spell is planned independently; archetype totals are aggregates, not a simultaneous rotation",
+    "no FPS, frame-time, game-feel or visual-quality claim"
+  ],
+  "schema_version": "m10_archetype_feedback_run.v1",
+  "source_sha": "91e6c15794662b3502244c2d03879b8dbb9980dd"
+}

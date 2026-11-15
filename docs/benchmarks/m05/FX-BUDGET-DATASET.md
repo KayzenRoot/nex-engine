@@ -3,7 +3,7 @@
 **Status:** `BUDGET_PLANNING_DERIVED / NON_RENDERING / NO_PERFORMANCE_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`
 
 **Fonte:** `nex_modules/vfx/fxbudget/evidence/fx-budget-dataset-2026-11-15.json` · **Source SHA:** `99437b22e94a6494eaef801872bb8fd0c79c0f1a`
-**Evidence SHA-256:** `ec5fbcf23cf670ecf281fd30b13140277dbb0cb1f31ad90673bff20005a5569b`
+**Evidence SHA-256:** `fd51d65b744c8d540283360b7de0ebe9cab861916063065e9c7749dbe3bcb57e`
 
 | Arquétipo | Spells | Emitters | Particles | GPU emitters | Decals | Veredito |
 |---|---:|---:|---:|---:|---:|---|
