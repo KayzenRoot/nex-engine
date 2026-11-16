@@ -1,7 +1,4 @@
-"""Acceptance tests for the M06 performance reference gate.
-
-Checkpoint promotion note: the M06 lab evidence is immutable.
-"""
+"""Acceptance tests for the M06 performance reference gate."""
 from __future__ import annotations
 
 import json
