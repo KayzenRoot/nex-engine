@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-16 · M05 VFX reference complete
+
+**M05 finalizado** por PR #280, squash `80a31160da74340c2250170af63a778ff0b73f5c`, sob `NEX-ADR-0016` / `NEX-D-027`. O módulo de VFX agora tem **SpellFX `spellfx.v1`** com 12 checks, **seis efeitos elementais originais**, integração com LightBridge M03, **19 capturas** nativas 1920×1080, **3 baselines**, **9 runs de stress** (1/25/100 eventos) e **3 runs baseline**.
+
+**Resultado:** 25 eventos com 8 luzes alteram **28.055%** do frame da arena; GPU p95 **3.620/3.839/3.992 ms** e 1% low **220.73/221.40/104.48 FPS** para 1/25/100 eventos; baseline **3.210 ms / 219.73 FPS**. As issues **#52–#58 e #10** foram fechadas como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M05 é o quinto módulo base concluído como **VFX de referência**, não como jogo. Não há hit autoritativo, física de projétil, colisão, telegraphs, redução de flashes ou ThreatBudget. M06–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-15 · M04 materials reference complete
 
 **M04 finalizado** por PR #278, squash `110e35834c51cd625b2e01d9584ff607c875cd40`, sob `NEX-ADR-0015` / `NEX-D-026`. O módulo de materiais agora tem **8 materiais PBR originais**, **24 texturas 256×256**, galeria nativa 1920×1080, shader triplanar/wet, Decal3D e escala 1K/2K/4K.
