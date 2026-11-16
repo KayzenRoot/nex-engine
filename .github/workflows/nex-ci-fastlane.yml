@@ -78,6 +78,7 @@ jobs:
           python3 docs/benchmarks/m06/tools/build_atlas.py --check
           python3 docs/benchmarks/m06/tools/build_m06_runtime.py --check
           python3 docs/benchmarks/m07/tools/build_m07_runtime.py --check
+          python3 docs/benchmarks/m08/tools/build_m08_runtime.py --check
           python3 docs/benchmarks/m08/tools/build_scene_composition.py --check
           python3 docs/benchmarks/m10/tools/build_archetype_feedback.py --check
           python3 docs/benchmarks/m11/tools/build_kit_audit.py --check

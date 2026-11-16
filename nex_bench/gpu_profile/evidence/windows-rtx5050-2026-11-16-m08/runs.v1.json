@@ -1,0 +1,196 @@
+{
+  "schema_version": "m08_lab_runs.v1",
+  "source_sha": "2c7dd515e307086cdd7180577b0c78ad7fb5cf1c",
+  "session_date": "2026-11-16",
+  "runs": [
+    {
+      "sequence": 1,
+      "mode": "baseline",
+      "run_id": "1794860729-33462985",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-baseline",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 0,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 0,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860729-33462985.json"
+    },
+    {
+      "sequence": 2,
+      "mode": "sprites",
+      "run_id": "1794860764-33500821",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-sprites",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 0,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860764-33500821.json"
+    },
+    {
+      "sequence": 3,
+      "mode": "sorted",
+      "run_id": "1794860798-33431777",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-sorted",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 0,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860798-33431777.json"
+    },
+    {
+      "sequence": 4,
+      "mode": "shadows",
+      "run_id": "1794860832-33505576",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-shadows",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 56,
+      "overlay_items": 0,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860832-33505576.json"
+    },
+    {
+      "sequence": 5,
+      "mode": "overlay",
+      "run_id": "1794860867-33504382",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-overlay",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 6,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860867-33504382.json"
+    },
+    {
+      "sequence": 6,
+      "mode": "hybrid",
+      "run_id": "1794860901-33470735",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-hybrid",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 56,
+      "overlay_items": 6,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860901-33470735.json"
+    },
+    {
+      "sequence": 7,
+      "mode": "perspective",
+      "run_id": "1794860935-33438233",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-perspective",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 40,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 0,
+      "projection": "perspective",
+      "file": "gpu_profile_1794860935-33438233.json"
+    },
+    {
+      "sequence": 8,
+      "mode": "quality_low",
+      "run_id": "1794860970-33488942",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-quality_low",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 20,
+      "boxes": 16,
+      "shadows": 0,
+      "overlay_items": 0,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794860970-33488942.json"
+    },
+    {
+      "sequence": 9,
+      "mode": "quality_high",
+      "run_id": "1794861004-33746762",
+      "scene_id": "m08_lab",
+      "scene": "M08 Hybrid 2.5D Lab",
+      "layout": "M08 hybrid 2.5D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m08-quality_high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 60,
+      "boxes": 16,
+      "shadows": 76,
+      "overlay_items": 6,
+      "projection": "orthogonal",
+      "file": "gpu_profile_1794861004-33746762.json"
+    }
+  ]
+}

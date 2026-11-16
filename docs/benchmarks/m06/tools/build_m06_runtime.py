@@ -2,7 +2,6 @@
 """Build the M06 performance reference report from native lab evidence."""
 from __future__ import annotations
 
-import hashlib
 import json
 import statistics
 import sys
@@ -11,11 +10,12 @@ from typing import Any
 
 TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS.parents[1] / "m09" / "tools"))
+sys.path.insert(0, str(TOOLS.parents[1] / "tools"))
 sys.path.insert(0, str(TOOLS))
 from common import load_json, run_cli  # noqa: E402 - shared local tool module
 from convert_m09_observations import _bottleneck  # noqa: E402 - shared classifier
-from png_image import compare, read_png  # noqa: E402 - shared local tool module
 from preset_report import load_capture, summarize, transform_run  # noqa: E402 - shared local tool module
+from runtime_report import diff, load_manifest, pct, render_json  # noqa: E402 - shared tool module
 
 REPO = Path(__file__).resolve().parents[4]
 EVIDENCE = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-16-m06"
@@ -31,38 +31,12 @@ FILLRATE_COUNTS = (1, 10, 100)
 FILLRATE_RESOLUTIONS = ((1280, 720), (1920, 1080), (2560, 1440))
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _pct(new: float, old: float) -> float:
-    return round((new - old) / old * 100.0, 2)
-
-
-def _diff(first: Path, second: Path) -> dict[str, Any]:
-    return compare(read_png(first), read_png(second), 2)
-
-
 def _log_json(path: Path, prefix: str) -> dict[str, Any]:
     text = path.read_text(encoding="utf-8", errors="replace")
     for line in reversed(text.splitlines()):
         if line.startswith(prefix):
             return json.loads(line[len(prefix):])
     return {}
-
-
-def _load_manifest() -> dict[str, Any]:
-    manifest = load_json(EVIDENCE / "runs.v1.json")
-    if manifest.get("schema_version") != "m06_lab_runs.v1":
-        raise ValueError("M06 runs manifest schema is invalid")
-    if manifest.get("source_sha") != SOURCE_SHA:
-        raise ValueError("M06 runs manifest source SHA is stale")
-    runs = manifest.get("runs", [])
-    if len(runs) != 33:
-        raise ValueError("M06 runs manifest must contain 33 runs")
-    if [entry.get("sequence") for entry in runs] != list(range(1, 34)):
-        raise ValueError("M06 runs manifest sequence is invalid")
-    return manifest
 
 
 def _group_metrics(manifest: dict[str, Any]) -> dict[tuple[str, str, str], dict[str, Any]]:
@@ -89,21 +63,21 @@ def _instancing_rows(metrics: dict[tuple[str, str, str], dict[str, Any]]) -> lis
             m06 = _log_json(log, "NEX_PRESET_AB_M06 ")
             render = _log_json(log, "NEX_PRESET_AB_M06_METRICS ")
             image = IMAGES / f"{scene}_instancing_{variant}.png"
-            diff = _diff(IMAGES / f"{scene}_instancing_individual.png", image) if variant != "individual" else {
+            image_diff = diff(IMAGES / f"{scene}_instancing_individual.png", image) if variant != "individual" else {
                 "changed_pixels_pct": 0.0, "mean_abs_diff": 0.0, "psnr_db": 100.0}
             rows.append({
                 "scene": scene, "variant": variant,
                 "gpu_p95_ms": item["gpu_p95_ms"], "cpu_p95_ms": item["cpu_p95_ms"],
                 "one_percent_low_fps": item["one_percent_low_fps"],
-                "gpu_vs_individual_pct": _pct(item["gpu_p95_ms"], base["gpu_p95_ms"]),
-                "cpu_vs_individual_pct": _pct(item["cpu_p95_ms"], base["cpu_p95_ms"]),
+                "gpu_vs_individual_pct": pct(item["gpu_p95_ms"], base["gpu_p95_ms"]),
+                "cpu_vs_individual_pct": pct(item["cpu_p95_ms"], base["cpu_p95_ms"]),
                 "draw_calls": int(render.get("draw_calls", 0)),
                 "objects": int(render.get("objects", 0)),
                 "primitives": int(render.get("primitives", 0)),
                 "groups": int(m06.get("groups", 0)),
                 "instances": int(m06.get("instances", 0)),
-                "changed_pixels_pct": diff["changed_pixels_pct"],
-                "psnr_db": diff["psnr_db"],
+                "changed_pixels_pct": image_diff["changed_pixels_pct"],
+                "psnr_db": image_diff["psnr_db"],
                 "png_bytes": image.stat().st_size,
             })
     return rows
@@ -116,17 +90,17 @@ def _lod_rows(metrics: dict[tuple[str, str, str], dict[str, Any]]) -> list[dict[
         governor = metrics[("lod", scene, "governor")]
         log = LOGS / f"{scene}_lod_governor.log"
         counts = _log_json(log, "NEX_PRESET_AB_M06 ")
-        diff = _diff(IMAGES / f"{scene}_lod_high.png", IMAGES / f"{scene}_lod_governor.png")
+        image_diff = diff(IMAGES / f"{scene}_lod_high.png", IMAGES / f"{scene}_lod_governor.png")
         rows.append({
             "scene": scene,
             "high_gpu_p95_ms": high["gpu_p95_ms"], "governor_gpu_p95_ms": governor["gpu_p95_ms"],
-            "gpu_delta_pct": _pct(governor["gpu_p95_ms"], high["gpu_p95_ms"]),
+            "gpu_delta_pct": pct(governor["gpu_p95_ms"], high["gpu_p95_ms"]),
             "high_one_percent_low_fps": high["one_percent_low_fps"],
             "governor_one_percent_low_fps": governor["one_percent_low_fps"],
-            "one_percent_low_delta_pct": _pct(governor["one_percent_low_fps"], high["one_percent_low_fps"]),
+            "one_percent_low_delta_pct": pct(governor["one_percent_low_fps"], high["one_percent_low_fps"]),
             "high_instances": int(counts.get("high", 0)), "low_instances": int(counts.get("low", 0)),
-            "changed_pixels_pct": diff["changed_pixels_pct"],
-            "mean_abs_diff": diff["mean_abs_diff"], "psnr_db": diff["psnr_db"],
+            "changed_pixels_pct": image_diff["changed_pixels_pct"],
+            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
         })
     return rows
 
@@ -139,18 +113,18 @@ def _frustum_rows(metrics: dict[tuple[str, str, str], dict[str, Any]]) -> list[d
         counts = _log_json(LOGS / f"{scene}_frustum_on.log", "NEX_PRESET_AB_M06 ")
         off_render = _log_json(LOGS / f"{scene}_frustum_off.log", "NEX_PRESET_AB_M06_METRICS ")
         on_render = _log_json(LOGS / f"{scene}_frustum_on.log", "NEX_PRESET_AB_M06_METRICS ")
-        diff = _diff(IMAGES / f"{scene}_frustum_off.png", IMAGES / f"{scene}_frustum_on.png")
+        image_diff = diff(IMAGES / f"{scene}_frustum_off.png", IMAGES / f"{scene}_frustum_on.png")
         rows.append({
             "scene": scene,
             "off_gpu_p95_ms": off["gpu_p95_ms"], "on_gpu_p95_ms": on["gpu_p95_ms"],
-            "gpu_delta_pct": _pct(on["gpu_p95_ms"], off["gpu_p95_ms"]),
+            "gpu_delta_pct": pct(on["gpu_p95_ms"], off["gpu_p95_ms"]),
             "off_cpu_p95_ms": off["cpu_p95_ms"], "on_cpu_p95_ms": on["cpu_p95_ms"],
-            "cpu_delta_pct": _pct(on["cpu_p95_ms"], off["cpu_p95_ms"]),
+            "cpu_delta_pct": pct(on["cpu_p95_ms"], off["cpu_p95_ms"]),
             "off_draw_calls": int(off_render.get("draw_calls", 0)),
             "on_draw_calls": int(on_render.get("draw_calls", 0)),
             "visible": int(counts.get("visible", 0)), "culled": int(counts.get("culled", 0)),
-            "changed_pixels_pct": diff["changed_pixels_pct"],
-            "mean_abs_diff": diff["mean_abs_diff"], "psnr_db": diff["psnr_db"],
+            "changed_pixels_pct": image_diff["changed_pixels_pct"],
+            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
         })
     return rows
 
@@ -160,15 +134,15 @@ def _render_scale_rows(metrics: dict[tuple[str, str, str], dict[str, Any]]) -> l
     base = metrics[("render_scale", "arena_combat", "scale_100")]
     for tag in ("scale_100", "scale_085", "scale_070"):
         item = metrics[("render_scale", "arena_combat", tag)]
-        diff = _diff(IMAGES / "arena_combat_render_scale_scale_100.png",
+        image_diff = diff(IMAGES / "arena_combat_render_scale_scale_100.png",
                      IMAGES / f"arena_combat_render_scale_{tag}.png") if tag != "scale_100" else {
             "changed_pixels_pct": 0.0, "mean_abs_diff": 0.0, "psnr_db": 100.0}
         rows.append({
             "tag": tag, "scale": SCALE_TAGS[tag],
-            "gpu_p95_ms": item["gpu_p95_ms"], "gpu_delta_pct": _pct(item["gpu_p95_ms"], base["gpu_p95_ms"]),
+            "gpu_p95_ms": item["gpu_p95_ms"], "gpu_delta_pct": pct(item["gpu_p95_ms"], base["gpu_p95_ms"]),
             "one_percent_low_fps": item["one_percent_low_fps"],
-            "changed_pixels_pct": diff["changed_pixels_pct"],
-            "mean_abs_diff": diff["mean_abs_diff"], "psnr_db": diff["psnr_db"],
+            "changed_pixels_pct": image_diff["changed_pixels_pct"],
+            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
         })
     return rows
 
@@ -208,7 +182,7 @@ def _classification_counts(metrics: dict[tuple[str, str, str], dict[str, Any]]) 
 
 
 def build_report() -> dict[str, Any]:
-    manifest = _load_manifest()
+    manifest = load_manifest(EVIDENCE / "runs.v1.json", "m06_lab_runs.v1", SOURCE_SHA, 33)
     metrics = _group_metrics(manifest)
     modules = _smoke("modules-smoke-2026-11-16.json")
     stream = _smoke("stream-smoke-2026-11-16.json")
@@ -230,15 +204,15 @@ def build_report() -> dict[str, Any]:
     fillrate_by_key = {(row["count"], row["width"]): row for row in fillrate}
     resolution_scaling = {
         str(count): {
-            "1080p_vs_720p_pct": _pct(fillrate_by_key[(count, 1920)]["gpu_p95_ms"], fillrate_by_key[(count, 1280)]["gpu_p95_ms"]),
-            "1440p_vs_720p_pct": _pct(fillrate_by_key[(count, 2560)]["gpu_p95_ms"], fillrate_by_key[(count, 1280)]["gpu_p95_ms"]),
+            "1080p_vs_720p_pct": pct(fillrate_by_key[(count, 1920)]["gpu_p95_ms"], fillrate_by_key[(count, 1280)]["gpu_p95_ms"]),
+            "1440p_vs_720p_pct": pct(fillrate_by_key[(count, 2560)]["gpu_p95_ms"], fillrate_by_key[(count, 1280)]["gpu_p95_ms"]),
         }
         for count in FILLRATE_COUNTS
     }
     count_scaling = {
         f"{width}x{height}": {
-            "10_vs_1_pct": _pct(fillrate_by_key[(10, width)]["gpu_p95_ms"], fillrate_by_key[(1, width)]["gpu_p95_ms"]),
-            "100_vs_1_pct": _pct(fillrate_by_key[(100, width)]["gpu_p95_ms"], fillrate_by_key[(1, width)]["gpu_p95_ms"]),
+            "10_vs_1_pct": pct(fillrate_by_key[(10, width)]["gpu_p95_ms"], fillrate_by_key[(1, width)]["gpu_p95_ms"]),
+            "100_vs_1_pct": pct(fillrate_by_key[(100, width)]["gpu_p95_ms"], fillrate_by_key[(1, width)]["gpu_p95_ms"]),
         }
         for width, height in FILLRATE_RESOLUTIONS
     }
@@ -435,10 +409,6 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(f"- {item}" for item in report["limitations"])
     lines.extend(["", "Gerado por `docs/benchmarks/m06/tools/build_m06_runtime.py`; não é paridade com PoE2.", ""])
     return "\n".join(lines)
-
-
-def render_json(report: dict[str, Any]) -> str:
-    return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
 def main(argv: list[str]) -> int:

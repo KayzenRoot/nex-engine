@@ -5,6 +5,9 @@ import json
 import unittest
 from pathlib import Path
 
+from _m0x_final_support import (assert_builder, assert_checkpoint, assert_governance,
+                                assert_manifest, assert_no_false_independent)
+
 REPO = Path(__file__).resolve().parents[2]
 PACK = REPO / "docs" / "benchmarks" / "m07"
 RUNTIME = PACK / "m07-runtime.v1.json"
@@ -29,20 +32,11 @@ class M07FinalTests(unittest.TestCase):
         cls.checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
 
     def test_governance_files_exist(self) -> None:
-        for path in (ADR, WO, LOCK, RUNTIME, GATE, PLANNER_LOG,
-                     EVIDENCE / "runs.v1.json", EVIDENCE / "SHA256SUMS.txt"):
-            with self.subTest(path=path.name):
-                self.assertTrue(path.is_file())
+        assert_governance(self, (ADR, WO, LOCK, RUNTIME, GATE, PLANNER_LOG,
+                                 EVIDENCE / "runs.v1.json", EVIDENCE / "SHA256SUMS.txt"))
 
     def test_manifest_has_nine_validated_runs(self) -> None:
-        self.assertEqual("m07_lab_runs.v1", self.manifest["schema_version"])
-        self.assertEqual(self.runtime["source_sha"], self.manifest["source_sha"])
-        self.assertEqual(9, len(self.manifest["runs"]))
-        self.assertEqual(MODES, {entry["mode"] for entry in self.manifest["runs"]})
-        for entry in self.manifest["runs"]:
-            with self.subTest(run=entry["run_id"]):
-                self.assertTrue((EVIDENCE / entry["file"]).is_file())
-                self.assertTrue((EVIDENCE / f"{entry['file']}.validation.json").is_file())
+        assert_manifest(self, EVIDENCE, "m07_lab_runs.v1", self.runtime["source_sha"], MODES)
 
     def test_planner_smoke_is_verified(self) -> None:
         self.assertEqual(46, self.runtime["s01"]["planner_checks"])
@@ -92,16 +86,11 @@ class M07FinalTests(unittest.TestCase):
         self.assertEqual("GO_WITH_LIMITATIONS", decisions["GPUParticles2D"])
 
     def test_checkpoint_block_records_the_admission(self) -> None:
-        block = self.checkpoint["m07FinalReference"]
-        self.assertEqual("NEX-M07-FINAL-REFERENCE-WO-001", block["id"])
-        self.assertEqual([12], block["issues"])
-        self.assertEqual("M07_REFERENCE_RENDER2D_ONLY", block["runtimeAdmission"])
-        self.assertFalse(block["ciRelaxation"])
-        self.assertEqual("ADMIN_SOLO_NOT_INDEPENDENT", block["audit"])
+        assert_checkpoint(self, self.checkpoint, "m07FinalReference",
+                          "NEX-M07-FINAL-REFERENCE-WO-001", [12], "M07_REFERENCE_RENDER2D_ONLY")
 
     def test_builder_is_enforced(self) -> None:
-        workflow = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("docs/benchmarks/m07/tools/build_m07_runtime.py --check", workflow)
+        assert_builder(self, WORKFLOW, "docs/benchmarks/m07/tools/build_m07_runtime.py --check")
 
     def test_gate_covers_the_closed_issue(self) -> None:
         text = GATE.read_text(encoding="utf-8")

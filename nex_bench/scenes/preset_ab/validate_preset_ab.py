@@ -2,12 +2,11 @@
 """NEX M09 preset A/B/A validator.
 
 Validates the harness provenance for the built-in grid and the three M01
-scene modes, then delegates every structural/aggregate check to the shared
-lab validation helper and the canonical GPU profile validator.
+scene modes, then delegates structural/aggregate checks to the shared lab
+validation helper and the canonical GPU profile validator.
 """
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
@@ -40,17 +39,7 @@ def validate_document(document):
 
 
 def main() -> int:
-    payload = sys.stdin.buffer.read(lab_validation.canonical.MAX_BYTES + 1)
-    if len(payload) > lab_validation.canonical.MAX_BYTES:
-        print(json.dumps({"status": "FAIL", "reason": "profile input exceeds 8 MB limit"}))
-        return 1
-    try:
-        result = validate_document(_loads(payload))
-    except (ValueError, OSError) as exc:
-        print(json.dumps({"status": "FAIL", "reason": str(exc)}))
-        return 1
-    print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
-    return 0
+    return lab_validation.run_cli(SCENE_SPECS, EXPECTED_EFFECT_MODE, EXPECTED_MAX_FPS, EXPECTED_VSYNC)
 
 
 if __name__ == "__main__":
