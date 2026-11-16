@@ -1,5 +1,17 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-16 · M07 render2d reference complete
+
+**M07 finalizado** por PR #285, squash `79521ad3c41b1cae374ef9ffb3227838b9a14795`, sob `NEX-ADR-0018` / `NEX-D-029`. O módulo 2D agora tem **CanvasPlanner com 46 checks**, **9 runs nativos**, **9 capturas** e laboratório para luzes, sombras, normal maps, partículas, parallax e perfis low/medium/high.
+
+**Resultado:** baseline GPU p95 **0.060 ms**; lighting **0.075 ms** (+25.00%, 16.218% de pixels); shadows **0.100 ms** (9.028% vs lighting); normal maps **0.082 ms** (14.542% vs lighting); particles **0.071 ms** (0.979% de pixels); parallax **0.070 ms** (23.006% de pixels); quality low/medium/high **0.065/0.081/0.153 ms**. A issue **#12** foi fechada como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M07 é o sétimo módulo base concluído como **render2d de referência**, não como jogo. M08–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
+## Current verified scope | 2026-11-16 · M06 performance reference complete
+
+**M06 finalizado** por PR #282, squash `aa6256a82f6cd34e347b05ac43375ac4042d2ede`, sob `NEX-ADR-0017` / `NEX-D-028`. O módulo de performance agora tem **33 runs nativos**, **27 capturas**, **3 smokes** (`78 + 17 + 9` checks) e laboratório para BatchWeave, LOD Governor, Occlusion Mapper, StreamGuard, FramePacer, VRAM Sentinel e FillRate X-Ray.
+
+**Resultado:** MultiMesh reduz draw calls **385→223** no corredor com **0.000%** de diferença visual; LOD Governor reduz GPU p95 **8.17%/7.10%/1.00%** com **3.458%/4.314%/0.967%** de pixels; render scale 0.85/0.70 reduz GPU **15.41%/28.23%**; 22 texturas adicionam **198.9 MB** de engine video memory; 1440p custa **+135.9%** vs 720p em 1 evento. O mapper de frustum customizado é **NO_GO** e a oclusão baked permanece `INCONCLUSIVE_NOT_BAKED`. As issues **#59–#68 e #11** foram fechadas como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M06 é o sexto módulo base concluído como **performance de referência**, não como jogo. M07–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-16 · M05 VFX reference complete
 
 **M05 finalizado** por PR #280, squash `80a31160da74340c2250170af63a778ff0b73f5c`, sob `NEX-ADR-0016` / `NEX-D-027`. O módulo de VFX agora tem **SpellFX `spellfx.v1`** com 12 checks, **seis efeitos elementais originais**, integração com LightBridge M03, **19 capturas** nativas 1920×1080, **3 baselines**, **9 runs de stress** (1/25/100 eventos) e **3 runs baseline**.
