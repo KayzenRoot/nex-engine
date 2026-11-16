@@ -37,6 +37,15 @@ const FOG_ENV := "NEX_PRESET_AB_FOG"
 const LIGHT_BUDGET_ENV := "NEX_PRESET_AB_LIGHT_BUDGET"
 const VFX_ENV := "NEX_PRESET_AB_VFX"
 const VFX_COUNT_ENV := "NEX_PRESET_AB_VFX_COUNT"
+const M06_ENV := "NEX_PRESET_AB_M06"
+const M06_GROUPS_ENV := "NEX_PRESET_AB_M06_GROUPS"
+const M06_LOD_ENV := "NEX_PRESET_AB_M06_LOD"
+const M06_RENDER_SCALE_ENV := "NEX_PRESET_AB_M06_RENDER_SCALE"
+const M06_FOV_ENV := "NEX_PRESET_AB_M06_FOV"
+const M06_FRUSTUM_ENV := "NEX_PRESET_AB_M06_FRUSTUM"
+const BATCH_WEAVE := preload("res://scenes/m06_performance/batch_weave.gd")
+const LOD_GOVERNOR := preload("res://scenes/m06_performance/lod_governor.gd")
+const OCCLUSION_MAPPER := preload("res://scenes/m06_performance/occlusion_mapper.gd")
 const M03_LIGHT_RIG := preload("res://scenes/m03_lighting/light_rig_planner.gd")
 const FX_LIBRARY := preload("res://scenes/m05_vfx/fx_library.gd")
 const SPELL_FX := preload("res://scenes/m05_vfx/spell_fx.gd")
@@ -86,6 +95,7 @@ var base_mesh_count := 0
 var filler_mesh_count := 0
 var stage_valid := true
 var _sightline_meshes: Dictionary = {}
+var m06_mode := ""
 
 
 func _ready() -> void:
@@ -105,6 +115,8 @@ func _ready() -> void:
 		_apply_profile()
 	if stage_valid:
 		_apply_look()
+	if stage_valid:
+		_apply_m06_mode()
 	if stage_valid and OS.get_environment(TAA_ENV) == "1":
 		get_viewport().use_taa = true
 		print("NEX_PRESET_AB_TAA enabled")
@@ -890,6 +902,173 @@ func _build_vfx() -> void:
 		"count": count,
 		"active": controller.get_state()["active"],
 		"lights": light_bridge.get_state()["active"],
+	}))
+
+
+func _apply_m06_mode() -> void:
+	m06_mode = OS.get_environment(M06_ENV).strip_edges()
+	if m06_mode.is_empty():
+		return
+	var fov_override := OS.get_environment(M06_FOV_ENV).strip_edges()
+	if not fov_override.is_empty() and camera != null:
+		camera.fov = clampf(float(fov_override), 10.0, 100.0)
+		print("NEX_PRESET_AB_M06_FOV " + JSON.stringify({"fov": camera.fov}))
+	match m06_mode:
+		"baseline":
+			print("NEX_PRESET_AB_M06 " + JSON.stringify({"mode": "baseline"}))
+		"multimesh":
+			_apply_instancing(1)
+		"batched":
+			var groups := maxi(2, int(OS.get_environment(M06_GROUPS_ENV)))
+			_apply_instancing(groups)
+		"lod":
+			_apply_lod()
+		"frustum":
+			_apply_frustum()
+		"render_scale":
+			_apply_render_scale()
+		_:
+			_fail_stage("unknown M06 mode: " + m06_mode)
+	if stage_valid:
+		_report_m06_metrics()
+
+
+func _filler_nodes() -> Array:
+	var fillers: Array = []
+	for node in find_children("M01Filler_*", "MeshInstance3D", true, false):
+		fillers.append(node)
+	return fillers
+
+
+func _apply_instancing(target_groups: int) -> void:
+	var fillers := _filler_nodes()
+	if fillers.is_empty():
+		_fail_stage("M06 instancing requires M01 fillers")
+		return
+	var items: Array = []
+	var transforms: Dictionary = {}
+	var mesh: Mesh = null
+	var material: Material = null
+	for item in fillers:
+		var node := item as MeshInstance3D
+		items.append({"id": node.name, "position": [node.position.x, node.position.y, node.position.z]})
+		transforms[node.name] = node.transform
+		if mesh == null:
+			mesh = node.mesh
+			material = node.material_override
+	var planner = BATCH_WEAVE.new()
+	if not planner.configure({"target_groups": target_groups}):
+		_fail_stage("M06 batch weave: " + planner.last_error)
+		return
+	var plan: Dictionary = planner.plan(items)
+	if not bool(plan.get("ok", false)):
+		_fail_stage("M06 batch plan: " + String(plan.get("reason", "unknown")))
+		return
+	var instances := 0
+	for index in range(plan["groups"].size()):
+		var group: Dictionary = plan["groups"][index]
+		var group_transforms: Array = []
+		for id in group["ids"]:
+			group_transforms.append(transforms[id])
+		var node := BATCH_WEAVE.build_multimesh(group_transforms, mesh, material)
+		if node == null:
+			_fail_stage("M06 multimesh build failed")
+			return
+		node.name = "M06MultiMesh_%02d" % index
+		add_child(node)
+		instances += group_transforms.size()
+	for item in fillers:
+		remove_child(item)
+		item.queue_free()
+	print("NEX_PRESET_AB_M06 " + JSON.stringify({
+		"mode": m06_mode, "groups": plan["groups"].size(), "instances": instances,
+		"target_groups": target_groups,
+	}))
+
+
+func _apply_lod() -> void:
+	var fillers := _filler_nodes()
+	if fillers.is_empty() or camera == null:
+		_fail_stage("M06 LOD requires fillers and a camera")
+		return
+	var high := SphereMesh.new()
+	high.radius = 0.35
+	high.height = 1.2
+	high.radial_segments = 32
+	high.rings = 16
+	var low := SphereMesh.new()
+	low.radius = 0.35
+	low.height = 1.2
+	low.radial_segments = 8
+	low.rings = 4
+	var force := OS.get_environment(M06_LOD_ENV).strip_edges()
+	var governor = LOD_GOVERNOR.new()
+	var near_override := OS.get_environment("NEX_PRESET_AB_M06_LOD_NEAR").strip_edges()
+	var far_override := OS.get_environment("NEX_PRESET_AB_M06_LOD_FAR").strip_edges()
+	var lod_config := {"near_m": 8.0, "far_m": 14.0, "hysteresis_m": 2.0}
+	if not near_override.is_empty():
+		lod_config["near_m"] = float(near_override)
+	if not far_override.is_empty():
+		lod_config["far_m"] = float(far_override)
+	if not governor.configure(lod_config):
+		_fail_stage("M06 LOD configure: " + governor.last_error)
+		return
+	var high_count := 0
+	var low_count := 0
+	for item in fillers:
+		var node := item as MeshInstance3D
+		var level := 0 if force == "high" else governor.select(
+			node.global_position.distance_to(camera.global_position), 0)
+		if level == 0:
+			node.mesh = high
+			high_count += 1
+		else:
+			node.mesh = low
+			low_count += 1
+	print("NEX_PRESET_AB_M06 " + JSON.stringify({
+		"mode": "lod", "variant": force if not force.is_empty() else "governor",
+		"high": high_count, "low": low_count,
+	}))
+
+
+func _apply_frustum() -> void:
+	var fillers := _filler_nodes()
+	if fillers.is_empty() or camera == null:
+		_fail_stage("M06 frustum requires fillers and a camera")
+		return
+	var mapper = OCCLUSION_MAPPER.new()
+	var apply_culling := OS.get_environment(M06_FRUSTUM_ENV).strip_edges() != "off"
+	var visible_count := 0
+	var culled_count := 0
+	for item in fillers:
+		var node := item as MeshInstance3D
+		var box: AABB = node.global_transform * node.mesh.get_aabb()
+		if mapper.is_visible_with_camera(camera, box):
+			visible_count += 1
+		else:
+			culled_count += 1
+			if apply_culling:
+				node.visible = false
+	print("NEX_PRESET_AB_M06 " + JSON.stringify({
+		"mode": "frustum", "applied": apply_culling, "visible": visible_count, "culled": culled_count,
+	}))
+
+
+func _apply_render_scale() -> void:
+	var requested := OS.get_environment(M06_RENDER_SCALE_ENV).strip_edges()
+	var scale := 1.0 if requested.is_empty() else float(requested)
+	scale = clampf(scale, 0.5, 1.0)
+	get_viewport().scaling_3d_scale = scale
+	print("NEX_PRESET_AB_M06 " + JSON.stringify({"mode": "render_scale", "scale": scale}))
+
+
+func _report_m06_metrics() -> void:
+	await RenderingServer.frame_post_draw
+	print("NEX_PRESET_AB_M06_METRICS " + JSON.stringify({
+		"mode": m06_mode,
+		"draw_calls": int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)),
+		"objects": int(Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME)),
+		"primitives": int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)),
 	}))
 
 

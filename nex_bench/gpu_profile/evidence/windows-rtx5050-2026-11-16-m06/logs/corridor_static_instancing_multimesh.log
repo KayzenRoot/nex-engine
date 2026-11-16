@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 5050
+
+NEX_PRESET_AB_APPLY {"base_meshes":17,"filler_meshes":83,"glow":true,"layout":"M01 corridor_static + deterministic fillers","max_shadowed_lights":4,"msaa":"4x","preset_id":"ab-high","proxy_count":100,"resolution_scale":1.0,"scene":"M01 Corridor A/B/A","shadow_atlas_size":4096,"shadow_quality":"ultra","target_fps":240}
+NEX_PRESET_AB_LOOK {"budget":false,"depth_fog":false,"look":"dungeon_torch","sdfgi":true,"shadowed":4,"torches":8,"volumetric_fog":true}
+NEX_PRESET_AB_M06 {"groups":1,"instances":83,"mode":"multimesh","target_groups":1}
+NEX_PRESET_AB_M06_METRICS {"draw_calls":223,"mode":"multimesh","objects":270,"primitives":201948}
+NEX_PRESET_AB_IMAGE C:/Users/csn19/Documents/nex-engine.lfcheck-m06final/nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-16-m06/images/corridor_static_instancing_multimesh.png 1920x1080

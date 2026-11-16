@@ -1,0 +1,586 @@
+{
+  "schema_version": "m06_lab_runs.v1",
+  "source_sha": "c763319d04d0bf353c15db8378872bdf8fab1734",
+  "session_date": "2026-11-16",
+  "runs": [
+    {
+      "run_id": "1794822226-34075260",
+      "file": "gpu_profile_1794822226-34075260.json",
+      "mode": "fillrate",
+      "variant": "100_1280x720",
+      "scene_id": "corridor_static",
+      "count": 100,
+      "viewport": [
+        1280,
+        720
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 1
+    },
+    {
+      "run_id": "1794822261-34092786",
+      "file": "gpu_profile_1794822261-34092786.json",
+      "mode": "fillrate",
+      "variant": "100_1920x1080",
+      "scene_id": "corridor_static",
+      "count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 2
+    },
+    {
+      "run_id": "1794822295-34106400",
+      "file": "gpu_profile_1794822295-34106400.json",
+      "mode": "fillrate",
+      "variant": "100_2560x1440",
+      "scene_id": "corridor_static",
+      "count": 100,
+      "viewport": [
+        2560,
+        1440
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 3
+    },
+    {
+      "run_id": "1794822118-33987178",
+      "file": "gpu_profile_1794822118-33987178.json",
+      "mode": "fillrate",
+      "variant": "10_1280x720",
+      "scene_id": "corridor_static",
+      "count": 10,
+      "viewport": [
+        1280,
+        720
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 4
+    },
+    {
+      "run_id": "1794822153-34078520",
+      "file": "gpu_profile_1794822153-34078520.json",
+      "mode": "fillrate",
+      "variant": "10_1920x1080",
+      "scene_id": "corridor_static",
+      "count": 10,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 5
+    },
+    {
+      "run_id": "1794822188-34049324",
+      "file": "gpu_profile_1794822188-34049324.json",
+      "mode": "fillrate",
+      "variant": "10_2560x1440",
+      "scene_id": "corridor_static",
+      "count": 10,
+      "viewport": [
+        2560,
+        1440
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 6
+    },
+    {
+      "run_id": "1794822011-33928730",
+      "file": "gpu_profile_1794822011-33928730.json",
+      "mode": "fillrate",
+      "variant": "1_1280x720",
+      "scene_id": "corridor_static",
+      "count": 1,
+      "viewport": [
+        1280,
+        720
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 7
+    },
+    {
+      "run_id": "1794822046-33956459",
+      "file": "gpu_profile_1794822046-33956459.json",
+      "mode": "fillrate",
+      "variant": "1_1920x1080",
+      "scene_id": "corridor_static",
+      "count": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 8
+    },
+    {
+      "run_id": "1794822080-33891904",
+      "file": "gpu_profile_1794822080-33891904.json",
+      "mode": "fillrate",
+      "variant": "1_2560x1440",
+      "scene_id": "corridor_static",
+      "count": 1,
+      "viewport": [
+        2560,
+        1440
+      ],
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "sequence": 9
+    },
+    {
+      "run_id": "1794821715-33901548",
+      "file": "gpu_profile_1794821715-33901548.json",
+      "mode": "frustum",
+      "variant": "off",
+      "scene_id": "arena_combat",
+      "fov": 25.0,
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 10
+    },
+    {
+      "run_id": "1794821752-33868023",
+      "file": "gpu_profile_1794821752-33868023.json",
+      "mode": "frustum",
+      "variant": "on",
+      "scene_id": "arena_combat",
+      "fov": 25.0,
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 11
+    },
+    {
+      "run_id": "1794821639-33867193",
+      "file": "gpu_profile_1794821639-33867193.json",
+      "mode": "frustum",
+      "variant": "off",
+      "scene_id": "corridor_static",
+      "fov": 25.0,
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 12
+    },
+    {
+      "run_id": "1794821677-33857665",
+      "file": "gpu_profile_1794821677-33857665.json",
+      "mode": "frustum",
+      "variant": "on",
+      "scene_id": "corridor_static",
+      "fov": 25.0,
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 13
+    },
+    {
+      "run_id": "1794821790-33868373",
+      "file": "gpu_profile_1794821790-33868373.json",
+      "mode": "frustum",
+      "variant": "off",
+      "scene_id": "dense_city",
+      "fov": 25.0,
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 14
+    },
+    {
+      "run_id": "1794821828-33893988",
+      "file": "gpu_profile_1794821828-33893988.json",
+      "mode": "frustum",
+      "variant": "on",
+      "scene_id": "dense_city",
+      "fov": 25.0,
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 15
+    },
+    {
+      "run_id": "1794821215-33982296",
+      "file": "gpu_profile_1794821215-33982296.json",
+      "mode": "instancing",
+      "variant": "batched",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 16
+    },
+    {
+      "run_id": "1794821138-34051489",
+      "file": "gpu_profile_1794821138-34051489.json",
+      "mode": "instancing",
+      "variant": "individual",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 17
+    },
+    {
+      "run_id": "1794821177-34036898",
+      "file": "gpu_profile_1794821177-34036898.json",
+      "mode": "instancing",
+      "variant": "multimesh",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 18
+    },
+    {
+      "run_id": "1794821100-33998788",
+      "file": "gpu_profile_1794821100-33998788.json",
+      "mode": "instancing",
+      "variant": "batched",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 19
+    },
+    {
+      "run_id": "1794821024-33990260",
+      "file": "gpu_profile_1794821024-33990260.json",
+      "mode": "instancing",
+      "variant": "individual",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 20
+    },
+    {
+      "run_id": "1794821062-34084928",
+      "file": "gpu_profile_1794821062-34084928.json",
+      "mode": "instancing",
+      "variant": "multimesh",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 21
+    },
+    {
+      "run_id": "1794821329-34019395",
+      "file": "gpu_profile_1794821329-34019395.json",
+      "mode": "instancing",
+      "variant": "batched",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 22
+    },
+    {
+      "run_id": "1794821253-34057664",
+      "file": "gpu_profile_1794821253-34057664.json",
+      "mode": "instancing",
+      "variant": "individual",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 23
+    },
+    {
+      "run_id": "1794821291-34037252",
+      "file": "gpu_profile_1794821291-34037252.json",
+      "mode": "instancing",
+      "variant": "multimesh",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 24
+    },
+    {
+      "run_id": "1794821502-33894668",
+      "file": "gpu_profile_1794821502-33894668.json",
+      "mode": "lod",
+      "variant": "governor",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 25
+    },
+    {
+      "run_id": "1794821464-33863307",
+      "file": "gpu_profile_1794821464-33863307.json",
+      "mode": "lod",
+      "variant": "high",
+      "scene_id": "arena_combat",
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 26
+    },
+    {
+      "run_id": "1794821426-33891380",
+      "file": "gpu_profile_1794821426-33891380.json",
+      "mode": "lod",
+      "variant": "governor",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 27
+    },
+    {
+      "run_id": "1794821388-34009673",
+      "file": "gpu_profile_1794821388-34009673.json",
+      "mode": "lod",
+      "variant": "high",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 28
+    },
+    {
+      "run_id": "1794821577-33847370",
+      "file": "gpu_profile_1794821577-33847370.json",
+      "mode": "lod",
+      "variant": "governor",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 29
+    },
+    {
+      "run_id": "1794821540-33859327",
+      "file": "gpu_profile_1794821540-33859327.json",
+      "mode": "lod",
+      "variant": "high",
+      "scene_id": "dense_city",
+      "scene": "M01 City A/B/A",
+      "layout": "M01 dense_city + deterministic fillers",
+      "seed": 4103,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 30
+    },
+    {
+      "run_id": "1794821958-33827464",
+      "file": "gpu_profile_1794821958-33827464.json",
+      "mode": "render_scale",
+      "variant": "scale_070",
+      "scene_id": "arena_combat",
+      "render_scale": 0.7,
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 31
+    },
+    {
+      "run_id": "1794821920-33890582",
+      "file": "gpu_profile_1794821920-33890582.json",
+      "mode": "render_scale",
+      "variant": "scale_085",
+      "scene_id": "arena_combat",
+      "render_scale": 0.85,
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 32
+    },
+    {
+      "run_id": "1794821883-33862925",
+      "file": "gpu_profile_1794821883-33862925.json",
+      "mode": "render_scale",
+      "variant": "scale_100",
+      "scene_id": "arena_combat",
+      "render_scale": 1.0,
+      "scene": "M01 Arena A/B/A",
+      "layout": "M01 arena_combat + deterministic fillers",
+      "seed": 4102,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sequence": 33
+    }
+  ]
+}

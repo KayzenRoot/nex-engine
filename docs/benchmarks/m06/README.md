@@ -20,6 +20,9 @@ Este diretório transforma as 15 capturas S05 já publicadas do Lighting Matrix 
 | `advisories.v1.json` | 12 advisórios derivados das observações: headroom, shares GPU/CPU, recomendação e limitações. |
 | `ADVISORIES.md` | Relatório humano dos advisórios. |
 | `tools/build_advisories.py` | Builder determinístico dos advisórios. |
+| `m06-runtime.v1.json` | Relatório do laboratório nativo M06: 33 runs, instancing, LOD, frustum, render scale, VRAM e fillrate. |
+| `M06-RUNTIME.md` | Relatório humano do laboratório M06. |
+| `tools/build_m06_runtime.py` | Builder determinístico do relatório M06. |
 
 ## Metodologia
 
@@ -43,6 +46,12 @@ O builder lê as 12 observações, calcula headroom de render (`pacing - max(gpu
 
 O modo `--full` deriva **162 advisórios** do dataset completo (`advisories-full.v1.json` e `ADVISORIES-FULL.md`). O resumo é 162/162 `pacing`, headroom **2.716–4.009 ms**, maior GPU share **36.29%** e frame alvo 4.167 ms; a semântica e as limitações são as mesmas da seleção curada.
 
+## Laboratório nativo M06
+
+O laboratório `nex_bench/scenes/m06_performance/**` mede 33 runs nativos em três cenas M01: individual/MultiMesh/batched, LOD high/governor, frustum OFF/ON com FOV 25, render scale 1.0/0.85/0.70 e fillrate 1/10/100 eventos em 720p/1080p/1440p. Três smokes cobrem 78 checks de planners, 17 de StreamGuard e 9 de VRAM. O relatório `m06-runtime.v1.json` classifica os gargalos, calcula deltas e emite decisões GO/NO_GO.
+
+**Resultado:** MultiMesh reduz draw calls 385→223 no corredor com 0.000% de diferença visual; LOD Governor reduz GPU p95 8.17%/7.10%/1.00%; o mapper de frustum customizado é **NO_GO**; render scale 0.85/0.70 reduz GPU 15.41%/28.23%; 22 texturas adicionam 198.9 MB de engine video memory. Nenhuma paridade com PoE2 é alegada.
+
 ## Uso
 
 ```powershell
@@ -58,6 +67,8 @@ python docs/benchmarks/m06/tools/build_advisories.py --full
 python docs/benchmarks/m06/tools/build_advisories.py --check-full
 python docs/benchmarks/m06/tools/build_m09_atlas.py
 python docs/benchmarks/m06/tools/build_m09_atlas.py --check
+python docs/benchmarks/m06/tools/build_m06_runtime.py
+python docs/benchmarks/m06/tools/build_m06_runtime.py --check
 ```
 
 `--check`/`--check-full` não escrevem: confirmam que atlas, observações ou advisórios correspondem ao builder/conversor.

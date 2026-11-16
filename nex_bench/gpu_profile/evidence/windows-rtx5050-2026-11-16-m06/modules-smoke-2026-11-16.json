@@ -1,0 +1,12 @@
+{
+  "checks": 78,
+  "failures": [],
+  "limitations": [
+    "planner checks only; no frame-time gain is claimed",
+    "native captures are separate evidence",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "schema_version": "m06_modules_smoke.v1",
+  "source_sha": "c763319d04d0bf353c15db8378872bdf8fab1734",
+  "verdict": "PASS"
+}
