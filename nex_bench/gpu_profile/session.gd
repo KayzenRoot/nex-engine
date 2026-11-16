@@ -15,6 +15,7 @@ const ALLOWED_WORKLOAD_LAYOUTS := [
 	"M01 corridor_static + deterministic fillers",
 	"M01 arena_combat + deterministic fillers",
 	"M01 dense_city + deterministic fillers",
+	"M07 layered 2D lab",
 ]
 const FORMULA_VERSION := "nex-percentile-and-one-percent-low-monotonic-v2"
 const FRAME_PACING_PROVIDER := "Time.get_ticks_usec sampled on each active Visual Lab _process(delta) callback"

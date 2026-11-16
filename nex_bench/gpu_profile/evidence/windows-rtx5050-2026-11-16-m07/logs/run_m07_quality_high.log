@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 5050
+
+NEX_M07_LAB {"lights":4,"mode":"quality_high","parallax_layers":3,"particles":384,"shadows":4,"sprites":100}
+NEX_M07_LAB_METRICS {"draw_calls":17,"mode":"quality_high","objects":112,"primitives":980}
+NEX_M07_START mode=quality_high scene=M07 2D Lab size=(1920.0, 1080.0) vsync=0 max_fps=240
+NEX_M07_CAPTURE C:/Users/csn19/AppData/Roaming/Godot/app_userdata/NEX Engine - Unified Visual Lab/gpu_profiles/gpu_profile_1794853146-33423851.json

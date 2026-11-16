@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M07 full reference | render2d concluído (2026-11-16)
+
+`NEX-ADR-0018` / `NEX-D-029` admitem o M07 como render2d de referência bounded: CanvasPlanner com 46 checks, laboratório 2D nativo com luzes, sombras, normal maps, partículas, parallax e perfis low/medium/high, 9 runs e 9 capturas. A issue #12 pode ser fechada após integração protegida. M07 é o sétimo módulo base concluído como **render2d de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há renderer 2D de produção, atlas packing, y-sort, shader customizado ou gameplay. M08–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `aa6256a82f6cd34e347b05ac43375ac4042d2ede`.
+
 ### M06 full reference | performance concluída (2026-11-16)
 
 `NEX-ADR-0017` / `NEX-D-028` admitem o M06 como performance de referência bounded: laboratório nativo com 33 runs, BatchWeave/MultiMesh, LOD Governor, Occlusion Mapper, StreamGuard, FramePacer, VRAM Sentinel e FillRate X-Ray, além de 27 capturas, 3 smokes e relatório/gate. As issues #59–#68 e #11 podem ser fechadas após integração protegida. M06 é o sexto módulo base concluído como **performance de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há renderer core, LOD de produção, oclusão baked, render scale dinâmico, shader prewarm, eviction de VRAM ou streaming de cena. M07–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `c763319d04d0bf353c15db8378872bdf8fab1734`.

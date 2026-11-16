@@ -16,6 +16,7 @@ BUILDER_DIRS = {
     "m04": REPO / "docs" / "benchmarks" / "m04" / "tools",
     "m05": REPO / "docs" / "benchmarks" / "m05" / "tools",
     "m06": REPO / "docs" / "benchmarks" / "m06" / "tools",
+    "m07": REPO / "docs" / "benchmarks" / "m07" / "tools",
     "m08": REPO / "docs" / "benchmarks" / "m08" / "tools",
     "m09": REPO / "docs" / "benchmarks" / "m09" / "tools",
     "m10": REPO / "docs" / "benchmarks" / "m10" / "tools",
@@ -23,7 +24,7 @@ BUILDER_DIRS = {
 }
 ALL_PY_MODULES = {"m01", "m02"}
 COMMAND = re.compile(
-    r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m04|m05|m06|m08|m09|m10|m11)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
+    r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m04|m05|m06|m07|m08|m09|m10|m11)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
     re.MULTILINE,
 )
 CROSS_MODULE_COMMAND = re.compile(
@@ -94,9 +95,9 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         )
 
     def test_expected_builder_count(self) -> None:
-        # 3 M01 + 4 M02 + 2 M03 (3 invocations) + 5 M04 + 2 M05 + 5 M06 (7 invocations) + 1 M08 + 16 M09 + 1 M10 + 1 M11 = 40 files / 43 checks, plus 3 cross-module validators.
-        self.assertEqual(40, len(self.commands))
-        self.assertEqual(43, sum(len(value) for value in self.commands.values()))
+        # 3 M01 + 4 M02 + 2 M03 (3 invocations) + 5 M04 + 2 M05 + 5 M06 (7 invocations) + 1 M07 + 1 M08 + 16 M09 + 1 M10 + 1 M11 = 41 files / 44 checks, plus 3 cross-module validators.
+        self.assertEqual(41, len(self.commands))
+        self.assertEqual(44, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":
