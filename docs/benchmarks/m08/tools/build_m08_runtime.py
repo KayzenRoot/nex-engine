@@ -6,12 +6,10 @@ import sys
 from pathlib import Path
 from typing import Any
 
-TOOLS = Path(__file__).resolve().parent
-sys.path.insert(0, str(TOOLS.parents[1] / "m09" / "tools"))
-sys.path.insert(0, str(TOOLS.parents[1] / "tools"))
-from common import run_cli  # noqa: E402 - shared local tool module
-from runtime_report import (decision_lines, diff, load_manifest, markdown_mode_table,  # noqa: E402 - shared tool module
-                            mode_rows, pct, render_json)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
+from runtime_report import (diff, load_manifest, markdown_document, markdown_mode_table,  # noqa: E402 - shared tool module
+                            markdown_quality_table, markdown_tail, mode_rows, parse_pass_line,
+                            pct, render_json, report_metadata, run_lab_report)
 
 REPO = Path(__file__).resolve().parents[4]
 EVIDENCE = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-16-m08"
@@ -26,11 +24,7 @@ MODES = ("baseline", "sprites", "sorted", "shadows", "overlay", "hybrid",
 
 
 def _planner_checks() -> int:
-    text = PLANNER_LOG.read_text(encoding="utf-8", errors="replace")
-    for line in text.splitlines():
-        if line.startswith("NEX_M08_COMPOSITION_SMOKE_PASS:"):
-            return int(line.split(":", 1)[1].strip().split()[0])
-    raise ValueError("composition planner smoke has no pass line")
+    return parse_pass_line(PLANNER_LOG, "NEX_M08_COMPOSITION_SMOKE_PASS:")
 
 
 def build_report() -> dict[str, Any]:
@@ -65,10 +59,7 @@ def build_report() -> dict[str, Any]:
     ]
     return {
         "schema_version": "m08_render25d_runtime.v1",
-        "source_sha": SOURCE_SHA,
-        "session_date": "2026-11-16",
-        "hardware": {"gpu": "NVIDIA GeForce RTX 5050", "driver": "NVIDIA 617.14 / Vulkan forward_plus"},
-        "godot_version": "4.7.2-stable",
+        **report_metadata(SOURCE_SHA),
         "s01": {"planner_checks": planner_checks, "verdict": "COMPOSITION_PLANNER_VERIFIED"},
         "s02": {"rows": rows, "sorted_vs_sprites": sorted_diff, "verdict": "RENDER25D_HYBRID_DERIVED"},
         "s03": {"rows": rows, "verdict": "RENDER25D_SHADOWS_GO_WITH_LIMITATIONS"},
@@ -102,20 +93,19 @@ def build_report() -> dict[str, Any]:
 
 
 def render_markdown(report: dict[str, Any]) -> str:
-    lines = [
-        "# NEX M08 · 2.5D hybrid runtime",
-        "",
-        "**Status:** `M08_RENDER25D_REFERENCE_DERIVED / NATIVE_2.5D_LAB / NO_POE2_PARITY_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT`",
-        "",
-        f"**Source SHA:** `{report['source_sha']}` · **GPU:** {report['hardware']['gpu']} · {report['godot_version']}",
-        "",
+    lines = markdown_document(
+        "NEX M08 · 2.5D hybrid runtime",
+        "M08_RENDER25D_REFERENCE_DERIVED / NATIVE_2.5D_LAB / NO_POE2_PARITY_CLAIM / ADMIN_SOLO_NOT_INDEPENDENT",
+        report,
+    )
+    lines.extend([
         "## S01 · CompositionPlanner",
         "",
         f"- **{report['s01']['verdict']}**: {report['s01']['planner_checks']} checks headless.",
         "",
         "## S02 · Câmera, sprites e sorting",
         "",
-    ]
+    ])
     lines.extend(markdown_mode_table(report["s02"]["rows"], MODES))
     lines.extend([
         "",
@@ -146,38 +136,16 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## S07 · Quality profiles",
         "",
-        "| Perfil | GPU p95 | GPU vs base | Pixels |",
-        "|---|---:|---:|---:|",
     ])
-    for mode in ("quality_low", "quality_high"):
-        row = report["s07"]["rows"][mode]
-        lines.append(f"| {mode} | {row['gpu_p95_ms']:.3f} ms | {row['gpu_vs_baseline_pct']:+.2f}% | "
-                     f"{row['changed_pixels_pct']:.3f}% |")
-    lines.extend([
-        "",
-        "## S08 · decisões",
-        "",
-    ])
-    lines.extend(decision_lines(report["s08"]["decisions"]))
-    lines.extend([
-        "",
-        f"- {report['s08']['runs']} runs, {report['s08']['images']} imagens, "
-        f"{report['s08']['planner_checks']} checks de planner, "
-        f"{report['s08']['third_party_assets']} assets de terceiros.",
-        "",
-        "## Observações",
-        "",
-    ])
-    lines.extend(f"- {item}" for item in report["observations"])
-    lines.extend(["", "## Limitações", ""])
-    lines.extend(f"- {item}" for item in report["limitations"])
+    lines.extend(markdown_quality_table(report["s07"]["rows"], ("quality_low", "quality_high")))
+    lines.extend(markdown_tail(report, report["s08"]["decisions"]))
     lines.extend(["", "Gerado por `docs/benchmarks/m08/tools/build_m08_runtime.py`; não é paridade com PoE2.", ""])
     return "\n".join(lines)
 
 
 def main(argv: list[str]) -> int:
-    return run_cli(build_report, render_json, render_markdown, OUTPUT, REPORT_JSON, REPORT_MD,
-                   argv, "M08_RENDER25D_RUNTIME")
+    return run_lab_report(build_report, render_markdown, OUTPUT, REPORT_JSON, REPORT_MD,
+                          argv, "M08_RENDER25D_RUNTIME")
 
 
 if __name__ == "__main__":

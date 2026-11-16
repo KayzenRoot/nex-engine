@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "m09" / "tools"))
 
-from common import load_json  # noqa: E402 - shared local tool module
+from common import load_json, run_cli  # noqa: E402 - shared local tool module
 from png_image import compare, read_png  # noqa: E402 - shared local tool module
 from preset_report import load_capture, transform_run  # noqa: E402 - shared local tool module
 
@@ -49,6 +49,66 @@ def metrics(evidence: Path, manifest: dict) -> dict[str, dict]:
                                int(entry["proxy_count"]), include_allocation=True)
         result[entry["mode"]] = transform_run(entry, capture, include_allocation=True)
     return result
+
+
+def run_lab_report(build, render_md, output: Path, json_path: Path, md_path: Path,
+                   argv: list[str], prefix: str) -> int:
+    return run_cli(build, render_json, render_md, output, json_path, md_path, argv, prefix)
+
+
+def markdown_document(title: str, status: str, report: dict) -> list[str]:
+    return [
+        f"# {title}",
+        "",
+        f"**Status:** `{status}`",
+        "",
+        f"**Source SHA:** `{report['source_sha']}` · **GPU:** {report['hardware']['gpu']} · {report['godot_version']}",
+        "",
+    ]
+
+
+def parse_pass_line(path: Path, prefix: str) -> int:
+    text = path.read_text(encoding="utf-8", errors="replace")
+    for line in text.splitlines():
+        if line.startswith(prefix):
+            return int(line.split(":", 1)[1].strip().split()[0])
+    raise ValueError(f"smoke log has no pass line for {prefix}")
+
+
+def report_metadata(source_sha: str) -> dict:
+    return {
+        "source_sha": source_sha,
+        "session_date": "2026-11-16",
+        "hardware": {"gpu": "NVIDIA GeForce RTX 5050", "driver": "NVIDIA 617.14 / Vulkan forward_plus"},
+        "godot_version": "4.7.2-stable",
+    }
+
+
+def markdown_quality_table(rows: dict[str, dict], modes: tuple[str, ...]) -> list[str]:
+    lines = ["| Perfil | GPU p95 | GPU vs base | Pixels |", "|---|---:|---:|---:|"]
+    for mode in modes:
+        row = rows[mode]
+        lines.append(f"| {mode} | {row['gpu_p95_ms']:.3f} ms | {row['gpu_vs_baseline_pct']:+.2f}% | "
+                     f"{row['changed_pixels_pct']:.3f}% |")
+    return lines
+
+
+def markdown_tail(report: dict, decisions: list[dict]) -> list[str]:
+    lines = ["", "## S08 · decisões", ""]
+    lines.extend(decision_lines(decisions))
+    lines.extend([
+        "",
+        f"- {report['s08']['runs']} runs, {report['s08']['images']} imagens, "
+        f"{report['s08']['planner_checks']} checks de planner, "
+        f"{report['s08']['third_party_assets']} assets de terceiros.",
+        "",
+        "## Observações",
+        "",
+    ])
+    lines.extend(f"- {item}" for item in report["observations"])
+    lines.extend(["", "## Limitações", ""])
+    lines.extend(f"- {item}" for item in report["limitations"])
+    return lines
 
 
 def mode_rows(evidence: Path, manifest: dict, modes: tuple[str, ...],
