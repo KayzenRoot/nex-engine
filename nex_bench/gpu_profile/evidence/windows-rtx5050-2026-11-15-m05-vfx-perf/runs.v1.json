@@ -1,0 +1,160 @@
+{
+  "schema_version": "m05_vfx_runs.v1",
+  "source_sha": "dd840f86023057a4dc8af92148cdf36911175613",
+  "session_date": "2026-11-15",
+  "runs": [
+    {
+      "sequence": 1,
+      "count": 1,
+      "run_index": 1,
+      "run_id": "1794797685-33983955",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797685-33983955.json"
+    },
+    {
+      "sequence": 2,
+      "count": 1,
+      "run_index": 2,
+      "run_id": "1794797720-33913310",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797720-33913310.json"
+    },
+    {
+      "sequence": 3,
+      "count": 1,
+      "run_index": 3,
+      "run_id": "1794797754-33957045",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797754-33957045.json"
+    },
+    {
+      "sequence": 4,
+      "count": 25,
+      "run_index": 1,
+      "run_id": "1794797789-34029929",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797789-34029929.json"
+    },
+    {
+      "sequence": 5,
+      "count": 25,
+      "run_index": 2,
+      "run_id": "1794797824-34093421",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797824-34093421.json"
+    },
+    {
+      "sequence": 6,
+      "count": 25,
+      "run_index": 3,
+      "run_id": "1794797859-34018410",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797859-34018410.json"
+    },
+    {
+      "sequence": 7,
+      "count": 100,
+      "run_index": 1,
+      "run_id": "1794797894-34197936",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797894-34197936.json"
+    },
+    {
+      "sequence": 8,
+      "count": 100,
+      "run_index": 2,
+      "run_id": "1794797929-34469355",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797929-34469355.json"
+    },
+    {
+      "sequence": 9,
+      "count": 100,
+      "run_index": 3,
+      "run_id": "1794797965-34724007",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794797965-34724007.json"
+    }
+  ]
+}

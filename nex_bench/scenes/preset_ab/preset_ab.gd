@@ -35,7 +35,12 @@ const TORCHES_ENV := "NEX_PRESET_AB_TORCHES"
 const GI_ENV := "NEX_PRESET_AB_GI"
 const FOG_ENV := "NEX_PRESET_AB_FOG"
 const LIGHT_BUDGET_ENV := "NEX_PRESET_AB_LIGHT_BUDGET"
+const VFX_ENV := "NEX_PRESET_AB_VFX"
+const VFX_COUNT_ENV := "NEX_PRESET_AB_VFX_COUNT"
 const M03_LIGHT_RIG := preload("res://scenes/m03_lighting/light_rig_planner.gd")
+const FX_LIBRARY := preload("res://scenes/m05_vfx/fx_library.gd")
+const SPELL_FX := preload("res://scenes/m05_vfx/spell_fx.gd")
+const LIGHT_BRIDGE := preload("res://scenes/m03_lighting/light_bridge.gd")
 const SIGHTLINE_SCRIPT := preload("res://scenes/m02_analysis/sightline_controller.gd")
 const DEPTH_SCRIPT := preload("res://scenes/m02_analysis/depth_composition_solver.gd")
 const M02_CAMERA_RIG := preload("res://scenes/m02_camera/camera_rig.gd")
@@ -261,6 +266,8 @@ func _build_m01_stage() -> void:
 		_build_sightline()
 	if OS.get_environment(DEPTH_OVERLAY_ENV) == "1":
 		_build_depth_overlay()
+	if not OS.get_environment(VFX_ENV).strip_edges().is_empty():
+		_build_vfx()
 
 
 func _use_base_rig(root: Node) -> void:
@@ -808,6 +815,81 @@ func _build_depth_overlay() -> void:
 		"alpha_over_critical": plan.get("alpha_over_critical", []).size(),
 		"overlay_gameplay_conflicts": plan.get("overlay_gameplay_conflicts", []).size(),
 		"passes": plan.get("passes", {}),
+	}))
+
+
+func _build_vfx() -> void:
+	var element := OS.get_environment(VFX_ENV).strip_edges()
+	var count := 1
+	var override := OS.get_environment(VFX_COUNT_ENV).strip_edges()
+	if not override.is_empty():
+		count = maxi(1, int(override))
+	# Anchor effects on the camera-facing diagonal so every capture shows them.
+	var center := Vector3(4.5, 3.0, 4.5)
+	var radius := 1.8
+	var controller = SPELL_FX.new()
+	controller.name = "M05SpellFX"
+	add_child(controller)
+	if not controller.configure({"max_active": 128, "max_per_vfx": 64}):
+		_fail_stage("spellfx configure: " + controller.last_error)
+		return
+	var light_bridge = LIGHT_BRIDGE.new()
+	light_bridge.name = "M05LightBridge"
+	add_child(light_bridge)
+	if not light_bridge.configure({"max_active": 16, "max_per_group": 8, "timeout_ms": 500}):
+		_fail_stage("vfx light bridge: " + light_bridge.last_error)
+		return
+	var elements := ["fire", "frost", "lightning", "smoke", "impact", "projectile"]
+	for index in range(count):
+		var actual: String = element if element != "all" else String(elements[index % elements.size()])
+		var angle := TAU * float(index) / float(maxi(1, count))
+		var position := Vector3(
+			center.x + cos(angle) * radius,
+			center.y + sin(angle * 2.0) * 0.4,
+			center.z + sin(angle) * radius
+		)
+		var node := FX_LIBRARY.create_element(actual)
+		node.position = position
+		add_child(node)
+		var result: Dictionary = controller.submit({
+			"event_id": "vfx_%03d" % index,
+			"vfx_id": "%s-burst-%03d" % [actual, index],
+			"position": [position.x, position.y, position.z],
+			"seed": 1000 + index,
+			"lifetime_ms": 1000,
+			"quality_tier": "high",
+			"priority": 5,
+			"gameplay_authority": {"damage_owner": "gameplay", "hit_detection": "gameplay", "cancel_on_death": true},
+		})
+		if not bool(result.get("accepted", false)):
+			_fail_stage("spellfx: " + controller.last_error)
+			return
+		var color := FX_LIBRARY.element_color(actual)
+		var light_result: Dictionary = light_bridge.submit({
+			"request_id": "vfx_light_%03d" % index,
+			"effect_id": "vfx_%03d" % index,
+			"position": [position.x, position.y + 1.0, position.z],
+			"color": [color.r, color.g, color.b, 1.0],
+			"radius": 4.0,
+			"intensity": 2.0,
+			"duration_ms": 1000,
+			"priority": 5,
+			"shadow_policy": "none",
+			"budget_group": "vfx",
+		})
+		if bool(light_result.get("accepted", false)):
+			var light := OmniLight3D.new()
+			light.position = position + Vector3(0.0, 1.0, 0.0)
+			light.light_color = color
+			light.light_energy = 2.0
+			light.omni_range = 4.0
+			light.shadow_enabled = false
+			add_child(light)
+	print("NEX_PRESET_AB_VFX " + JSON.stringify({
+		"element": element,
+		"count": count,
+		"active": controller.get_state()["active"],
+		"lights": light_bridge.get_state()["active"],
 	}))
 
 

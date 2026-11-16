@@ -1,0 +1,58 @@
+{
+  "schema_version": "m05_vfx_runs.v1",
+  "source_sha": "dd840f86023057a4dc8af92148cdf36911175613",
+  "session_date": "2026-11-15",
+  "runs": [
+    {
+      "sequence": 1,
+      "count": 0,
+      "run_index": 1,
+      "run_id": "1794796001-33967323",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794796001-33967323.json"
+    },
+    {
+      "sequence": 2,
+      "count": 0,
+      "run_index": 2,
+      "run_id": "1794796036-33902267",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794796036-33902267.json"
+    },
+    {
+      "sequence": 3,
+      "count": 0,
+      "run_index": 3,
+      "run_id": "1794796070-33910918",
+      "scene_id": "corridor_static",
+      "scene": "M01 Corridor A/B/A",
+      "layout": "M01 corridor_static + deterministic fillers",
+      "seed": 4101,
+      "preset_id": "ab-high",
+      "proxy_count": 100,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "file": "gpu_profile_1794796070-33910918.json"
+    }
+  ]
+}

@@ -2522,5 +2522,80 @@
     "protectedMergeSha": "110e35834c51cd625b2e01d9584ff607c875cd40",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM04": "FULL_REFERENCE_MATERIALS_COMPLETE"
+  },
+  "m05FinalReference": {
+    "id": "NEX-M05-FINAL-REFERENCE-WO-001",
+    "issues": [
+      10,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58
+    ],
+    "admissionAdr": "NEX-ADR-0016-M05-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-027",
+    "spellfx": {
+      "checks": 12,
+      "maxActive": 128,
+      "maxPerVfx": 64,
+      "authority": "DATA_ONLY",
+      "verdict": "SPELLFX_CONTRACT_VERIFIED"
+    },
+    "elements": {
+      "count": 6,
+      "names": [
+        "fire",
+        "frost",
+        "lightning",
+        "smoke",
+        "impact",
+        "projectile"
+      ],
+      "captures": 19,
+      "baselines": 3,
+      "scenes": 3
+    },
+    "combatClarity": {
+      "events": 25,
+      "lights": 8,
+      "changedPixelsPct": 28.055,
+      "telegraphs": false,
+      "flashReduction": false
+    },
+    "stress": {
+      "events": [
+        1,
+        25,
+        100
+      ],
+      "runsPerCount": 3,
+      "baselineRuns": 3,
+      "baselineGpuP95Ms": 3.21,
+      "baselineOnePercentLowFps": 219.73,
+      "gpuP95Ms": [
+        3.62,
+        3.839,
+        3.992
+      ],
+      "onePercentLowFps": [
+        220.73,
+        221.4,
+        104.48
+      ]
+    },
+    "excludedScope": [
+      "PoE2 assets, shaders, scenes or parity claims",
+      "authoritative hit, projectile physics, damage, hitbox or particle collision",
+      "telegraphs, flash reduction, ThreatBudget Scheduler or accessibility options",
+      "warm pool, shader prewarm, overdraw, VRAM or import/cook",
+      "M06-M12 renderer/runtime, game, gameplay, networking or cloud",
+      "generalized FPS, quality, cinematic or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M05_REFERENCE_VFX_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

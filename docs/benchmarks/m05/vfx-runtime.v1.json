@@ -1,0 +1,403 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver; static frames for the visual matrix",
+    "no authoritative hit detection, projectile physics or GPU particle collision",
+    "no telegraphs, flash reduction, threat scheduler or accessibility options",
+    "no warm pool, shader prewarm, overdraw metric or VRAM budget",
+    "no production art, no cinematic-quality metric and no PoE2 parity claim"
+  ],
+  "observations": [
+    "6 original elemental effects are rendered in corridor, arena and city scenes",
+    "25 simultaneous effects with 8 accepted lights change 28.055% of the arena frame",
+    "100 events keep GPU p95 at 3.992 ms and 1% low at 104.48 FPS on the reference GPU",
+    "GPU p95 rises +12.77% / +19.60% / +24.36% for 1 / 25 / 100 events versus no VFX",
+    "1% low changes +0.46% / +0.76% / -52.45% for 1 / 25 / 100 events versus no VFX",
+    "SpellFX smoke passes 12 checks and keeps gameplay authority outside the visual layer"
+  ],
+  "runs": 12,
+  "s01": {
+    "checks": 12,
+    "events_in_capture": 6,
+    "failures": [],
+    "gameplay_authority": "data-only; damage and hit detection remain gameplay-owned",
+    "lights_in_capture": 6,
+    "max_active": 128,
+    "max_per_vfx": 64,
+    "quality_tiers": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "schema": "spellfx.v1",
+    "verdict": "SPELLFX_CONTRACT_VERIFIED"
+  },
+  "s02": {
+    "captures": [
+      {
+        "changed_pixels_pct": 6.856,
+        "element": "fire",
+        "mean_abs_diff": 1.6945,
+        "png_bytes": 472743,
+        "psnr_db": 24.858,
+        "scene": "corridor_static",
+        "sha256": "4188f599b0f3c158fd15292cf09d9a0e9762dacd52ebfbbc97e6b612bd28dc5a"
+      },
+      {
+        "changed_pixels_pct": 7.081,
+        "element": "frost",
+        "mean_abs_diff": 2.4527,
+        "png_bytes": 505198,
+        "psnr_db": 23.461,
+        "scene": "corridor_static",
+        "sha256": "bb549ba0e51aad773414de77709364167d59b1ac9c4549a2d399e3ac8d553c41"
+      },
+      {
+        "changed_pixels_pct": 36.666,
+        "element": "lightning",
+        "mean_abs_diff": 4.6082,
+        "png_bytes": 518990,
+        "psnr_db": 23.097,
+        "scene": "corridor_static",
+        "sha256": "eb9520f4e07b7e5bcbca58b1384014dc6ea7e4f50ca684ff87c487a98ff852f3"
+      },
+      {
+        "changed_pixels_pct": 3.873,
+        "element": "smoke",
+        "mean_abs_diff": 0.6734,
+        "png_bytes": 455078,
+        "psnr_db": 33.451,
+        "scene": "corridor_static",
+        "sha256": "88f3f2341274c0b57555961f9b66f0109a42aa3f8d603400382b9132a8d9e59f"
+      },
+      {
+        "changed_pixels_pct": 6.661,
+        "element": "impact",
+        "mean_abs_diff": 1.7092,
+        "png_bytes": 483152,
+        "psnr_db": 26.11,
+        "scene": "corridor_static",
+        "sha256": "b7154bf99bf7e8c0fda510481b0f0201baf8b753cdff77b13bd14dbad76e0b32"
+      },
+      {
+        "changed_pixels_pct": 20.678,
+        "element": "projectile",
+        "mean_abs_diff": 2.5464,
+        "png_bytes": 478972,
+        "psnr_db": 26.541,
+        "scene": "corridor_static",
+        "sha256": "6677960caf12b07f31b3d6bc07a0187fb7d547d628dbe503b82092a769773dae"
+      },
+      {
+        "changed_pixels_pct": 4.269,
+        "element": "fire",
+        "mean_abs_diff": 1.3111,
+        "png_bytes": 725564,
+        "psnr_db": 25.52,
+        "scene": "arena_combat",
+        "sha256": "fe0544afd2efb4972100b7b4e4ef92b3468a8690929ef80b7315c2946cc779ba"
+      },
+      {
+        "changed_pixels_pct": 4.754,
+        "element": "frost",
+        "mean_abs_diff": 1.6057,
+        "png_bytes": 747538,
+        "psnr_db": 25.096,
+        "scene": "arena_combat",
+        "sha256": "0efd6ebf6f846c2fc5f7dd3b7cf593236280459a84c0f1e311841372c0eb171d"
+      },
+      {
+        "changed_pixels_pct": 5.254,
+        "element": "lightning",
+        "mean_abs_diff": 1.3901,
+        "png_bytes": 731016,
+        "psnr_db": 26.22,
+        "scene": "arena_combat",
+        "sha256": "95ccaa7c4bec12b1e4079e91edaa1f7ca6f4593b302a0d6ce62636c6b1393d10"
+      },
+      {
+        "changed_pixels_pct": 1.0,
+        "element": "smoke",
+        "mean_abs_diff": 0.2933,
+        "png_bytes": 703337,
+        "psnr_db": 36.089,
+        "scene": "arena_combat",
+        "sha256": "957646bdb9651b227c322c21efb564d8a87b0c9aeb33abf474097f735210d886"
+      },
+      {
+        "changed_pixels_pct": 4.717,
+        "element": "impact",
+        "mean_abs_diff": 0.8745,
+        "png_bytes": 729448,
+        "psnr_db": 28.677,
+        "scene": "arena_combat",
+        "sha256": "2dd5c641a8bff19ca76f0077f67beb5c78e3dad431a69e10086a43ccbf0b6e05"
+      },
+      {
+        "changed_pixels_pct": 7.065,
+        "element": "projectile",
+        "mean_abs_diff": 0.6685,
+        "png_bytes": 712031,
+        "psnr_db": 30.398,
+        "scene": "arena_combat",
+        "sha256": "240bab4a5a2c6b14f4ef3050acbfb180c4212f528a303e7b6d1c974ef4048db2"
+      },
+      {
+        "changed_pixels_pct": 3.986,
+        "element": "fire",
+        "mean_abs_diff": 1.11,
+        "png_bytes": 386854,
+        "psnr_db": 26.803,
+        "scene": "dense_city",
+        "sha256": "7e12585b7b55b4a66e32cac3f113403f32fcd2491187c6acd8b63c8f614bd8a4"
+      },
+      {
+        "changed_pixels_pct": 4.092,
+        "element": "frost",
+        "mean_abs_diff": 1.3152,
+        "png_bytes": 408004,
+        "psnr_db": 26.211,
+        "scene": "dense_city",
+        "sha256": "8ac28214492a2a08bddf81d76c8bebd3435404aaef20bbf8028bc5acc37848b3"
+      },
+      {
+        "changed_pixels_pct": 2.044,
+        "element": "lightning",
+        "mean_abs_diff": 0.6637,
+        "png_bytes": 374605,
+        "psnr_db": 29.533,
+        "scene": "dense_city",
+        "sha256": "7c343a5605522752bd87a0c864b20b75b80773b945f333ee663d58e2a4f8b02a"
+      },
+      {
+        "changed_pixels_pct": 0.475,
+        "element": "smoke",
+        "mean_abs_diff": 0.1682,
+        "png_bytes": 356624,
+        "psnr_db": 41.069,
+        "scene": "dense_city",
+        "sha256": "3c8fbec0f02e86d91091924a3cd0249a1a160024bf33e65660058627c5d591cc"
+      },
+      {
+        "changed_pixels_pct": 4.079,
+        "element": "impact",
+        "mean_abs_diff": 0.7481,
+        "png_bytes": 382235,
+        "psnr_db": 29.465,
+        "scene": "dense_city",
+        "sha256": "d461e3d78561b59da5b1f24955380f88624bd913c74b62b128119118474e34d4"
+      },
+      {
+        "changed_pixels_pct": 6.246,
+        "element": "projectile",
+        "mean_abs_diff": 0.4292,
+        "png_bytes": 362546,
+        "psnr_db": 33.812,
+        "scene": "dense_city",
+        "sha256": "25205024f8d639160f3b7ade99412382ecc4e7acd7dc34c81ddd8639a4cd1d17"
+      }
+    ],
+    "elements": {
+      "fire": {
+        "changed_pixels_pct_max": 6.856,
+        "changed_pixels_pct_median": 4.269,
+        "mesh_instances": 0,
+        "particles": 64,
+        "png_bytes_median": 472743,
+        "role": "damage over time",
+        "scenes": 3
+      },
+      "frost": {
+        "changed_pixels_pct_max": 7.081,
+        "changed_pixels_pct_median": 4.754,
+        "mesh_instances": 0,
+        "particles": 48,
+        "png_bytes_median": 505198,
+        "role": "control burst",
+        "scenes": 3
+      },
+      "impact": {
+        "changed_pixels_pct_max": 6.661,
+        "changed_pixels_pct_median": 4.717,
+        "mesh_instances": 0,
+        "particles": 40,
+        "png_bytes_median": 483152,
+        "role": "hit echo",
+        "scenes": 3
+      },
+      "lightning": {
+        "changed_pixels_pct_max": 36.666,
+        "changed_pixels_pct_median": 5.254,
+        "mesh_instances": 1,
+        "particles": 40,
+        "png_bytes_median": 518990,
+        "role": "beam and sparks",
+        "scenes": 3
+      },
+      "projectile": {
+        "changed_pixels_pct_max": 20.678,
+        "changed_pixels_pct_median": 7.065,
+        "mesh_instances": 2,
+        "particles": 24,
+        "png_bytes_median": 478972,
+        "role": "projectile trail",
+        "scenes": 3
+      },
+      "smoke": {
+        "changed_pixels_pct_max": 3.873,
+        "changed_pixels_pct_median": 1.0,
+        "mesh_instances": 0,
+        "particles": 32,
+        "png_bytes_median": 455078,
+        "role": "ambient decay",
+        "scenes": 3
+      }
+    },
+    "scenes": [
+      "corridor_static",
+      "arena_combat",
+      "dense_city"
+    ],
+    "verdict": "ELEMENTAL_FX_RENDERED"
+  },
+  "s03": {
+    "authoritative_hit_detection": false,
+    "collision_enabled": false,
+    "impact_particles": 40,
+    "projectile_meshes": 2,
+    "projectile_particles": 24,
+    "verdict": "PROJECTILE_HITECHO_VISUAL_ONLY"
+  },
+  "s04": {
+    "changed_pixels_pct": 28.055,
+    "events": 25,
+    "flash_reduction": false,
+    "lights": 8,
+    "mean_abs_diff": 14.3384,
+    "path": "arena_combat_all25.png",
+    "png_bytes": 917663,
+    "psnr_db": 14.783,
+    "sha256": "64aae0886d868a48cdb9b7623cac72bcfd30109b96135430636378a31fdefa8b",
+    "telegraph_system": false,
+    "threat_budget_scheduler": false,
+    "verdict": "COMBAT_CLARITY_LIMITED"
+  },
+  "s05": {
+    "baseline": {
+      "cpu_p95_ms": 0.564,
+      "events": 0,
+      "gpu_p95_ms": 3.21,
+      "one_percent_low_fps": 219.73,
+      "pacing_p95_ms": 4.27,
+      "renderer_allocation_bytes": 781281008,
+      "runs": 3
+    },
+    "lifecycle_checks": 12,
+    "pool_max_active": 128,
+    "pool_max_per_vfx": 64,
+    "stress": [
+      {
+        "allocation_delta_bytes": 44944,
+        "cpu_p95_ms": 1.301,
+        "events": 1,
+        "gpu_p95_ms": 3.62,
+        "gpu_p95_spread_pct": 0.2,
+        "gpu_p95_vs_baseline_pct": 12.77,
+        "gpu_p99_ms": 3.737,
+        "one_percent_low_fps": 220.73,
+        "one_percent_low_spread_pct": 17.5,
+        "one_percent_low_vs_baseline_pct": 0.46,
+        "pacing_p95_ms": 4.255,
+        "renderer_allocation_bytes": 781325952,
+        "runs": 3
+      },
+      {
+        "allocation_delta_bytes": 1776912,
+        "cpu_p95_ms": 1.422,
+        "events": 25,
+        "gpu_p95_ms": 3.839,
+        "gpu_p95_spread_pct": 0.2,
+        "gpu_p95_vs_baseline_pct": 19.6,
+        "gpu_p99_ms": 3.957,
+        "one_percent_low_fps": 221.4,
+        "one_percent_low_spread_pct": 5.2,
+        "one_percent_low_vs_baseline_pct": 0.76,
+        "pacing_p95_ms": 4.251,
+        "renderer_allocation_bytes": 783057920,
+        "runs": 3
+      },
+      {
+        "allocation_delta_bytes": 8422816,
+        "cpu_p95_ms": 3.208,
+        "events": 100,
+        "gpu_p95_ms": 3.992,
+        "gpu_p95_spread_pct": 5.5,
+        "gpu_p95_vs_baseline_pct": 24.36,
+        "gpu_p99_ms": 4.136,
+        "one_percent_low_fps": 104.48,
+        "one_percent_low_spread_pct": 12.9,
+        "one_percent_low_vs_baseline_pct": -52.45,
+        "pacing_p95_ms": 6.266,
+        "renderer_allocation_bytes": 789703824,
+        "runs": 3
+      }
+    ],
+    "verdict": "FX_BUDGET_AND_LIFECYCLE_DERIVED"
+  },
+  "s06": {
+    "decisions": [
+      {
+        "decision": "GO",
+        "evidence": "6 original effects rendered in 3 scenes at 1920x1080",
+        "id": "GPUParticles3D elemental library"
+      },
+      {
+        "decision": "GO",
+        "evidence": "12 smoke checks: idempotency, authority, budgets, cancel and expiry",
+        "id": "SpellFX request contract"
+      },
+      {
+        "decision": "GO",
+        "evidence": "6 accepted lights for 6 events and 8 accepted for 25/100 events",
+        "id": "LightBridge VFX lights"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "request budgets and expiry verified; no warm pool or shader prewarm",
+        "id": "PulsePool lifecycle"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "visual trail and impact only; no authoritative hit or collision",
+        "id": "Projectile/HitEcho"
+      },
+      {
+        "decision": "NO_GO",
+        "evidence": "no telegraphs, flash reduction or threat scheduler implemented",
+        "id": "Combat clarity / ThreatBudget"
+      },
+      {
+        "decision": "NO_GO",
+        "evidence": "no production art, no parity claim and no quality metric",
+        "id": "Cinematic quality / PoE2 parity"
+      }
+    ]
+  },
+  "s07": {
+    "baseline_captures": 3,
+    "baseline_runs": 3,
+    "scenes": 3,
+    "stress_runs": 9,
+    "third_party_assets": 0,
+    "verdict": "M05_VFX_QA_VERIFIED",
+    "visual_captures": 19
+  },
+  "schema_version": "m05_vfx_runtime.v1",
+  "session_date": "2026-11-15",
+  "source_sha": "dd840f86023057a4dc8af92148cdf36911175613",
+  "verdict": "M05_VFX_REFERENCE_DERIVED"
+}

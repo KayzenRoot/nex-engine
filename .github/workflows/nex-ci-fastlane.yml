@@ -74,6 +74,7 @@ jobs:
           python3 docs/benchmarks/m04/tools/build_texture_scaling.py --check
           python3 docs/benchmarks/m04/tools/build_materials_runtime.py --check
           python3 docs/benchmarks/m05/tools/build_fx_budget_dataset.py --check
+          python3 docs/benchmarks/m05/tools/build_m05_runtime.py --check
           python3 docs/benchmarks/m06/tools/build_atlas.py --check
           python3 docs/benchmarks/m08/tools/build_scene_composition.py --check
           python3 docs/benchmarks/m10/tools/build_archetype_feedback.py --check

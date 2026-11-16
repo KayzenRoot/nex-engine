@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M05 full reference | VFX concluídos (2026-11-15)
+
+`NEX-ADR-0016` / `NEX-D-027` admitem o M05 como VFX de referência bounded: SpellFX `spellfx.v1` com 12 checks, seis efeitos elementais originais, integração com LightBridge M03, 19 capturas em três cenas, 3 baselines, 9 runs de stress (1/25/100 eventos) e 3 runs baseline. As issues #52–#58 e #10 podem ser fechadas após integração protegida. M05 é o quinto módulo base concluído como **VFX de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há hit autoritativo, física de projétil ou colisão. M06–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `dd840f86023057a4dc8af92148cdf36911175613`.
+
 ### Extensão bounded M04/M05 | kit não-rendering (2026-11-15)
 
 `NEX-ADR-0011` / `NEX-D-021` estendem o escopo de M04/M05, sem mudar o status dos parents, para o kit PBR procedural `nex_modules/materials/kit/**` (12 PNGs 128×128, quatro `StandardMaterial3D` `.tres`, observação `material.v1`, validação headless) e o dataset `nex_modules/vfx/fxbudget/dataset.gd` com três arquétipos de orçamento de FX. Continua não admitido: shader customizado, `ShaderMaterial`, compilação de shader, renderer, integração/aplicação em cena, rendering, runtime, hub, engine, `project.godot` principal, gameplay, cenas de produção, partículas/emissores/luzes/decais reais, decodificação/compressão/atlas packing, pipeline de import/cook, generalização e claims de FPS/qualidade. A base desta extensão é `99437b22e94a6494eaef801872bb8fd0c79c0f1a`.
