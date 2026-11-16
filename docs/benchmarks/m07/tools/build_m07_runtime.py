@@ -10,7 +10,8 @@ TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS.parents[1] / "m09" / "tools"))
 sys.path.insert(0, str(TOOLS.parents[1] / "tools"))
 from common import run_cli  # noqa: E402 - shared local tool module
-from runtime_report import diff, load_manifest, metrics, pct, render_json  # noqa: E402 - shared tool module
+from runtime_report import (decision_lines, diff, load_manifest, markdown_mode_table,  # noqa: E402 - shared tool module
+                            mode_rows, pct, render_json)
 
 REPO = Path(__file__).resolve().parents[4]
 EVIDENCE = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-16-m07"
@@ -34,29 +35,13 @@ def _planner_checks() -> int:
 
 def build_report() -> dict[str, Any]:
     manifest = load_manifest(EVIDENCE / "runs.v1.json", "m07_lab_runs.v1", SOURCE_SHA, 9, MODES)
-    metric_rows = metrics(EVIDENCE, manifest)
     planner_checks = _planner_checks()
     if planner_checks < 46:
         raise ValueError("M07 planner smoke is incomplete")
     images = sorted(IMAGES.glob("*.png"))
     if len(images) != 9:
         raise ValueError("M07 lab must contain 9 images")
-    baseline = metric_rows["baseline"]
-    rows: dict[str, Any] = {}
-    for mode in MODES:
-        item = metric_rows[mode]
-        image_diff = diff(IMAGES / "m07_baseline.png", IMAGES / f"m07_{mode}.png") if mode != "baseline" else {
-            "changed_pixels_pct": 0.0, "mean_abs_diff": 0.0, "psnr_db": None}
-        rows[mode] = {
-            "gpu_p95_ms": item["gpu_ms"]["p95"], "cpu_p95_ms": item["cpu_ms"]["p95"],
-            "pacing_p95_ms": item["pacing_ms"]["p95"], "one_percent_low_fps": item["one_percent_low_fps"],
-            "renderer_allocation_bytes": item["renderer_allocation_bytes"],
-            "gpu_vs_baseline_pct": pct(item["gpu_ms"]["p95"], baseline["gpu_ms"]["p95"]),
-            "cpu_vs_baseline_pct": pct(item["cpu_ms"]["p95"], baseline["cpu_ms"]["p95"]),
-            "changed_pixels_pct": image_diff["changed_pixels_pct"],
-            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
-            "png_bytes": (IMAGES / f"m07_{mode}.png").stat().st_size,
-        }
+    rows = mode_rows(EVIDENCE, manifest, MODES, "m07")
     shadows_vs_lighting = diff(IMAGES / "m07_lighting.png", IMAGES / "m07_shadows.png")
     normal_vs_lighting = diff(IMAGES / "m07_lighting.png", IMAGES / "m07_normal.png")
     decisions = [
@@ -129,14 +114,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## S02 · 2D lighting",
         "",
-        "| Modo | GPU p95 | CPU p95 | GPU vs base | Pixels | PSNR |",
-        "|---|---:|---:|---:|---:|---:|",
     ]
-    for mode in MODES:
-        row = report["s02"]["rows"][mode]
-        psnr = f"{row['psnr_db']:.2f} dB" if row["psnr_db"] is not None else "—"
-        lines.append(f"| {mode} | {row['gpu_p95_ms']:.3f} ms | {row['cpu_p95_ms']:.3f} ms | "
-                     f"{row['gpu_vs_baseline_pct']:+.2f}% | {row['changed_pixels_pct']:.3f}% | {psnr} |")
+    lines.extend(markdown_mode_table(report["s02"]["rows"], MODES))
     lines.extend([
         "",
         "## S03 · Shadows",
@@ -178,11 +157,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## S08 · decisões",
         "",
-        "| Tecnologia | Decisão | Evidência |",
-        "|---|---|---|",
     ])
-    for decision in report["s08"]["decisions"]:
-        lines.append(f"| {decision['id']} | **{decision['decision']}** | {decision['evidence']} |")
+    lines.extend(decision_lines(report["s08"]["decisions"]))
     lines.extend([
         "",
         f"- {report['s08']['runs']} runs, {report['s08']['images']} imagens, "

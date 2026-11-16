@@ -51,5 +51,46 @@ def metrics(evidence: Path, manifest: dict) -> dict[str, dict]:
     return result
 
 
+def mode_rows(evidence: Path, manifest: dict, modes: tuple[str, ...],
+              image_prefix: str) -> dict[str, dict]:
+    images = evidence / "images"
+    metric_rows = metrics(evidence, manifest)
+    baseline = metric_rows["baseline"]
+    rows: dict[str, dict] = {}
+    for mode in modes:
+        item = metric_rows[mode]
+        image_diff = diff(images / f"{image_prefix}_baseline.png", images / f"{image_prefix}_{mode}.png") if mode != "baseline" else {
+            "changed_pixels_pct": 0.0, "mean_abs_diff": 0.0, "psnr_db": None}
+        rows[mode] = {
+            "gpu_p95_ms": item["gpu_ms"]["p95"], "cpu_p95_ms": item["cpu_ms"]["p95"],
+            "pacing_p95_ms": item["pacing_ms"]["p95"], "one_percent_low_fps": item["one_percent_low_fps"],
+            "renderer_allocation_bytes": item["renderer_allocation_bytes"],
+            "gpu_vs_baseline_pct": pct(item["gpu_ms"]["p95"], baseline["gpu_ms"]["p95"]),
+            "cpu_vs_baseline_pct": pct(item["cpu_ms"]["p95"], baseline["cpu_ms"]["p95"]),
+            "changed_pixels_pct": image_diff["changed_pixels_pct"],
+            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
+            "png_bytes": (images / f"{image_prefix}_{mode}.png").stat().st_size,
+        }
+    return rows
+
+
+def markdown_mode_table(rows: dict[str, dict], modes: tuple[str, ...]) -> list[str]:
+    lines = ["| Modo | GPU p95 | CPU p95 | GPU vs base | Pixels | PSNR |",
+             "|---|---:|---:|---:|---:|---:|"]
+    for mode in modes:
+        row = rows[mode]
+        psnr = f"{row['psnr_db']:.2f} dB" if row["psnr_db"] is not None else "—"
+        lines.append(f"| {mode} | {row['gpu_p95_ms']:.3f} ms | {row['cpu_p95_ms']:.3f} ms | "
+                     f"{row['gpu_vs_baseline_pct']:+.2f}% | {row['changed_pixels_pct']:.3f}% | {psnr} |")
+    return lines
+
+
+def decision_lines(decisions: list[dict]) -> list[str]:
+    lines = ["| Tecnologia | Decisão | Evidência |", "|---|---|---|"]
+    for decision in decisions:
+        lines.append(f"| {decision['id']} | **{decision['decision']}** | {decision['evidence']} |")
+    return lines
+
+
 def render_json(report: dict) -> str:
     return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"

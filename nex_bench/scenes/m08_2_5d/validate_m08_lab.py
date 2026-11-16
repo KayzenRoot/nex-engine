@@ -6,7 +6,6 @@ Delegates lab provenance and canonical profile checks to the shared
 """
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
@@ -29,17 +28,7 @@ def validate_document(document):
 
 
 def main() -> int:
-    payload = sys.stdin.buffer.read(lab_validation.canonical.MAX_BYTES + 1)
-    if len(payload) > lab_validation.canonical.MAX_BYTES:
-        print(json.dumps({"status": "FAIL", "reason": "profile input exceeds 8 MB limit"}))
-        return 1
-    try:
-        result = validate_document(lab_validation.loads(payload))
-    except (ValueError, OSError) as exc:
-        print(json.dumps({"status": "FAIL", "reason": str(exc)}))
-        return 1
-    print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
-    return 0
+    return lab_validation.run_cli(SCENE_SPECS, EXPECTED_EFFECT_MODE, EXPECTED_MAX_FPS, EXPECTED_VSYNC)
 
 
 if __name__ == "__main__":

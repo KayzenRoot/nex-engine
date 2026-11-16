@@ -27,6 +27,22 @@ def loads(raw: bytes):
         raise ValueError("invalid JSON: " + str(exc)) from None
 
 
+def run_cli(scene_specs, expected_effect_mode: str, expected_max_fps: int,
+            expected_vsync: int) -> int:
+    payload = sys.stdin.buffer.read(canonical.MAX_BYTES + 1)
+    if len(payload) > canonical.MAX_BYTES:
+        print(json.dumps({"status": "FAIL", "reason": "profile input exceeds 8 MB limit"}))
+        return 1
+    try:
+        result = validate_document(loads(payload), scene_specs, expected_effect_mode,
+                                   expected_max_fps, expected_vsync)
+    except (ValueError, OSError) as exc:
+        print(json.dumps({"status": "FAIL", "reason": str(exc)}))
+        return 1
+    print(json.dumps(result, sort_keys=True, indent=2, allow_nan=False))
+    return 0
+
+
 def validate_document(document, scene_specs, expected_effect_mode: str,
                       expected_max_fps: int, expected_vsync: int):
     if not isinstance(document, dict):
