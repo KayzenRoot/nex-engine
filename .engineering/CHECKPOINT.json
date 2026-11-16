@@ -2761,5 +2761,45 @@
     "protectedMergeSha": "79521ad3c41b1cae374ef9ffb3227838b9a14795",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM07": "FULL_REFERENCE_RENDER2D_COMPLETE"
+  },
+  "m08FinalReference": {
+    "id": "NEX-M08-FINAL-REFERENCE-WO-001",
+    "issues": [
+      13
+    ],
+    "admissionAdr": "NEX-ADR-0019-M08-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-030",
+    "plannerChecks": 69,
+    "runs": 9,
+    "images": 9,
+    "gpuP95Ms": {
+      "baseline": 0.39,
+      "sprites": 0.4,
+      "sorted": 0.401,
+      "shadows": 0.498,
+      "overlay": 0.411,
+      "hybrid": 0.508,
+      "perspective": 0.332,
+      "quality_low": 0.397,
+      "quality_high": 0.497
+    },
+    "changedPixelsPct": {
+      "sprites": 6.463,
+      "shadows": 15.477,
+      "overlay": 22.789,
+      "hybrid": 31.714,
+      "perspective": 34.442,
+      "quality_high": 37.775
+    },
+    "sorting": "NO_GO_CUSTOM_SORT",
+    "excludedScope": [
+      "production 2.5D renderer, viewport stacking, art-directed layer stack or custom shader",
+      "M09-M12, gameplay, networking or cloud",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "generalized FPS, quality, input-to-photon or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M08_REFERENCE_RENDER25D_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

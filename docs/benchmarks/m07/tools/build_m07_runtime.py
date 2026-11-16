@@ -2,17 +2,15 @@
 """Build the M07 2D reference report from the native lab and planner evidence."""
 from __future__ import annotations
 
-import hashlib
-import json
 import sys
 from pathlib import Path
 from typing import Any
 
 TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS.parents[1] / "m09" / "tools"))
-from common import load_json, run_cli  # noqa: E402 - shared local tool module
-from png_image import compare, read_png  # noqa: E402 - shared local tool module
-from preset_report import load_capture, summarize, transform_run  # noqa: E402 - shared local tool module
+sys.path.insert(0, str(TOOLS.parents[1] / "tools"))
+from common import run_cli  # noqa: E402 - shared local tool module
+from runtime_report import diff, load_manifest, metrics, pct, render_json  # noqa: E402 - shared tool module
 
 REPO = Path(__file__).resolve().parents[4]
 EVIDENCE = REPO / "nex_bench" / "gpu_profile" / "evidence" / "windows-rtx5050-2026-11-16-m07"
@@ -26,43 +24,6 @@ MODES = ("baseline", "lighting", "shadows", "normal", "particles", "parallax",
          "quality_low", "quality_medium", "quality_high")
 
 
-def _sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def _pct(new: float, old: float) -> float:
-    return round((new - old) / old * 100.0, 2)
-
-
-def _diff(first: Path, second: Path) -> dict[str, Any]:
-    return compare(read_png(first), read_png(second), 2)
-
-
-def _load_manifest() -> dict[str, Any]:
-    manifest = load_json(EVIDENCE / "runs.v1.json")
-    if manifest.get("schema_version") != "m07_lab_runs.v1":
-        raise ValueError("M07 runs manifest schema is invalid")
-    if manifest.get("source_sha") != SOURCE_SHA:
-        raise ValueError("M07 runs manifest source SHA is stale")
-    runs = manifest.get("runs", [])
-    if len(runs) != 9:
-        raise ValueError("M07 runs manifest must contain 9 runs")
-    if [entry.get("sequence") for entry in runs] != list(range(1, 10)):
-        raise ValueError("M07 runs manifest sequence is invalid")
-    if {entry.get("mode") for entry in runs} != set(MODES):
-        raise ValueError("M07 runs manifest modes are incomplete")
-    return manifest
-
-
-def _metrics(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    result: dict[str, dict[str, Any]] = {}
-    for entry in manifest["runs"]:
-        capture = load_capture(EVIDENCE, entry["run_id"], entry["scene"], entry["layout"],
-                               int(entry["proxy_count"]), include_allocation=True)
-        result[entry["mode"]] = transform_run(entry, capture, include_allocation=True)
-    return result
-
-
 def _planner_checks() -> int:
     text = PLANNER_LOG.read_text(encoding="utf-8", errors="replace")
     for line in text.splitlines():
@@ -72,32 +33,32 @@ def _planner_checks() -> int:
 
 
 def build_report() -> dict[str, Any]:
-    manifest = _load_manifest()
-    metrics = _metrics(manifest)
+    manifest = load_manifest(EVIDENCE / "runs.v1.json", "m07_lab_runs.v1", SOURCE_SHA, 9, MODES)
+    metric_rows = metrics(EVIDENCE, manifest)
     planner_checks = _planner_checks()
     if planner_checks < 46:
         raise ValueError("M07 planner smoke is incomplete")
     images = sorted(IMAGES.glob("*.png"))
     if len(images) != 9:
         raise ValueError("M07 lab must contain 9 images")
-    baseline = metrics["baseline"]
+    baseline = metric_rows["baseline"]
     rows: dict[str, Any] = {}
     for mode in MODES:
-        item = metrics[mode]
-        diff = _diff(IMAGES / "m07_baseline.png", IMAGES / f"m07_{mode}.png") if mode != "baseline" else {
+        item = metric_rows[mode]
+        image_diff = diff(IMAGES / "m07_baseline.png", IMAGES / f"m07_{mode}.png") if mode != "baseline" else {
             "changed_pixels_pct": 0.0, "mean_abs_diff": 0.0, "psnr_db": None}
         rows[mode] = {
             "gpu_p95_ms": item["gpu_ms"]["p95"], "cpu_p95_ms": item["cpu_ms"]["p95"],
             "pacing_p95_ms": item["pacing_ms"]["p95"], "one_percent_low_fps": item["one_percent_low_fps"],
             "renderer_allocation_bytes": item["renderer_allocation_bytes"],
-            "gpu_vs_baseline_pct": _pct(item["gpu_ms"]["p95"], baseline["gpu_ms"]["p95"]),
-            "cpu_vs_baseline_pct": _pct(item["cpu_ms"]["p95"], baseline["cpu_ms"]["p95"]),
-            "changed_pixels_pct": diff["changed_pixels_pct"],
-            "mean_abs_diff": diff["mean_abs_diff"], "psnr_db": diff["psnr_db"],
+            "gpu_vs_baseline_pct": pct(item["gpu_ms"]["p95"], baseline["gpu_ms"]["p95"]),
+            "cpu_vs_baseline_pct": pct(item["cpu_ms"]["p95"], baseline["cpu_ms"]["p95"]),
+            "changed_pixels_pct": image_diff["changed_pixels_pct"],
+            "mean_abs_diff": image_diff["mean_abs_diff"], "psnr_db": image_diff["psnr_db"],
             "png_bytes": (IMAGES / f"m07_{mode}.png").stat().st_size,
         }
-    shadows_vs_lighting = _diff(IMAGES / "m07_lighting.png", IMAGES / "m07_shadows.png")
-    normal_vs_lighting = _diff(IMAGES / "m07_lighting.png", IMAGES / "m07_normal.png")
+    shadows_vs_lighting = diff(IMAGES / "m07_lighting.png", IMAGES / "m07_shadows.png")
+    normal_vs_lighting = diff(IMAGES / "m07_lighting.png", IMAGES / "m07_normal.png")
     decisions = [
         {"id": "CanvasPlanner / render2d.v1", "decision": "GO",
          "evidence": f"{planner_checks} headless checks; planning only, no rendering"},
@@ -236,10 +197,6 @@ def render_markdown(report: dict[str, Any]) -> str:
     lines.extend(f"- {item}" for item in report["limitations"])
     lines.extend(["", "Gerado por `docs/benchmarks/m07/tools/build_m07_runtime.py`; não é paridade com PoE2.", ""])
     return "\n".join(lines)
-
-
-def render_json(report: dict[str, Any]) -> str:
-    return json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
 
 
 def main(argv: list[str]) -> int:

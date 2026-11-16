@@ -1,0 +1,826 @@
+{
+  "godot_version": "4.7.2-stable",
+  "hardware": {
+    "driver": "NVIDIA 617.14 / Vulkan forward_plus",
+    "gpu": "NVIDIA GeForce RTX 5050"
+  },
+  "limitations": [
+    "single session, one GPU and driver; 1920x1080 static 2.5D lab",
+    "no production 2.5D renderer, viewport stacking or art-directed layer stack",
+    "depth sorting is native Sprite3D transparency sorting, not a custom sorter",
+    "no input-to-photon, VRAM pressure or cross-device claim",
+    "no production art, no PoE2 parity and no generalized FPS claim"
+  ],
+  "observations": [
+    "9 native 2.5D runs and 9 captures cover orthographic/perspective cameras, sprites, sorting, shadows, overlay, hybrid and quality profiles",
+    "baseline GPU p95 is 0.390 ms; sprites 0.400 ms; sorted 0.401 ms; shadows 0.498 ms; overlay 0.411 ms; hybrid 0.508 ms",
+    "perspective camera is 0.332 ms with 34.442% different pixels versus orthographic",
+    "sorted vs sprites changes 0.000% of pixels; native transparent sorting is sufficient",
+    "shadows add +27.69% GPU and change 15.477% of the frame",
+    "overlay adds +5.38% GPU and changes 22.789% of the frame",
+    "hybrid adds +30.26% GPU and changes 31.714% of the frame",
+    "CompositionPlanner still passes 69 headless checks"
+  ],
+  "runs": 9,
+  "s01": {
+    "planner_checks": 69,
+    "verdict": "COMPOSITION_PLANNER_VERIFIED"
+  },
+  "s02": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "sorted_vs_sprites": {
+      "changed_pixels": 0,
+      "changed_pixels_pct": 0.0,
+      "max_abs_diff": 0,
+      "mean_abs_diff": 0.0,
+      "psnr_db": null
+    },
+    "verdict": "RENDER25D_HYBRID_DERIVED"
+  },
+  "s03": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "verdict": "RENDER25D_SHADOWS_GO_WITH_LIMITATIONS"
+  },
+  "s04": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "verdict": "RENDER25D_OVERLAY_GO_WITH_LIMITATIONS"
+  },
+  "s05": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "verdict": "RENDER25D_HYBRID_GO_WITH_LIMITATIONS"
+  },
+  "s06": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "verdict": "RENDER25D_CAMERA_MODES_GO_WITH_LIMITATIONS"
+  },
+  "s07": {
+    "rows": {
+      "baseline": {
+        "changed_pixels_pct": 0.0,
+        "cpu_p95_ms": 0.247,
+        "cpu_vs_baseline_pct": 0.0,
+        "gpu_p95_ms": 0.39,
+        "gpu_vs_baseline_pct": 0.0,
+        "mean_abs_diff": 0.0,
+        "one_percent_low_fps": 225.69,
+        "pacing_p95_ms": 4.26,
+        "png_bytes": 36524,
+        "psnr_db": null,
+        "renderer_allocation_bytes": 70965488
+      },
+      "hybrid": {
+        "changed_pixels_pct": 31.714,
+        "cpu_p95_ms": 0.55,
+        "cpu_vs_baseline_pct": 122.67,
+        "gpu_p95_ms": 0.508,
+        "gpu_vs_baseline_pct": 30.26,
+        "mean_abs_diff": 13.934,
+        "one_percent_low_fps": 222.8,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 598161,
+        "psnr_db": 16.972,
+        "renderer_allocation_bytes": 110256496
+      },
+      "overlay": {
+        "changed_pixels_pct": 22.789,
+        "cpu_p95_ms": 0.381,
+        "cpu_vs_baseline_pct": 54.25,
+        "gpu_p95_ms": 0.411,
+        "gpu_vs_baseline_pct": 5.38,
+        "mean_abs_diff": 11.4137,
+        "one_percent_low_fps": 226.55,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 186057,
+        "psnr_db": 18.18,
+        "renderer_allocation_bytes": 75236720
+      },
+      "perspective": {
+        "changed_pixels_pct": 34.442,
+        "cpu_p95_ms": 0.364,
+        "cpu_vs_baseline_pct": 47.37,
+        "gpu_p95_ms": 0.332,
+        "gpu_vs_baseline_pct": -14.87,
+        "mean_abs_diff": 21.1836,
+        "one_percent_low_fps": 225.63,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 142692,
+        "psnr_db": 16.177,
+        "renderer_allocation_bytes": 71041904
+      },
+      "quality_high": {
+        "changed_pixels_pct": 37.775,
+        "cpu_p95_ms": 0.675,
+        "cpu_vs_baseline_pct": 173.28,
+        "gpu_p95_ms": 0.497,
+        "gpu_vs_baseline_pct": 27.44,
+        "mean_abs_diff": 17.4373,
+        "one_percent_low_fps": 219.93,
+        "pacing_p95_ms": 4.292,
+        "png_bytes": 783388,
+        "psnr_db": 15.523,
+        "renderer_allocation_bytes": 110261936
+      },
+      "quality_low": {
+        "changed_pixels_pct": 3.347,
+        "cpu_p95_ms": 0.302,
+        "cpu_vs_baseline_pct": 22.27,
+        "gpu_p95_ms": 0.397,
+        "gpu_vs_baseline_pct": 1.79,
+        "mean_abs_diff": 2.5885,
+        "one_percent_low_fps": 225.67,
+        "pacing_p95_ms": 4.252,
+        "png_bytes": 120796,
+        "psnr_db": 22.582,
+        "renderer_allocation_bytes": 71036464
+      },
+      "shadows": {
+        "changed_pixels_pct": 15.477,
+        "cpu_p95_ms": 0.525,
+        "cpu_vs_baseline_pct": 112.55,
+        "gpu_p95_ms": 0.498,
+        "gpu_vs_baseline_pct": 27.69,
+        "mean_abs_diff": 7.5945,
+        "one_percent_low_fps": 224.99,
+        "pacing_p95_ms": 4.253,
+        "png_bytes": 604159,
+        "psnr_db": 18.005,
+        "renderer_allocation_bytes": 106061680
+      },
+      "sorted": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.349,
+        "cpu_vs_baseline_pct": 41.3,
+        "gpu_p95_ms": 0.401,
+        "gpu_vs_baseline_pct": 2.82,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 226.09,
+        "pacing_p95_ms": 4.248,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      },
+      "sprites": {
+        "changed_pixels_pct": 6.463,
+        "cpu_p95_ms": 0.375,
+        "cpu_vs_baseline_pct": 51.82,
+        "gpu_p95_ms": 0.4,
+        "gpu_vs_baseline_pct": 2.56,
+        "mean_abs_diff": 5.0176,
+        "one_percent_low_fps": 224.93,
+        "pacing_p95_ms": 4.245,
+        "png_bytes": 191026,
+        "psnr_db": 19.685,
+        "renderer_allocation_bytes": 71041904
+      }
+    },
+    "verdict": "RENDER25D_QUALITY_PROFILES_GO_WITH_LIMITATIONS"
+  },
+  "s08": {
+    "decisions": [
+      {
+        "decision": "GO",
+        "evidence": "69 headless checks; planning only",
+        "id": "CompositionPlanner / composition.v1"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "baseline GPU p95 0.390 ms in the 2.5D lab",
+        "id": "Orthographic hybrid camera"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "40 sprites add +2.56% GPU and change 6.463% of the frame",
+        "id": "Sprite3D billboards"
+      },
+      {
+        "decision": "NO_GO",
+        "evidence": "sorted vs sprites change 0.000% of pixels; native sorting is sufficient",
+        "id": "Custom depth sorting"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "shadows add +27.69% GPU and change 15.477% of the frame",
+        "id": "3D shadow casting"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "overlay adds +5.38% GPU and changes 22.789% of the frame",
+        "id": "CanvasLayer overlay"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "hybrid adds +30.26% GPU and changes 31.714% of the frame",
+        "id": "Hybrid 2.5D composition"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "perspective GPU 0.332 ms (-14.87% vs ortho) with different framing",
+        "id": "Perspective camera mode"
+      },
+      {
+        "decision": "GO_WITH_LIMITATIONS",
+        "evidence": "low/high GPU 0.397/0.497 ms in one hybrid lab",
+        "id": "2.5D quality profiles"
+      }
+    ],
+    "images": 9,
+    "planner_checks": 69,
+    "runs": 9,
+    "third_party_assets": 0,
+    "verdict": "M08_RENDER25D_QA_VERIFIED"
+  },
+  "schema_version": "m08_render25d_runtime.v1",
+  "session_date": "2026-11-16",
+  "source_sha": "2c7dd515e307086cdd7180577b0c78ad7fb5cf1c",
+  "verdict": "M08_RENDER25D_REFERENCE_DERIVED"
+}
