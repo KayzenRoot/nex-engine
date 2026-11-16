@@ -2714,5 +2714,44 @@
     "ciRelaxation": false,
     "runtimeAdmission": "M06_REFERENCE_PERFORMANCE_ONLY",
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
+  },
+  "m07FinalReference": {
+    "id": "NEX-M07-FINAL-REFERENCE-WO-001",
+    "issues": [
+      12
+    ],
+    "admissionAdr": "NEX-ADR-0018-M07-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-029",
+    "plannerChecks": 46,
+    "runs": 9,
+    "images": 9,
+    "gpuP95Ms": {
+      "baseline": 0.06,
+      "lighting": 0.075,
+      "shadows": 0.1,
+      "normal": 0.082,
+      "particles": 0.071,
+      "parallax": 0.07,
+      "quality_low": 0.065,
+      "quality_medium": 0.081,
+      "quality_high": 0.153
+    },
+    "changedPixelsPct": {
+      "lighting": 16.218,
+      "shadows_vs_lighting": 9.028,
+      "normal_vs_lighting": 14.542,
+      "particles": 0.979,
+      "parallax": 23.006,
+      "quality_high": 39.691
+    },
+    "excludedScope": [
+      "production 2D renderer, atlas packing, y-sort or custom shader",
+      "M08/2.5D, M10 animation, M11 assets, gameplay, networking or cloud",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "generalized FPS, quality, input-to-photon or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M07_REFERENCE_RENDER2D_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

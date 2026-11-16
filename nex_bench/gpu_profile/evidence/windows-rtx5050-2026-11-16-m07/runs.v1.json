@@ -1,0 +1,196 @@
+{
+  "schema_version": "m07_lab_runs.v1",
+  "source_sha": "aa6256a82f6cd34e347b05ac43375ac4042d2ede",
+  "session_date": "2026-11-16",
+  "runs": [
+    {
+      "sequence": 1,
+      "mode": "baseline",
+      "run_id": "1794852872-34138307",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-baseline",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 0,
+      "particles": 0,
+      "parallax_layers": 0,
+      "shadows": 0,
+      "file": "gpu_profile_1794852872-34138307.json"
+    },
+    {
+      "sequence": 2,
+      "mode": "lighting",
+      "run_id": "1794852907-33386615",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-lighting",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 4,
+      "particles": 0,
+      "parallax_layers": 0,
+      "shadows": 0,
+      "file": "gpu_profile_1794852907-33386615.json"
+    },
+    {
+      "sequence": 3,
+      "mode": "shadows",
+      "run_id": "1794852941-33399081",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-shadows",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 4,
+      "particles": 0,
+      "parallax_layers": 0,
+      "shadows": 4,
+      "file": "gpu_profile_1794852941-33399081.json"
+    },
+    {
+      "sequence": 4,
+      "mode": "normal",
+      "run_id": "1794852975-33395489",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-normal",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 4,
+      "particles": 0,
+      "parallax_layers": 0,
+      "shadows": 0,
+      "file": "gpu_profile_1794852975-33395489.json"
+    },
+    {
+      "sequence": 5,
+      "mode": "particles",
+      "run_id": "1794853009-33439341",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-particles",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 0,
+      "particles": 384,
+      "parallax_layers": 0,
+      "shadows": 0,
+      "file": "gpu_profile_1794853009-33439341.json"
+    },
+    {
+      "sequence": 6,
+      "mode": "parallax",
+      "run_id": "1794853043-33444254",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-parallax",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 0,
+      "particles": 0,
+      "parallax_layers": 3,
+      "shadows": 0,
+      "file": "gpu_profile_1794853043-33444254.json"
+    },
+    {
+      "sequence": 7,
+      "mode": "quality_low",
+      "run_id": "1794853077-33373480",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-quality_low",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 1,
+      "particles": 0,
+      "parallax_layers": 0,
+      "shadows": 0,
+      "file": "gpu_profile_1794853077-33373480.json"
+    },
+    {
+      "sequence": 8,
+      "mode": "quality_medium",
+      "run_id": "1794853112-33395019",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-quality_medium",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 2,
+      "particles": 0,
+      "parallax_layers": 2,
+      "shadows": 0,
+      "file": "gpu_profile_1794853112-33395019.json"
+    },
+    {
+      "sequence": 9,
+      "mode": "quality_high",
+      "run_id": "1794853146-33423851",
+      "scene_id": "m07_lab",
+      "scene": "M07 2D Lab",
+      "layout": "M07 layered 2D lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m07-quality_high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "sprites": 100,
+      "lights": 4,
+      "particles": 384,
+      "parallax_layers": 3,
+      "shadows": 4,
+      "file": "gpu_profile_1794853146-33423851.json"
+    }
+  ]
+}

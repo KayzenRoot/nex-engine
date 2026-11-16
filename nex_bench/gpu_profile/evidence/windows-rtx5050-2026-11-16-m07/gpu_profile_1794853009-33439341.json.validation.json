@@ -1,0 +1,75 @@
+{
+  "device_snapshot": {
+    "sample_count": 2,
+    "status": "MEASURED"
+  },
+  "limitations": "Per-viewport render time is not input-to-photon; renderer allocation is not total VRAM; device-wide WDDM memory is not process-attributed.",
+  "observed_seconds": 30.0035289999999,
+  "one_percent_low_fps": 228.562125064185,
+  "run_id": "1794853009-33439341",
+  "run_status": "COMPLETE",
+  "schema_version": "nex_gpu_render_profile.v2",
+  "series": {
+    "CPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.1024702863043065,
+        "p50": 0.0939999967813492,
+        "p95": 0.144999995827675,
+        "p99": 0.187999993562698
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7202
+    },
+    "FRAME_PACING_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 4.165999583449041,
+        "p50": 4.165,
+        "p95": 4.212,
+        "p99": 4.296
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7202
+    },
+    "GPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 0.06499361421088401,
+        "p50": 0.0640000030398369,
+        "p95": 0.0710000023245811,
+        "p99": 0.175999999046326
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7202
+    },
+    "MAIN_LOOP_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 4.164842636304731,
+        "p50": 4.16633333333333,
+        "p95": 4.16666666666667,
+        "p99": 4.16666666666667
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7202
+    },
+    "RENDERER_ALLOCATION_BYTES": {
+      "aggregates": {
+        "mean": 24003904.0,
+        "p50": 24003904.0,
+        "p95": 24003904.0,
+        "p99": 24003904.0
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7202
+    }
+  },
+  "source_sha": "aa6256a82f6cd34e347b05ac43375ac4042d2ede",
+  "status": "PASS",
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_count": 100
+  }
+}

@@ -2,9 +2,8 @@
 """NEX M09 preset A/B/A validator.
 
 Validates the harness provenance for the built-in grid and the three M01
-scene modes, then delegates every structural/aggregate check to the canonical
-GPU profile validator with only the scene/layout labels substituted. It never
-suppresses a check and never fabricates metrics.
+scene modes, then delegates every structural/aggregate check to the shared
+lab validation helper and the canonical GPU profile validator.
 """
 from __future__ import annotations
 
@@ -14,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "gpu_profile"))
 
-import validate_gpu_profile as canonical  # noqa: E402 - path bootstrap above
+import lab_validation  # noqa: E402 - path bootstrap above
 
 EXPECTED_SCENE = "Preset A/B/A"
 EXPECTED_LAYOUT = "built-in deterministic grid"
@@ -27,63 +26,22 @@ M01_SCENE_SPECS = {
 EXPECTED_EFFECT_MODE = "lights"
 EXPECTED_MAX_FPS = 240
 EXPECTED_VSYNC = 0
+SCENE_SPECS = {EXPECTED_SCENE: (EXPECTED_LAYOUT, EXPECTED_PROXY_COUNTS), **M01_SCENE_SPECS}
 
 
 def _loads(raw: bytes):
-    try:
-        return json.loads(
-            raw.decode("utf-8-sig"),
-            object_pairs_hook=canonical._pairs_no_duplicates,
-            parse_constant=canonical._reject_constant,
-        )
-    except ValueError as exc:
-        raise ValueError("invalid JSON: " + str(exc)) from None
+    return lab_validation.loads(raw)
 
 
 def validate_document(document):
-    """Validate harness provenance, then delegate to the canonical validator."""
-    if not isinstance(document, dict):
-        raise ValueError("document must be a JSON object")
-    workload = document.get("workload")
-    if not isinstance(workload, dict):
-        raise ValueError("workload must be an object")
-    scene = workload.get("scene")
-    if scene == EXPECTED_SCENE:
-        if workload.get("layout") != EXPECTED_LAYOUT:
-            raise ValueError("workload.layout must be " + EXPECTED_LAYOUT)
-        if workload.get("proxy_count") not in EXPECTED_PROXY_COUNTS:
-            raise ValueError("workload.proxy_count must be one of 25/50/100/200")
-    elif scene in M01_SCENE_SPECS:
-        layout, counts = M01_SCENE_SPECS[scene]
-        if workload.get("layout") != layout:
-            raise ValueError("workload.layout must be " + layout)
-        if workload.get("proxy_count") not in counts:
-            raise ValueError(f"workload.proxy_count must be one of {counts} for {scene}")
-    else:
-        raise ValueError("workload.scene is not a supported harness scene")
-    if workload.get("effect_mode") != EXPECTED_EFFECT_MODE:
-        raise ValueError("workload.effect_mode must be " + EXPECTED_EFFECT_MODE)
-    settings = document.get("settings")
-    if not isinstance(settings, dict):
-        raise ValueError("settings must be an object")
-    if settings.get("max_fps") != EXPECTED_MAX_FPS:
-        raise ValueError(f"settings.max_fps must be {EXPECTED_MAX_FPS}")
-    if settings.get("vsync_mode") != EXPECTED_VSYNC:
-        raise ValueError(f"settings.vsync_mode must be {EXPECTED_VSYNC}")
-
-    delegated = dict(document)
-    delegated["workload"] = dict(workload, scene="Density Ladder", layout=EXPECTED_LAYOUT)
-    try:
-        result = canonical.validate_report(delegated)
-    except canonical.ProfileError as exc:
-        raise ValueError(str(exc)) from exc
-
-    return {"status": "PASS", **result}
+    """Validate harness provenance and delegate to canonical.validate_report."""
+    return lab_validation.validate_document(
+        document, SCENE_SPECS, EXPECTED_EFFECT_MODE, EXPECTED_MAX_FPS, EXPECTED_VSYNC)
 
 
 def main() -> int:
-    payload = sys.stdin.buffer.read(canonical.MAX_BYTES + 1)
-    if len(payload) > canonical.MAX_BYTES:
+    payload = sys.stdin.buffer.read(lab_validation.canonical.MAX_BYTES + 1)
+    if len(payload) > lab_validation.canonical.MAX_BYTES:
         print(json.dumps({"status": "FAIL", "reason": "profile input exceeds 8 MB limit"}))
         return 1
     try:
