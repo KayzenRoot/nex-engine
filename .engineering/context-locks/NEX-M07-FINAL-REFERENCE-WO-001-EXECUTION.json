@@ -16,40 +16,146 @@
   "authorityBaseSha": "aa6256a82f6cd34e347b05ac43375ac4042d2ede",
   "authorityBaseMeaning": "LIVE_MAIN_AFTER_M06_PERFORMANCE_REFERENCE_MERGE",
   "authorityBaseFingerprints": [
-    {"path": "AGENTS.md", "gitBlobSha1": "5d87730a0e06ebc7298ff85325cd228890175bbf"},
-    {"path": ".engineering/CHECKPOINT.json", "gitBlobSha1": "c1b23fe234ddfabfe9d0eccea5cfae70ca248249"},
-    {"path": ".engineering/CHECKPOINT.md", "gitBlobSha1": "b885351a5c2274a9c6c70fc11ad9fdce903f70db"},
-    {"path": ".engineering/SOURCE-HIERARCHY.md", "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"},
-    {"path": ".engineering/SCOPE.md", "gitBlobSha1": "8dcbbafcc2ac588d15ad09048dcc8b85e8b0fe96"},
-    {"path": ".engineering/DEFINITION-OF-DONE.md", "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"},
-    {"path": ".engineering/TEST-BENCHMARK-PLAN.md", "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"},
-    {"path": ".engineering/ARCHITECTURE.md", "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"},
-    {"path": ".engineering/REQUIREMENTS.md", "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"},
-    {"path": ".engineering/SECURITY.md", "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"},
-    {"path": ".engineering/DECISIONS-LEDGER.md", "gitBlobSha1": "88a009a97336c22e9a6ce5b7a27e2865567723fb"},
-    {"path": ".engineering/DEPLOYMENT.md", "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"},
-    {"path": ".engineering/BACKLOG.md", "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"},
-    {"path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md", "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"},
-    {"path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md", "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"},
-    {"path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md", "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"},
-    {"path": ".engineering/decisions/NEX-ADR-0010-M07-M12-BOUNDED-ADMISSION.md", "gitBlobSha1": "b5d2fe1967c75bfa102ee8e22e088ba1a585a536"},
-    {"path": ".engineering/decisions/NEX-ADR-0017-M06-FULL-REFERENCE-ADMISSION.md", "gitBlobSha1": "a9c333217cdf45d8bea96d47dce3f9fe939b29e3"},
-    {"path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json", "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"},
-    {"path": "contracts/m07/render2d.v1.schema.json", "gitBlobSha1": "82dd177c9173df7c6d3b05039f7b984332b1b0b5"},
-    {"path": "contracts/m07/ownership.v1.json", "gitBlobSha1": "44b4ce03d93ad594082e2be3261b7b70fd0cf2d5"},
-    {"path": "docs/contracts/m07.md", "gitBlobSha1": "044f1871b9f027d5f97412d9872a8082c1602455"},
-    {"path": "nex_modules/render2d/canvas/canvas_planner.gd", "gitBlobSha1": "8344e75a629b51d68ea91bfd263bf29d7b0dbc73"},
-    {"path": "nex_modules/render2d/canvas/smoke.gd", "gitBlobSha1": "fdfde445cf039a409553fa79b107b06e3dc5c53c"},
-    {"path": "nex_modules/render2d/canvas/project.godot", "gitBlobSha1": "c09931ff46b5e6e3721300ebc98c3adc1af48017"},
-    {"path": "nex_bench/gpu_profile/session.gd", "gitBlobSha1": "f7e2911c28a52655ea31491f9248086eb1457d71"},
-    {"path": "nex_bench/gpu_profile/validate_gpu_profile.py", "gitBlobSha1": "6b32aa1cf6b0c232c52b7a06b87b3118322a2348"},
-    {"path": "docs/benchmarks/m09/tools/common.py", "gitBlobSha1": "adfa1463e585f057a13c6a35d6b8d43d6807c68c"},
-    {"path": "docs/benchmarks/m09/tools/png_image.py", "gitBlobSha1": "d28d79eda81575845512bee3adbdabba38786134"},
-    {"path": "docs/benchmarks/m09/tools/preset_report.py", "gitBlobSha1": "8b8695c2c533e1285195211df998d045ab89cc10"},
-    {"path": "tests/ci/test_render2d_planner.py", "gitBlobSha1": "ba4502f1a15121a4795fcf42706fd59df77a9398"},
-    {"path": "tests/contracts/test_m07_render2d_contract.py", "gitBlobSha1": "3ddf27934f0ffa0851a766c095a25cb6260b3c92"},
-    {"path": "tests/ci/test_builder_check_enforcement.py", "gitBlobSha1": "10ea569cdece4a345d2e14155250ba9c90fd5da4"},
-    {"path": ".github/workflows/nex-ci-fastlane.yml", "gitBlobSha1": "0cf2e1b04e0929908827eb3ebf3a6e857e6d066e"}
+    {
+      "path": "AGENTS.md",
+      "gitBlobSha1": "5d87730a0e06ebc7298ff85325cd228890175bbf"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.json",
+      "gitBlobSha1": "c1b23fe234ddfabfe9d0eccea5cfae70ca248249"
+    },
+    {
+      "path": ".engineering/CHECKPOINT.md",
+      "gitBlobSha1": "b885351a5c2274a9c6c70fc11ad9fdce903f70db"
+    },
+    {
+      "path": ".engineering/SOURCE-HIERARCHY.md",
+      "gitBlobSha1": "ab1f184c0742d489705081df8be59c24c4cd4f3f"
+    },
+    {
+      "path": ".engineering/SCOPE.md",
+      "gitBlobSha1": "8dcbbafcc2ac588d15ad09048dcc8b85e8b0fe96"
+    },
+    {
+      "path": ".engineering/DEFINITION-OF-DONE.md",
+      "gitBlobSha1": "8c60c3f6c96d35737fc1ab56b33f088b77916f50"
+    },
+    {
+      "path": ".engineering/TEST-BENCHMARK-PLAN.md",
+      "gitBlobSha1": "c663789edf87514169cea7410ba7d06c5e8d4878"
+    },
+    {
+      "path": ".engineering/ARCHITECTURE.md",
+      "gitBlobSha1": "cf06f580a460c357203c01e05914b8c3c7e67ba9"
+    },
+    {
+      "path": ".engineering/REQUIREMENTS.md",
+      "gitBlobSha1": "9414348cbb0338ca7b18da9562dca9559840bb21"
+    },
+    {
+      "path": ".engineering/SECURITY.md",
+      "gitBlobSha1": "ab43be68b63c04dfa329e319adab46c4dcd82fc7"
+    },
+    {
+      "path": ".engineering/DECISIONS-LEDGER.md",
+      "gitBlobSha1": "88a009a97336c22e9a6ce5b7a27e2865567723fb"
+    },
+    {
+      "path": ".engineering/DEPLOYMENT.md",
+      "gitBlobSha1": "6ef574bb15c0c19346d25e86933900d0580010ec"
+    },
+    {
+      "path": ".engineering/BACKLOG.md",
+      "gitBlobSha1": "72790b62ab472ebc527c7a8b7d0253f8f23b9357"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0004-SOLO-ADMIN-REVIEW.md",
+      "gitBlobSha1": "2b2b67ea7e46373d818b19a33cae491212eed242"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0005-AUTONOMOUS-BUILD.md",
+      "gitBlobSha1": "f404e5993c1a229a11c8bca436a59d20392d1d6e"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0006-M06-M09-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "a62f2a567509f8ef57f3e2dc2044e7655aec74c9"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0010-M07-M12-BOUNDED-ADMISSION.md",
+      "gitBlobSha1": "b5d2fe1967c75bfa102ee8e22e088ba1a585a536"
+    },
+    {
+      "path": ".engineering/decisions/NEX-ADR-0017-M06-FULL-REFERENCE-ADMISSION.md",
+      "gitBlobSha1": "a9c333217cdf45d8bea96d47dce3f9fe939b29e3"
+    },
+    {
+      "path": ".nex/toolchain/NEX-M00-WO-001-toolchain-lock.json",
+      "gitBlobSha1": "a8addf7c07b4956fe95f90353035369df0772941"
+    },
+    {
+      "path": "contracts/m07/render2d.v1.schema.json",
+      "gitBlobSha1": "82dd177c9173df7c6d3b05039f7b984332b1b0b5"
+    },
+    {
+      "path": "contracts/m07/ownership.v1.json",
+      "gitBlobSha1": "44b4ce03d93ad594082e2be3261b7b70fd0cf2d5"
+    },
+    {
+      "path": "docs/contracts/m07.md",
+      "gitBlobSha1": "044f1871b9f027d5f97412d9872a8082c1602455"
+    },
+    {
+      "path": "nex_modules/render2d/canvas/canvas_planner.gd",
+      "gitBlobSha1": "8344e75a629b51d68ea91bfd263bf29d7b0dbc73"
+    },
+    {
+      "path": "nex_modules/render2d/canvas/smoke.gd",
+      "gitBlobSha1": "fdfde445cf039a409553fa79b107b06e3dc5c53c"
+    },
+    {
+      "path": "nex_modules/render2d/canvas/project.godot",
+      "gitBlobSha1": "c09931ff46b5e6e3721300ebc98c3adc1af48017"
+    },
+    {
+      "path": "nex_bench/gpu_profile/session.gd",
+      "gitBlobSha1": "f7e2911c28a52655ea31491f9248086eb1457d71"
+    },
+    {
+      "path": "nex_bench/gpu_profile/validate_gpu_profile.py",
+      "gitBlobSha1": "6b32aa1cf6b0c232c52b7a06b87b3118322a2348"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/common.py",
+      "gitBlobSha1": "adfa1463e585f057a13c6a35d6b8d43d6807c68c"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/png_image.py",
+      "gitBlobSha1": "d28d79eda81575845512bee3adbdabba38786134"
+    },
+    {
+      "path": "docs/benchmarks/m09/tools/preset_report.py",
+      "gitBlobSha1": "8b8695c2c533e1285195211df998d045ab89cc10"
+    },
+    {
+      "path": "tests/ci/test_render2d_planner.py",
+      "gitBlobSha1": "ba4502f1a15121a4795fcf42706fd59df77a9398"
+    },
+    {
+      "path": "tests/contracts/test_m07_render2d_contract.py",
+      "gitBlobSha1": "3ddf27934f0ffa0851a766c095a25cb6260b3c92"
+    },
+    {
+      "path": "tests/ci/test_builder_check_enforcement.py",
+      "gitBlobSha1": "10ea569cdece4a345d2e14155250ba9c90fd5da4"
+    },
+    {
+      "path": ".github/workflows/nex-ci-fastlane.yml",
+      "gitBlobSha1": "0cf2e1b04e0929908827eb3ebf3a6e857e6d066e"
+    },
+    {
+      "path": "nex_bench/scenes/preset_ab/validate_preset_ab.py",
+      "gitBlobSha1": "0af119a82357fc6ae3ef5b52d7ed338134369030"
+    }
   ],
   "executionMode": "ADMIN_SOLO_SINGLE_WRITER",
   "risk": "STANDARD",
@@ -74,7 +180,9 @@
       "AGENTS.md",
       ".engineering/SCOPE.md",
       ".engineering/CHECKPOINT.json",
-      ".engineering/CHECKPOINT.md"
+      ".engineering/CHECKPOINT.md",
+      "nex_bench/gpu_profile/lab_validation.py",
+      "nex_bench/scenes/preset_ab/validate_preset_ab.py"
     ],
     "readOnly": [
       "contracts/m07/**",

@@ -28,6 +28,7 @@ Admitir, de forma **full reference e bounded ao M07**:
 
 - `nex_bench/scenes/m07_2d/**` (lab, captura e validador).
 - `nex_bench/gpu_profile/session.gd` (uma linha: layout 2D permitido).
+- `nex_bench/gpu_profile/lab_validation.py` e refatoração de `nex_bench/scenes/preset_ab/validate_preset_ab.py` para validação compartilhada.
 - `nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-16-m07/**`.
 - `docs/benchmarks/m07/**` e `tests/ci/test_m07_final.py`.
 - Enforcement de builders e workflow CI.

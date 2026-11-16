@@ -14,6 +14,7 @@ Finalizar o M07 como render2d de referência: laboratório 2D nativo com luzes, 
 
 - `nex_bench/scenes/m07_2d/m07_lab.gd`, `m07_lab.tscn`, `validate_m07_lab.py`.
 - `nex_bench/gpu_profile/session.gd`: layout `M07 layered 2D lab` permitido.
+- `nex_bench/gpu_profile/lab_validation.py` e refatoração de `nex_bench/scenes/preset_ab/validate_preset_ab.py` para compartilhar validação e eliminar duplicação Sonar.
 - Evidence `windows-rtx5050-2026-11-16-m07/`: 9 runs, 9 imagens, logs, manifest e SHA256SUMS.
 - `docs/benchmarks/m07/tools/build_m07_runtime.py`, `M07-RUNTIME.md`, `m07-runtime.v1.json`, `M07-FINAL-GATE.md`.
 - `tests/ci/test_m07_final.py`; enforcement no workflow.
