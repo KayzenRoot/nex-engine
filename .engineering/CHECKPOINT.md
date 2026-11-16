@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-16 · M08 2.5D composition complete
+
+**M08 finalizado** por PR #287, squash `cd3f1cc92ac47e2eff6dc15c1490ee6422aa9740`, sob `NEX-ADR-0019` / `NEX-D-030`. O módulo 2.5D agora tem **CompositionPlanner com 69 checks**, **9 runs nativos**, **9 capturas** e laboratório híbrido com câmera ortográfica/perspectiva, Sprite3D billboards, sorting, sombras 3D, overlay 2D e perfis low/high.
+
+**Resultado:** baseline GPU p95 **0.390 ms**; sprites **0.400 ms** (+2.56%, 6.463% de pixels); sorted **0.401 ms** com **0.000%** de diferença vs sprites → sorter customizado **NO_GO**; shadows **0.498 ms** (+27.69%, 15.477% de pixels); overlay **0.411 ms** (+5.38%, 22.789% de pixels); hybrid **0.508 ms** (+30.26%, 31.714% de pixels); perspective **0.332 ms** (-14.87% vs ortho); quality low/high **0.397/0.497 ms**. A issue **#13** foi fechada como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M08 é o oitavo módulo base concluído como **composição 2.5D de referência**, não como jogo. M09–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-16 · M07 render2d reference complete
 
 **M07 finalizado** por PR #285, squash `79521ad3c41b1cae374ef9ffb3227838b9a14795`, sob `NEX-ADR-0018` / `NEX-D-029`. O módulo 2D agora tem **CanvasPlanner com 46 checks**, **9 runs nativos**, **9 capturas** e laboratório para luzes, sombras, normal maps, partículas, parallax e perfis low/medium/high.
