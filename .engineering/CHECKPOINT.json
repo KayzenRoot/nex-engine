@@ -2601,5 +2601,118 @@
     "protectedMergeSha": "80a31160da74340c2250170af63a778ff0b73f5c",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM05": "FULL_REFERENCE_VFX_COMPLETE"
+  },
+  "m06FinalReference": {
+    "id": "NEX-M06-FINAL-REFERENCE-WO-001",
+    "issues": [
+      11,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68
+    ],
+    "admissionAdr": "NEX-ADR-0017-M06-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-028",
+    "bottlenecks": {
+      "runs": 33,
+      "gpu": 22,
+      "pacing": 11,
+      "memory": 0,
+      "insufficientData": 0
+    },
+    "batchWeave": {
+      "drawCallsIndividual": 385,
+      "drawCallsMultimesh": 223,
+      "changedPixelsPct": 0.0,
+      "cpuDeltaPct": -6.1
+    },
+    "lod": {
+      "gpuDeltasPct": [
+        -8.17,
+        -7.1,
+        -1.0
+      ],
+      "changedPixelsPct": [
+        3.458,
+        4.314,
+        0.967
+      ]
+    },
+    "occlusion": {
+      "verdict": "NO_GO",
+      "falseHidePct": 2.284,
+      "baked": "INCONCLUSIVE_NOT_BAKED"
+    },
+    "stream": {
+      "checks": 17,
+      "coldMs": [
+        14.029,
+        14.031,
+        20.954
+      ]
+    },
+    "renderScale": {
+      "scales": [
+        1.0,
+        0.85,
+        0.7
+      ],
+      "gpuDeltasPct": [
+        0.0,
+        -15.41,
+        -28.23
+      ],
+      "changedPixelsPct": [
+        0.0,
+        2.478,
+        3.748
+      ]
+    },
+    "vram": {
+      "textures": 22,
+      "beforeBytes": 12605824,
+      "afterBytes": 211489664,
+      "deltaBytes": 198883840,
+      "state": "OK"
+    },
+    "fillrate": {
+      "events": [
+        1,
+        10,
+        100
+      ],
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ]
+      ],
+      "gpu1440vs720At1Pct": 135.9
+    },
+    "excludedScope": [
+      "renderer core, GDExtension, Godot fork or project.godot changes",
+      "production LOD engine, baked occlusion, dynamic render scale, shader prewarm or VRAM eviction",
+      "scene streaming, disk prefetch or global cross-module budget",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "M07-M12 renderer/runtime, game, gameplay, networking or cloud",
+      "generalized FPS, quality or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M06_REFERENCE_PERFORMANCE_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }

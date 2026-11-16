@@ -1,0 +1,75 @@
+{
+  "device_snapshot": {
+    "sample_count": 2,
+    "status": "MEASURED"
+  },
+  "limitations": "Per-viewport render time is not input-to-photon; renderer allocation is not total VRAM; device-wide WDDM memory is not process-attributed.",
+  "observed_seconds": 30.0026460000001,
+  "one_percent_low_fps": 174.277595162828,
+  "run_id": "1794822226-34075260",
+  "run_status": "COMPLETE",
+  "schema_version": "nex_gpu_render_profile.v2",
+  "series": {
+    "CPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 1.8370101607998959,
+        "p50": 1.78999996185303,
+        "p95": 2.04900002479553,
+        "p99": 2.65100002288818
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7185
+    },
+    "FRAME_PACING_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 4.175733611691023,
+        "p50": 4.165,
+        "p95": 4.23,
+        "p99": 4.908
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7185
+    },
+    "GPU_RENDER_MS": {
+      "aggregates": {
+        "mean": 2.391835492206433,
+        "p50": 2.39000010490417,
+        "p95": 2.43400001525879,
+        "p99": 2.44400000572205
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7185
+    },
+    "MAIN_LOOP_INTERVAL_MS": {
+      "aggregates": {
+        "mean": 4.1747725353746254,
+        "p50": 4.16666666666667,
+        "p95": 4.16666666666667,
+        "p99": 4.54545454545455
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7185
+    },
+    "RENDERER_ALLOCATION_BYTES": {
+      "aggregates": {
+        "mean": 638604432.0,
+        "p50": 638604432.0,
+        "p95": 638604432.0,
+        "p99": 638604432.0
+      },
+      "invalid_sample_count": 0,
+      "status": "MEASURED",
+      "valid_sample_count": 7185
+    }
+  },
+  "source_sha": "c763319d04d0bf353c15db8378872bdf8fab1734",
+  "status": "PASS",
+  "workload": {
+    "effect_mode": "lights",
+    "proxy_count": 100
+  }
+}

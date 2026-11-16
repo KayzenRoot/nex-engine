@@ -1,0 +1,37 @@
+{
+  "after": {
+    "buffer_bytes": 1934476,
+    "provider": "Performance.RENDER_VIDEO_MEM_USED / TEXTURE / BUFFER",
+    "status": "MEASURED",
+    "texture_bytes": 200113664,
+    "unavailable_reason": "",
+    "video_bytes": 211489664
+  },
+  "before": {
+    "buffer_bytes": 1934476,
+    "provider": "Performance.RENDER_VIDEO_MEM_USED / TEXTURE / BUFFER",
+    "status": "MEASURED",
+    "texture_bytes": 7521280,
+    "unavailable_reason": "",
+    "video_bytes": 12605824
+  },
+  "checks": 9,
+  "delta_bytes": 198883840,
+  "evaluation": {
+    "budget_bytes": 6000000000,
+    "ratio": 0.0352,
+    "state": "OK",
+    "used_bytes": 211489664
+  },
+  "failures": [],
+  "limitations": [
+    "RENDER_VIDEO_MEM_USED is engine-reported allocation, not total device VRAM",
+    "textures are 1920x1080 PNGs loaded in one process",
+    "no OOM, eviction or recovery test",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "schema_version": "m06_vram_smoke.v1",
+  "source_sha": "c763319d04d0bf353c15db8378872bdf8fab1734",
+  "textures_loaded": 22,
+  "verdict": "PASS"
+}

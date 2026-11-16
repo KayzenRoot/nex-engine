@@ -1,0 +1,38 @@
+{
+  "checks": 17,
+  "failures": [],
+  "frames_waited": 6,
+  "limitations": [
+    "cold/warm load of three small scenes in one process",
+    "no scene streaming, prefetch policy or disk-pressure test",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "schema_version": "m06_stream_smoke.v1",
+  "source_sha": "c763319d04d0bf353c15db8378872bdf8fab1734",
+  "state": {
+    "cached": 3,
+    "counts": {
+      "failed": 1,
+      "idle": 0,
+      "loading": 0,
+      "ready": 3
+    },
+    "entries": 4,
+    "max_cache": 8
+  },
+  "timings": [
+    {
+      "elapsed_ms": 14.029,
+      "path": "res://scenes/base/corridor_static.tscn"
+    },
+    {
+      "elapsed_ms": 14.031,
+      "path": "res://scenes/base/arena_combat.tscn"
+    },
+    {
+      "elapsed_ms": 20.954,
+      "path": "res://scenes/base/dense_city.tscn"
+    }
+  ],
+  "verdict": "PASS"
+}
