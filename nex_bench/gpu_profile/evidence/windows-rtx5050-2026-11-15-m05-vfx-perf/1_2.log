@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 5050
+
+NEX_PRESET_AB_VFX {"active":1,"count":1,"element":"all","lights":1}
+NEX_PRESET_AB_APPLY {"base_meshes":17,"filler_meshes":83,"glow":true,"layout":"M01 corridor_static + deterministic fillers","max_shadowed_lights":4,"msaa":"4x","preset_id":"ab-high","proxy_count":100,"resolution_scale":1.0,"scene":"M01 Corridor A/B/A","shadow_atlas_size":4096,"shadow_quality":"ultra","target_fps":240}
+NEX_PRESET_AB_LOOK {"budget":false,"depth_fog":false,"look":"dungeon_torch","sdfgi":true,"shadowed":4,"torches":8,"volumetric_fog":true}
+NEX_PRESET_AB_START preset=ab-high scene=M01 Corridor A/B/A size=(1920.0, 1080.0) vsync=0 max_fps=240
+NEX_PRESET_AB_CAPTURE C:/Users/csn19/AppData/Roaming/Godot/app_userdata/NEX Engine - Unified Visual Lab/gpu_profiles/gpu_profile_1794797720-33913310.json

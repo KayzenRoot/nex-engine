@@ -1,0 +1,12 @@
+{
+  "checks": 12,
+  "failures": [],
+  "limitations": [
+    "planning only; no particle, light, decal or renderer is created",
+    "gameplay authority is validated as data, not implemented",
+    "no FPS, frame-time or quality claim"
+  ],
+  "schema_version": "m05_spellfx_smoke.v1",
+  "source_sha": "dd840f86023057a4dc8af92148cdf36911175613",
+  "verdict": "PASS"
+}
