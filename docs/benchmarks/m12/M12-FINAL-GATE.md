@@ -36,4 +36,4 @@
 
 ## Fechamento
 
-Com este gate, a issue **#17** foi fechada como `COMPLETED` após o merge protegido da PR #297 (`0bc10ef448af46c00bf22f1e3782beca7a1621eb`) e **12/12 checks pós-merge** verdes. O sistema de marca está pronto para uma futura UI, mas nenhuma UI, launcher, installer ou rebranding de binário é admitido por este gate.
+Com este gate, a issue **#17** foi fechada como `COMPLETED` após o merge protegido da PR #297 (`0bc10ef448af46c00bf22f1e3782beca7a1621eb`). No commit de checkpoint `89e6ec2b...`, **11/12 checks pós-merge** ficaram SUCCESS; o **Socket Project Report** retornou `neutral` por erro externo do serviço, sem mudança de código ou dependências, e o mesmo app reportou SUCCESS no PR #298. O sistema de marca está pronto para uma futura UI, mas nenhuma UI, launcher, installer ou rebranding de binário é admitido por este gate.
