@@ -1,2 +1,6 @@
 node_modules/
 .gef-private/
+
+# NEX local build outputs and Godot import cache
+/build/
+nex_bench/.godot/
