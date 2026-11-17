@@ -1,0 +1,9 @@
+{
+  "schema_version": "m09_scenes_fixture.v1",
+  "scenes": [
+    {"id": "clean_scene", "lights": 4, "draw_calls": 120, "alpha_layers": 6, "shadowed_lights": 2, "sync_loads": 0},
+    {"id": "heavy_lights", "lights": 16, "draw_calls": 120, "alpha_layers": 6, "shadowed_lights": 8, "sync_loads": 0},
+    {"id": "heavy_draws", "lights": 4, "draw_calls": 900, "alpha_layers": 30, "shadowed_lights": 2, "sync_loads": 2},
+    {"id": "", "lights": 1, "draw_calls": 1, "alpha_layers": 1, "shadowed_lights": 0, "sync_loads": 0}
+  ]
+}

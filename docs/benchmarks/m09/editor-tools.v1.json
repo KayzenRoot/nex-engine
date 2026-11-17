@@ -1,0 +1,116 @@
+{
+  "decisions": [
+    {
+      "decision": "GO",
+      "evidence": "50 headless checks; no runtime application",
+      "id": "PresetResolver / preset_pack.v1"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "42 checks; 13 deterministic findings (4 errors, 9 warns)",
+      "id": "PerfLint"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "1 accepted / 3 rejected / 2 noop / 1 conflict; plan only, no writes",
+      "id": "ImportGuard"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "recipe generated and validated; no benchmark executed",
+      "id": "BenchmarkRecipe"
+    }
+  ],
+  "fixtures": [
+    {
+      "bytes": 1230,
+      "name": "assets.v1.json",
+      "sha256": "c7d048d909f029a0676c892ca9de2a9ca67ab55e2b9964d0a93fbc0346517133"
+    },
+    {
+      "bytes": 1644,
+      "name": "files.v1.json",
+      "sha256": "5482c408d88dedd2d19f51d122e5871ad788fc65a1a6bc0dbf53fde0215ed154"
+    },
+    {
+      "bytes": 385,
+      "name": "recipe.v1.json",
+      "sha256": "67c65b1faf06f1cccd51ff02639b24690b95f6ffe19d682f4ed55a310a330d9c"
+    },
+    {
+      "bytes": 524,
+      "name": "scenes.v1.json",
+      "sha256": "3096558536f8b684bd994fe47ab0f3db2b18d98052feb1a43b11eac726fd3904"
+    }
+  ],
+  "limitations": [
+    "fixtures only; no asset is imported, rendered or benchmarked",
+    "PerfLint warnings are heuristics, not measured performance",
+    "ImportGuard never writes; the real import pipeline remains future work",
+    "no FPS, frame-time, VRAM or quality claim",
+    "no production art, no PoE2 parity and no generalized claim"
+  ],
+  "observations": [
+    "PresetResolver still passes 50 headless checks",
+    "PerfLint reports 13 deterministic findings: 4 errors and 9 warnings",
+    "ImportGuard plans 1 accepted, 3 rejected, 2 noop and 1 conflict without writing files",
+    "BenchmarkRecipe builds a reproducible recipe with pinned driver and source SHA",
+    "all editor tools run headless with deterministic fixtures"
+  ],
+  "runs": 1,
+  "s01": {
+    "resolver_checks": 50,
+    "verdict": "PRESET_RESOLVER_VERIFIED"
+  },
+  "s02": {
+    "checks": 42,
+    "codes": {
+      "alpha_overdraw_risk": 1,
+      "draw_call_budget_exceeded": 1,
+      "duplicate_id": 1,
+      "invalid_dimensions": 1,
+      "light_budget_exceeded": 1,
+      "missing_license": 1,
+      "missing_scene_id": 1,
+      "oversized_file": 1,
+      "shadow_budget_exceeded": 1,
+      "sync_load_risk": 2,
+      "texture_too_large": 1,
+      "unknown_format": 1
+    },
+    "errors": 4,
+    "findings": 13,
+    "highest": "error",
+    "verdict": "PERFLINT_DERIVED",
+    "warns": 9
+  },
+  "s03": {
+    "counts": {
+      "accepted": 1,
+      "conflicts": 1,
+      "noop": 2,
+      "rejected": 3
+    },
+    "snapshot": "32ff35374da87a485c49bc8f3e6ddbec31b10e5f774c186cce06bfab498c2ff3",
+    "verdict": "IMPORT_GUARD_DERIVED"
+  },
+  "s04": {
+    "driver": "vulkan",
+    "preset_id": "ab-high",
+    "recipe_id": "m09-corridor_static-ab-high-4101",
+    "runs": 3,
+    "scene_id": "corridor_static",
+    "seed": 4101,
+    "verdict": "BENCHMARK_RECIPE_DERIVED"
+  },
+  "s05": {
+    "checks": 92,
+    "fixtures": 4,
+    "third_party_assets": 0,
+    "verdict": "M09_EDITOR_QA_VERIFIED"
+  },
+  "schema_version": "m09_editor_tools.v1",
+  "session_date": "2026-11-17",
+  "source_sha": "371ca4ab4a5f70debc96e84bba55aba3870fc9cf",
+  "verdict": "M09_EDITOR_TOOLS_REFERENCE_DERIVED"
+}

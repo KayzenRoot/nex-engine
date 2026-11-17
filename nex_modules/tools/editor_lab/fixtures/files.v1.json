@@ -1,0 +1,13 @@
+{
+  "schema_version": "m09_files_fixture.v1",
+  "files": [
+    {"id": "valid_png", "path": "res://incoming/wall.png", "destination": "res://imported/wall.png", "bytes": 1024, "extension": "png", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    {"id": "valid_json", "path": "res://incoming/data.json", "destination": "res://imported/data.json", "bytes": 512, "extension": "json", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+    {"id": "bad_extension", "path": "res://incoming/tool.exe", "destination": "res://imported/tool.exe", "bytes": 1024, "extension": "exe", "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
+    {"id": "oversized", "path": "res://incoming/huge.png", "destination": "res://imported/huge.png", "bytes": 70000000, "extension": "png", "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
+    {"id": "invalid_sha", "path": "res://incoming/bad.png", "destination": "res://imported/bad.png", "bytes": 1024, "extension": "png", "sha256": "not-a-sha"},
+    {"id": "conflict", "path": "res://incoming/wall_conflict.png", "destination": "res://imported/wall.png", "bytes": 2048, "extension": "png", "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"},
+    {"id": "noop", "path": "res://incoming/wall_same.png", "destination": "res://imported/wall.png", "bytes": 1024, "extension": "png", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+  ],
+  "existing": {"res://imported/wall.png": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+}

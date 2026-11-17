@@ -2805,5 +2805,43 @@
     "protectedMergeSha": "cd3f1cc92ac47e2eff6dc15c1490ee6422aa9740",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM08": "FULL_REFERENCE_RENDER25D_COMPLETE"
+  },
+  "m09FinalReference": {
+    "id": "NEX-M09-FINAL-REFERENCE-WO-001",
+    "issues": [
+      14
+    ],
+    "admissionAdr": "NEX-ADR-0020-M09-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-031",
+    "resolverChecks": 50,
+    "editorChecks": 42,
+    "totalChecks": 92,
+    "findings": {
+      "total": 13,
+      "errors": 4,
+      "warns": 9
+    },
+    "importPlan": {
+      "accepted": 1,
+      "rejected": 3,
+      "noop": 2,
+      "conflicts": 1
+    },
+    "recipe": {
+      "recipeId": "m09-corridor_static-ab-high-4101",
+      "driver": "vulkan",
+      "runs": 3
+    },
+    "fixtures": 4,
+    "excludedScope": [
+      "real asset import, writes, overwrite or import/cook pipeline",
+      "rendering, shader, production scene, editor core or main project.godot changes",
+      "M10-M12, gameplay, networking or cloud",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "generalized FPS, quality, VRAM or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M09_REFERENCE_EDITOR_TOOLS_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
