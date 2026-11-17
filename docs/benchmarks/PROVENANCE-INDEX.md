@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 82 · **PRs:** 112–295
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 83 · **PRs:** 112–297
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -88,6 +88,7 @@
 | m09FinalReference | NEX-M09-FINAL-REFERENCE-WO-001 | 290 | `818759d5e6daaa3d3f9be922331b0d39d5cd4f5c` | 14 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m10FinalReference | NEX-M10-FINAL-REFERENCE-WO-001 | 292 | `335516041a94b8e04e62fd5990975fdf65846509` | 15 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m11FinalReference | NEX-M11-FINAL-REFERENCE-WO-001 | 295 | `5793dcf52a94f2520ccc55e0a27438d3c6a2788e` | 16 | — | ADMIN_SOLO_NOT_INDEPENDENT |
+| m12FinalReference | NEX-M12-FINAL-REFERENCE-WO-001 | 297 | `0bc10ef448af46c00bf22f1e3782beca7a1621eb` | 17 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 
