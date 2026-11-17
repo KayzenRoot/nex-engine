@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · M10 animation and feedback complete
+
+**M10 finalizado** por PR #292, squash `335516041a94b8e04e62fd5990975fdf65846509`, sob `NEX-ADR-0021` / `NEX-D-032`. O módulo de animação agora tem **FeedbackPlanner com 66 checks**, **9 runs nativos**, **9 capturas** e laboratório com AnimationPlayer/AnimationTree blending, hit reaction, hit-stop visual, câmera suave, sincronização M05 VFX e perfis low/high.
+
+**Resultado:** baseline GPU p95 **0.256 ms**; blend **0.264 ms** (+3.13%, 0.493% de pixels); attack **0.256 ms** (0.931%); hit **0.256 ms** (0.414%); hit-stop **0.255 ms** com **0.000%** de pose vs attack; camera **0.273 ms** (+6.64%, 2.661%); vfx **0.262 ms** (+2.34%, 3.681%); quality low/high **0.264/0.274 ms**. A issue **#15** foi fechada como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M10 é o décimo módulo base concluído como **animação e feedback de referência**, não como jogo. M11–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-17 · M09 editor tools complete
 
 **M09 finalizado** por PR #290, squash `818759d5e6daaa3d3f9be922331b0d39d5cd4f5c`, sob `NEX-ADR-0020` / `NEX-D-031`. O módulo de ferramentas agora tem **PresetResolver com 50 checks**, **PerfLint com 42 checks e 13 findings**, **ImportGuard** com plano determinístico sem escrita, **BenchmarkRecipe** reproduzível, **4 fixtures** e relatório/gate.
