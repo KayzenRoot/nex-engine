@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M10 full reference | animação e feedback concluídos (2026-11-17)
+
+`NEX-ADR-0021` / `NEX-D-032` admitem o M10 como animação e feedback de referência bounded: FeedbackPlanner com 66 checks, laboratório nativo com AnimationPlayer/AnimationTree blending, hit reaction, hit-stop visual, câmera suave, sincronização M05 VFX, perfis low/high, 9 runs e 9 capturas. A issue #15 pode ser fechada após integração protegida. M10 é o décimo módulo base concluído como **animação e feedback de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há dano, física, netcode, gameplay, personagem de produção, skin ou asset de terceiros. M11–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `de81ee67b1c469636678df5a437cfc6fd77f06b8`.
+
 ### M09 full reference | ferramentas de editor concluídas (2026-11-17)
 
 `NEX-ADR-0020` / `NEX-D-031` admitem o M09 como ferramentas de editor de referência bounded: PresetResolver com 50 checks, PerfLint com 42 checks e 13 findings, ImportGuard com plano determinístico sem escrita, BenchmarkRecipe reproduzível, 4 fixtures e relatório/gate. A issue #14 pode ser fechada após integração protegida. M09 é o nono módulo base concluído como **ferramentas de editor de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há importação real, rendering, editor core, gameplay ou asset de terceiros. M10–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `371ca4ab4a5f70debc96e84bba55aba3870fc9cf`.

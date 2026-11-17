@@ -1,0 +1,6 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.351 - Forward+ - Using Device #0: NVIDIA - NVIDIA GeForce RTX 5050
+
+NEX_M10_LAB {"blend":0.5,"bones":2,"mode":"blend","proxies":0}
+NEX_M10_LAB_METRICS {"draw_calls":3,"mode":"blend","objects":3,"primitives":26}
+NEX_M10_IMAGE C:/Users/csn19/Documents/nex-engine.lfcheck-m09final/nex_bench/gpu_profile/evidence/windows-rtx5050-2026-11-17-m10/images/m10_blend.png 1920x1080
