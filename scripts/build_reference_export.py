@@ -37,6 +37,10 @@ CAPTURE_DIR = EVIDENCE_DIR / "evidence"
 CAPTURE_SCRIPT = REPO / "scripts" / "capture-reference-gui.ps1"
 GODOT_VERSION = "4.7.2.stable"
 GODOT_COMMIT = "ed1daf0bf001b61586d9930840f2f1394092c079"
+GODOT_CANDIDATES = (
+    Path(r"C:\tools\Godot_v4.7.2-stable_win64_console.exe"),
+    Path(r"C:\tools\Godot_v4.7.2-stable_win64.exe"),
+)
 NESTED_PROJECTS = ("scenes/base/project.godot", "stress/project.godot")
 STANDALONE_ENTRY_POINTS = (
     "scenes/base/viewer.tscn",
@@ -63,6 +67,16 @@ def _git(*args: str) -> str:
 
 def _source_sha() -> str:
     return _git("rev-parse", "HEAD")
+
+
+def _resolve_godot() -> Path:
+    for candidate in GODOT_CANDIDATES:
+        if candidate.is_file():
+            return candidate
+    raise SystemExit(
+        "REFERENCE_BUILD_BLOCKED: pinned Godot 4.7.2 console binary is missing; "
+        r"expected C:\tools\Godot_v4.7.2-stable_win64_console.exe"
+    )
 
 
 def _godot_version(godot: Path) -> str:
@@ -141,7 +155,8 @@ def _capture_gui() -> list[dict[str, Any]]:
     return captures
 
 
-def _build(godot: Path, run_gui: bool) -> dict[str, Any]:
+def _build(run_gui: bool) -> dict[str, Any]:
+    godot = _resolve_godot()
     version = _godot_version(godot)
     templates = _templates_dir()
     _stage_project()
@@ -290,7 +305,6 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--build", action="store_true")
     parser.add_argument("--gui", action="store_true")
-    parser.add_argument("--godot", default=os.environ.get("NEX_GODOT_BIN", ""))
     args = parser.parse_args(argv)
     if args.check:
         errors = _preset_ok() + _evidence_ok()
@@ -301,17 +315,14 @@ def main(argv: list[str]) -> int:
         print("REFERENCE_BUILD_CHECK_PASS: preset, icon, evidence and captures")
         return 0
     if args.build:
-        if not args.godot:
-            print("REFERENCE_BUILD_BLOCKED: pass --godot or set NEX_GODOT_BIN")
-            return 2
-        report = _build(Path(args.godot), args.gui)
+        report = _build(args.gui)
         EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
         EVIDENCE_JSON.write_text(json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
                                  encoding="utf-8", newline="\n")
         EVIDENCE_MD.write_text(_render_markdown(report), encoding="utf-8", newline="\n")
         print(f"REFERENCE_BUILD_PASS: {report['artifact']['bytes']} bytes / {report['artifact']['sha256'][:16]}…")
         return 0
-    print("usage: build_reference_export.py --check | --build [--gui] [--godot PATH]")
+    print("usage: build_reference_export.py --check | --build [--gui]")
     return 2
 
 
