@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · M09 editor tools complete
+
+**M09 finalizado** por PR #290, squash `818759d5e6daaa3d3f9be922331b0d39d5cd4f5c`, sob `NEX-ADR-0020` / `NEX-D-031`. O módulo de ferramentas agora tem **PresetResolver com 50 checks**, **PerfLint com 42 checks e 13 findings**, **ImportGuard** com plano determinístico sem escrita, **BenchmarkRecipe** reproduzível, **4 fixtures** e relatório/gate.
+
+**Resultado:** PerfLint reporta **13 findings** (4 errors, 9 warns) em 12 códigos; ImportGuard planeja **1 accepted / 3 rejected / 2 noop / 1 conflict**; BenchmarkRecipe gera `m09-corridor_static-ab-high-4101` com driver vulkan e 3 runs; total **92 checks** e **0 assets de terceiros**. A issue **#14** foi fechada como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M09 é o nono módulo base concluído como **ferramentas de editor de referência**, não como jogo. M10–M12 continuam bounded; M12 depende de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-16 · M08 2.5D composition complete
 
 **M08 finalizado** por PR #287, squash `cd3f1cc92ac47e2eff6dc15c1490ee6422aa9740`, sob `NEX-ADR-0019` / `NEX-D-030`. O módulo 2.5D agora tem **CompositionPlanner com 69 checks**, **9 runs nativos**, **9 capturas** e laboratório híbrido com câmera ortográfica/perspectiva, Sprite3D billboards, sorting, sombras 3D, overlay 2D e perfis low/high.
