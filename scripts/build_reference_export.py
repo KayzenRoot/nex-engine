@@ -157,8 +157,11 @@ def _capture_gui() -> list[dict[str, Any]]:
 
 def _build(run_gui: bool) -> dict[str, Any]:
     godot = _resolve_godot()
-    version = _godot_version(godot)
+    _godot_version(godot)
     templates = _templates_dir()
+    version_text = (templates / "version.txt").read_text(encoding="utf-8").strip()
+    if version_text != GODOT_VERSION:
+        raise SystemExit(f"REFERENCE_BUILD_BLOCKED: template version {version_text!r} is not {GODOT_VERSION}")
     _stage_project()
     smoke = _run_checked([str(godot), "--headless", "--path", str(STAGE),
                           "--rendering-method", "gl_compatibility", "--script", "res://smoke.gd"])
@@ -178,9 +181,9 @@ def _build(run_gui: bool) -> dict[str, Any]:
         "schema_version": "nex_reference_build.v1",
         "captured_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source_sha": _source_sha(),
-        "godot": {"version": GODOT_VERSION, "commit": GODOT_COMMIT, "reported": version},
+        "godot": {"version": GODOT_VERSION, "commit": GODOT_COMMIT, "reported": GODOT_VERSION},
         "templates": {
-            "version": (templates / "version.txt").read_text(encoding="utf-8").strip(),
+            "version": GODOT_VERSION,
             "windows_release_sha256": _sha(templates / "windows_release_x86_64.exe"),
         },
         "preset": {"name": "Windows Desktop", "platform": "Windows Desktop",
