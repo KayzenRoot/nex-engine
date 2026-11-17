@@ -1,0 +1,185 @@
+{
+  "checks": 42,
+  "failures": [],
+  "import_plan": {
+    "accepted": [
+      {
+        "bytes": 512,
+        "destination": "res://imported/data.json",
+        "id": "valid_json",
+        "path": "res://incoming/data.json",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    ],
+    "conflicts": [
+      {
+        "destination": "res://imported/wall.png",
+        "id": "conflict",
+        "reason": "destination hash differs"
+      }
+    ],
+    "counts": {
+      "accepted": 1,
+      "conflicts": 1,
+      "noop": 2,
+      "rejected": 3
+    },
+    "noop": [
+      {
+        "bytes": 1024,
+        "destination": "res://imported/wall.png",
+        "id": "noop",
+        "path": "res://incoming/wall_same.png",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "bytes": 1024,
+        "destination": "res://imported/wall.png",
+        "id": "valid_png",
+        "path": "res://incoming/wall.png",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "rejected": [
+      {
+        "id": "bad_extension",
+        "reason": "extension not allowed: exe"
+      },
+      {
+        "id": "invalid_sha",
+        "reason": "sha256 must be 64 lowercase hex"
+      },
+      {
+        "id": "oversized",
+        "reason": "file size outside [1,max]"
+      }
+    ]
+  },
+  "import_snapshot": "32ff35374da87a485c49bc8f3e6ddbec31b10e5f774c186cce06bfab498c2ff3",
+  "limitations": [
+    "deterministic fixtures only; no asset is imported or rendered",
+    "no FPS, frame-time or quality claim",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "lint": {
+    "findings": [
+      {
+        "code": "alpha_overdraw_risk",
+        "message": "30 alpha layers exceeds 24",
+        "severity": "warn"
+      },
+      {
+        "code": "draw_call_budget_exceeded",
+        "message": "900 draw calls exceeds 512",
+        "severity": "warn"
+      },
+      {
+        "code": "duplicate_id",
+        "message": "duplicate asset id: stone_wall",
+        "severity": "error"
+      },
+      {
+        "code": "invalid_dimensions",
+        "message": "width/height must be positive",
+        "severity": "error"
+      },
+      {
+        "code": "light_budget_exceeded",
+        "message": "16 lights exceeds 8",
+        "severity": "warn"
+      },
+      {
+        "code": "missing_license",
+        "message": "asset license is required",
+        "severity": "error"
+      },
+      {
+        "code": "missing_scene_id",
+        "message": "scene id is required",
+        "severity": "error"
+      },
+      {
+        "code": "oversized_file",
+        "message": "33554432 bytes exceeds 16777216",
+        "severity": "warn"
+      },
+      {
+        "code": "shadow_budget_exceeded",
+        "message": "8 shadowed lights exceeds 4",
+        "severity": "warn"
+      },
+      {
+        "code": "sync_load_risk",
+        "message": "asset is loaded synchronously",
+        "severity": "warn"
+      },
+      {
+        "code": "sync_load_risk",
+        "message": "scene contains synchronous loads",
+        "severity": "warn"
+      },
+      {
+        "code": "texture_too_large",
+        "message": "4096x4096 exceeds 2048 px",
+        "severity": "warn"
+      },
+      {
+        "code": "unknown_format",
+        "message": "unknown texture format: tga",
+        "severity": "warn"
+      }
+    ],
+    "summary": {
+      "codes": {
+        "alpha_overdraw_risk": 1,
+        "draw_call_budget_exceeded": 1,
+        "duplicate_id": 1,
+        "invalid_dimensions": 1,
+        "light_budget_exceeded": 1,
+        "missing_license": 1,
+        "missing_scene_id": 1,
+        "oversized_file": 1,
+        "shadow_budget_exceeded": 1,
+        "sync_load_risk": 2,
+        "texture_too_large": 1,
+        "unknown_format": 1
+      },
+      "counts": {
+        "error": 4,
+        "info": 0,
+        "warn": 9
+      },
+      "highest": "error",
+      "total": 13
+    }
+  },
+  "recipe": {
+    "command": "godot --path nex_bench --rendering-driver vulkan res://scenes/preset_ab/preset_ab.tscn",
+    "driver": "vulkan",
+    "limitations": [
+      "recipe only; no benchmark is executed",
+      "target FPS is not a measured claim"
+    ],
+    "observation_seconds": 30.0,
+    "preset_id": "ab-high",
+    "provenance": {
+      "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
+      "base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "recipe_id": "m09-corridor_static-ab-high-4101",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "runs": 3,
+    "scene_id": "corridor_static",
+    "schema_version": "nex_bench_recipe.v1",
+    "seed": 4101,
+    "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "warmup_seconds": 2.0
+  },
+  "schema_version": "m09_editor_smoke.v1",
+  "source_sha": "371ca4ab4a5f70debc96e84bba55aba3870fc9cf",
+  "verdict": "PASS"
+}

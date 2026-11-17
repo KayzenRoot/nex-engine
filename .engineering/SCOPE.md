@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M09 full reference | ferramentas de editor concluídas (2026-11-17)
+
+`NEX-ADR-0020` / `NEX-D-031` admitem o M09 como ferramentas de editor de referência bounded: PresetResolver com 50 checks, PerfLint com 42 checks e 13 findings, ImportGuard com plano determinístico sem escrita, BenchmarkRecipe reproduzível, 4 fixtures e relatório/gate. A issue #14 pode ser fechada após integração protegida. M09 é o nono módulo base concluído como **ferramentas de editor de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há importação real, rendering, editor core, gameplay ou asset de terceiros. M10–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `371ca4ab4a5f70debc96e84bba55aba3870fc9cf`.
+
 ### M08 full reference | composição 2.5D concluída (2026-11-16)
 
 `NEX-ADR-0019` / `NEX-D-030` admitem o M08 como composição 2.5D de referência bounded: CompositionPlanner com 69 checks, laboratório híbrido nativo com câmera ortográfica/perspectiva, Sprite3D billboards, sorting, sombras 3D, overlay CanvasLayer, hybrid e perfis low/high, 9 runs e 9 capturas. A issue #13 pode ser fechada após integração protegida. M08 é o oitavo módulo base concluído como **composição 2.5D de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há renderer 2.5D de produção, viewport stacking, shader customizado ou gameplay. M09–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `2c7dd515e307086cdd7180577b0c78ad7fb5cf1c`.

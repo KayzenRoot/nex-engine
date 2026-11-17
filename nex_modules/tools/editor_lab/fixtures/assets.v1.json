@@ -1,0 +1,11 @@
+{
+  "schema_version": "m09_assets_fixture.v1",
+  "assets": [
+    {"id": "stone_wall", "path": "res://textures/stone_wall.png", "bytes": 262144, "width": 512, "height": 512, "format": "png", "license": "original", "source": "procedural", "sync_load": false},
+    {"id": "huge_sky", "path": "res://textures/huge_sky.png", "bytes": 33554432, "width": 4096, "height": 4096, "format": "png", "license": "original", "source": "procedural", "sync_load": true},
+    {"id": "missing_license", "path": "res://textures/missing_license.png", "bytes": 1024, "width": 256, "height": 256, "format": "png", "license": "", "source": "unknown", "sync_load": false},
+    {"id": "unknown_format", "path": "res://textures/unknown.tga", "bytes": 2048, "width": 512, "height": 512, "format": "tga", "license": "original", "source": "procedural", "sync_load": false},
+    {"id": "stone_wall", "path": "res://textures/duplicate.png", "bytes": 2048, "width": 256, "height": 256, "format": "png", "license": "original", "source": "procedural", "sync_load": false},
+    {"id": "bad_dimensions", "path": "res://textures/bad.png", "bytes": 128, "width": 0, "height": 0, "format": "png", "license": "original", "source": "procedural", "sync_load": false}
+  ]
+}

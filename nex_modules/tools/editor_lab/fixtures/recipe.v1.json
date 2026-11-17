@@ -1,0 +1,5 @@
+{
+  "schema_version": "m09_recipe_fixture.v1",
+  "config": {"scene_id": "corridor_static", "preset_id": "ab-high", "seed": 4101, "driver": "vulkan", "source_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "resolution": [1920, 1080], "runs": 3},
+  "invalid": {"scene_id": "", "preset_id": "", "seed": -1, "driver": "metal", "source_sha": "xyz", "resolution": [100, 100], "runs": 4}
+}

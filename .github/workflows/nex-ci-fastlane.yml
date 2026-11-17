@@ -88,6 +88,7 @@ jobs:
           python3 docs/benchmarks/m06/tools/build_advisories.py --check-full
           python3 docs/benchmarks/m06/tools/build_m09_atlas.py --check
           python3 docs/benchmarks/m09/tools/build_ab.py --check
+          python3 docs/benchmarks/m09/tools/build_m09_editor_tools.py --check
           python3 docs/benchmarks/m09/tools/build_scaling.py --check
           python3 docs/benchmarks/m09/tools/build_m01_ab.py --check
           python3 docs/benchmarks/m09/tools/build_m01_visual.py --check
