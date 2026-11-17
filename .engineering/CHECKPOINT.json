@@ -2995,6 +2995,7 @@
     "audit": "ADMIN_SOLO_NOT_INDEPENDENT",
     "pr": 297,
     "protectedMergeSha": "0bc10ef448af46c00bf22f1e3782beca7a1621eb",
+    "postMergeChecks": "ELEVEN_SUCCESS_ONE_NEUTRAL_EXTERNAL_SOCKET_ERROR",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM12": "FULL_REFERENCE_BRAND_SYSTEM_COMPLETE"
   }
