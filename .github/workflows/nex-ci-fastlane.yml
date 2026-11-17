@@ -85,6 +85,7 @@ jobs:
           python3 docs/benchmarks/m11/tools/build_kit_audit.py --check
           python3 docs/benchmarks/m11/tools/build_m11_asset_tools.py --check
           python3 docs/benchmarks/m12/tools/build_brand_kit.py --check
+          python3 scripts/build_reference_export.py --check
           python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check
           python3 docs/benchmarks/m06/tools/convert_m09_observations.py --check-full
           python3 docs/benchmarks/m06/tools/build_advisories.py --check

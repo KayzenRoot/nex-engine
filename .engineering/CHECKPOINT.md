@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · reference build Windows x86_64
+
+**Reference build concluído** sob `NEX-ADR-0024` / `NEX-D-035`, bounded ao visual lab unificado. O build gera **`build/NEXEngine.exe`** de **109522728 bytes** com Godot 4.7.2-stable e templates oficiais, usando staging que remove os `project.godot` aninhados e os entry points standalone.
+
+**Resultado:** smoke staged **PASS**; export release **PASS**; executável headless **PASS**; GUI **PASS** com **5 capturas 1296×759** (corridor, arena, dense city, density ladder, diagnostics). O diagnóstico observou **Forward+ / Vulkan**, **RTX 5050**, 60 FPS observado (não benchmark), 28 draw calls, 766 objetos 3D e 88.0 MiB de renderer allocation. O artefato **não é versionado**; `build/` é ignorado e o build é reproduzível com `python scripts/build_reference_export.py --build --gui`. A issue **#300** pode ser fechada após squash protegido e checks pós-merge. **Nenhuma paridade com PoE2 é alegada**; não há installer, code signing, distribuição, alteração de engine/renderer, claim de FPS/qualidade ou aprovação de marca. Distribuição/trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-17 · M12 brand system complete
 
 **M12 finalizado** por PR #297, squash `0bc10ef448af46c00bf22f1e3782beca7a1621eb`, sob `NEX-ADR-0023` / `NEX-D-034`, bounded ao sistema de marca de referência. O wordmark NEX ENGINE agora usa **paths outline sem dependência de fonte**, a paleta tem **5 tokens canônicos**, os app icons têm **9 PNGs + ICO + ICNS**, os UI icons são **10** e o `identity.v1` foi validado com **14 checks** e veredito **READY_FOR_UI**.
