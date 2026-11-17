@@ -35,4 +35,4 @@
 
 ## Fechamento
 
-Com este gate, a issue **#300** pode ser fechada como `COMPLETED` após o merge protegido e os checks pós-merge. O executável deve ser reconstruído localmente com `python scripts/build_reference_export.py --build --gui`; ele não é versionado.
+Com este gate, a issue **#300** foi fechada como `COMPLETED` após o merge protegido da PR #301 (`8a23e418f251cca167cc611f439ce5c96db1ed0f`) e **14/14 checks pós-merge SUCCESS**. O executável deve ser reconstruído localmente com `python scripts/build_reference_export.py --build --gui`; ele não é versionado.
