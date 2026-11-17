@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · M12 brand system complete
+
+**M12 finalizado** sob `NEX-ADR-0023` / `NEX-D-034`, bounded ao sistema de marca de referência. O wordmark NEX ENGINE agora usa **paths outline sem dependência de fonte**, a paleta tem **5 tokens canônicos**, os app icons têm **9 PNGs + ICO + ICNS**, os UI icons são **10** e o `identity.v1` foi validado com **14 checks** e veredito **READY_FOR_UI**.
+
+**Resultado:** Mist/Graphite **16.48:1**; Cobalt/Graphite **4.27:1**; Cyan **10.63:1**; Amber **10.51:1**; ICO **47845 bytes**; ICNS **45394 bytes**; **0 findings**. A issue **#17** pode ser fechada como `COMPLETED` após squash protegido e checks pós-merge. **Nenhuma paridade com PoE2 é alegada**; M12 é o décimo segundo módulo base concluído como **sistema de marca de referência**, não como rebranding da engine. Nenhuma integração com editor UI, launcher, installer, hub, renderer ou binário é admitida; distribuição e trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-17 · M11 asset pipeline complete
 
 **M11 finalizado** por PR #295, squash `5793dcf52a94f2520ccc55e0a27438d3c6a2788e`, sob `NEX-ADR-0022` / `NEX-D-033`. O pipeline de assets agora tem **AssetPipelineAuditor com 43 checks**, **AssetManifest**, **CookPlanner**, **LicenseLedger**, **AssetQualityGate**, **3 fixtures** e **39 checks** no smoke.

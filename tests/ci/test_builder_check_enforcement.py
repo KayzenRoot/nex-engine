@@ -1,4 +1,4 @@
-"""CI enforcement tests for deterministic M01-M06/M08-M11 builders."""
+"""CI enforcement tests for deterministic M01-M12 builders."""
 from __future__ import annotations
 
 import json
@@ -21,10 +21,11 @@ BUILDER_DIRS = {
     "m09": REPO / "docs" / "benchmarks" / "m09" / "tools",
     "m10": REPO / "docs" / "benchmarks" / "m10" / "tools",
     "m11": REPO / "docs" / "benchmarks" / "m11" / "tools",
+    "m12": REPO / "docs" / "benchmarks" / "m12" / "tools",
 }
 ALL_PY_MODULES = {"m01", "m02"}
 COMMAND = re.compile(
-    r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m04|m05|m06|m07|m08|m09|m10|m11)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
+    r"^\s*python3 (docs/benchmarks/(m01|m02|m03|m04|m05|m06|m07|m08|m09|m10|m11|m12)/tools/([a-z0-9_]+\.py)) ([^\n]+)$",
     re.MULTILINE,
 )
 CROSS_MODULE_COMMAND = re.compile(
@@ -95,9 +96,9 @@ class BuilderCheckEnforcementTests(unittest.TestCase):
         )
 
     def test_expected_builder_count(self) -> None:
-        # 3 M01 + 4 M02 + 2 M03 (3 invocations) + 5 M04 + 2 M05 + 5 M06 (7 invocations) + 1 M07 + 2 M08 + 17 M09 + 2 M10 + 2 M11 = 45 files / 48 checks, plus 3 cross-module validators.
-        self.assertEqual(45, len(self.commands))
-        self.assertEqual(48, sum(len(value) for value in self.commands.values()))
+        # 3 M01 + 4 M02 + 2 M03 (3 invocations) + 5 M04 + 2 M05 + 5 M06 (7 invocations) + 1 M07 + 2 M08 + 17 M09 + 2 M10 + 2 M11 + 1 M12 = 46 files / 49 checks, plus 3 cross-module validators.
+        self.assertEqual(46, len(self.commands))
+        self.assertEqual(49, sum(len(value) for value in self.commands.values()))
 
 
 if __name__ == "__main__":
