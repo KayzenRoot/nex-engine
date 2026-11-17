@@ -1,0 +1,178 @@
+{
+  "schema_version": "m10_lab_runs.v1",
+  "source_sha": "818759d5e6daaa3d3f9be922331b0d39d5cd4f5c",
+  "session_date": "2026-11-17",
+  "runs": [
+    {
+      "sequence": 1,
+      "mode": "baseline",
+      "run_id": "1794920656-34442544",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-baseline",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 0.0,
+      "file": "gpu_profile_1794920656-34442544.json"
+    },
+    {
+      "sequence": 2,
+      "mode": "blend",
+      "run_id": "1794921034-33664273",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-blend",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 0.5,
+      "file": "gpu_profile_1794921034-33664273.json"
+    },
+    {
+      "sequence": 3,
+      "mode": "attack",
+      "run_id": "1794920725-33513752",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-attack",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 1.0,
+      "file": "gpu_profile_1794920725-33513752.json"
+    },
+    {
+      "sequence": 4,
+      "mode": "hit",
+      "run_id": "1794920759-33580221",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-hit",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 0.0,
+      "file": "gpu_profile_1794920759-33580221.json"
+    },
+    {
+      "sequence": 5,
+      "mode": "hitstop",
+      "run_id": "1794920794-33546042",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-hitstop",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 1.0,
+      "file": "gpu_profile_1794920794-33546042.json"
+    },
+    {
+      "sequence": 6,
+      "mode": "camera",
+      "run_id": "1794920828-33539599",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-camera",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 1.0,
+      "file": "gpu_profile_1794920828-33539599.json"
+    },
+    {
+      "sequence": 7,
+      "mode": "vfx",
+      "run_id": "1794920863-33516015",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-vfx",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 1.0,
+      "file": "gpu_profile_1794920863-33516015.json"
+    },
+    {
+      "sequence": 8,
+      "mode": "quality_low",
+      "run_id": "1794920897-33597010",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-quality_low",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 0,
+      "blend": 0.0,
+      "file": "gpu_profile_1794920897-33597010.json"
+    },
+    {
+      "sequence": 9,
+      "mode": "quality_high",
+      "run_id": "1794920931-33403292",
+      "scene_id": "m10_lab",
+      "scene": "M10 Animation Lab",
+      "layout": "M10 animation and feedback lab",
+      "proxy_count": 100,
+      "effect_mode": "lights",
+      "preset_id": "m10-quality_high",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "bones": 2,
+      "proxies": 12,
+      "blend": 1.0,
+      "file": "gpu_profile_1794920931-33403292.json"
+    }
+  ]
+}

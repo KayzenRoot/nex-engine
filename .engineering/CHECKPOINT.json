@@ -2847,5 +2847,46 @@
     "protectedMergeSha": "818759d5e6daaa3d3f9be922331b0d39d5cd4f5c",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM09": "FULL_REFERENCE_EDITOR_TOOLS_COMPLETE"
+  },
+  "m10FinalReference": {
+    "id": "NEX-M10-FINAL-REFERENCE-WO-001",
+    "issues": [
+      15
+    ],
+    "admissionAdr": "NEX-ADR-0021-M10-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-032",
+    "plannerChecks": 66,
+    "runs": 9,
+    "images": 9,
+    "gpuP95Ms": {
+      "baseline": 0.256,
+      "blend": 0.264,
+      "attack": 0.256,
+      "hit": 0.256,
+      "hitstop": 0.255,
+      "camera": 0.273,
+      "vfx": 0.262,
+      "quality_low": 0.264,
+      "quality_high": 0.274
+    },
+    "changedPixelsPct": {
+      "blend": 0.493,
+      "attack": 0.931,
+      "hit": 0.414,
+      "camera": 2.661,
+      "vfx": 3.681,
+      "quality_high": 7.934
+    },
+    "hitstop": "VISUAL_ONLY_ZERO_POSE_DELTA",
+    "excludedScope": [
+      "damage, hitbox, physics, netcode or gameplay logic",
+      "production character, skin, full rig or third-party assets",
+      "M11-M12, renderer core, custom shader or production scene",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "generalized FPS, quality, input-to-photon or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M10_REFERENCE_ANIMATION_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
