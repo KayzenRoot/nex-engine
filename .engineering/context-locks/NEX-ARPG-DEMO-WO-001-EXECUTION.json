@@ -45,6 +45,7 @@
     {"path": "tests/ci/test_integrated_hub.py", "gitBlobSha1": "815fddcde30b7030f01acf76f72a8127ec9c50b0"},
     {"path": "tests/ci/test_windows_native_launcher.py", "gitBlobSha1": "01078a54cbfca2b9ea5ed91f1bcd476d4883935f"},
     {"path": ".github/workflows/nex-ci-fastlane.yml", "gitBlobSha1": "aa2f301acb9ae17ab9274582f131b5da1df7d3ad"},
+    {"path": ".github/workflows/nex-visual-lab-native-smoke.yml", "gitBlobSha1": "1dffd0a2a11e1fc45efc9ed3c73f9ecc7df31790"},
     {"path": ".gitignore", "gitBlobSha1": "58fddc26c1a68a6c3a8058643c0c8f4f77f87d63"},
     {"path": "assets/brand/app-icons/nex-engine.ico", "gitBlobSha1": "936f7200135b0646801cb1af79f9ed6e0bc782b0"}
   ],
@@ -63,6 +64,8 @@
       "tests/ci/test_arpg_demo.py",
       "tests/ci/test_integrated_hub.py",
       "tests/ci/test_windows_native_launcher.py",
+      ".github/workflows/nex-ci-fastlane.yml",
+      ".github/workflows/nex-visual-lab-native-smoke.yml",
       ".engineering/decisions/NEX-ADR-0025-ARPG-DEMO.md",
       ".engineering/DECISIONS-LEDGER.md",
       ".engineering/work-orders/NEX-ARPG-DEMO-WO-001.md",
