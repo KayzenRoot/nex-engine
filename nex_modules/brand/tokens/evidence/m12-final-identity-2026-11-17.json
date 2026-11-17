@@ -1,0 +1,41 @@
+{
+  "checks": 14,
+  "failures": [],
+  "limitations": [
+    "headless structural validation only",
+    "no editor UI, launcher or installer is modified",
+    "distribution and trademark clearance remain Owner decisions",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "report": {
+    "findings": [],
+    "limitations": [
+      "analysis only: no logo, theme, SVG or UI asset is generated or approved",
+      "contrast is computed from declared hex values, not measured on screen",
+      "typography and spacing are validated structurally, not visually",
+      "brand approval and trademark review are out of scope",
+      "no FPS, rendering or quality claim is produced",
+      "no scene, engine or project.godot integration"
+    ],
+    "metrics": {
+      "large_text_threshold": 3.0,
+      "logo_variants": 3,
+      "palette_tokens": 5,
+      "roles_present": 5,
+      "spacing_steps": 8,
+      "text_contrast_ratio": 16.48
+    },
+    "recommendations": [],
+    "schema_version": "identity_validation.report.v1",
+    "summary": {
+      "high": 0,
+      "info": 0,
+      "low": 0,
+      "medium": 0
+    },
+    "verdict": "READY_FOR_UI"
+  },
+  "schema_version": "m12_final_identity.v1",
+  "source_sha": "c2c13c57b4de7a5114db2e2b79d37a7e026bfa62",
+  "verdict": "PASS"
+}

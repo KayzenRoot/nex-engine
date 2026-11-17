@@ -1,35 +1,40 @@
 # NEX M12-S01 · Brand master (decision record)
 
-**Status:** `PROVISIONAL_BRAND_MASTER / NOT_INTEGRATED / NOT_DISTRIBUTION_RELEASE`
-**Issue:** #17 (NEX-M12-WO-001) · **Wave:** NEX-WAVE-001 frente 4 · **Audit:** ADMIN_SOLO `NOT_INDEPENDENT`
+**Status:** `BRAND_SYSTEM_REFERENCE_FINAL / DISTRIBUTION_TRADEMARK_PENDING`
+**Issue:** #17 (NEX-M12-WO-001) · **Audit:** ADMIN_SOLO `NOT_INDEPENDENT`
 
 ## Decision
 
-Direction **"Isometric N / Hex core"**: an isometric N (two verticals + diagonal) inside a hexagonal frame, with an amber baseline diamond. Palette: Graphite `#0B0F14`, Cobalt `#2F6BFF`, Cyan `#35D0FF`, Amber `#FFB020`, Mist `#E8EEF7`.
+Direction **"Isometric N / Hex core"**: an isometric N (two verticals + diagonal) inside a hexagonal frame, with an amber baseline diamond. Palette: Graphite `#0b0f14`, Cobalt `#2f6bff`, Cyan `#35d0ff`, Amber `#ffb020`, Mist `#e8eef7`.
 
-Rationale: legible at 16 px, geometry echoes the isometric ARPG camera and the measurement discipline of the project, and it avoids any third-party mark. Alternatives rejected: wordmark-only (weak at icon sizes), literal "N" glyph (font dependency and weak in monochrome), abstract cube (reads as a generic engine).
+The public wordmark is **NEX ENGINE**, built as an outlined geometric path system in `wordmark.svg` and `logo-primary.svg`. It has no `<text>` element and no font dependency, so it is independent of licensed typefaces. Alternatives rejected: wordmark-only (weak at icon sizes), literal "N" glyph (font dependency and weak in monochrome), abstract cube (reads as a generic engine).
 
 ## Deliverables
 
-- `assets/brand/logo-mark.svg`, `logo-primary.svg`, `logo-monochrome.svg`
+- `assets/brand/logo-mark.svg`, `logo-primary.svg`, `logo-monochrome.svg`, `wordmark.svg`
 - `assets/brand/icons/*.svg` (10 monochrome 24×24 icons)
-- `assets/brand/palette.v1.json`
-- `assets/brand/BRAND-GUIDELINES.md` (usage rules)
-- `tests/ci/test_brand_assets.py` (structural acceptance)
+- `assets/brand/app-icons/nex-engine-{16..1024}.png`, `.ico`, `.icns`
+- `assets/brand/palette.v1.json`, `identity.v1.json`, `SHA256SUMS.txt`
+- `assets/brand/BRAND-GUIDELINES.md`
+- `docs/benchmarks/m12/brand-kit.v1.json`, `BRAND-KIT.md`
+- `tests/ci/test_brand_assets.py`, `tests/ci/test_m12_final.py`
 
-## Acceptance (this increment)
+## Acceptance
 
 - All SVGs parse as XML; no scripts, external references, embedded data, event handlers or `<style>` blocks.
+- Primary logo and wordmark use outlined paths only; no `<text>`.
 - Icons: 24×24 viewBox, `currentColor` stroke, no text, accessible label.
-- Palette tokens unique and well-formed.
-- Guidelines state originality (not derived from the Godot logo) and the provisional wordmark rule.
+- Palette tokens unique and well-formed; Mist/Graphite 16.48:1, Cobalt/Graphite 4.27:1.
+- Nine app-icon PNG sizes, ICO and ICNS containers generated deterministically.
+- `identity.v1` validates as `READY_FOR_UI` with zero findings (14 final checks).
 - Zero engine integration: no change to `project.godot`, hub, launcher, installer or CI.
+- Brand assets are **not integrated into the editor, launcher or installer**.
 
 ## Pending Owner decisions
 
-1. Final wordmark: approve the provisional lettering or commission/convert to outlines.
-2. Distribution license for brand assets.
-3. Whether the editor icon set (S03) should adopt this palette before a UI Work Order is admitted.
+1. Distribution license for the brand assets.
+2. Trademark clearance for the NEX ENGINE name and mark before public distribution.
+3. Whether the editor icon set (S03) adopts this palette before a UI Work Order is admitted.
 
 ## Future phases (not admitted)
 

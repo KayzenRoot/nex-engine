@@ -61,14 +61,15 @@ class BrandSvgTests(unittest.TestCase):
                 self.assertTrue(root.attrib.get("aria-label"))
                 self.assertFalse([e for e in root.iter() if local_name(e.tag) == "text"])
 
-    def test_primary_logo_marks_the_wordmark_as_provisional(self) -> None:
-        primary = parse_svg(BRAND / "logo-primary.svg")
-        text_nodes = [element for element in primary.iter() if local_name(element.tag) == "text"]
-        self.assertGreaterEqual(len(text_nodes), 2)
-        for node in text_nodes:
-            self.assertIn("font-family", node.attrib)
+    def test_primary_logo_uses_outlined_wordmark(self) -> None:
+        for name in ("logo-primary.svg", "wordmark.svg"):
+            root = parse_svg(BRAND / name)
+            text_nodes = [element for element in root.iter() if local_name(element.tag) == "text"]
+            self.assertEqual([], text_nodes, f"{name} must not depend on a font")
+            self.assertTrue([element for element in root.iter() if local_name(element.tag) == "path"])
         guidelines = (BRAND / "BRAND-GUIDELINES.md").read_text(encoding="utf-8").lower()
-        self.assertIn("provisional", guidelines)
+        self.assertIn("outlined geometric paths", guidelines)
+        self.assertIn("no font dependency", guidelines)
 
     def test_monochrome_mark_uses_current_color(self) -> None:
         root = parse_svg(BRAND / "logo-monochrome.svg")
@@ -94,8 +95,9 @@ class BrandDocumentationTests(unittest.TestCase):
     def test_originality_statement_is_present(self) -> None:
         text = (BRAND / "BRAND-GUIDELINES.md").read_text(encoding="utf-8").lower()
         self.assertIn("not derived from the godot logo", text)
+        self.assertIn("distribution license and trademark clearance", text)
         master = (REPO / "docs" / "brand" / "BRAND-MASTER.md").read_text(encoding="utf-8").lower()
-        self.assertIn("not_integrated", master)
+        self.assertIn("not integrated into the editor, launcher or installer", master)
         self.assertIn("pending owner decisions", master)
 
 

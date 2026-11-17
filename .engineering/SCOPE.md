@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M12 full reference | sistema de marca concluído (2026-11-17)
+
+`NEX-ADR-0023` / `NEX-D-034` admitem o M12 como sistema de marca de referência bounded: wordmark NEX ENGINE em paths outline sem dependência de fonte, paleta de 5 tokens, 10 ícones de UI, 9 app icons com ICO/ICNS, `identity.v1` com hashes e thresholds, smoke final de 14 checks e relatório/gate. A issue #17 pode ser fechada após integração protegida. M12 é o décimo segundo módulo base concluído como **sistema de marca de referência**, não como rebranding da engine; **nenhuma paridade com PoE2 é alegada** e não há integração com editor UI, launcher, installer, hub, renderer ou binário, nem aprovação de distribuição/trademark. A base desta extensão é `c2c13c57b4de7a5114db2e2b79d37a7e026bfa62`.
+
 ### M11 full reference | pipeline de assets concluído (2026-11-17)
 
 `NEX-ADR-0022` / `NEX-D-033` admitem o M11 como pipeline de assets de referência bounded: AssetPipelineAuditor com 43 checks, AssetManifest, CookPlanner, LicenseLedger, AssetQualityGate, 3 fixtures e relatório/gate. A issue #16 pode ser fechada após integração protegida. M11 é o décimo primeiro módulo base concluído como **pipeline de assets de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há importação/cook/escrita, verificação jurídica, rendering, editor core, gameplay ou asset de terceiros real. M12 continua bounded e dependente de aprovação de marca. A base desta extensão é `13554f3e9ee879c48edb32d780c6fa0611d41b19`.

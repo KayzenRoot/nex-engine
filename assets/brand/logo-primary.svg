@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 128" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 140" role="img" aria-labelledby="title desc">
   <title id="title">NEX Engine primary logo</title>
-  <desc id="desc">Original NEX mark with provisional wordmark; wordmark must be converted to outlines before distribution.</desc>
+  <desc id="desc">Original isometric N mark with outlined geometric NEX ENGINE wordmark; no font dependency.</desc>
   <g fill="none">
     <polygon points="64,4 120,36 120,92 64,124 8,92 8,36" fill="#0B0F14" stroke="#2F6BFF" stroke-width="4" stroke-linejoin="round"/>
     <polygon points="42,36 54,43 54,92 42,85" fill="#2F6BFF"/>
@@ -9,8 +9,17 @@
     <polygon points="47,39 88,63 83,73 42,49" fill="#35D0FF"/>
     <polygon points="64,108 72,112 64,116 56,112" fill="#FFB020"/>
   </g>
-  <g fill="#E8EEF7" font-family="Segoe UI, Arial, sans-serif">
-    <text x="152" y="66" font-family="Segoe UI, Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="2">NEX</text>
-    <text x="154" y="98" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="500" fill="#35D0FF" letter-spacing="6">ENGINE</text>
+  <g fill="none" stroke="#E8EEF7" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M150 94 V30 L194 94 V30"/>
+    <path d="M252 30 H208 V94 H252 M208 62 H242"/>
+    <path d="M266 30 L310 94 M310 30 L266 94"/>
+  </g>
+  <g fill="none" stroke="#35D0FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M176 88 H150 V120 H176 M150 104 H170"/>
+    <path d="M184 120 V88 L210 120 V88"/>
+    <path d="M244 88 H218 V120 H244 V104 H230"/>
+    <path d="M252 88 V120"/>
+    <path d="M260 120 V88 L286 120 V88"/>
+    <path d="M320 88 H294 V120 H320 M294 104 H314"/>
   </g>
 </svg>
