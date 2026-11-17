@@ -87,9 +87,12 @@ def _contrast(first: str, second: str) -> float:
 
 def _sums_bytes() -> bytes:
     lines = []
-    for path in sorted(BRAND.rglob("*")):
-        if not path.is_file() or path.name == "SHA256SUMS.txt":
-            continue
+    paths = sorted(
+        (path for path in BRAND.rglob("*")
+         if path.is_file() and path.name != "SHA256SUMS.txt"),
+        key=lambda path: path.relative_to(BRAND).as_posix(),
+    )
+    for path in paths:
         lines.append(f"{_sha(path)} *{path.relative_to(BRAND).as_posix()}")
     separator = chr(10)
     return (separator.join(lines) + separator).encode("utf-8")
