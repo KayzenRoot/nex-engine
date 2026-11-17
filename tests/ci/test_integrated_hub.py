@@ -44,7 +44,7 @@ class IntegratedVisualHubTests(unittest.TestCase):
                       'button.pressed.connect(_capture.bind("baseline"))',
                       'button.pressed.connect(_capture.bind("candidate"))',
                       'button.pressed.connect(_compare_captures)',
-                      "KEY_F1", "KEY_F2", "KEY_F3", "KEY_F4"):
+                      "KEY_F1", "KEY_F2", "KEY_F3", "KEY_F4", "KEY_F5"):
             with self.subTest(token=token):
                 self.assertIn(token, self.script)
 
@@ -133,7 +133,7 @@ class IntegratedVisualHubTests(unittest.TestCase):
         smoke = (ROOT / "smoke.gd").read_text(encoding="utf-8")
         for token in ("extends SceneTree", "NEX_NATIVE_IMPORT_SMOKE_PASS",
                       '"res://main.tscn"', '"res://stress/density_ladder.gd"',
-                      "for mode in range(4)", 'quit(1)'):
+                      "for mode in range(5)", 'quit(1)'):
             with self.subTest(token=token):
                 self.assertIn(token, smoke)
 

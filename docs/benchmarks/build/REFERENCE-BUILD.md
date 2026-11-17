@@ -2,12 +2,12 @@
 
 **Status:** `REFERENCE_BUILD_VERIFIED / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Source SHA:** `4f822fc9dbe7b2b54d12a470913b3c33ddb8f88b` · **Godot:** 4.7.2.stable (`ed1daf0bf`)
+**Source SHA:** `a872323b3eedc9cf442fd10e417b8ce70f01bae2` · **Godot:** 4.7.2.stable (`ed1daf0bf`)
 
 ## Artifact
 
-- `build/NEXEngine.exe` · **109522728 bytes**
-- SHA-256: `9aae397ec302a4ba280db2e856abd15550ccab5bbfb989edd3cae1a74eb22f8c`
+- `build/NEXEngine.exe` · **109548888 bytes**
+- SHA-256: `0f93eaa9c38c061ed7fae19009511dafd5d9f26eef806ac9f768393b7d6a3bdc`
 - O executável não é versionado; `build/` é ignorado.
 
 ## Verificação
@@ -21,11 +21,12 @@
 
 | Arquivo | Dimensões | SHA-256 |
 |---|---|---|
-| `evidence/nex-mode-corridor.png` | 1296×759 | `15ee141ffda7a461…` |
-| `evidence/nex-mode-arena.png` | 1296×759 | `766d0e5941405744…` |
-| `evidence/nex-mode-dense-city.png` | 1296×759 | `7b584e0e1bb77cdd…` |
-| `evidence/nex-mode-density.png` | 1296×759 | `2f7534d0d95590ad…` |
-| `evidence/nex-mode-diagnostics.png` | 1296×759 | `ab4df2848ceae089…` |
+| `evidence/nex-mode-corridor.png` | 1296×759 | `99a0e0159d110dd1…` |
+| `evidence/nex-mode-arena.png` | 1296×759 | `ba8f0ef851380dd3…` |
+| `evidence/nex-mode-dense-city.png` | 1296×759 | `2fea218a76c5a049…` |
+| `evidence/nex-mode-density.png` | 1296×759 | `bcf6907aa597b9a5…` |
+| `evidence/nex-mode-arpg.png` | 1296×759 | `a81332a7b84c700e…` |
+| `evidence/nex-mode-diagnostics.png` | 1296×759 | `d3f8825e2bd7cc05…` |
 
 ## Limitações
 

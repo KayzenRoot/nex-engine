@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### ARPG reference demo | F5 concluído (2026-11-17)
+
+`NEX-ADR-0025` / `NEX-D-036` admitem, de forma bounded e local, um demo ARPG isométrico original integrado como **F5 ARPG DEMO**: personagem, arena, tochas, dummy, câmera e HUD procedurais; LMB/WASD, RMB/SPACE e wheel zoom. A issue #303 pode ser fechada após integração protegida. O build de **109548888 bytes** não é versionado. Não ficam admitidos assets/nomes/cenas/personagens de Path of Exile/PoE2, paridade com PoE2, gameplay completo, dano autoritativo, hitbox, física, rede, progressão, personagem de produção, assets de terceiros, installer, code signing, distribuição ou claims de FPS/qualidade; distribuição/trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. A base desta extensão é `a872323b3eedc9cf442fd10e417b8ce70f01bae2`.
+
 ### Reference build | Windows x86_64 concluído (2026-11-17)
 
 `NEX-ADR-0024` / `NEX-D-035` admitem, de forma bounded e local, o reference build Windows x86_64 do visual lab unificado: preset Windows Desktop, staging sem projetos aninhados, ícone ICO do M12, build Godot 4.7.2-stable, smoke staged, headless, GUI F1–F4/F9 com 5 capturas e `--check` no Fast Lane. A issue #300 pode ser fechada após integração protegida. O artefato de **109522728 bytes** não é versionado; `build/` é ignorado. Não ficam admitidos installer, code signing, distribuição, alteração de engine/renderer, claims de FPS/qualidade ou paridade com PoE2; distribuição e trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. A base desta extensão é `4f822fc9dbe7b2b54d12a470913b3c33ddb8f88b`.

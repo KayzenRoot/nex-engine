@@ -27,7 +27,11 @@ LOCK = REPO / ".engineering" / "context-locks" / "NEX-REFERENCE-BUILD-WO-001-EXE
 CHECKPOINT = REPO / ".engineering" / "CHECKPOINT.json"
 WORKFLOW = REPO / ".github" / "workflows" / "nex-ci-fastlane.yml"
 CAPTURES = ("nex-mode-corridor.png", "nex-mode-arena.png", "nex-mode-dense-city.png",
-            "nex-mode-density.png", "nex-mode-diagnostics.png")
+            "nex-mode-density.png", "nex-mode-arpg.png", "nex-mode-diagnostics.png")
+INTERACTION_CAPTURES = {
+    "arpg-attack.png": "e0b15f809323517d84080b19471dc0b240562609d3477cefc89413252eb7fff8",
+    "arpg-move.png": "09fc612b1e19a76988c8f0137816f7976b358c1fd30723cbb047f9173932eaf9",
+}
 
 
 def _sha(path: Path) -> str:
@@ -67,13 +71,13 @@ class ReferenceBuildTests(unittest.TestCase):
                           "exported_headless": "PASS", "gui": "PASS"}, self.report["checks"])
         artifact = self.report["artifact"]
         self.assertEqual("build/NEXEngine.exe", artifact["path"])
-        self.assertEqual(109522728, artifact["bytes"])
-        self.assertEqual("9aae397ec302a4ba280db2e856abd15550ccab5bbfb989edd3cae1a74eb22f8c",
+        self.assertEqual(109548888, artifact["bytes"])
+        self.assertEqual("0f93eaa9c38c061ed7fae19009511dafd5d9f26eef806ac9f768393b7d6a3bdc",
                          artifact["sha256"])
 
     def test_gui_captures_are_clean_window_images(self) -> None:
         captures = self.report["gui_captures"]
-        self.assertEqual(5, len(captures))
+        self.assertEqual(6, len(captures))
         self.assertEqual(set(CAPTURES), {Path(item["file"]).name for item in captures})
         for item in captures:
             with self.subTest(file=item["file"]):
@@ -82,6 +86,14 @@ class ReferenceBuildTests(unittest.TestCase):
                 self.assertEqual(_sha(path), item["sha256"])
                 self.assertEqual((1296, 759), _png_size(path))
                 self.assertEqual((1296, 759), (item["width"], item["height"]))
+
+    def test_interaction_evidence_is_present(self) -> None:
+        for name, digest in INTERACTION_CAPTURES.items():
+            with self.subTest(name=name):
+                path = BUILD / "evidence" / name
+                self.assertTrue(path.is_file())
+                self.assertEqual(digest, _sha(path))
+                self.assertEqual((1296, 759), _png_size(path))
 
     def test_check_mode_passes(self) -> None:
         result = subprocess.run([sys.executable, str(SCRIPT), "--check"], cwd=REPO,

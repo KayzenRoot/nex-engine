@@ -55,6 +55,7 @@ Capture "nex-mode-corridor.png"
 $shell.SendKeys("{F2}"); Start-Sleep -Seconds 3; Capture "nex-mode-arena.png"
 $shell.SendKeys("{F3}"); Start-Sleep -Seconds 3; Capture "nex-mode-dense-city.png"
 $shell.SendKeys("{F4}"); Start-Sleep -Seconds 3; Capture "nex-mode-density.png"
+$shell.SendKeys("{F5}"); Start-Sleep -Seconds 4; Capture "nex-mode-arpg.png"
 $shell.SendKeys("{F9}"); Start-Sleep -Seconds 2; Capture "nex-mode-diagnostics.png"
 Write-Output "NEX_GUI_TESTED: pid=$($process.Id)"
 Stop-Process -Id $process.Id -Force

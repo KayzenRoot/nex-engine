@@ -49,7 +49,7 @@ jobs:
           test -f "$binary"
           chmod +x "$binary"
           "$binary" --version
-      - name: Import and execute all four native scene routes
+      - name: Import and execute all five native scene routes
         shell: bash
         run: |
           set -euo pipefail
@@ -58,7 +58,7 @@ jobs:
           timeout 120s "$binary" --headless --path nex_bench \
             --rendering-method gl_compatibility --script res://smoke.gd \
             2>&1 | tee "$RUNNER_TEMP/nex-native-smoke.log"
-          grep -Fq "NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes" "$RUNNER_TEMP/nex-native-smoke.log"
+          grep -Fq "NEX_NATIVE_IMPORT_SMOKE_PASS: 5 integrated modes" "$RUNNER_TEMP/nex-native-smoke.log"
           echo "NEX_LINUX_GODOT_NATIVE_IMPORT_VERIFIED"
       - name: Exercise the real launcher PowerShell smoke against pinned Godot
         shell: bash
