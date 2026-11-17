@@ -38,4 +38,4 @@
 
 ## Fechamento
 
-Com este gate, a issue **#303** pode ser fechada como `COMPLETED` após o merge protegido e os checks pós-merge. O demo é acessível por **F5** no executável de referência.
+Com este gate, a issue **#303** foi fechada como `COMPLETED` após o merge protegido da PR #304 (`97b2be0319c6a5e2e1f7e5add61a0b659e1a7083`) e **14/14 checks pós-merge SUCCESS**. O demo é acessível por **F5** no executável de referência.

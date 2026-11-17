@@ -2,7 +2,7 @@
 
 **Status:** `PROVENANCE_INDEX_DERIVED_FROM_CHECKPOINT / ADMIN_SOLO_NOT_INDEPENDENT`
 
-**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 84 · **PRs:** 112–301
+**Fonte:** `.engineering/CHECKPOINT.json` · **Entradas:** 85 · **PRs:** 112–304
 
 | Bloco | ID | PR | Merge SHA | Issues | Veredito/Status | Auditoria |
 |---|---|---:|---|---|---|---|
@@ -90,6 +90,7 @@
 | m11FinalReference | NEX-M11-FINAL-REFERENCE-WO-001 | 295 | `5793dcf52a94f2520ccc55e0a27438d3c6a2788e` | 16 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | m12FinalReference | NEX-M12-FINAL-REFERENCE-WO-001 | 297 | `0bc10ef448af46c00bf22f1e3782beca7a1621eb` | 17 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 | referenceBuild | NEX-REFERENCE-BUILD-WO-001 | 301 | `8a23e418f251cca167cc611f439ce5c96db1ed0f` | 300 | — | ADMIN_SOLO_NOT_INDEPENDENT |
+| arpgDemo | NEX-ARPG-DEMO-WO-001 | 304 | `97b2be0319c6a5e2e1f7e5add61a0b659e1a7083` | 303 | — | ADMIN_SOLO_NOT_INDEPENDENT |
 
 ## Limitações
 
