@@ -1,0 +1,4 @@
+{
+  "schema_version": "m11_license_fixture.v1",
+  "allowed_spdx": ["Original", "CC0-1.0", "MIT", "Apache-2.0", "CC-BY-4.0"]
+}

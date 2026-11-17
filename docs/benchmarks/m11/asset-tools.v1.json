@@ -1,0 +1,116 @@
+{
+  "decisions": [
+    {
+      "decision": "GO",
+      "evidence": "43 checks; 12 kit assets, 0 failed stages",
+      "id": "AssetPipelineAuditor"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "8 assets; 2 errors and 2 warnings from declared metadata",
+      "id": "AssetManifest"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "5 accepted / 1 rejected / 1 noop / 1 conflict; plan only",
+      "id": "CookPlanner"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "2 third-party, 1 unverified, 2 rejected, 2 attribution; BLOCKED",
+      "id": "LicenseLedger"
+    },
+    {
+      "decision": "GO_WITH_LIMITATIONS",
+      "evidence": "0 errors, 5 warnings, 2 info; REVIEW_REQUIRED",
+      "id": "AssetQualityGate"
+    }
+  ],
+  "fixtures": [
+    {
+      "bytes": 2994,
+      "name": "assets.v1.json",
+      "sha256": "f321034c1a2166cfab17c13a0e8ea006fad6b934679b78f508f83d15002fd8d5"
+    },
+    {
+      "bytes": 298,
+      "name": "cook_existing.v1.json",
+      "sha256": "58ea07c5ae1f97221a4bf036fb181943e037fc29bdd4ce67f435ee2938464392"
+    },
+    {
+      "bytes": 126,
+      "name": "licenses.v1.json",
+      "sha256": "0afcedc451fc4fc7b30279b164ad25c86a702fa6c1973c37530a4d7139c8c67c"
+    }
+  ],
+  "limitations": [
+    "fixtures only; no asset is imported, cooked, loaded or rendered",
+    "license verification is declared data, not legal review",
+    "cook sizes are declared bytes, not filesystem or GPU measurements",
+    "quality findings are structural heuristics, not visual review",
+    "no FPS, VRAM, quality or PoE2 parity claim"
+  ],
+  "observations": [
+    "AssetPipelineAuditor still passes 43 headless checks",
+    "the M04 kit audit covers 12 assets with 0 failed and 0 pending stages",
+    "AssetManifest reports 2 errors and 2 warnings across 8 deterministic assets",
+    "CookPlanner plans 5 accepted, 1 rejected, 1 noop and 1 conflict without writing",
+    "LicenseLedger returns BLOCKED with 2 rejected and 1 unverified license",
+    "AssetQualityGate returns REVIEW_REQUIRED with 5 warnings and 2 info findings"
+  ],
+  "runs": 1,
+  "s01": {
+    "auditor_checks": 43,
+    "kit_assets": 12,
+    "kit_failed_stages": 0,
+    "kit_verdict": "REVIEW_REQUIRED",
+    "verdict": "ASSET_AUDITOR_VERIFIED"
+  },
+  "s02": {
+    "assets": 8,
+    "errors": 2,
+    "total_bytes": 270592,
+    "verdict": "ASSET_MANIFEST_DERIVED",
+    "warns": 2
+  },
+  "s03": {
+    "counts": {
+      "accepted": 5,
+      "conflicts": 1,
+      "noop": 1,
+      "rejected": 1
+    },
+    "snapshot": "609d8f3106253a8720843f56c81f2377c7fc63e6648e19ec0d01a8388fb5da30",
+    "verdict": "COOK_PLANNER_DERIVED"
+  },
+  "s04": {
+    "counts": {
+      "assets": 8,
+      "attribution": 2,
+      "rejected": 2,
+      "third_party": 2,
+      "unverified": 1
+    },
+    "verdict": "LICENSE_LEDGER_DERIVED",
+    "verdict_name": "BLOCKED"
+  },
+  "s05": {
+    "counts": {
+      "error": 0,
+      "info": 2,
+      "warn": 5
+    },
+    "verdict": "QUALITY_GATE_DERIVED",
+    "verdict_name": "REVIEW_REQUIRED"
+  },
+  "s06": {
+    "checks": 82,
+    "fixtures": 3,
+    "real_third_party_assets": 0,
+    "verdict": "M11_ASSET_QA_VERIFIED"
+  },
+  "schema_version": "m11_asset_tools.v1",
+  "session_date": "2026-11-17",
+  "source_sha": "13554f3e9ee879c48edb32d780c6fa0611d41b19",
+  "verdict": "M11_ASSET_TOOLS_REFERENCE_DERIVED"
+}

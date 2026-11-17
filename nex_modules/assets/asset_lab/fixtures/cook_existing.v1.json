@@ -1,0 +1,7 @@
+{
+  "schema_version": "m11_cook_existing_fixture.v1",
+  "existing": {
+    "res://cooked/windows/wall_stone.ktx2": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "res://cooked/windows/hero_model.glb": "3333333333333333333333333333333333333333333333333333333333333333"
+  }
+}

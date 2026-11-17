@@ -1,0 +1,264 @@
+{
+  "checks": 39,
+  "cook_plan": {
+    "accepted": [
+      {
+        "cooked_bytes": 512,
+        "destination": "res://cooked/windows/bad_license.png",
+        "format": "png",
+        "id": "bad_license",
+        "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "cooked_bytes": 256,
+        "destination": "res://cooked/windows/idle_anim.png",
+        "format": "png",
+        "id": "idle_anim",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "cooked_bytes": 512,
+        "destination": "res://cooked/windows/missing_license.png",
+        "format": "png",
+        "id": "missing_license",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      {
+        "cooked_bytes": 1024,
+        "destination": "res://cooked/windows/non_pot_rock.png",
+        "format": "png",
+        "id": "non_pot_rock",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "cooked_bytes": 2048,
+        "destination": "res://cooked/windows/third_party_sky.png",
+        "format": "png",
+        "id": "third_party_sky",
+        "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      }
+    ],
+    "conflicts": [
+      {
+        "destination": "res://cooked/windows/hero_model.glb",
+        "id": "hero_model",
+        "reason": "hash differs"
+      }
+    ],
+    "counts": {
+      "accepted": 5,
+      "conflicts": 1,
+      "noop": 1,
+      "rejected": 1
+    },
+    "noop": [
+      {
+        "cooked_bytes": 131072,
+        "destination": "res://cooked/windows/wall_stone.ktx2",
+        "format": "ktx2",
+        "id": "wall_stone",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    ],
+    "rejected": [
+      {
+        "id": "bad_audio",
+        "reason": "cooked size outside [1,max]"
+      }
+    ]
+  },
+  "cook_snapshot": "609d8f3106253a8720843f56c81f2377c7fc63e6648e19ec0d01a8388fb5da30",
+  "failures": [],
+  "license_audit": {
+    "counts": {
+      "assets": 8,
+      "attribution": 2,
+      "rejected": 2,
+      "third_party": 2,
+      "unverified": 1
+    },
+    "entries": [
+      {
+        "allowed": true,
+        "attribution_required": false,
+        "id": "wall_stone",
+        "spdx": "Original",
+        "verification": "verified"
+      },
+      {
+        "allowed": true,
+        "attribution_required": false,
+        "id": "non_pot_rock",
+        "spdx": "MIT",
+        "verification": "verified"
+      },
+      {
+        "allowed": false,
+        "attribution_required": false,
+        "id": "missing_license",
+        "spdx": "",
+        "verification": "unverified"
+      },
+      {
+        "allowed": true,
+        "attribution_required": true,
+        "id": "third_party_sky",
+        "spdx": "CC-BY-4.0",
+        "verification": "unverified"
+      },
+      {
+        "allowed": false,
+        "attribution_required": true,
+        "id": "bad_license",
+        "spdx": "GPL-3.0",
+        "verification": "rejected"
+      },
+      {
+        "allowed": true,
+        "attribution_required": false,
+        "id": "hero_model",
+        "spdx": "Original",
+        "verification": "verified"
+      },
+      {
+        "allowed": true,
+        "attribution_required": false,
+        "id": "idle_anim",
+        "spdx": "Original",
+        "verification": "verified"
+      },
+      {
+        "allowed": true,
+        "attribution_required": false,
+        "id": "bad_audio",
+        "spdx": "Original",
+        "verification": "verified"
+      }
+    ],
+    "findings": [
+      {
+        "code": "license_rejected",
+        "id": "missing_license",
+        "severity": "error"
+      },
+      {
+        "code": "license_unverified",
+        "id": "third_party_sky",
+        "severity": "warn"
+      },
+      {
+        "code": "attribution_missing",
+        "id": "third_party_sky",
+        "severity": "warn"
+      },
+      {
+        "code": "license_rejected",
+        "id": "bad_license",
+        "severity": "error"
+      },
+      {
+        "code": "attribution_missing",
+        "id": "bad_license",
+        "severity": "warn"
+      }
+    ],
+    "verdict": "BLOCKED"
+  },
+  "limitations": [
+    "fixtures only; no asset is imported, cooked, loaded or rendered",
+    "license verification is declared data, not legal review",
+    "no FPS, VRAM or quality claim",
+    "audit remains ADMIN_SOLO / NOT_INDEPENDENT"
+  ],
+  "manifest": {
+    "assets": 8,
+    "counts": {
+      "error": 2,
+      "warn": 2
+    },
+    "findings": [
+      {
+        "code": "invalid_bytes",
+        "message": "bytes must be positive",
+        "severity": "error"
+      },
+      {
+        "code": "missing_license",
+        "message": "license is required",
+        "severity": "error"
+      },
+      {
+        "code": "missing_mipmaps",
+        "message": "texture has no mipmaps",
+        "severity": "warn"
+      },
+      {
+        "code": "model_without_lods",
+        "message": "model has no LODs",
+        "severity": "warn"
+      }
+    ],
+    "kinds": {
+      "animation": 1,
+      "audio": 1,
+      "model": 1,
+      "texture": 5
+    },
+    "total_bytes": 270592
+  },
+  "quality": {
+    "counts": {
+      "error": 0,
+      "info": 2,
+      "warn": 5
+    },
+    "findings": [
+      {
+        "code": "high_triangle_count",
+        "id": "hero_model",
+        "message": "model exceeds 100k triangles",
+        "severity": "warn"
+      },
+      {
+        "code": "missing_mipmaps",
+        "id": "non_pot_rock",
+        "message": "texture has no mipmaps",
+        "severity": "warn"
+      },
+      {
+        "code": "missing_tracks",
+        "id": "idle_anim",
+        "message": "animation has no tracks",
+        "severity": "warn"
+      },
+      {
+        "code": "model_without_lods",
+        "id": "hero_model",
+        "message": "model has no LODs",
+        "severity": "warn"
+      },
+      {
+        "code": "non_looping",
+        "id": "idle_anim",
+        "message": "animation is not looping",
+        "severity": "info"
+      },
+      {
+        "code": "non_power_of_two",
+        "id": "non_pot_rock",
+        "message": "texture dimensions are not power-of-two",
+        "severity": "warn"
+      },
+      {
+        "code": "non_square",
+        "id": "non_pot_rock",
+        "message": "texture is not square",
+        "severity": "info"
+      }
+    ],
+    "verdict": "REVIEW_REQUIRED"
+  },
+  "schema_version": "m11_asset_smoke.v1",
+  "source_sha": "13554f3e9ee879c48edb32d780c6fa0611d41b19",
+  "verdict": "PASS"
+}

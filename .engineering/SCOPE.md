@@ -20,6 +20,10 @@
 
 `NEX-ADR-0015` / `NEX-D-026` admitem o M04 como materiais de referência bounded: atlas PBR de 8 materiais originais, 24 texturas 256×256, galeria nativa, shader triplanar/wet, Decal3D com API de requests e escala 1K/2K/4K em memória. As issues #44–#51 e #9 podem ser fechadas após integração protegida. M04 é o quarto módulo base concluído como **materiais de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada**. M05–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `e09cce2f4332e00a0f51eacb346f5763fe228db9`.
 
+### M11 full reference | pipeline de assets concluído (2026-11-17)
+
+`NEX-ADR-0022` / `NEX-D-033` admitem o M11 como pipeline de assets de referência bounded: AssetPipelineAuditor com 43 checks, AssetManifest, CookPlanner, LicenseLedger, AssetQualityGate, 3 fixtures e relatório/gate. A issue #16 pode ser fechada após integração protegida. M11 é o décimo primeiro módulo base concluído como **pipeline de assets de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há importação/cook/escrita, verificação jurídica, rendering, editor core, gameplay ou asset de terceiros real. M12 continua bounded e dependente de aprovação de marca. A base desta extensão é `13554f3e9ee879c48edb32d780c6fa0611d41b19`.
+
 ### M10 full reference | animação e feedback concluídos (2026-11-17)
 
 `NEX-ADR-0021` / `NEX-D-032` admitem o M10 como animação e feedback de referência bounded: FeedbackPlanner com 66 checks, laboratório nativo com AnimationPlayer/AnimationTree blending, hit reaction, hit-stop visual, câmera suave, sincronização M05 VFX, perfis low/high, 9 runs e 9 capturas. A issue #15 pode ser fechada após integração protegida. M10 é o décimo módulo base concluído como **animação e feedback de referência**, não como jogo; **nenhuma paridade com PoE2 é alegada** e não há dano, física, netcode, gameplay, personagem de produção, skin ou asset de terceiros. M11–M12 continuam bounded e exigem WO própria; M12 depende de aprovação de marca. A base desta extensão é `de81ee67b1c469636678df5a437cfc6fd77f06b8`.
