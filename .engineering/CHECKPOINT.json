@@ -2892,5 +2892,53 @@
     "protectedMergeSha": "335516041a94b8e04e62fd5990975fdf65846509",
     "checkpointDelta": "PROMOTED_BY_THIS_CHECKPOINT",
     "parentM10": "FULL_REFERENCE_ANIMATION_COMPLETE"
+  },
+  "m11FinalReference": {
+    "id": "NEX-M11-FINAL-REFERENCE-WO-001",
+    "issues": [
+      16
+    ],
+    "admissionAdr": "NEX-ADR-0022-M11-FULL-REFERENCE-ADMISSION.md",
+    "decision": "NEX-D-033",
+    "auditorChecks": 43,
+    "assetChecks": 39,
+    "totalChecks": 82,
+    "manifest": {
+      "assets": 8,
+      "errors": 2,
+      "warns": 2,
+      "totalBytes": 270592
+    },
+    "cook": {
+      "accepted": 5,
+      "rejected": 1,
+      "noop": 1,
+      "conflicts": 1
+    },
+    "license": {
+      "thirdParty": 2,
+      "unverified": 1,
+      "rejected": 2,
+      "attribution": 2,
+      "verdict": "BLOCKED"
+    },
+    "quality": {
+      "errors": 0,
+      "warns": 5,
+      "info": 2,
+      "verdict": "REVIEW_REQUIRED"
+    },
+    "fixtures": 3,
+    "excludedScope": [
+      "real asset import, cook, writes, overwrite or import/cook pipeline",
+      "legal license verification, clearance or published attribution",
+      "rendering, shader, production scene, editor core or main project.godot changes",
+      "M12, gameplay, networking or cloud",
+      "PoE2 assets, shaders, scenes or parity claims",
+      "generalized FPS, quality, VRAM or cross-device claims"
+    ],
+    "ciRelaxation": false,
+    "runtimeAdmission": "M11_REFERENCE_ASSET_TOOLS_ONLY",
+    "audit": "ADMIN_SOLO_NOT_INDEPENDENT"
   }
 }
