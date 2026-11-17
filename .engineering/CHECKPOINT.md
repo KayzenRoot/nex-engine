@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · M11 asset pipeline complete
+
+**M11 finalizado** por PR #295, squash `5793dcf52a94f2520ccc55e0a27438d3c6a2788e`, sob `NEX-ADR-0022` / `NEX-D-033`. O pipeline de assets agora tem **AssetPipelineAuditor com 43 checks**, **AssetManifest**, **CookPlanner**, **LicenseLedger**, **AssetQualityGate**, **3 fixtures** e **39 checks** no smoke.
+
+**Resultado:** AssetManifest **8 assets / 2 errors / 2 warns / 270592 bytes**; CookPlanner **5 accepted / 1 rejected / 1 noop / 1 conflict** sem escrita; LicenseLedger **2 third-party / 1 unverified / 2 rejected / 2 attribution** com veredito **BLOCKED**; AssetQualityGate **0 errors / 5 warns / 2 info** com **REVIEW_REQUIRED**; kit audit **12 assets / 0 failed stages**. A issue **#16** foi fechada como `COMPLETED`. **Nenhuma paridade com PoE2 é alegada**; M11 é o décimo primeiro módulo base concluído como **pipeline de assets de referência**, não como jogo. M12 continua bounded e dependente de aprovação de marca. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-17 · M10 animation and feedback complete
 
 **M10 finalizado** por PR #292, squash `335516041a94b8e04e62fd5990975fdf65846509`, sob `NEX-ADR-0021` / `NEX-D-032`. O módulo de animação agora tem **FeedbackPlanner com 66 checks**, **9 runs nativos**, **9 capturas** e laboratório com AnimationPlayer/AnimationTree blending, hit reaction, hit-stop visual, câmera suave, sincronização M05 VFX e perfis low/high.
