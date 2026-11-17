@@ -2,9 +2,9 @@
 
 ## Current verified scope | 2026-11-17 · ARPG reference demo
 
-**ARPG demo concluído** sob `NEX-ADR-0025` / `NEX-D-036`, bounded ao visual lab. O **F5 ARPG DEMO** abre uma arena dark fantasy original com personagem procedural (capuz, capa e espada emissiva), paredes, pilares, arco, tochas, braseiros, runas e dummy de treino.
+**ARPG demo concluído** por PR #304, squash `97b2be0319c6a5e2e1f7e5add61a0b659e1a7083`, sob `NEX-ADR-0025` / `NEX-D-036`, bounded ao visual lab. O **F5 ARPG DEMO** abre uma arena dark fantasy original com personagem procedural (capuz, capa e espada emissiva), paredes, pilares, arco, tochas, braseiros, runas e dummy de treino.
 
-**Resultado:** LMB/WASD move, RMB/SPACE ataca, wheel zoom; o ataque reduz o dummy de **100 para 82** e atualiza a barra; a câmera isométrica segue o personagem com clamp na arena. O build exportado tem **109548888 bytes** e SHA-256 `0f93eaa9...`; smoke staged/export/headless/GUI **PASS** e **6 capturas 1296×759**. A issue **#303** pode ser fechada após squash protegido e checks pós-merge. **Nenhum asset, nome, cena, shader ou personagem de Path of Exile/PoE2** é usado; **nenhuma paridade com PoE2 é alegada**. Não há gameplay completo, dano autoritativo, hitbox, física, rede, progressão, personagem de produção ou asset de terceiros. Distribuição/trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+**Resultado:** LMB/WASD move, RMB/SPACE ataca, wheel zoom; o ataque reduz o dummy de **100 para 82** e atualiza a barra; a câmera isométrica segue o personagem com clamp na arena. O build exportado tem **109548888 bytes** e SHA-256 `0f93eaa9...`; smoke staged/export/headless/GUI **PASS** e **6 capturas 1296×759**. A issue **#303** foi fechada como `COMPLETED` após squash protegido e **14/14 checks pós-merge SUCCESS**. **Nenhum asset, nome, cena, shader ou personagem de Path of Exile/PoE2** é usado; **nenhuma paridade com PoE2 é alegada**. Não há gameplay completo, dano autoritativo, hitbox, física, rede, progressão, personagem de produção ou asset de terceiros. Distribuição/trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
 
 ## Current verified scope | 2026-11-17 · reference build Windows x86_64
 
