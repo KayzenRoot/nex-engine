@@ -52,6 +52,7 @@ CAPTURES = (
     "nex-mode-arena.png",
     "nex-mode-dense-city.png",
     "nex-mode-density.png",
+    "nex-mode-arpg.png",
     "nex-mode-diagnostics.png",
 )
 ANSI = re.compile(r"\x1b\[[0-9;]*m")

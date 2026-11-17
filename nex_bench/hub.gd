@@ -7,8 +7,9 @@ const SCENE_PATHS := [
     "res://scenes/base/arena_combat.tscn",
     "res://scenes/base/dense_city.tscn",
 ]
-const SCENE_LABELS := ["CORRIDOR", "ARENA", "DENSE CITY", "DENSITY LADDER"]
+const SCENE_LABELS := ["CORRIDOR", "ARENA", "DENSE CITY", "DENSITY LADDER", "ARPG DEMO"]
 const DENSITY_SCRIPT := "res://stress/density_ladder.gd"
+const DEMO_SCENE := "res://scenes/arpg_demo/arpg_demo.tscn"
 const CAPTURE_ROOT := "user://visual_truth"
 const PIXEL_TOLERANCE := 2
 const OBS_DIR := "user://frame_observations"
@@ -193,6 +194,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
             _activate_mode(2)
         KEY_F4:
             _activate_mode(3)
+        KEY_F5:
+            _activate_mode(4)
         KEY_F9:
             _toggle_diagnostics()
         KEY_F10:
@@ -238,8 +241,14 @@ func _activate_mode(index: int) -> void:
             _status("BLOCKED: missing reference scene")
             return
         next_world = packed.instantiate() as Node3D
-    else:
+    elif index == 3:
         next_world = _make_density_root()
+    else:
+        var demo := load(DEMO_SCENE) as PackedScene
+        if demo == null:
+            _status("BLOCKED: missing ARPG demo scene")
+            return
+        next_world = demo.instantiate() as Node3D
     if next_world == null:
         _status("BLOCKED: unable to create native module")
         return
@@ -261,8 +270,14 @@ func _activate_mode(index: int) -> void:
     if diagnostics_panel != null and diagnostics_panel.visible:
         _refresh_diagnostics()
     title_label.text = "NEX ENGINE  /  " + SCENE_LABELS[index]
+    if gpu_profile_panel != null:
+        gpu_profile_panel.visible = index != 4
+    if gpu_profile_button != null:
+        gpu_profile_button.visible = index != 4
     if index == 3:
         _status("Density: 1/2/3/4 load, G/L/V/C effects, F10=record 2s warmup + 8s intervals (not GPU)")
+    elif index == 4:
+        _status("ARPG demo: LMB move, RMB/Space attack, wheel zoom | original procedural content")
     else:
         _status("3D camera: arrows orbit/tilt, PgUp/PgDn zoom, Home reset | B baseline, N candidate, D compare")
 
@@ -614,8 +629,8 @@ func _make_density_root() -> Node3D:
     return root
 
 func _capture(kind: String) -> void:
-    if active_mode == 3:
-        _status("Choose a static scene for repeatable screenshots, not live Density Ladder effects")
+    if active_mode >= SCENE_PATHS.size():
+        _status("Choose a static scene for repeatable screenshots, not a live module")
         return
     if capture_pending:
         return
@@ -641,7 +656,7 @@ func _capture(kind: String) -> void:
     _status("%s SAVED: %s | run D for pixel comparison" % [kind.to_upper(), directory.path_join(filename)])
 
 func _compare_captures() -> void:
-    if active_mode == 3:
+    if active_mode >= SCENE_PATHS.size():
         _status("Pixel reference comparison is limited to static scenes")
         return
     var directory := ProjectSettings.globalize_path(CAPTURE_ROOT)

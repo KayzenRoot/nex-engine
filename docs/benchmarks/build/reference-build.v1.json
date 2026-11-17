@@ -1,10 +1,10 @@
 {
   "artifact": {
-    "bytes": 109522728,
+    "bytes": 109548888,
     "path": "build/NEXEngine.exe",
-    "sha256": "9aae397ec302a4ba280db2e856abd15550ccab5bbfb989edd3cae1a74eb22f8c"
+    "sha256": "0f93eaa9c38c061ed7fae19009511dafd5d9f26eef806ac9f768393b7d6a3bdc"
   },
-  "captured_at_utc": "2026-11-17T18:19:09Z",
+  "captured_at_utc": "2026-11-17T19:53:30Z",
   "checks": {
     "export": "PASS",
     "exported_headless": "PASS",
@@ -13,43 +13,50 @@
   },
   "godot": {
     "commit": "ed1daf0bf001b61586d9930840f2f1394092c079",
-    "reported": "4.7.2.stable.official.ed1daf0bf",
+    "reported": "4.7.2.stable",
     "version": "4.7.2.stable"
   },
   "gui_captures": [
     {
-      "bytes": 81659,
+      "bytes": 82171,
       "file": "evidence/nex-mode-corridor.png",
       "height": 759,
-      "sha256": "15ee141ffda7a4615d95c4b7b821cdbadd90f91df51f87aeb344f17b13b1edfd",
+      "sha256": "99a0e0159d110dd191e369f5a576774051860a626364703ac03e5f68d17ebffa",
       "width": 1296
     },
     {
-      "bytes": 74830,
+      "bytes": 75319,
       "file": "evidence/nex-mode-arena.png",
       "height": 759,
-      "sha256": "766d0e59414057440ba429c708d4d771b79da4944622506a535ca8c3c2e98b01",
+      "sha256": "ba8f0ef851380dd37d4b6dcfe5aeaaa9b5daac81159dfb0c9adb8fa69ee24f75",
       "width": 1296
     },
     {
-      "bytes": 53137,
+      "bytes": 53674,
       "file": "evidence/nex-mode-dense-city.png",
       "height": 759,
-      "sha256": "7b584e0e1bb77cdde22b916b8c5137ff79bfd99adfd463e39517ddf6510de7d1",
+      "sha256": "2fea218a76c5a049c29e16565c416260a2a4cb9cfb06f9e7eb5bbd0c03620881",
       "width": 1296
     },
     {
-      "bytes": 62355,
+      "bytes": 62948,
       "file": "evidence/nex-mode-density.png",
       "height": 759,
-      "sha256": "2f7534d0d95590ada47942aa3a5b395bb8930989b0cd48d80cc041a403035dc9",
+      "sha256": "bcf6907aa597b9a5d55b393fbdeea7e4610972a148c8467030ff4ec0d3bca111",
       "width": 1296
     },
     {
-      "bytes": 93154,
+      "bytes": 320545,
+      "file": "evidence/nex-mode-arpg.png",
+      "height": 759,
+      "sha256": "a81332a7b84c700e7b236c0b3c2c399996b499436e0d5d5ac7e8d45db9d8503a",
+      "width": 1296
+    },
+    {
+      "bytes": 353628,
       "file": "evidence/nex-mode-diagnostics.png",
       "height": 759,
-      "sha256": "ab4df2848ceae089d34bca63a82e52d132060580b3b76114a8e9c1fe339294bb",
+      "sha256": "d3f8825e2bd7cc0516f956d7954a8eb4c30531d6a6ec402e2b5d933bccc5f8da",
       "width": 1296
     }
   ],
@@ -68,7 +75,7 @@
     "platform": "Windows Desktop"
   },
   "schema_version": "nex_reference_build.v1",
-  "source_sha": "4f822fc9dbe7b2b54d12a470913b3c33ddb8f88b",
+  "source_sha": "a872323b3eedc9cf442fd10e417b8ce70f01bae2",
   "templates": {
     "version": "4.7.2.stable",
     "windows_release_sha256": "d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562"

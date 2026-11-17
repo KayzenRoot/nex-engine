@@ -1,5 +1,11 @@
 # Checkpoint · NEX Engine
 
+## Current verified scope | 2026-11-17 · ARPG reference demo
+
+**ARPG demo concluído** sob `NEX-ADR-0025` / `NEX-D-036`, bounded ao visual lab. O **F5 ARPG DEMO** abre uma arena dark fantasy original com personagem procedural (capuz, capa e espada emissiva), paredes, pilares, arco, tochas, braseiros, runas e dummy de treino.
+
+**Resultado:** LMB/WASD move, RMB/SPACE ataca, wheel zoom; o ataque reduz o dummy de **100 para 82** e atualiza a barra; a câmera isométrica segue o personagem com clamp na arena. O build exportado tem **109548888 bytes** e SHA-256 `0f93eaa9...`; smoke staged/export/headless/GUI **PASS** e **6 capturas 1296×759**. A issue **#303** pode ser fechada após squash protegido e checks pós-merge. **Nenhum asset, nome, cena, shader ou personagem de Path of Exile/PoE2** é usado; **nenhuma paridade com PoE2 é alegada**. Não há gameplay completo, dano autoritativo, hitbox, física, rede, progressão, personagem de produção ou asset de terceiros. Distribuição/trademark permanecem `DISTRIBUTION_TRADEMARK_PENDING`. Auditoria `ADMIN_SOLO / NOT_INDEPENDENT`.
+
 ## Current verified scope | 2026-11-17 · reference build Windows x86_64
 
 **Reference build concluído** por PR #301, squash `8a23e418f251cca167cc611f439ce5c96db1ed0f`, sob `NEX-ADR-0024` / `NEX-D-035`, bounded ao visual lab unificado. O build gera **`build/NEXEngine.exe`** de **109522728 bytes** com Godot 4.7.2-stable e templates oficiais, usando staging que remove os `project.godot` aninhados e os entry points standalone.

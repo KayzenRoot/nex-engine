@@ -12,6 +12,7 @@ func _check_modules() -> void:
         "res://scenes/base/corridor_static.tscn",
         "res://scenes/base/arena_combat.tscn",
         "res://scenes/base/dense_city.tscn",
+        "res://scenes/arpg_demo/arpg_demo.tscn",
     ]:
         var scene := load(path) as PackedScene
         if scene == null:
@@ -44,10 +45,9 @@ func _check_modules() -> void:
     root.add_child(window)
     await process_frame
     var toolbar := window.get_node_or_null("HUD/Toolbar")
-    # The original launcher test looks for its former eight-control assertion: toolbar.get_child_count() != 8.
-    # F11 adds one optional control, so the active check below correctly expects nine.
-    if toolbar == null or toolbar.get_child_count() != 9:
-        _fail("Integrated toolbar does not expose all nine controls")
+    # F5 adds the ARPG demo control, so the integrated toolbar exposes ten controls.
+    if toolbar == null or toolbar.get_child_count() != 10:
+        _fail("Integrated toolbar does not expose all ten controls")
         return
     var diagnostics: Control = window.get_node_or_null("HUD/RenderDiagnostics") as Control
     if diagnostics == null or diagnostics.visible:
@@ -78,7 +78,7 @@ func _check_modules() -> void:
     if not gpu_profile_button.text.contains("F11"):
         _fail("GPU profiler must expose its separate F11 control")
         return
-    for mode in range(4):
+    for mode in range(5):
         window.call("_activate_mode", mode)
         await process_frame
         var world := window.get_node_or_null("WorldRoot")
@@ -86,14 +86,53 @@ func _check_modules() -> void:
             _fail("Mode %d not activated as a single world" % mode)
             return
         var scene_root := world.get_child(0) as Node3D
-        if scene_root == null or scene_root.get_node_or_null("IsometricCamera") == null:
-            _fail("Mode %d missing native camera" % mode)
+        if scene_root == null:
+            _fail("Mode %d did not create a Node3D world" % mode)
             return
+        if mode == 4:
+            if scene_root.name != "ArpgDemo":
+                _fail("ARPG demo root name is not ArpgDemo")
+                return
+            if scene_root.get_node_or_null("DemoCamera") == null:
+                _fail("ARPG demo missing DemoCamera")
+                return
+            if scene_root.get_node_or_null("Player") == null:
+                _fail("ARPG demo missing Player")
+                return
+            if scene_root.get_node_or_null("TrainingDummy") == null:
+                _fail("ARPG demo missing TrainingDummy")
+                return
+            if scene_root.get_node_or_null("Hud/ArpgHud") == null:
+                _fail("ARPG demo missing HUD")
+                return
+        else:
+            if scene_root.get_node_or_null("IsometricCamera") == null:
+                _fail("Mode %d missing native camera" % mode)
+                return
         if mode == 3:
             var workload := scene_root.get_node_or_null("WorkloadRoot")
             if workload == null or workload.get_child_count() != 25:
                 _fail("Density Ladder must initialize exactly 25 proxy instances")
                 return
+    # Functional ARPG demo check: player, dummy, HUD and attack damage.
+    window.call("_activate_mode", 4)
+    await process_frame
+    var demo := window.get_node_or_null("WorldRoot/ArpgDemo")
+    if demo == null:
+        _fail("ARPG demo could not be activated")
+        return
+    var demo_state: Dictionary = demo.call("smoke_state")
+    if not bool(demo_state.get("player", false)) or not bool(demo_state.get("dummy", false)) \
+            or not bool(demo_state.get("hud", false)) or not bool(demo_state.get("camera", false)):
+        _fail("ARPG demo state is incomplete")
+        return
+    demo.call("smoke_attack")
+    await process_frame
+    var after_attack: Dictionary = demo.call("smoke_state")
+    if float(after_attack.get("dummy_health", 100.0)) >= 100.0:
+        _fail("ARPG demo attack did not damage the training dummy")
+        return
+    print("NEX_NATIVE_ARPG_DEMO_PASS: player, dummy, HUD, camera and attack")
     # Functional camera control, no rendering benchmark or user screenshot writes.
     window.call("_activate_mode", 0)
     await process_frame
@@ -356,7 +395,7 @@ func _check_modules() -> void:
     print("NEX_NATIVE_VISUAL_TRUTH_PASS: identical/difference/dimensions, in-memory")
 
     window.queue_free()
-    print("NEX_NATIVE_IMPORT_SMOKE_PASS: 4 integrated modes, headless parser only")
+    print("NEX_NATIVE_IMPORT_SMOKE_PASS: 5 integrated modes, headless parser only")
     quit(0)
 
 func _fail(message: String) -> void:
